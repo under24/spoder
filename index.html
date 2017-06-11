@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <!-- socket -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- socket vat -->
+    <script>let socket = io.connect(window.location.hostname + ':' + 3000);</script>
+    <!-- redux library -->
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+    <!-- reducers -->
+    <script src="assets/redux/reducers/metaDataReducer.js"></script>
+    <script src="assets/redux/reducers/legReducer.js"></script>
+    <script src="assets/redux/reducers/modifiersReducer.js"></script>
+    <script src="assets/redux/reducers/viewsReducer.js"></script>
+    <script src="assets/redux/reducers/coordsReducer.js"></script>
+    <!-- webcomponents -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <!-- polymer redux -->
+    <link rel="import" href="bower_components/polymer-redux/polymer-redux.html">
+    <!-- init redux -->
+    <script src="assets/redux/initRedux.js"></script>
+    <!-- utility methods for calculations -->
+    <script src="assets/utils/utils.js"></script>
+    <!-- polymer components -->
+    <link rel="import" href="assets/polymer/diag-panel/diag-panel.html">
+    <link rel="import" href="assets/polymer/spoder-logic/spoder-logic.html">
+    <link rel="import" href="assets/polymer/sagittal-view/sagittal-view.html">
+    <link rel="import" href="assets/polymer/transverse-view/transverse-view.html">
+    <link rel="import" href="assets/polymer/level-modifier-view/level-modifier-view.html">
+    <link rel="import" href="assets/polymer/digital-joystick/digital-joystick.html">
+  </head>
+  
+  <body>
+    
+    <spoder-logic></spoder-logic>
+    
+    
+    <div style="display: flex;width: 100%;height: 100%;position: absolute;">
+      <div style="flex: 2;display: flex;flex-direction: column;">
+        <div style="flex:1;border:1px dashed"><sagittal-view></sagittal-view></div>
+        <div style="flex:1;border:1px dashed"><transverse-view></transverse-view></div>
+      </div>
+      <div style="flex: 2;display:flex;flex-direction:column;">
+        <div style="flex:1;border:1px dashed"><level-modifier-view></level-modifier-view></div>
+        <div style="flex:1;border:1px dashed;position:relative;"><digital-joystick></digital-joystick></div>
+      </div>
+      <div style="flex: 1;position:relative;">
+        <diag-panel></diag-panel>
+      </div>
+    </div>
+    
+    
+    
+  </body>
+</html>

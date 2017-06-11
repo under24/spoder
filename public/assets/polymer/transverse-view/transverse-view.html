@@ -1,0 +1,39 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../view-cursor/view-cursor.html">
+<link rel="import" href="../transverse-view-base/transverse-view-base.html">
+<link rel="import" href="../transverse-view-debug-panel/transverse-view-debug-panel.html">
+
+<dom-module id="transverse-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+    </style>
+    
+    <transverse-view-base></transverse-view-base>
+    <view-cursor id="cursor" view="transverse"></view-cursor>
+    <transverse-view-debug-panel></transverse-view-debug-panel>
+  </template>
+
+  <script>
+    class transverseView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'transverse-view'; }
+      static get properties() {
+        return {
+          legId: {
+            type: Number,
+            statePath: 'views.transverseViewLegId',
+            reflectToAttribute: true
+          }
+        };
+      }
+
+    }
+
+    window.customElements.define(transverseView.is, transverseView);
+  </script>
+</dom-module>

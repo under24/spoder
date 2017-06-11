@@ -1,0 +1,59 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+<!--<link rel="import" href="../polymer/lib/elements/dom-if.html">-->
+<!--<link rel="import" href="../polymer/lib/elements/dom-repeat.html">-->
+
+<dom-module id="diag-text">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        padding: 4px 0px;
+        font-size: 18px;
+      }
+      .label-text {
+        flex: 3;
+        line-height: 24px;
+      }
+      .value {
+        flex: 2;
+      }
+      .value input {
+        font-size: 16px;
+        width: 90%;
+        box-sizing: border-box;
+      }
+    </style>
+    <div class="label-text">
+      [[label]]
+    </div>
+    <div class="value">
+      <input type="text" value="[[value]]" />
+    </div>
+  </template>
+
+  <script>
+    class diagText extends Polymer.Element {
+      static get is() { return 'diag-text'; }
+      static get properties() {
+        return {
+          label: {
+            type: String,
+            value: 'label text'
+          },
+          value: {
+            type: String,
+            value: 'test value'
+          }
+        };
+      }
+
+      ready() {
+        super.ready();
+        
+      }
+
+    }
+
+    window.customElements.define(diagText.is, diagText);
+  </script>
+</dom-module>

@@ -1,0 +1,386 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="digital-joystick">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      #outer-circle {
+        border: 1px dashed rgba(0, 0, 0, 0.5);
+        border-radius: 100%;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+      }
+      /*vertical line*/
+      #outer-circle::before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        top: 0px;
+        bottom: 0px;
+        border-left: 1px dashed rgba(0, 0, 0, 0.5);
+        transform: translateX(-50%);
+      }
+      /*horizontal line*/
+      #outer-circle::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        top: 50%;
+        border-top: 1px dashed rgba(0, 0, 0, 0.5);
+        transform: translateY(-50%);
+      }
+      #rocker {
+        display: inline-block;
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px dotted black;
+        border-radius: 100%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        z-index: 7;
+      }
+      #rocker::before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 3px;
+        height: 3px;
+        background-color: rgba(0, 0, 0, 0.4);
+        transform: translate(-50%, -50%);
+      }
+      #center {
+        position: absolute;
+        height: 1px;
+        width: 1px;
+        /*background-color: red;*/
+        /*transform: translate(-50%,-50%);*/
+      }
+      #center::before {
+        content: '';
+        position: absolute;
+        height: 4px;
+        width: 4px;
+        background-color: red;
+        transform: translate(-50%,-50%);
+      }
+      :host([debug]) {
+        
+      }
+      #boundaryCircle {
+        position: absolute;
+        height: 4px;
+        width: 4px;
+        background-color: red;
+        transform: translate(-50%,-50%);
+      }
+      #centerDirectionRocker {
+        transform-origin: left;
+        width: 200px;
+        height: 1px;
+        border-top: 1px dashed black;
+      }
+      .debug-info {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        transform: translateX(100%);
+      }
+    </style>
+    <div id="outer-circle">
+      <div id="center">
+        <div id="centerDirectionRocker"></div>
+      </div>
+      <div id="rocker"></div>
+      <div id="boundaryCircle"></div>
+      
+      <div class="debug-info">
+        <label for="debug">Debug mode</label>
+        <input type="checkbox" id="debug" checked="{{debug::change}}" />
+        <div>Size: [[size]]</div>
+        <div>Radius: [[radius]]</div>
+        <div>RockerX: [[rockerX]]</div>
+        <div>RockerY: [[rockerY]]</div>
+        <div>Angle: [[angle]]</div>
+        <div>DiffX: [[diffX]]</div>
+        <div>DiffY: [[diffY]]</div>
+        <div>Dist in pxls: [[distInPxls]]</div>
+        <div>Dist in pct: [[distInPct]]</div>
+        <div>X Shift: [[xShift]]</div>
+        <div>Y Shift: [[yShift]]</div>
+        <div>BoundaryX: [[boundaryX]]</div>
+        <div>BoundaryY: [[boundaryY]]</div>
+      </div>
+    </div>
+    
+  </template>
+
+  <script>
+    class digitalJoystick extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'digital-joystick'; }
+      static get properties() {
+        return {
+          size: {
+            type: Number,
+            value: 300
+          },
+          radius: {
+            type: Number,
+            computed: 'computeRadius(size)'
+          },
+          restrict: {
+            type: Boolean,
+            value: true
+          },
+          handlerSize: {
+            type: Number,
+            value: 25
+          },
+          rockerX: {
+            type: Number,
+            observer: 'redrawX'
+          },
+          rockerY: {
+            type: Number,
+            observer: 'redrawY'
+          },
+          centerX: Number,
+          centerY: Number,
+          debug: {
+            type: Boolean,
+            value: true,
+            reflectToAttribute: true,
+            observer: 'observeDebug'
+          },
+          // diffX: Number,
+          // diffY: Number,
+          // angle: Number,
+          // distInPxls: Number,
+          // distInPct: Number,
+          // xShift: Number,
+          // yShift: Number,
+          // boundaryX: Number,
+          // boundaryY: Number
+        };
+      }
+      
+      connectedCallback() {
+        super.connectedCallback();
+        
+        this.calcSizeAndRenderView();
+        this.attachHandler();
+      }
+      
+      calcSizeAndRenderView() {
+        this.style.width = this.style.height = this.size + 'px';
+        
+        this.centerY = this.centerX = this.radius;
+        
+        this.centerRocker();
+        
+        this.$.center.style.left = this.centerX + 'px';
+        this.$.center.style.top = this.centerY + 'px';
+        
+        // set handle size
+        this.$['rocker'].style.width = this.handlerSize + '%';
+        this.$['rocker'].style.height = this.handlerSize + '%';
+      }
+      
+      attachHandler() {
+        this.$['rocker'].onmousedown = (e) => {
+          let clickCoords = {x: e.pageX, y: e.pageY};
+          let initCoords = {x: this.rockerX, y: this.rockerY};
+          let prevFinal = {x: e.pageX, y: e.pageY};
+          document.onmousemove = (e) => {
+            let dragX = e.pageX - clickCoords.x;
+            let dragY = e.pageY - clickCoords.y;
+            
+            let rx = initCoords.x + dragX;
+            let ry = initCoords.y + dragY;
+            
+            // filter out same values
+            if (rx === prevFinal.x && ry === prevFinal.y) return;
+            
+            prevFinal.x = rx;
+            prevFinal.y = ry;
+            
+            // render
+            this.calcJoystickPosition(rx, ry);
+            
+            e.preventDefault();
+            e.stopPropagation();
+          };
+          document.onmouseup = () => {
+            document.onmousemove = null;
+            document.onmouseup = null;
+          }
+          e.preventDefault();
+          e.stopPropagation()
+        }
+        this.$['rocker'].ondblclick = () => {
+          this.centerRocker();
+        }
+      }
+      
+      redrawX(x) {
+        this.$['rocker'].style.left = x + 'px';
+      }
+      
+      redrawY(y) {
+        this.$['rocker'].style.top = y + 'px';
+      }
+      
+      validateAndSetX(x) {
+        if (this.restrict) {
+          
+        }
+      }
+      
+      validateAndSetY(y) {
+        if (this.restrict) {
+          
+        }
+      }
+      
+      centerRocker() {
+        // rockerX, rockerY
+        this.calcJoystickPosition(this.radius, this.radius);
+      }
+      
+      computeRadius(size) {
+        return this.size / 2;
+      }
+      
+      calcJoystickPosition(rx, ry) {
+        let diff = this.getDiffXY(rx, ry);
+        
+        // distance from center to rocker in pxls
+        let distInPxls = this.getDistanceInPixels(diff);
+        this.$.centerDirectionRocker.style.width = distInPxls + 'px';
+
+        // distance from center to rocker in pct
+        let distInPct = this.getDistanceInPct(distInPxls);
+        
+        // y point in pct from center
+        let xShift = this.getShiftCoords(rx);
+        // y point in pct from center
+        let yShift = this.getShiftCoords(ry);
+        
+        // calc angle for calculations
+        let angle = this.getAngle(diff);
+        
+        // convert angle to screen angle
+        let screenAngle = this.getScreenAngle(angle);
+        this.$.centerDirectionRocker.style.transform = 'rotate(' + screenAngle + 'deg)';
+        
+        // boundary ball
+        let bx = this.getBoundaryX(this.centerX, angle);
+        this.$.boundaryCircle.style.left = bx + 'px';
+        let by = this.getBoundaryY(this.centerY, angle);
+        this.$.boundaryCircle.style.top = by + 'px';
+        
+        // set variables
+        this.diffX = diff.x;
+        this.diffY = diff.y;
+        this.distInPxls = distInPxls;
+        this.distInPct = distInPct;
+        this.xShift = xShift;
+        this.yShift = yShift;
+        this.angle = screenAngle;
+        this.boundaryX = bx;
+        this.boundaryY = by;        
+
+        if (distInPxls > this.radius) {
+          this.rockerX = bx;
+          this.rockerY = by;
+        } else {
+          this.rockerX = rx;
+          this.rockerY = ry;
+        }
+        
+        // TODO
+        // filter out same values
+        this.dispatchData(xShift, yShift);
+      }
+      
+      getDiffXY(rx, ry) {
+        return {
+          x: rx - this.centerX,
+          y: ry - this.centerY
+        }
+      }
+      
+      getDistanceInPixels(diff) {
+        return Utils.getDistance(diff.x, diff.y);
+      }
+      
+      getDistanceInPct(pxls) {
+        return pxls / (this.radius / 100);
+      }
+      
+      getShiftCoords(coord) {
+        return (this.radius - coord) / (this.radius / 100);
+      }
+      
+      getAngle(diff) {
+        return Math.atan2(diff.y, diff.x);
+      }
+      
+      getScreenAngle(angle) {
+        return (angle > 0 ? angle : (2 * Math.PI + angle)) * 360 / (2 * Math.PI);
+      }
+      
+      getBoundaryX(cx, angle) {
+        return cx + this.radius * Math.cos(angle);
+      }
+      
+      getBoundaryY(cy, angle) {
+        return cy + this.radius * Math.sin(angle);
+      }
+      
+      dispatchData(xShift, yShift) {
+        let payload = {};
+        if (xShift > 0) {
+          payload.sagittalBaseYLeftTiltModifier = xShift;
+          payload.sagittalBaseYRightTiltModifier = xShift * -1;
+        } else if (xShift < 0) {
+          payload.sagittalBaseYRightTiltModifier = xShift * -1;
+          payload.sagittalBaseYLeftTiltModifier = xShift;
+        }
+        
+        if (yShift > 0) {
+          payload.sagittalBaseYFrontTiltModifier = yShift;
+          payload.sagittalBaseYBackTiltModifier = yShift * -1;
+        } else if (yShift < 0) {
+          payload.sagittalBaseYBackTiltModifier = yShift * -1;
+          payload.sagittalBaseYFrontTiltModifier = yShift;
+        }
+        
+        if (yShift === 0 && xShift === 0) {
+          payload.sagittalBaseYBackTiltModifier = 0;
+          payload.sagittalBaseYFrontTiltModifier = 0;
+          payload.sagittalBaseYLeftTiltModifier = 0;
+          payload.sagittalBaseYRightTiltModifier = 0;
+        }
+        store.dispatch({type: "BASE_Y_TILT_MODIFIER_CHANGED", payload}); 
+      }
+      
+      observeDebug(newValue) {
+        
+      }
+
+    }
+
+    window.customElements.define(digitalJoystick.is, digitalJoystick);
+  </script>
+</dom-module>

@@ -1,0 +1,218 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="view-cursor">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        background-color: rgba(255, 0, 0, 0.5);
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        border-radius: 100%;
+      }
+      :host([side=left]) {
+        transform: translate(-50%, -50%);
+      }
+      :host([side=right]) {
+        transform: translate(50%, -50%);
+      }
+    </style>
+  </template>
+
+  <script>
+    class viewCursor extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'view-cursor'; }
+      static get properties() {
+        return {
+          view: String,
+          passedLegId: Number,
+          offsetX: Number,
+          offsetY: Number,
+          stateLegId: {
+            type: Number,
+            statePath(state) {
+              return state.views[this.view + 'ViewLegId'];
+            }
+          },
+          legId: {
+            type: Number,
+            computed: 'computeLegId(passedLegId, stateLegId)'
+          },
+          x: {
+            type: Number,
+            computed: 'computeX(offsetX, stateX)',
+            observer: 'observeCursorX'
+          },
+          stateX: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId][this.view + 'CursorX'];
+            }
+          },
+          y: {
+            type: Number,
+            computed: 'computeY(offsetY, stateY)',
+            observer: 'observeCursorY'
+          },
+          stateY: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId][this.view + 'CursorY'];
+            }
+          },
+          side: {
+            type: String,
+            reflectToAttribute: true,
+            statePath(state) {
+              return state.legs[this.legId].side;
+            },
+            observer: 'observeSide'
+          }
+        };
+      }
+      
+      connectedCallback() {
+        super.connectedCallback();
+        
+        // this.onmousedown = (e) => {
+        //   let clickCoords = {x: e.pageX,y: e.pageY};
+        //   let initCoords = {x: this.x, y: this.y};
+        //   
+        //   document.onmousemove = (e) => {
+        //     let dragX = e.pageX - clickCoords.x;
+        //     let dragY = e.pageY - clickCoords.y;
+        //     
+        //     let finalY = initCoords.y + dragY;
+        //     let finalX;
+        //     switch (this.side) {
+        //       case 'left':
+        //         finalX = initCoords.x + dragX;
+        //         break;
+        //       case 'right':
+        //         finalX = initCoords.x - dragX;
+        //         break;  
+        //     }
+        // 
+        //     // both values are the same
+        //     if (finalX === this.x && finalY === this.y) return;
+        //     
+        //     // filter out same values
+        //     let payload = {};
+        //     if (finalX !== this.x) payload[this.view + 'CursorX'] = finalX;
+        //     if (finalY !== this.y) payload[this.view + 'CursorY'] = finalY;
+        //     
+        //     store.dispatch({
+        //       type: "CURSOR_XY_CHANGED",
+        //       legId: this.legId,
+        //       payload
+        //     });
+        //     
+        //     e.preventDefault();
+        //     e.stopPropagation();
+        //   };
+        //   document.onmouseup = function() {
+        //     document.onmousemove = null;
+        //     document.onmouseup = null;
+        //   }
+        //   e.preventDefault();
+        //   e.stopPropagation();
+        // }
+        this.onmousedown = (e) => {
+          this.clickCoords = {x: e.pageX,y: e.pageY};
+
+          document.onmousemove = (e) => {
+            let diffX = this.clickCoords.x - e.pageX;
+            let diffY = this.clickCoords.y - e.pageY;
+            
+            // the position is the same
+            if (diffX === 0 && diffY === 0) return;
+            
+            // filter out 0 value
+            let payload = {};
+            if (diffX !== 0) {
+              switch (this.side) {
+                case 'left':
+                  payload[this.view + 'CursorX'] = diffX;
+                  break;
+                case 'right':
+                  payload[this.view + 'CursorX'] = diffX * -1;
+                  break;
+              }
+              this.clickCoords.x = e.pageX;
+            }
+            if (diffY !== 0) {
+              payload[this.view + 'CursorY'] = diffY;
+              this.clickCoords.y = e.pageY;
+            }
+            
+            store.dispatch({
+              type: "CURSOR_XY_SHIFTED",
+              legId: this.legId,
+              payload
+            });
+            
+            e.preventDefault();
+            e.stopPropagation();
+          };
+          document.onmouseup = () => {
+            document.onmousemove = null;
+            document.onmouseup = null;
+          }
+          e.preventDefault();
+          e.stopPropagation()
+        }
+      }
+      
+      observeCursorX(newX, oldX) {
+        this.redrawX(newX);
+      }
+      
+      observeCursorY(newY, oldY) {
+        this.redrawY(newY);
+      }
+      
+      redrawX(x) {
+        switch (this.side) {
+          case 'left':
+            this.style.left = x + 'px';
+            break;
+          case 'right':
+            this.style.right = x + 'px';
+            break;
+        }
+      }
+      
+      redrawY(y) {
+        this.style.top = y + 'px';
+      }
+      
+      observeSide(newSide, oldSide) {
+        switch (newSide) {
+          case 'left':
+            this.style.right = '';
+            break;
+          case 'right':
+            this.style.left = '';
+            break;
+        }
+        this.redrawX(this.x);
+      }
+      
+      computeLegId(passedLegId, stateLegId) {
+        return passedLegId ? passedLegId : stateLegId;
+      }
+      
+      computeX(offsetX, stateX) {
+        return offsetX ? offsetX + stateX : stateX;
+      }
+      
+      computeY(offsetY, stateY) {
+        return offsetY ? offsetY + stateY : stateY;
+      }
+
+    }
+
+    window.customElements.define(viewCursor.is, viewCursor);
+  </script>
+</dom-module>

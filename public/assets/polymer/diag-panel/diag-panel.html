@@ -1,0 +1,153 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../diag-text/diag-text.html">
+<link rel="import" href="../diag-bar/diag-bar.html">
+<link rel="import" href="../diag-section/diag-section.html">
+
+<dom-module id="diag-panel">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+      }
+    </style>
+    <div class="diag-panel">
+      <diag-section class="layout-text" header="Basic info:">
+        <diag-text label="Sagittal Base X:" value="[[sagittalBaseX]]"></diag-text>
+        <diag-text label="Sagittal Base Y:" value="[[sagittalBaseY]]"></diag-text>
+        <diag-text label="Sagittal Cursor X:" value="[[sagittalCursorX]]"></diag-text>
+        <diag-text label="Sagittal Cursor Y:" value="[[sagittalCursorY]]"></diag-text>
+        <diag-text label="Femur Screen Angle:" value="[[femurScreenAngle]]"></diag-text>
+        <diag-text label="Tibia Screen Angle:" value="[[tibiaScreenAngle]]"></diag-text>
+        <hr />
+        <diag-text label="BaseY Level Modifier:" value="[[levelModifier]]"></diag-text>
+        <hr />
+        <diag-text label="Transverse Base X:" value="[[transverseBaseX]]"></diag-text>
+        <diag-text label="Transverse Base Y:" value="[[transverseBaseY]]"></diag-text>
+        <diag-text label="Transverse Cursor X:" value="[[transverseCursorX]]"></diag-text>
+        <diag-text label="Transverse Cursor Y:" value="[[transverseCursorY]]"></diag-text>
+        <diag-text label="Coxa Screen Angle:" value="[[coxaScreenAngle]]"></diag-text>
+        <hr />
+      </diag-section>
+      <diag-section class="layout-bars" header="Leg 1 servos:">
+        <diag-bar value='[[coxaServoAngle]]'></diag-bar>
+        <diag-bar value="[[femurServoAngle]]"></diag-bar>
+        <diag-bar value="[[tibiaServoAngle]]"></diag-bar>
+      </diag-section>
+      <diag-section class="layout-text" header="Servos angle info:">
+        <diag-text label="Coxa Servo Angle:" value="[[coxaServoAngle]]"></diag-text>
+        <diag-text label="Femur Servo Angle:" value="[[femurServoAngle]]"></diag-text>
+        <diag-text label="Tibia Servo Angle:" value="[[tibiaServoAngle]]"></diag-text>
+      </diag-section>
+    </div>
+  </template>
+
+  <script>
+    class diagPanel extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'diag-panel'; }
+      static get properties() {
+        return {
+          legId: {
+            type: Number,
+            value: 1
+          },
+          sagittalCursorX: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId].sagittalCursorX;
+            }
+          },
+          sagittalCursorY: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId].sagittalCursorY;
+            }
+          },
+          sagittalBaseX: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId].sagittalBaseX;
+            }
+          },
+          sagittalBaseY: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId].sagittalBaseY;
+            }
+          },
+          transverseBaseX: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId].transverseBaseX;
+            }
+          },
+          transverseBaseY: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId].transverseBaseY;
+            }
+          },
+          transverseCursorX: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId].transverseCursorX;
+            }
+          },
+          transverseCursorY: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId].transverseCursorY;
+            }
+          },
+          femurScreenAngle: {
+            type: Number,
+            statePath(state) {
+              return state.legs[this.legId].femurScreenAngle;
+            }
+          },
+          femurServoAngle: {
+            type: Number,
+            statePath(state) {
+              return state.legs[this.legId].femurServoAngle;
+            }
+          },
+          tibiaScreenAngle: {
+            type: Number,
+            statePath(state) {
+              return state.legs[this.legId].tibiaScreenAngle;
+            }
+          },
+          tibiaServoAngle: {
+            type: Number,
+            statePath(state) {
+              return state.legs[this.legId].tibiaServoAngle;
+            }
+          },
+          coxaScreenAngle: {
+            type: Number,
+            statePath(state) {
+              return state.legs[this.legId].coxaScreenAngle;
+            }
+          },
+          coxaServoAngle: {
+            type: Number,
+            statePath(state) {
+              return state.legs[this.legId].coxaServoAngle;
+            }
+          },
+          levelModifier: {
+            type: Number,
+            statePath: 'modifiers.sagittalBaseYLevelModifier'
+          }
+        };
+      }
+
+    }
+
+    window.customElements.define(diagPanel.is, diagPanel);
+  </script>
+</dom-module>

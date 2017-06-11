@@ -1,0 +1,283 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="spoder-logic">
+  <template></template>
+  <script>
+    class spoderLogic extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'spoder-logic'; }
+      static get properties() {
+        return {
+          metaData: {
+            type: Object,
+            statePath: 'metaData'
+          },
+          legs: {
+            type: Object,
+            statePath: 'legs'
+          },
+          coords1: {
+            type: Object,
+            statePath: 'coords.1',
+            observer: 'observeCoords'
+          },
+          coords2: {
+            type: Object,
+            statePath: 'coords.2',
+            observer: 'observeCoords'
+          },
+          coords3: {
+            type: Object,
+            statePath: 'coords.3',
+            observer: 'observeCoords'
+          },
+          coords4: {
+            type: Object,
+            statePath: 'coords.4',
+            observer: 'observeCoords'
+          },
+          coords5: {
+            type: Object,
+            statePath: 'coords.5',
+            observer: 'observeCoords'
+          },
+          coords6: {
+            type: Object,
+            statePath: 'coords.6',
+            observer: 'observeCoords'
+          },
+          sagittalBaseYLevelModifier: {
+            type: Number,
+            statePath: 'modifiers.sagittalBaseYLevelModifier',
+            observer: 'observeSagittalBaseYLevelModifier'
+          },
+          modifiers: {
+            type: Object,
+            statePath: 'modifiers',
+            observer: 'observeModifiers'
+          }
+        };
+      }
+      
+      // BEGIN HELPER FUNCTIONS
+      
+      get combinedLegsLength() {
+        return this.metaData.femurLength + this.metaData.tibiaLength;
+      }
+      
+      getDistanceFromBaseToCursor(legId, view) {
+        return Utils.getDistance(this.getXFromBase(legId, view), this.getYFromBase(legId, view));
+      }
+      
+      getXFromBase(legId, view) {
+        return this['coords' + legId][view + 'CursorX'] - this['coords' + legId][view + 'BaseX'];
+      }
+      
+      getYFromBase(legId, view) {
+        return this['coords' + legId][view + 'CursorY'] - this['coords' + legId][view + 'BaseY'];
+      }
+      
+      getReachDistance(legId, view) {
+        return this.getDistanceFromBaseToCursor(legId, view) - this.combinedLegsLength;
+      }
+      
+      targetWithinReach(legId, view) {
+        return this.getReachDistance(legId, view) > 0 ? false : true;
+      }
+
+      getAngleFromDistance(legId, view) {
+        let screen = Utils.getDegrees(this.getYFromBase(legId, view), this.getXFromBase(legId, view));
+        
+        let servo = (screen - 270 < 0) ? screen + 90 : screen - 270;
+        
+        return {screen, servo: +servo.toFixed(0)};
+      }
+      
+      // END HELPER FUNCTIONS
+      
+      // -------------------------------------------------
+      
+      // BEGIN POSITIONING LOGIC
+      
+      positionCoxa(legId, view) {
+        let coxaCalculated = this.getAngleFromDistance(legId, view);
+
+        // filter out same values
+        let payload = {};
+        if (this.legs[legId].coxaScreenAngle !== coxaCalculated.screen) {
+          payload.coxaScreenAngle = coxaCalculated.screen;
+        }
+        if (this.legs[legId].coxaServoAngle !== coxaCalculated.servo) {
+          payload.coxaServoAngle = coxaCalculated.servo;
+        }
+        
+        store.dispatch({
+          type: "LEG_ANGLE_CHANGED",
+          legId: legId,
+          payload
+        });
+      }
+      
+      positionFemurAndTibia(legId, view) {
+        if (this.targetWithinReach(legId, view)) {
+          this.calcForWithinReachMode(legId, view);
+        } else {
+          this.calcForOutOfReachMode(legId, view);
+        }
+      }
+      
+      calcForWithinReachMode(legId, view) {
+        let femurCalculated = this.getFemurAngle(legId, view);
+        let tibiaCalculated = this.getTibiaAngle(legId, view);
+        
+        // check if all the values are the same
+        if (this.legs[legId].femurScreenAngle === femurCalculated.screen &&
+            this.legs[legId].femurServoAngle === femurCalculated.servo &&
+            this.legs[legId].tibiaScreenAngle === tibiaCalculated.screen &&
+            this.legs[legId].tibiaServoAngle === tibiaCalculated.servo
+        ) return;
+        
+        // filter out same values
+        let payload = {};
+        if (this.legs[legId].femurScreenAngle !== femurCalculated.screen) {
+          payload.femurScreenAngle = femurCalculated.screen;
+        }
+        if (this.legs[legId].femurServoAngle !== femurCalculated.servo) {
+          payload.femurServoAngle = femurCalculated.servo;
+        }
+        if (this.legs[legId].tibiaScreenAngle !== tibiaCalculated.screen) {
+          payload.tibiaScreenAngle = tibiaCalculated.screen;
+        }
+        if (this.legs[legId].tibiaServoAngle !== tibiaCalculated.servo) {
+          payload.tibiaServoAngle = tibiaCalculated.servo;
+        }
+        
+        store.dispatch({
+          type: "LEG_ANGLE_CHANGED",
+          legId: legId,
+          payload
+        });
+        
+        socket.emit('femur-servo-angle-changed', {value: femurCalculated.servo});
+        socket.emit('tibia-servo-angle-changed', {value: tibiaCalculated.servo});
+      }
+      
+      calcForOutOfReachMode(legId, view) {
+        let angleCalculated = this.getAngleFromDistance(legId, view);
+        
+        // check if all the values are the same
+        if (this.legs[legId].femurScreenAngle === angleCalculated.screen &&
+            this.legs[legId].femurServoAngle === angleCalculated.servo &&
+            this.legs[legId].tibiaScreenAngle === 0 &&
+            this.legs[legId].tibiaServoAngle === 0
+        ) return;
+        
+        // filter out same values
+        let payload = {};
+        if (this.legs[legId].femurScreenAngle !== angleCalculated.screen) {
+          payload.femurScreenAngle = angleCalculated.screen;
+        }
+        if (this.legs[legId].femurServoAngle !== angleCalculated.servo) {
+          payload.femurServoAngle = angleCalculated.servo;
+        }
+        if (this.legs[legId].tibiaScreenAngle !== 0) {
+          payload.tibiaScreenAngle = 0;
+        }
+        if (this.legs[legId].tibiaServoAngle !== 0) {
+          payload.tibiaServoAngle = 0;
+        }
+
+        store.dispatch({
+          type: "LEG_ANGLE_CHANGED",
+          legId: legId,
+          payload
+        });
+        
+        socket.emit('femur-servo-angle-changed', {value: angleCalculated.servo});
+        socket.emit('tibia-servo-angle-changed', {value: 0});
+      }
+      
+      getFemurAngle(legId, view) {
+        let D1 = Math.atan2(this.getYFromBase(legId, view), this.getXFromBase(legId, view));
+        
+        let D2 = Utils.lawOfCos(this.getDistanceFromBaseToCursor(legId, view), this.metaData.femurLength, this.metaData.tibiaLength);
+
+        let A1 = D2 - D1;
+        
+        let A1Screen = A1 / Math.PI * -180;
+
+        let A1Servo = A1Screen + 90;
+        
+        return {screen: A1Screen, servo: +A1Servo.toFixed(0)};
+      }
+      
+      getTibiaAngle(legId, view) {
+        let A2 = Utils.lawOfCos(this.metaData.femurLength, this.metaData.tibiaLength, this.getDistanceFromBaseToCursor(legId, view));
+        
+        let A2Screen = 180 - (A2 / Math.PI * 180);
+        
+        let A2Servo = A2Screen;
+        
+        return {screen: A2Screen, servo: +A2Servo.toFixed(0)};
+      }
+      
+      // END POSITIONING LOGIC
+      
+      // -------------------------------------------------
+      
+      // BEGIN PROPERTY OBSERVERS
+
+      observeCoords(newValue, oldValue) {
+        // first time init... render init values into angles
+        if (oldValue === undefined) {
+          this.positionFemurAndTibia(newValue.legId, 'sagittal');
+          this.positionCoxa(newValue.legId, 'transverse');
+          return;
+        }
+
+        // sagittal view update
+        if (newValue.sagittalCursorX !== oldValue.sagittalCursorX ||
+            newValue.sagittalCursorY !== oldValue.sagittalCursorY ||
+            newValue.sagittalBaseX !== oldValue.sagittalBaseX ||
+            newValue.sagittalBaseY !== oldValue.sagittalBaseY
+        ) this.positionFemurAndTibia(newValue.legId, 'sagittal');
+
+        // transverse view update
+        if (newValue.transverseCursorX !== oldValue.transverseCursorX ||
+            newValue.transverseCursorY !== oldValue.transverseCursorY ||
+            newValue.transverseBaseX !== oldValue.transverseBaseX ||
+            newValue.transverseBaseY !== oldValue.transverseBaseY
+        ) this.positionCoxa(newValue.legId, 'transverse');
+      }
+      
+      observeSagittalBaseYLevelModifier(newValue, oldValue) {
+        if (oldValue === undefined) return;
+
+        store.dispatch({
+          type: "BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y",
+          payload: oldValue - newValue
+        });
+      }
+      
+      observeModifiers(newValue, oldValue) {
+        if (oldValue === undefined) return;
+        
+        // TODO
+        // filter out same values
+        if (newValue.sagittalBaseYBackTiltModifier == oldValue.sagittalBaseYBackTiltModifier) console.log('same values');
+
+        let payload = {
+          sagittalBaseYBackTiltModifier: oldValue.sagittalBaseYBackTiltModifier - newValue.sagittalBaseYBackTiltModifier,
+          sagittalBaseYFrontTiltModifier: oldValue.sagittalBaseYFrontTiltModifier - newValue.sagittalBaseYFrontTiltModifier,
+          sagittalBaseYLeftTiltModifier: oldValue.sagittalBaseYLeftTiltModifier - newValue.sagittalBaseYLeftTiltModifier,
+          sagittalBaseYRightTiltModifier: oldValue.sagittalBaseYRightTiltModifier - newValue.sagittalBaseYRightTiltModifier
+        }
+        store.dispatch({type: "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y", payload});
+      }
+      
+      // END PROPERTY OBSERVERS
+
+    }
+
+    window.customElements.define(spoderLogic.is, spoderLogic);
+  </script>
+</dom-module>

@@ -1,0 +1,45 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../view-cursor/view-cursor.html">
+<link rel="import" href="../level-modifier-view-base/level-modifier-view-base.html">
+
+<dom-module id="level-modifier-view">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <input type="range" value="0" min="-100" max="100" on-input="changeHandler"/>
+    <level-modifier-view-base offset-x="300" offset-y="0" leg-id="1"></level-modifier-view-base>
+    <level-modifier-view-base offset-x="300" offset-y="0" leg-id="2"></level-modifier-view-base>
+    <view-cursor offset-x="300" offset-y="0" view="sagittal" passed-leg-id="1"></view-cursor>
+    <view-cursor offset-x="300" offset-y="0" view="sagittal" passed-leg-id="2"></view-cursor>
+  </template>
+
+  <script>
+    class levelModifierView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'level-modifier-view'; }
+      static get properties() {
+        return {
+          legId: {
+            type: Number,
+            statePath: 'levelModifierView.legId',
+            reflectToAttribute: true
+          }
+        };
+      }
+      
+      changeHandler(e) {
+        store.dispatch({type: "BASE_Y_LEVEL_MODIFIER_CHANGED", payload: {sagittalBaseYLevelModifier: +e.target.value}});
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+    }
+
+    window.customElements.define(levelModifierView.is, levelModifierView);
+  </script>
+</dom-module>

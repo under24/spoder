@@ -1,0 +1,117 @@
+body, html {
+  margin: 0px;
+  padding: 0px;
+}
+
+#targetNode {
+  background-color: red;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  /*top: 200px;
+  left: 600px;*/
+  transform: translate(-50%, -50%);
+  border-radius: 100%;
+}
+
+#base {
+  background-color: black;
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  border-radius: 100%;
+}
+
+#base::before {
+  content: '';
+  background-color: rgba(255, 0, 0, 0.02);
+  width: 400px;
+  height: 800px;
+  display: inline-block;
+  transform: translate(0%, -50%);
+  position: absolute;
+  pointer-events: none;
+  border-top-right-radius: 800px;
+  border-bottom-right-radius: 800px;
+}
+
+#base::after {
+  content: '';
+  background-color: rgba(255, 0, 0, 0.04);
+  border-radius: 100%;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  border: 1px solid transparent;
+  border-right-color: red;
+  border-bottom-color: red;
+  transform: translate(-50%, -50%) rotateZ(-45deg);
+  pointer-events: none;
+}
+
+#base #femur {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 200px;
+  height: 1px;
+  background-color: black;
+  transform-origin: left;
+}
+
+#femur #ankleServo {
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+
+#femur #ankleServo #tibia {
+  width: 200px;
+  height: 1px;
+  background-color: black;
+  position: absolute;
+  left: 10px;
+  bottom: 0px;
+  transform-origin: left;
+}
+
+span.circle {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 255, 0.1);
+  border-radius: 100%;
+}
+
+#poly-diag-panel {
+  position: absolute;
+  width: 250px;
+  bottom: 0px;
+  right: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+#bottom-left {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 50%;
+  width: 50%;
+  perspective: 370px;
+}
+
+#bottom-left spoder-el {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

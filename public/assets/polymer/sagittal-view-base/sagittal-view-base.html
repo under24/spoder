@@ -1,0 +1,348 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="sagittal-view-base">
+  <template>
+    <style>
+      #base {
+        height: 1px;
+        width: 1px;
+        position: absolute;
+      }
+      #base::after {
+        content: '';
+        background: rgba(0, 0, 0, 0.2);
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        transform: translate(-50%,-50%);
+        border-radius: 100%;
+      }
+      #femur {
+        position: absolute;
+        top: 0px;
+        height: 1px;
+        background-color: black;
+      }
+      :host([side=left]) #femur {
+        transform-origin: left;
+        left: 0px;
+      }
+      :host([side=right]) #femur {
+        transform-origin: right;
+        right: 0px;
+      }
+      #tibia {
+        height: 1px;
+        background-color: black;
+        position: absolute;
+        top: 0px;
+      }
+      :host([side=left]) #tibia {
+        transform-origin: left;
+        left: 100%;
+      }
+      :host([side=right]) #tibia {
+        transform-origin: right;
+        right: 100%;
+      }
+      #baseRange {
+        background-color: rgba(255, 0, 0, 0.02);
+        display: inline-block;
+        transform: translate(0%, -50%);
+        position: absolute;
+        pointer-events: none;
+      }
+      #baseInvalidRange {
+        background-color: rgba(255, 0, 0, 0.04);
+        border-radius: 100%;
+        position: absolute;
+        border: 1px solid transparent;
+        transform: translate(-50%, -50%) rotateZ(-45deg);
+        pointer-events: none;
+      }
+      :host([side=left]) #baseInvalidRange {
+        border-right-color: red;
+        border-bottom-color: red;
+      }
+      :host([side=right]) #baseInvalidRange {
+        border-left-color: red;
+        border-top-color: red;
+      }
+    </style>
+    
+    <div id="base">
+      <div id="femur">
+        <div id="tibia"></div>
+      </div>
+      
+      <div id="baseRange"></div>
+      <div id="baseInvalidRange"></div>
+    </div>
+  </template>
+
+  <script>
+    class sagittalViewBase extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'sagittal-view-base'; }
+      static get properties() {
+        return {
+          legId: {
+            type: Number,
+            statePath: 'views.sagittalViewLegId',
+          },
+          side: {
+            type: String,
+            statePath(state) {
+              return state.legs[this.legId].side;
+            },
+            reflectToAttribute: true,
+            observer: 'observeSide'
+          },
+          x: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId].sagittalBaseX;
+            },
+            observer: 'observeBaseX'
+          },
+          y: {
+            type: Number,
+            statePath(state) {
+              return state.coords[this.legId].sagittalBaseY;
+            },
+            observer: 'observeBaseY'
+          },
+          femurScreenAngle: {
+            type: Number,
+            statePath(state) {
+              return state.legs[this.legId].femurScreenAngle;
+            },
+            observer: 'observeFemurScreenAngle'
+          },
+          tibiaScreenAngle: {
+            type: Number,
+            statePath(state) {
+              return state.legs[this.legId].tibiaScreenAngle;
+            },
+            observer: 'observeTibiaScreenAngle'
+          },
+          femurLength: {
+            type: Number,
+            statePath: 'metaData.femurLength',
+            observer: 'observeFemurLength'
+          },
+          tibiaLength: {
+            type: Number,
+            statePath: 'metaData.tibiaLength',
+            observer: 'observeTibiaLength'
+          },
+          combinedLegsLength: {
+            type: Number,
+            computed: 'computeCombinedLegsLength(femurLength, tibiaLength)',
+            observer: 'observeCombinedLegsLength'
+          }
+        };
+      }
+      
+      connectedCallback() {
+        super.connectedCallback();
+        
+        this.$.base.onmousedown = (e) => {
+          this.clickCoords = {x: e.pageX,y: e.pageY};
+
+          document.onmousemove = (e) => {
+            let diffX = this.clickCoords.x - e.pageX;
+            let diffY = this.clickCoords.y - e.pageY;
+            
+            // the position is the same
+            if (diffX === 0 && diffY === 0) return;
+            
+            // filter out 0 value
+            let payload = {};
+            if (diffX !== 0) {
+              switch (this.side) {
+                case 'left':
+                  payload.sagittalBaseX = diffX;
+                  break;
+                case 'right':
+                  payload.sagittalBaseX = -diffX;
+                  break;
+              }
+              this.clickCoords.x = e.pageX;
+            }
+            if (diffY !== 0) {
+              payload.sagittalBaseY = diffY;
+              this.clickCoords.y = e.pageY;
+            }
+            
+            store.dispatch({
+              type: "BASE_XY_SHIFTED",
+              legId: this.legId,
+              payload
+            });
+            
+            e.preventDefault();
+            e.stopPropagation();
+          };
+          document.onmouseup = () => {
+            document.onmousemove = null;
+            document.onmouseup = null;
+          }
+          e.preventDefault();
+          e.stopPropagation()
+        }
+        
+        // this.$.base.onmousedown = (e) => {
+        //   let clickCoords = {x: e.pageX,y: e.pageY};
+        //   let initCoords = {x: this.x, y: this.y};
+        // 
+        //   document.onmousemove = (e) => {
+        //     let dragX = e.pageX - clickCoords.x;
+        //     let dragY = e.pageY - clickCoords.y;
+        //     
+        //     let finalY = initCoords.y + dragY;
+        //     let finalX;
+        //     switch (this.side) {
+        //       case 'left':
+        //         finalX = initCoords.x + dragX;
+        //         break;
+        //       case 'right':
+        //         finalX = initCoords.x - dragX;
+        //         break;  
+        //     }
+        // 
+        //     // both values are the same
+        //     if (finalX === this.x && finalY === this.y) return;
+        //     
+        //     // filter out same values
+        //     let payload = {};
+        //     if (finalX !== this.x) payload.sagittalBaseX = finalX;
+        //     if (finalY !== this.y) payload.sagittalBaseY = finalY;
+        //     
+        //     store.dispatch({
+        //       type: "BASE_XY_CHANGED",
+        //       legId: this.legId,
+        //       payload
+        //     });
+        //     
+        //     e.preventDefault();
+        //     e.stopPropagation();
+        //   };
+        //   document.onmouseup = function() {
+        //     document.onmousemove = null;
+        //     document.onmouseup = null;
+        //   }
+        //   e.preventDefault();
+        //   e.stopPropagation()
+        // }
+      }
+      
+      observeBaseX(newX) {
+        this.redrawX(newX);
+      }
+      
+      observeBaseY(newY) {
+        this.redrawY(newY);
+      }
+      
+      redrawX(newX) {
+        switch (this.side) {
+          case 'left':
+            this.$.base.style.left = newX + 'px';
+            break;
+          case 'right':
+            this.$.base.style.right = newX + 'px';
+            break;
+        }
+      }
+      
+      redrawY(newY) {
+        this.$.base.style.top = newY + 'px';
+      }
+      
+      observeSide(newValue, oldValue) {
+        if (oldValue === undefined) return;
+        
+        this.redrawSide();
+        this.observeFemurScreenAngle(this.femurScreenAngle);
+        this.observeTibiaScreenAngle(this.tibiaScreenAngle);
+      }
+      
+      observeFemurScreenAngle(newAngle) {
+        switch (this.side) {
+          case 'left':
+            this.$.femur.style.transform = 'rotate(' + newAngle + 'deg)';
+            return;
+          case 'right':
+            this.$.femur.style.transform = 'rotate(' + newAngle * -1 + 'deg)';
+            return;
+        }
+      }
+      
+      observeTibiaScreenAngle(newAngle) {
+        switch (this.side) {
+          case 'left':
+            this.$.tibia.style.transform = 'rotate(' + newAngle + 'deg)';
+            break;
+          case 'right':
+            this.$.tibia.style.transform = 'rotate(' + newAngle * -1 + 'deg)';
+            break;
+        }
+      }
+      
+      redrawSide() {
+        switch(this.side) {
+          case 'left':
+            this.$.baseRange.style.borderBottomLeftRadius = '';
+            this.$.baseRange.style.borderTopLeftRadius = '';
+            this.$.baseRange.style.right = '';
+            
+            this.$.baseRange.style.borderBottomRightRadius = this.combinedLegsLength * 2 + 'px';
+            this.$.baseRange.style.borderTopRightRadius = this.combinedLegsLength * 2 + 'px';
+            this.$.baseRange.style.left = '0px';
+            
+            this.$.base.style.right = '';
+            this.redrawX(this.x);
+            break;
+          case 'right':
+            this.$.baseRange.style.borderBottomRightRadius = '';
+            this.$.baseRange.style.borderTopRightRadius = '';
+            this.$.baseRange.style.left = '';
+          
+            this.$.baseRange.style.borderBottomLeftRadius = this.combinedLegsLength * 2 + 'px';
+            this.$.baseRange.style.borderTopLeftRadius = this.combinedLegsLength * 2 + 'px';
+            this.$.baseRange.style.right = '0px';
+
+            this.$.base.style.left = '';
+            this.redrawX(this.x);
+            break;
+        }
+      }
+      
+      observeFemurLength(femurLength) {
+        this.$.femur.style.width = femurLength + 'px';
+      }
+      
+      observeTibiaLength(tibiaLength) {
+        this.$.tibia.style.width = tibiaLength + 'px';
+      }
+      
+      computeCombinedLegsLength(femurLength, tibiaLength) {
+        return femurLength + tibiaLength;
+      }
+      
+      observeCombinedLegsLength(combinedLegsLength) {
+        this.$.baseRange.style.width = combinedLegsLength + 'px';
+        this.$.baseRange.style.height = combinedLegsLength * 2 + 'px';
+
+        // TODO revise this logic... right now incosrrect
+        this.$.baseInvalidRange.style.width = combinedLegsLength / 2 + 'px';
+        this.$.baseInvalidRange.style.height = combinedLegsLength / 2 + 'px';
+        
+        this.redrawSide();
+      }
+
+    }
+
+    window.customElements.define(sagittalViewBase.is, sagittalViewBase);
+  </script>
+</dom-module>

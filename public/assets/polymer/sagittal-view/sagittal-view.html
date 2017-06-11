@@ -1,0 +1,39 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../view-cursor/view-cursor.html">
+<link rel="import" href="../sagittal-view-base/sagittal-view-base.html">
+<link rel="import" href="../sagittal-view-debug-panel/sagittal-view-debug-panel.html">
+
+<dom-module id="sagittal-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+    </style>
+    
+    <sagittal-view-base></sagittal-view-base>
+    <view-cursor id="cursor" view="sagittal"></view-cursor>
+    <sagittal-view-debug-panel></sagittal-view-debug-panel>
+  </template>
+
+  <script>
+    class sagittalView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'sagittal-view'; }
+      static get properties() {
+        return {
+          legId: {
+            type: Number,
+            statePath: 'views.sagittalViewLegId',
+            reflectToAttribute: true
+          }
+        };
+      }
+
+    }
+
+    window.customElements.define(sagittalView.is, sagittalView);
+  </script>
+</dom-module>
