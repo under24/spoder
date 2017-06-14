@@ -74,9 +74,6 @@
         background-color: red;
         transform: translate(-50%,-50%);
       }
-      :host([debug]) {
-        
-      }
       #boundaryCircle {
         position: absolute;
         height: 4px;
@@ -86,11 +83,10 @@
       }
       #centerDirectionRocker {
         transform-origin: left;
-        width: 200px;
         height: 1px;
         border-top: 1px dashed black;
       }
-      .debug-info {
+      .debug-block {
         position: absolute;
         right: 0px;
         top: 0px;
@@ -104,22 +100,24 @@
       <div id="rocker"></div>
       <div id="boundaryCircle"></div>
       
-      <div class="debug-info">
+      <div class="debug-block">
         <label for="debug">Debug mode</label>
         <input type="checkbox" id="debug" checked="{{debug::change}}" />
-        <div>Size: [[size]]</div>
-        <div>Radius: [[radius]]</div>
-        <div>RockerX: [[rockerX]]</div>
-        <div>RockerY: [[rockerY]]</div>
-        <div>Angle: [[angle]]</div>
-        <div>DiffX: [[diffX]]</div>
-        <div>DiffY: [[diffY]]</div>
-        <div>Dist in pxls: [[distInPxls]]</div>
-        <div>Dist in pct: [[distInPct]]</div>
-        <div>X Shift: [[xShift]]</div>
-        <div>Y Shift: [[yShift]]</div>
-        <div>BoundaryX: [[boundaryX]]</div>
-        <div>BoundaryY: [[boundaryY]]</div>
+        <template is="dom-if" if="[[debug]]" restamp>
+          <div>Size: [[size]]</div>
+          <div>Radius: [[radius]]</div>
+          <div>RockerX: [[rockerX]]</div>
+          <div>RockerY: [[rockerY]]</div>
+          <div>Angle: [[angle]]</div>
+          <div>DiffX: [[diffX]]</div>
+          <div>DiffY: [[diffY]]</div>
+          <div>Dist in pxls: [[distInPxls]]</div>
+          <div>Dist in pct: [[distInPct]]</div>
+          <div>X Shift: [[xShift]]</div>
+          <div>Y Shift: [[yShift]]</div>
+          <div>BoundaryX: [[boundaryX]]</div>
+          <div>BoundaryY: [[boundaryY]]</div>
+        </template>
       </div>
     </div>
     
@@ -262,6 +260,7 @@
       }
       
       calcJoystickPosition(rx, ry) {
+        // rockerX - centerX, rockerY - centerY
         let diff = this.getDiffXY(rx, ry);
         
         // distance from center to rocker in pxls
@@ -290,15 +289,18 @@
         this.$.boundaryCircle.style.top = by + 'px';
         
         // set variables
-        this.diffX = diff.x;
-        this.diffY = diff.y;
-        this.distInPxls = distInPxls;
-        this.distInPct = distInPct;
-        this.xShift = xShift;
-        this.yShift = yShift;
-        this.angle = screenAngle;
-        this.boundaryX = bx;
-        this.boundaryY = by;        
+        if (this.debug) {
+          this.diffX = diff.x;
+          this.diffY = diff.y;
+          this.distInPxls = distInPxls;
+          this.distInPct = distInPct;
+          this.xShift = xShift;
+          this.yShift = yShift;
+          this.angle = screenAngle;
+          this.boundaryX = bx;
+          this.boundaryY = by;   
+        }
+     
 
         if (distInPxls > this.radius) {
           this.rockerX = bx;
@@ -350,6 +352,7 @@
       
       dispatchData(xShift, yShift) {
         let payload = {};
+        // left - right
         if (xShift > 0) {
           payload.sagittalBaseYLeftTiltModifier = xShift;
           payload.sagittalBaseYRightTiltModifier = xShift * -1;
@@ -358,6 +361,7 @@
           payload.sagittalBaseYLeftTiltModifier = xShift;
         }
         
+        // top - bottom
         if (yShift > 0) {
           payload.sagittalBaseYFrontTiltModifier = yShift;
           payload.sagittalBaseYBackTiltModifier = yShift * -1;
@@ -372,6 +376,7 @@
           payload.sagittalBaseYLeftTiltModifier = 0;
           payload.sagittalBaseYRightTiltModifier = 0;
         }
+        
         store.dispatch({type: "BASE_Y_TILT_MODIFIER_CHANGED", payload}); 
       }
       
