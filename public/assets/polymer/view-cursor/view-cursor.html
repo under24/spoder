@@ -74,50 +74,7 @@
       
       connectedCallback() {
         super.connectedCallback();
-        
-        // this.onmousedown = (e) => {
-        //   let clickCoords = {x: e.pageX,y: e.pageY};
-        //   let initCoords = {x: this.x, y: this.y};
-        //   
-        //   document.onmousemove = (e) => {
-        //     let dragX = e.pageX - clickCoords.x;
-        //     let dragY = e.pageY - clickCoords.y;
-        //     
-        //     let finalY = initCoords.y + dragY;
-        //     let finalX;
-        //     switch (this.side) {
-        //       case 'left':
-        //         finalX = initCoords.x + dragX;
-        //         break;
-        //       case 'right':
-        //         finalX = initCoords.x - dragX;
-        //         break;  
-        //     }
-        // 
-        //     // both values are the same
-        //     if (finalX === this.x && finalY === this.y) return;
-        //     
-        //     // filter out same values
-        //     let payload = {};
-        //     if (finalX !== this.x) payload[this.view + 'CursorX'] = finalX;
-        //     if (finalY !== this.y) payload[this.view + 'CursorY'] = finalY;
-        //     
-        //     store.dispatch({
-        //       type: "CURSOR_XY_CHANGED",
-        //       legId: this.legId,
-        //       payload
-        //     });
-        //     
-        //     e.preventDefault();
-        //     e.stopPropagation();
-        //   };
-        //   document.onmouseup = function() {
-        //     document.onmousemove = null;
-        //     document.onmouseup = null;
-        //   }
-        //   e.preventDefault();
-        //   e.stopPropagation();
-        // }
+
         this.onmousedown = (e) => {
           let clickCoords = {x: e.pageX,y: e.pageY};
 
