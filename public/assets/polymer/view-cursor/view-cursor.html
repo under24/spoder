@@ -119,11 +119,11 @@
         //   e.stopPropagation();
         // }
         this.onmousedown = (e) => {
-          this.clickCoords = {x: e.pageX,y: e.pageY};
+          let clickCoords = {x: e.pageX,y: e.pageY};
 
           document.onmousemove = (e) => {
-            let diffX = this.clickCoords.x - e.pageX;
-            let diffY = this.clickCoords.y - e.pageY;
+            let diffX = clickCoords.x - e.pageX;
+            let diffY = clickCoords.y - e.pageY;
             
             // the position is the same
             if (diffX === 0 && diffY === 0) return;
@@ -139,11 +139,13 @@
                   payload[this.view + 'CursorX'] = diffX * -1;
                   break;
               }
-              this.clickCoords.x = e.pageX;
+              // update prev coords
+              clickCoords.x = e.pageX;
             }
             if (diffY !== 0) {
               payload[this.view + 'CursorY'] = diffY;
-              this.clickCoords.y = e.pageY;
+              // update prev coords
+              clickCoords.y = e.pageY;
             }
             
             store.dispatch({
