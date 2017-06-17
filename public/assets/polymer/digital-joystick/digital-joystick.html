@@ -161,7 +161,7 @@
             type: Boolean,
             value: true
           },
-          handlerSize: {
+          rockerSize: {
             type: Number,
             value: 25
           },
@@ -210,13 +210,13 @@
         this.$.center.style.left = this.centerX + 'px';
         this.$.center.style.top = this.centerY + 'px';
         
-        // set handle size
-        this.$['rocker'].style.width = this.handlerSize + '%';
-        this.$['rocker'].style.height = this.handlerSize + '%';
+        // set rocker size
+        this.$.rocker.style.width = this.rockerSize + '%';
+        this.$.rocker.style.height = this.rockerSize + '%';
       }
       
       attachHandler() {
-        this.$['rocker'].onmousedown = (e) => {
+        this.$.rocker.onmousedown = (e) => {
           let clickCoords = {x: e.pageX, y: e.pageY};
           let initCoords = {x: this.rockerX, y: this.rockerY};
           document.onmousemove = (e) => {
@@ -242,17 +242,17 @@
           e.preventDefault();
           e.stopPropagation()
         }
-        this.$['rocker'].ondblclick = () => {
+        this.$.rocker.ondblclick = () => {
           this.centerRocker();
         }
       }
       
       redrawX(x) {
-        this.$['rocker'].style.left = x + 'px';
+        this.$.rocker.style.left = x + 'px';
       }
       
       redrawY(y) {
-        this.$['rocker'].style.top = y + 'px';
+        this.$.rocker.style.top = y + 'px';
       }
       
       validateAndSetX(x) {
