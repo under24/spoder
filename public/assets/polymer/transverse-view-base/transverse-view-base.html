@@ -96,44 +96,48 @@
         super.connectedCallback();
         
         this.$.base.onmousedown = (e) => {
-          let clickCoords = {x: e.pageX,y: e.pageY};
-          let initCoords = {x: this.x, y: this.y};
+          this.clickCoords = {x: e.pageX,y: e.pageY};
 
           document.onmousemove = (e) => {
-            let dragX = e.pageX - clickCoords.x;
-            let dragY = e.pageY - clickCoords.y;
+            let diffX = this.clickCoords.x - e.pageX;
+            let diffY = this.clickCoords.y - e.pageY;
             
-            let finalY = initCoords.y + dragY;
-            let finalX;
-            switch (this.side) {
-              case 'left':
-                finalX = initCoords.x + dragX;
-                break;
-              case 'right':
-                finalX = initCoords.x - dragX;
-                break;  
-            }
-
-            // both values are the same
-            if (finalX === this.x && finalY === this.y) return;
+            // the position is the same
+            if (diffX === 0 && diffY === 0) return;
             
-            // filter out same values
+            // filter out 0 value
             let payload = {};
-            if (finalX !== this.x) payload.transverseBaseX = finalX;
-            if (finalY !== this.y) payload.transverseBaseY = finalY;
+            if (diffX !== 0) {
+              switch (this.side) {
+                case 'left':
+                  payload.transverseBaseX = diffX;
+                  break;
+                case 'right':
+                  payload.transverseBaseX = -diffX;
+                  break;
+              }
+              this.clickCoords.x = e.pageX;
+            }
+            if (diffY !== 0) {
+              payload.transverseBaseY = diffY;
+              this.clickCoords.y = e.pageY;
+            }
             
             store.dispatch({
-              type: "BASE_XY_CHANGED",
+              type: "BASE_XY_SHIFTED",
               legId: this.legId,
               payload
             });
+            
+            e.preventDefault();
+            e.stopPropagation();
           };
-          document.onmouseup = function() {
+          document.onmouseup = () => {
             document.onmousemove = null;
             document.onmouseup = null;
           }
           e.preventDefault();
-          e.stopPropagation();
+          e.stopPropagation()
         }
       }
       

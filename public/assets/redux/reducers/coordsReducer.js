@@ -123,8 +123,12 @@ const coordsReducer = (state = coordsInitState, action) => {
       if (action.payload.sagittalBaseY) {
         baseXY.sagittalBaseY = state[action.legId].sagittalBaseY - action.payload.sagittalBaseY;
       }
-      // TODO
-      // add transverse view here
+      if (action.payload.transverseBaseX) {
+        baseXY.transverseBaseX = state[action.legId].transverseBaseX - action.payload.transverseBaseX;
+      }
+      if (action.payload.transverseBaseY) {
+        baseXY.transverseBaseY = state[action.legId].transverseBaseY - action.payload.transverseBaseY;
+      }
 
       return Object.assign(
         {},
