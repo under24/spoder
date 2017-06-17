@@ -198,21 +198,17 @@
         this.$['rocker'].onmousedown = (e) => {
           let clickCoords = {x: e.pageX, y: e.pageY};
           let initCoords = {x: this.rockerX, y: this.rockerY};
-          let prevFinal = {x: e.pageX, y: e.pageY};
           document.onmousemove = (e) => {
             let dragX = e.pageX - clickCoords.x;
             let dragY = e.pageY - clickCoords.y;
             
+            // same values -> bail out
+            if (dragX === 0 && dragY === 0) return;
+            
             let rx = initCoords.x + dragX;
             let ry = initCoords.y + dragY;
             
-            // filter out same values
-            if (rx === prevFinal.x && ry === prevFinal.y) return;
-            
-            prevFinal.x = rx;
-            prevFinal.y = ry;
-            
-            // render
+            // render joystick
             this.calcJoystickPosition(rx, ry);
             
             e.preventDefault();
