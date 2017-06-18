@@ -14,6 +14,18 @@ let Utils = {
   flipNumber(n) {
     return n * -1;
   },
+  roundNumber(num, scale) {
+    if (!(String(num)).includes("e")) {
+      return +(Math.round(num + "e+" + scale)  + "e-" + scale);
+    } else {
+      var arr = (String(num)).split("e");
+      var sig = ""
+      if(+arr[1] + scale > 0) {
+        sig = "+";
+      }
+      return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
+    }
+  },
   closestNumber(num, arr) {
     let currentNumber = arr[0];
     let diff = Math.abs(num - currentNumber);
@@ -26,7 +38,7 @@ let Utils = {
     }
     return currentNumber;
   },
-  runTicking(tps, ticksNum, tickValue) {
+  runTicking(tps, amountOfTicks) {
     let n = 0;
     
     let initTime = +new Date();
@@ -36,7 +48,7 @@ let Utils = {
       console.log('At', n, 'tick');
       console.log('----------------------');
       
-      if (n >= ticksNum) {
+      if (n >= amountOfTicks) {
         clearInterval(interval);
         
         console.log('Done ticking at', n);
