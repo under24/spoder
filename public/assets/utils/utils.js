@@ -13,6 +13,37 @@ let Utils = {
   },
   flipNumber(n) {
     return n * -1;
+  },
+  closestNumber(num, arr) {
+    let currentNumber = arr[0];
+    let diff = Math.abs(num - currentNumber);
+    for (let i = 0; i < arr.length; i++) {
+        let newdiff = Math.abs(num - arr[i]);
+        if (newdiff < diff) {
+            diff = newdiff;
+            currentNumber = arr[i];
+        }
+    }
+    return currentNumber;
+  },
+  runTicking(tps, ticksNum, tickValue) {
+    let n = 0;
+    
+    let initTime = +new Date();
+    let interval = setInterval(() => {
+      n++;
+      
+      console.log('At', n, 'tick');
+      console.log('----------------------');
+      
+      if (n >= ticksNum) {
+        clearInterval(interval);
+        
+        console.log('Done ticking at', n);
+        console.log('Time passed:',+new Date() - initTime);
+      }
+    }, 1000 / tps);
+    
   }
 };
 
