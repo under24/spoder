@@ -10,7 +10,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
-      #joystickContainer {
+      .joystickContainer {
         border: 1px dashed rgba(0, 0, 0, 0.5);
         border-radius: 100%;
         width: 100%;
@@ -18,7 +18,7 @@
         box-sizing: border-box;
       }
       /* vertical line */
-      :host([debug]) #joystickContainer::before {
+      :host([debug]) .joystickContainer::before {
         content: '';
         display: inline-block;
         position: absolute;
@@ -29,7 +29,7 @@
         transform: translateX(-50%);
       }
       /* horizontal line */
-      :host([debug]) #joystickContainer::after {
+      :host([debug]) .joystickContainer::after {
         content: '';
         display: inline-block;
         position: absolute;
@@ -98,7 +98,7 @@
         transform: translateX(100%);
       }
     </style>
-    <div id="joystickContainer">
+    <div class="joystickContainer">
       <div id="centerPoint">
         <div id="centerGuideline"></div>
       </div>
@@ -112,13 +112,13 @@
             Debug
           </label>
         </div>
-        <div>
-          <label>
-             <input type="checkbox" checked="{{restrict::change}}">
-             Restrict
-          </label>
-        </div>
         <template is="dom-if" if="[[debug]]" restamp>
+          <div>
+            <label>
+               <input type="checkbox" checked="{{restrict::change}}">
+               Restrict
+            </label>
+          </div>
           <div>Size: [[size]]</div>
           <div>Radius: [[radius]]</div>
           <div>RockerX: [[rockerX]]</div>
