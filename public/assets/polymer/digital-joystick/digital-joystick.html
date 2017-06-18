@@ -10,7 +10,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
-      #outer-circle {
+      #joystickContainer {
         border: 1px dashed rgba(0, 0, 0, 0.5);
         border-radius: 100%;
         width: 100%;
@@ -18,7 +18,7 @@
         box-sizing: border-box;
       }
       /* vertical line */
-      :host([debug]) #outer-circle::before {
+      :host([debug]) #joystickContainer::before {
         content: '';
         display: inline-block;
         position: absolute;
@@ -29,7 +29,7 @@
         transform: translateX(-50%);
       }
       /* horizontal line */
-      :host([debug]) #outer-circle::after {
+      :host([debug]) #joystickContainer::after {
         content: '';
         display: inline-block;
         position: absolute;
@@ -61,14 +61,14 @@
         transform: translate(-50%, -50%);
         border-radius: 100%;
       }
-      #center {
+      #centerPoint {
         position: absolute;
         height: 1px;
         width: 1px;
         transform: translate(-50%,-50%);
       }
       /* center dot */
-      :host([debug]) #center::before {
+      :host([debug]) #centerPoint::before {
         content: '';
         position: absolute;
         height: 6px;
@@ -76,19 +76,6 @@
         background-color: red;
         transform: translate(-50%,-50%);
         border-radius: 100%;
-        top: 50%;
-        left: 50%;
-      }
-      /* centering boundaries */
-      #center::after {
-        content: '';
-        display: inline-block;
-        width: 100px;
-        height: 100px;
-        background-color: rgba(255, 0, 0, 0.1);
-        border-radius: 100%;
-        transform: translate(-50%,-50%);
-        position: absolute;
         top: 50%;
         left: 50%;
       }
@@ -100,7 +87,7 @@
         transform: translate(-50%,-50%);
         border-radius: 100%;
       }
-      :host([debug]) #centerDirectionRocker {
+      :host([debug]) #centerGuideline {
         transform-origin: left;
         border-top: 1px dashed black;
         position: absolute;
@@ -114,16 +101,16 @@
         transform: translateX(100%);
       }
     </style>
-    <div id="outer-circle">
-      <div id="center">
-        <div id="centerDirectionRocker"></div>
+    <div id="joystickContainer">
+      <div id="centerPoint">
+        <div id="centerGuideline"></div>
       </div>
       <div id="rocker"></div>
       <div id="boundaryCircle"></div>
       
       <div class="debug-block">
-        <label for="debug">Debug mode</label>
         <input type="checkbox" id="debug" checked="{{debug::change}}" />
+        <label for="debug">Debug</label>
         <template is="dom-if" if="[[debug]]" restamp>
           <div>Size: [[size]]</div>
           <div>Radius: [[radius]]</div>
@@ -134,10 +121,10 @@
           <div>DiffY: [[diffY]]</div>
           <div>Dist in pxls: [[distInPxls]]</div>
           <div>Dist in pct: [[distInPct]]</div>
-          <div>X Shift: [[xShift]]</div>
-          <div>Y Shift: [[yShift]]</div>
           <div>BoundaryX: [[boundaryX]]</div>
           <div>BoundaryY: [[boundaryY]]</div>
+          <div>X Shift: [[xShift]]</div>
+          <div>Y Shift: [[yShift]]</div>
         </template>
       </div>
     </div>
@@ -163,7 +150,7 @@
           },
           rockerSize: {
             type: Number,
-            value: 25
+            value: 30
           },
           rockerX: {
             type: Number,
@@ -173,21 +160,27 @@
             type: Number,
             observer: 'redrawY'
           },
+          xShift: {
+            type: Number,
+            notify: true
+          },
+          yShift: {
+            type: Number,
+            notify: true
+          },
           centerX: Number,
           centerY: Number,
           debug: {
             type: Boolean,
             value: true,
             reflectToAttribute: true,
-            observer: 'observeDebug'
           },
+          // debug values
           // diffX: Number,
           // diffY: Number,
           // angle: Number,
           // distInPxls: Number,
           // distInPct: Number,
-          // xShift: Number,
-          // yShift: Number,
           // boundaryX: Number,
           // boundaryY: Number
         };
@@ -207,8 +200,8 @@
         
         this.centerRocker();
         
-        this.$.center.style.left = this.centerX + 'px';
-        this.$.center.style.top = this.centerY + 'px';
+        this.$.centerPoint.style.left = this.centerX + 'px';
+        this.$.centerPoint.style.top = this.centerY + 'px';
         
         // set rocker size
         this.$.rocker.style.width = this.rockerSize + '%';
@@ -230,7 +223,7 @@
             let ry = initCoords.y + dragY;
             
             // render joystick
-            this.calcJoystickPosition(rx, ry);
+            this.renderJoystick(rx, ry);
             
             e.preventDefault();
             e.stopPropagation();
@@ -255,34 +248,56 @@
         this.$.rocker.style.top = y + 'px';
       }
       
-      validateAndSetX(x) {
-        if (this.restrict) {
-          
-        }
+      drawCenterGuideline(distInPxls, screenAngle) {
+        this.$.centerGuideline.style.width = distInPxls + 'px';
+        this.$.centerGuideline.style.transform = 'rotate(' + screenAngle + 'deg)';
       }
       
-      validateAndSetY(y) {
-        if (this.restrict) {
-          
-        }
+      drawBoundaryBall(bx, by) {
+        this.$.boundaryCircle.style.left = bx + 'px';
+        this.$.boundaryCircle.style.top = by + 'px';
       }
       
       centerRocker() {
         // rockerX, rockerY
-        this.calcJoystickPosition(this.radius, this.radius);
+        this.renderJoystick(this.radius, this.radius);
       }
       
       computeRadius(size) {
         return this.size / 2;
       }
       
-      calcJoystickPosition(rx, ry) {
+      renderJoystick(rx, ry) {
+        let rockerData = this.calcRockerData(rx, ry);
+        
+        // recalc if the rx ry are outside the boundaries
+        if (this.restrict && rockerData.distInPxls > this.radius) {
+          rockerData = this.calcRockerData(rockerData.bx, rockerData.by);
+        }
+        
+        // redraw rocker
+        this.rockerX = rockerData.rx;
+        this.rockerY = rockerData.ry;
+        
+        // set main values
+        this.xShift = rockerData.xShift;
+        this.yShift = rockerData.yShift;
+        
+        // set debug data && redraw ui
+        if (this.debug) this.pushDebugData(rockerData);
+        
+        
+        // TODO
+        // filter out same values
+        this.dispatchData(rockerData.xShift, rockerData.yShift);
+      }
+      
+      calcRockerData(rx, ry) {
         // rockerX - centerX, rockerY - centerY
         let diff = this.getDiffXY(rx, ry);
         
         // distance from center to rocker in pxls
         let distInPxls = this.getDistanceInPixels(diff);
-        this.$.centerDirectionRocker.style.width = distInPxls + 'px';
 
         // distance from center to rocker in pct
         let distInPct = this.getDistanceInPct(distInPxls);
@@ -297,39 +312,23 @@
         
         // convert angle to screen angle
         let screenAngle = this.getScreenAngle(angle);
-        this.$.centerDirectionRocker.style.transform = 'rotate(' + screenAngle + 'deg)';
         
         // boundary ball
         let bx = this.getBoundaryX(this.centerX, angle);
-        this.$.boundaryCircle.style.left = bx + 'px';
         let by = this.getBoundaryY(this.centerY, angle);
-        this.$.boundaryCircle.style.top = by + 'px';
         
-        // set variables
-        if (this.debug) {
-          this.diffX = diff.x;
-          this.diffY = diff.y;
-          this.distInPxls = distInPxls;
-          this.distInPct = distInPct;
-          this.xShift = xShift;
-          this.yShift = yShift;
-          this.angle = screenAngle;
-          this.boundaryX = bx;
-          this.boundaryY = by;   
+        return {
+          rx,
+          ry,
+          diff,
+          distInPxls,
+          distInPct,
+          xShift,
+          yShift,
+          screenAngle,
+          bx,
+          by
         }
-     
-
-        if (distInPxls > this.radius) {
-          this.rockerX = bx;
-          this.rockerY = by;
-        } else {
-          this.rockerX = rx;
-          this.rockerY = ry;
-        }
-        
-        // TODO
-        // filter out same values
-        this.dispatchData(xShift, yShift);
       }
       
       getDiffXY(rx, ry) {
@@ -367,6 +366,18 @@
         return cy + this.radius * Math.sin(angle);
       }
       
+      pushDebugData(rockerData) {
+        this.drawBoundaryBall(rockerData.bx, rockerData.by);
+        this.drawCenterGuideline(rockerData.distInPxls, rockerData.screenAngle);
+        this.diffX = rockerData.diff.x;
+        this.diffY = rockerData.diff.y;
+        this.distInPxls = rockerData.distInPxls;
+        this.distInPct = rockerData.distInPct;
+        this.angle = rockerData.screenAngle;
+        this.boundaryX = rockerData.bx;
+        this.boundaryY = rockerData.by;   
+      }
+      
       dispatchData(xShift, yShift) {
         let payload = {};
         // left - right
@@ -395,10 +406,6 @@
         }
         
         store.dispatch({type: "BASE_Y_TILT_MODIFIER_CHANGED", payload}); 
-      }
-      
-      observeDebug(newValue) {
-        
       }
 
     }
