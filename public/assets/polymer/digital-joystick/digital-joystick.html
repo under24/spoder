@@ -106,8 +106,18 @@
       <div id="boundaryCircle"></div>
       
       <div class="debug-block">
-        <input type="checkbox" id="debug" checked="{{debug::change}}" />
-        <label for="debug">Debug</label>
+        <div>
+          <label>
+            <input type="checkbox" checked="{{debug::change}}">
+            Debug
+          </label>
+        </div>
+        <div>
+          <label>
+             <input type="checkbox" checked="{{restrict::change}}">
+             Restrict
+          </label>
+        </div>
         <template is="dom-if" if="[[debug]]" restamp>
           <div>Size: [[size]]</div>
           <div>Radius: [[radius]]</div>
@@ -169,7 +179,7 @@
           centerY: Number,
           debug: {
             type: Boolean,
-            value: true,
+            value: false,
             reflectToAttribute: true,
           },
           // debug values
