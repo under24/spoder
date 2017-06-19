@@ -183,6 +183,10 @@
             value: false,
             reflectToAttribute: true,
           },
+          expandValues: {
+            type: Boolean,
+            value: false
+          }
           // debug values
           // diffX: Number,
           // diffY: Number,
@@ -291,7 +295,10 @@
         this.xShift = rockerData.xShift;
         this.yShift = rockerData.yShift;
         
-        // set debug data && redraw ui
+        // generate top - bottom, left - right values
+        if (this.expandValues) this.generateExpandedValues();
+        
+        // set debug data && redraw debug ui
         if (this.debug) this.pushDebugData(rockerData);
         
         
@@ -384,6 +391,29 @@
         this.angle = rockerData.screenAngle;
         this.boundaryX = rockerData.bx;
         this.boundaryY = rockerData.by;   
+      }
+      
+      generateExpandedValues() {
+        let temp = {};
+        
+        // left - right
+        if (this.xShift === 0) {
+          temp.left = temp.right = 0;
+        } else {
+          temp.left = this.xShift;
+          temp.right = this.xShift * -1;
+        }
+        
+        // top - bottom
+        if (this.xShift === 0) {
+          temp.top = temp.bottom = 0;
+        } else {
+          temp.top = this.yShift;
+          temp.bottom = this.yShift * -1;
+        }
+        
+        this.expandedValues = temp;
+        
       }
       
       dispatchData(xShift, yShift) {
