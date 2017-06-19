@@ -33,7 +33,7 @@
       }
       
       changeHandler(e) {
-        store.dispatch({type: "BASE_Y_LEVEL_MODIFIER_CHANGED", payload: {sagittalBaseYLevelModifier: +e.target.value}});
+        store.dispatch({type: "BASE_Y_LEVEL_MODIFIER_CHANGED", payload: {levelModifier: +e.target.value}});
         e.preventDefault();
         e.stopPropagation();
       }

@@ -2,11 +2,17 @@
 
 const { combineReducers, createStore} = Redux;
 
+const modifierReducer = combineReducers({
+  level: levelReducer,
+  tilt: tiltReducer,
+  shift: shiftReducer
+});
+
 const reducers = combineReducers({
   legs: legReducer,
   metaData: metaDataReducer,
   views: viewsReducer,
-  modifiers: modifiersReducer,
+  modifiers: modifierReducer,
   coords: coordsReducer
 });
 

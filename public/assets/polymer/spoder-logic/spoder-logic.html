@@ -45,15 +45,20 @@
             statePath: 'coords.6',
             observer: 'observeCoords'
           },
-          sagittalBaseYLevelModifier: {
-            type: Number,
-            statePath: 'modifiers.sagittalBaseYLevelModifier',
-            observer: 'observeSagittalBaseYLevelModifier'
+          levelModifier: {
+            // type: Object,
+            statePath: 'modifiers.level',
+            observer: 'observeLevelModifier'
           },
-          modifiers: {
-            type: Object,
-            statePath: 'modifiers',
-            observer: 'observeModifiers'
+          tiltModifier: {
+            // type: Object,
+            statePath: 'modifiers.tilt',
+            observer: 'observeTiltModifier'
+          },
+          shiftModifier: {
+            // type: Object,
+            statePath: 'modifiers.shift',
+            observer: 'observeShiftModifier'
           }
         };
       }
@@ -227,6 +232,7 @@
       // BEGIN PROPERTY OBSERVERS
 
       observeCoords(newValue, oldValue) {
+        debugger;
         // first time init... render init values into angles
         if (oldValue === undefined) {
           this.positionFemurAndTibia(newValue.legId, 'sagittal');
@@ -249,22 +255,22 @@
         ) this.positionCoxa(newValue.legId, 'transverse');
       }
       
-      observeSagittalBaseYLevelModifier(newValue, oldValue) {
+      observeLevelModifier(newValue, oldValue) {
+        debugger;
+        
         if (oldValue === undefined) return;
-
+        
         store.dispatch({
           type: "BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y",
-          payload: oldValue - newValue
+          payload: oldValue.levelModifier - newValue.levelModifier
         });
       }
       
-      observeModifiers(newValue, oldValue) {
+      observeTiltModifier(newValue, oldValue) {
+        debugger;
+
         if (oldValue === undefined) return;
         
-        // TODO
-        // filter out same values
-        if (newValue.sagittalBaseYBackTiltModifier == oldValue.sagittalBaseYBackTiltModifier) console.log('same values');
-
         let payload = {
           sagittalBaseYBackTiltModifier: oldValue.sagittalBaseYBackTiltModifier - newValue.sagittalBaseYBackTiltModifier,
           sagittalBaseYFrontTiltModifier: oldValue.sagittalBaseYFrontTiltModifier - newValue.sagittalBaseYFrontTiltModifier,
@@ -272,6 +278,10 @@
           sagittalBaseYRightTiltModifier: oldValue.sagittalBaseYRightTiltModifier - newValue.sagittalBaseYRightTiltModifier
         }
         store.dispatch({type: "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y", payload});
+      }
+      
+      observeShiftModifier(newValue, oldValue) {
+        
       }
       
       // END PROPERTY OBSERVERS
