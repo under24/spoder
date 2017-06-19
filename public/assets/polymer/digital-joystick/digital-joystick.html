@@ -149,7 +149,6 @@
             value: 300
           },
           radius: {
-            type: Number,
             computed: 'computeRadius(size)'
           },
           restrict: {
@@ -161,19 +160,15 @@
             value: 30
           },
           rockerX: {
-            type: Number,
             observer: 'redrawX'
           },
           rockerY: {
-            type: Number,
             observer: 'redrawY'
           },
           xShift: {
-            type: Number,
             notify: true
           },
           yShift: {
-            type: Number,
             notify: true
           },
           centerX: Number,
