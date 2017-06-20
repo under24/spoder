@@ -26,21 +26,22 @@ let Utils = {
       return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
     }
   },
-  closestNumber(num, arr) {
-    let currentNumber = arr[0];
-    let diff = Math.abs(num - currentNumber);
-    for (let i = 0; i < arr.length; i++) {
-        let newdiff = Math.abs(num - arr[i]);
-        if (newdiff < diff) {
-            diff = newdiff;
-            currentNumber = arr[i];
-        }
-    }
-    return currentNumber;
-  },
+  // closestNumber(num, arr) {
+  //   let currentNumber = arr[0];
+  //   let diff = Math.abs(num - currentNumber);
+  //   for (let i = 0; i < arr.length; i++) {
+  //       let newdiff = Math.abs(num - arr[i]);
+  //       if (newdiff < diff) {
+  //           diff = newdiff;
+  //           currentNumber = arr[i];
+  //       }
+  //   }
+  //   return currentNumber;
+  // },
   runTicking(tps, amountOfTicks) {
     let n = 0;
     
+    // debug timer
     let initTime = +new Date();
     let interval = setInterval(() => {
       n++;
@@ -51,6 +52,7 @@ let Utils = {
       if (n >= amountOfTicks) {
         clearInterval(interval);
         
+        // debug info
         console.log('Done ticking at', n);
         console.log('Time passed:',+new Date() - initTime);
       }
@@ -58,4 +60,3 @@ let Utils = {
     
   }
 };
-

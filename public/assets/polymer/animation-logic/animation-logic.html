@@ -1,0 +1,83 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="animation-logic">
+  <script>
+    class animationLogic extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'animation-logic'; }
+      static get properties() {
+        return {
+          tps: {
+            type: Number,
+            value: 60
+          },
+          ms: {
+            type: Number,
+            value: 2000
+          } 
+          
+        };
+      }
+      
+      start() {
+        let amountOfTicks = this.calcAmountOfTicks(this.tps, this.ms);
+        
+        let ticksObj = this.generateTicks(amountOfTicks);
+        
+        let a = 5;
+        let b = 95;
+        let tickNA = this.closestNumber(a, ticksObj);
+        let tickNB = this.closestNumber(b, ticksObj);
+        
+        let diffAB = this.calcAmountOfTicksToNextVal(tickNA, tickNB);
+        
+        let ticksValue = this.calcTicksValueBasedOnAmount(diffAB, 150);
+      }
+      
+      calcAmountOfTicks(tps, ms) {
+        let amountOfTicks = ms / (1000 / tps);
+        return Utils.roundNumber(amountOfTicks, 0);
+      }
+      
+      generateTicks(amountOfTicks) {
+        let temp = {};
+        
+        for (let i = 0; i <= amountOfTicks; i++) {
+          temp[i] = {
+            pct: Utils.roundNumber(100 / amountOfTicks * i, 1),
+            value: undefined
+          };
+        }
+        
+        return temp;
+      }
+      
+      closestNumber(num, obj) {
+        let currentNumber = 0;
+        let diff = Math.abs(num - currentNumber);
+        for (let key in obj) {
+          let newDiff = Math.abs(num - obj[key].pct);
+          if (newDiff < diff) {
+            diff = newDiff;
+            currentNumber = key;
+          }
+        }
+        return currentNumber;
+      }
+      
+      calcAmountOfTicksToNextVal(prevVal, nextVal) {
+        return nextVal - prevVal;
+      }
+      
+      calcTicksValueBasedOnAmount(amountOfTicks, pixelsToMove) {
+        return pixelsToMove / amountOfTicks;
+      }
+      
+      populateTicksWithValues() {
+        
+      }
+
+    }
+
+    window.customElements.define(animationLogic.is, animationLogic);
+  </script>
+</dom-module>
