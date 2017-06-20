@@ -31,6 +31,8 @@
         let diffAB = this.calcAmountOfTicksToNextVal(tickNA, tickNB);
         
         let ticksValue = this.calcTicksValueBasedOnAmount(diffAB, 150);
+        
+        debugger;
       }
       
       calcAmountOfTicks(tps, ms) {
@@ -73,6 +75,28 @@
       }
       
       populateTicksWithValues() {
+        
+      }
+      
+      runTicking(tps, amountOfTicks) {
+        let n = 0;
+        
+        // debug timer
+        let initTime = +new Date();
+        let interval = setInterval(() => {
+          n++;
+          
+          console.log('At', n, 'tick');
+          console.log('----------------------');
+          
+          if (n >= amountOfTicks) {
+            clearInterval(interval);
+            
+            // debug info
+            console.log('Done ticking at', n);
+            console.log('Time passed:',+new Date() - initTime);
+          }
+        }, 1000 / tps);
         
       }
 
