@@ -220,7 +220,6 @@
       // BEGIN PROPERTY OBSERVERS
 
       observeCoords(newValue, oldValue) {
-        debugger;
         // first time init... render init values into angles
         if (oldValue === undefined) {
           this.positionFemurAndTibia(newValue.legId, 'sagittal');
@@ -244,8 +243,6 @@
       }
       
       observeLevelModifier(newValue, oldValue) {
-        debugger;
-        
         if (oldValue === undefined) return;
         
         store.dispatch({
@@ -255,8 +252,6 @@
       }
       
       observeTiltModifier(newValue, oldValue) {
-        debugger;
-
         if (oldValue === undefined) return;
         
         let payload = {

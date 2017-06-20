@@ -30,7 +30,9 @@
         
         let diffAB = this.calcAmountOfTicksToNextVal(tickNA, tickNB);
         
-        let ticksValue = this.calcTicksValueBasedOnAmount(diffAB, 150);
+        let tickValue = this.calcTicksValueBasedOnAmount(diffAB, 150);
+        
+        this.populateTicksWithValues(tickNA, tickNB, tickValue, ticksObj);
         
         debugger;
       }
@@ -74,8 +76,14 @@
         return pixelsToMove / amountOfTicks;
       }
       
-      populateTicksWithValues() {
-        
+      populateTicksWithValues(start, end, value, obj) {
+        for (let key in obj) {
+          if (+key < +start) continue;
+          if (+key > +end) break;
+          
+          obj[key].value = value;
+        }
+        debugger;
       }
       
       runTicking(tps, amountOfTicks) {
