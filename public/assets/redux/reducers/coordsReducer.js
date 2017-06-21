@@ -151,28 +151,28 @@ const coordsReducer = (state = coordsInitState, action) => {
           
           // LEFT SIDE LEGS
           if (state[i].side === 'left') {
-            let finalModifierValue = action.payload.sagittalBaseYLeftTiltModifier;
+            let finalModifierValue = action.payload.leftTiltModifier;
             // FRONT LEGS
             if (state[i].row === 'front') {
-              finalModifierValue += action.payload.sagittalBaseYFrontTiltModifier;
+              finalModifierValue += action.payload.frontTiltModifier;
             }
             // BACK LEGS
             if (state[i].row === 'back') {
-              finalModifierValue += action.payload.sagittalBaseYBackTiltModifier;
+              finalModifierValue += action.payload.backTiltModifier;
             }
             newState[i] = Object.assign({}, state[i], {sagittalBaseY: state[i].sagittalBaseY - finalModifierValue});
           }
           
           // RIGHT SIDE LEGS
           if (state[i].side === 'right') {
-            let finalModifierValue = action.payload.sagittalBaseYRightTiltModifier;
+            let finalModifierValue = action.payload.rightTiltModifier;
             // FRONT LEGS
             if (state[i].row === 'front') {
-              finalModifierValue += action.payload.sagittalBaseYFrontTiltModifier;
+              finalModifierValue += action.payload.frontTiltModifier;
             }
             // BACK LEGS
             if (state[i].row === 'back') {
-              finalModifierValue += action.payload.sagittalBaseYBackTiltModifier;
+              finalModifierValue += action.payload.backTiltModifier;
             }
             newState[i] = Object.assign({}, state[i], {sagittalBaseY: state[i].sagittalBaseY - finalModifierValue});
           }

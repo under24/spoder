@@ -4,7 +4,8 @@ let shiftInitState = {
   leftShiftModifier: 0,
   rightShiftModifier: 0,
   frontShiftModifier: 0,
-  backShiftModifier: 0
+  backShiftModifier: 0,
+  appliedTo: 'sagittalBaseX'
 }
 
 const shiftReducer = (state = shiftInitState, action) => {

@@ -255,10 +255,10 @@
         if (oldValue === undefined) return;
         
         let payload = {
-          sagittalBaseYBackTiltModifier: oldValue.sagittalBaseYBackTiltModifier - newValue.sagittalBaseYBackTiltModifier,
-          sagittalBaseYFrontTiltModifier: oldValue.sagittalBaseYFrontTiltModifier - newValue.sagittalBaseYFrontTiltModifier,
-          sagittalBaseYLeftTiltModifier: oldValue.sagittalBaseYLeftTiltModifier - newValue.sagittalBaseYLeftTiltModifier,
-          sagittalBaseYRightTiltModifier: oldValue.sagittalBaseYRightTiltModifier - newValue.sagittalBaseYRightTiltModifier
+          backTiltModifier: oldValue.backTiltModifier - newValue.backTiltModifier,
+          frontTiltModifier: oldValue.frontTiltModifier - newValue.frontTiltModifier,
+          leftTiltModifier: oldValue.leftTiltModifier - newValue.leftTiltModifier,
+          rightTiltModifier: oldValue.rightTiltModifier - newValue.rightTiltModifier
         }
         store.dispatch({type: "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y", payload});
       }

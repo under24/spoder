@@ -1,10 +1,11 @@
 'use strict';
 
 let tiltInitState = {
-  sagittalBaseYLeftTiltModifier: 0,
-  sagittalBaseYRightTiltModifier: 0,
-  sagittalBaseYFrontTiltModifier: 0,
-  sagittalBaseYBackTiltModifier: 0
+  leftTiltModifier: 0,
+  rightTiltModifier: 0,
+  frontTiltModifier: 0,
+  backTiltModifier: 0,
+  appliedTo: 'sagittalBaseY'
 }
 
 const tiltReducer = (state = tiltInitState, action) => {
