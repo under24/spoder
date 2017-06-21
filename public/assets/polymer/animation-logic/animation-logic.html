@@ -24,17 +24,17 @@
         let ticksObj = this.generateTimeline(amountOfTicks);
         
         let a = 5;
-        let tickNA = this.closestNumber(a, ticksObj);
+        let tickA = this.getClosestTick(a, ticksObj);
         let b = 95;
-        let tickNB = this.closestNumber(b, ticksObj);
+        let tickB = this.getClosestTick(b, ticksObj);
 
-        let diffAB = this.calcAmountOfTicksToNextVal(tickNA, tickNB);
+        let diffAB = this.calcAmountOfTicksToNextVal(tickA, tickB);
         
-        let tickValue = this.calcTicksValueBasedOnAmount(diffAB, 150);
+        let tickValue = this.calcTickValueBasedOnAmount(diffAB, 150);
         
         let coordType = 'sagittalCursorY';
         
-        this.populateTimeline(tickNA, tickNB, coordType, tickValue, ticksObj);
+        this.populateTimeline(tickA, tickB, coordType, tickValue, ticksObj);
         
         debugger;
       }
@@ -50,15 +50,16 @@
         for (let i = 0; i <= amountOfTicks; i++) {
           timeline[i] = {
             pct: Utils.roundNumber(100 / amountOfTicks * i, 1),
-            payload: undefined
+            // payload: undefined
           };
         }
         
         return timeline;
       }
       
-      closestNumber(num, obj) {
+      getClosestTick(num, obj) {
         let currentNumber = 0;
+        
         let diff = Math.abs(num - currentNumber);
         for (let key in obj) {
           let newDiff = Math.abs(num - obj[key].pct);
@@ -74,7 +75,7 @@
         return (nextVal - prevVal) + 1;
       }
       
-      calcTicksValueBasedOnAmount(amountOfTicks, pixelsToMove) {
+      calcTickValueBasedOnAmount(amountOfTicks, pixelsToMove) {
         return pixelsToMove / amountOfTicks;
       }
       
