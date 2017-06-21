@@ -12,7 +12,7 @@
           },
           ms: {
             type: Number,
-            value: 2000
+            value: 1000
           } 
           
         };
@@ -21,18 +21,20 @@
       start() {
         let amountOfTicks = this.calcAmountOfTicks(this.tps, this.ms);
         
-        let ticksObj = this.generateTicks(amountOfTicks);
+        let ticksObj = this.generateTimeline(amountOfTicks);
         
         let a = 5;
-        let b = 95;
         let tickNA = this.closestNumber(a, ticksObj);
+        let b = 95;
         let tickNB = this.closestNumber(b, ticksObj);
-        
+
         let diffAB = this.calcAmountOfTicksToNextVal(tickNA, tickNB);
         
         let tickValue = this.calcTicksValueBasedOnAmount(diffAB, 150);
         
-        this.populateTicksWithValues(tickNA, tickNB, tickValue, ticksObj);
+        let coordType = 'sagittalCursorY';
+        
+        this.populateTimeline(tickNA, tickNB, coordType, tickValue, ticksObj);
         
         debugger;
       }
@@ -42,17 +44,17 @@
         return Utils.roundNumber(amountOfTicks, 0);
       }
       
-      generateTicks(amountOfTicks) {
-        let temp = {};
+      generateTimeline(amountOfTicks) {
+        let timeline = {};
         
         for (let i = 0; i <= amountOfTicks; i++) {
-          temp[i] = {
+          timeline[i] = {
             pct: Utils.roundNumber(100 / amountOfTicks * i, 1),
-            value: undefined
+            payload: undefined
           };
         }
         
-        return temp;
+        return timeline;
       }
       
       closestNumber(num, obj) {
@@ -69,19 +71,21 @@
       }
       
       calcAmountOfTicksToNextVal(prevVal, nextVal) {
-        return nextVal - prevVal;
+        return (nextVal - prevVal) + 1;
       }
       
       calcTicksValueBasedOnAmount(amountOfTicks, pixelsToMove) {
         return pixelsToMove / amountOfTicks;
       }
       
-      populateTicksWithValues(start, end, value, obj) {
+      populateTimeline(start, end, coordType, value, obj) {
         for (let key in obj) {
           if (+key < +start) continue;
           if (+key > +end) break;
           
-          obj[key].value = value;
+          obj[key].payload = {
+            [coordType]: value
+          }
         }
         debugger;
       }
