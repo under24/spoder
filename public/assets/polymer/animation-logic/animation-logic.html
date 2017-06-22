@@ -21,25 +21,25 @@
         };
       }
       
-      start(dataArr, tps = this.tps, ms = this.timelineDuration) {
+      start(dataArr, tps = this.tps, timelineDuration = this.timelineDuration) {
         // override passed values
         if (this.forceTiming) {
           tps = this.tps;
-          ms = this.timelineDuration;
+          timelineDuration = this.timelineDuration;
         }
         
-        let amountOfTicks = this.getAmountOfTicks(tps, ms);
+        let amountOfTicks = this.getAmountOfTicks(tps, timelineDuration);
         let timeline = this.generateTimeline(amountOfTicks);
         
         for (let i = 0; i < dataArr.length; i++) {
           this.populateTimeline(dataArr[i], timeline);
         }
         
-        debugger;
+        return {timeline, tps, timelineDuration, amountOfTicks};        
       }
       
-      getAmountOfTicks(tps, ms) {
-        let amountOfTicks = ms / (1000 / tps);
+      getAmountOfTicks(tps, timelineDuration) {
+        let amountOfTicks = timelineDuration / (1000 / tps);
         return Utils.roundNumber(amountOfTicks, 0);
       }
       
@@ -95,26 +95,44 @@
         }
       }
       
-      runTicking(tps, amountOfTicks) {
-        let n = 0;
+      animate(data) {
+        debugger;
         
-        // debug timer
         let initTime = +new Date();
+        
+        // console.log(data.timeline[0].pct + "%", 'at', +new Date() - initTime);
+        // this.logger(data.timeline[0].payload);
+        // console.log('----------------------');
+
+        let n = 1;        
         let interval = setInterval(() => {
-          n++;
           
-          console.log('At', n, 'tick');
+          console.log(data.timeline[n].pct + "%", 'at', +new Date() - initTime);
+          this.logger(data.timeline[n].payload);
           console.log('----------------------');
           
-          if (n >= amountOfTicks) {
+          if (n >= data.amountOfTicks) {
             clearInterval(interval);
             
-            // debug info
             console.log('Done ticking at', n);
             console.log('Time passed:',+new Date() - initTime);
           }
-        }, 1000 / tps);
+          n++;
+        }, 1000 / data.tps);
         
+      }
+      
+      logger(payload) {
+        for (let coordType in payload) {
+          console.log(coordType, payload[coordType]);
+          
+          debugger;
+          store.dispatch({
+            type: "CURSOR_XY_SHIFTED",
+            legId: 1,
+            payload: {[coordType]: payload[coordType]}
+          });
+        }
       }
 
     }
