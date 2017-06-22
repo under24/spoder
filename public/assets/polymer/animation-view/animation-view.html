@@ -13,32 +13,33 @@
           ms: {
             type: Number,
             value: 1000
-          },
-          forceTiming: {
-            type: Boolean,
-            value: false
-          }
+          } 
+          
         };
       }
       
-      start(dataArr, tps = this.tps, ms = this.ms) {
-        // override passed values
-        if (this.forceTiming) {
-          tps = this.tps;
-          ms = this.ms;
-        }
+      start() {
+        let amountOfTicks = this.calcAmountOfTicks(this.tps, this.ms);
         
-        let amountOfTicks = this.getAmountOfTicks(this.tps, this.ms);
         let timeline = this.generateTimeline(amountOfTicks);
         
-        for (let i = 0; i < dataArr.length; i++) {
-          this.populateTimeline(dataArr[i], timeline);
-        }
+        let startPct = 10;
+        let tickA = +this.getClosestTick(startPct, timeline);
+        let endPct = 90;
+        let tickB = +this.getClosestTick(endPct, timeline);
+
+        let diffAB = this.calcAmountOfTicksToNextVal(tickA, tickB);
+        
+        let tickValue = this.calcTickValueBasedOnAmount(diffAB, 150);
+        
+        let coordType = 'sagittalCursorY';
+        
+        this.populateTimeline(tickA, tickB, coordType, tickValue, timeline);
         
         debugger;
       }
       
-      getAmountOfTicks(tps, ms) {
+      calcAmountOfTicks(tps, ms) {
         let amountOfTicks = ms / (1000 / tps);
         return Utils.roundNumber(amountOfTicks, 0);
       }
@@ -48,31 +49,20 @@
         
         for (let i = 0; i <= amountOfTicks; i++) {
           timeline[i] = {
-            pct: Utils.roundNumber(100 / amountOfTicks * i, 1),
-            payload: Object.create(null)
+            pct: Utils.roundNumber(100 / amountOfTicks * i, 1)
+            // payload: undefined
           };
         }
         
         return timeline;
       }
       
-      populateTimeline(data, timeline) {
-        let startTick = +this.getClosestTick(data.startPct, timeline);
-        let endTick = +this.getClosestTick(data.endPct, timeline);
-        
-        let diffAB = this.getAmountOfTicksBetween(startTick, endTick);
-        
-        let tickValue = this.calcTickValueBasedOnPxlsToMove(diffAB, data.pxlsToMove);
-
-        this.pushDataToTheTimeline(startTick, endTick, data.coordType, tickValue, timeline);
-      }
-      
-      getClosestTick(num, timeline) {
+      getClosestTick(num, obj) {
         let currentNumber = 0;
         
         let diff = Math.abs(num - currentNumber);
-        for (let key in timeline) {
-          let newDiff = Math.abs(num - timeline[key].pct);
+        for (let key in obj) {
+          let newDiff = Math.abs(num - obj[key].pct);
           if (newDiff < diff) {
             diff = newDiff;
             currentNumber = key;
@@ -81,17 +71,17 @@
         return currentNumber;
       }
       
-      getAmountOfTicksBetween(prevVal, nextVal) {
+      calcAmountOfTicksToNextVal(prevVal, nextVal) {
         return (nextVal - prevVal) + 1; // + 1 for 0 value
       }
       
-      calcTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
+      calcTickValueBasedOnAmount(amountOfTicks, pixelsToMove) {
         return pixelsToMove / amountOfTicks;
       }
       
-      pushDataToTheTimeline(startTick, endTick, coordType, value, timeline) {
+      populateTimeline(startTick, endTick, coordType, value, timeline) {
         for (let i = startTick; i <= endTick; i++) {
-          timeline[i].payload[coordType] = value;
+          timeline[i].payload = { [coordType]: value }
         }
       }
       
