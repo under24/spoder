@@ -1,114 +1,21 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 
-<dom-module id="animation-logic">
+<dom-module id="animation-view">
   <script>
-    class animationLogic extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'animation-logic'; }
+    class animationView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'animation-view'; }
       static get properties() {
         return {
           tps: {
             type: Number,
             value: 10
-          },
-          ms: {
-            type: Number,
-            value: 1000
-          } 
-          
+          }
         };
       }
       
-      start() {
-        let amountOfTicks = this.calcAmountOfTicks(this.tps, this.ms);
-        
-        let timeline = this.generateTimeline(amountOfTicks);
-        
-        let startPct = 10;
-        let tickA = +this.getClosestTick(startPct, timeline);
-        let endPct = 90;
-        let tickB = +this.getClosestTick(endPct, timeline);
-
-        let diffAB = this.calcAmountOfTicksToNextVal(tickA, tickB);
-        
-        let tickValue = this.calcTickValueBasedOnAmount(diffAB, 150);
-        
-        let coordType = 'sagittalCursorY';
-        
-        this.populateTimeline(tickA, tickB, coordType, tickValue, timeline);
-        
-        debugger;
-      }
-      
-      calcAmountOfTicks(tps, ms) {
-        let amountOfTicks = ms / (1000 / tps);
-        return Utils.roundNumber(amountOfTicks, 0);
-      }
-      
-      generateTimeline(amountOfTicks) {
-        let timeline = Object.create(null);
-        
-        for (let i = 0; i <= amountOfTicks; i++) {
-          timeline[i] = {
-            pct: Utils.roundNumber(100 / amountOfTicks * i, 1)
-            // payload: undefined
-          };
-        }
-        
-        return timeline;
-      }
-      
-      getClosestTick(num, obj) {
-        let currentNumber = 0;
-        
-        let diff = Math.abs(num - currentNumber);
-        for (let key in obj) {
-          let newDiff = Math.abs(num - obj[key].pct);
-          if (newDiff < diff) {
-            diff = newDiff;
-            currentNumber = key;
-          }
-        }
-        return currentNumber;
-      }
-      
-      calcAmountOfTicksToNextVal(prevVal, nextVal) {
-        return (nextVal - prevVal) + 1; // + 1 for 0 value
-      }
-      
-      calcTickValueBasedOnAmount(amountOfTicks, pixelsToMove) {
-        return pixelsToMove / amountOfTicks;
-      }
-      
-      populateTimeline(startTick, endTick, coordType, value, timeline) {
-        for (let i = startTick; i <= endTick; i++) {
-          timeline[i].payload = { [coordType]: value }
-        }
-      }
-      
-      runTicking(tps, amountOfTicks) {
-        let n = 0;
-        
-        // debug timer
-        let initTime = +new Date();
-        let interval = setInterval(() => {
-          n++;
-          
-          console.log('At', n, 'tick');
-          console.log('----------------------');
-          
-          if (n >= amountOfTicks) {
-            clearInterval(interval);
-            
-            // debug info
-            console.log('Done ticking at', n);
-            console.log('Time passed:',+new Date() - initTime);
-          }
-        }, 1000 / tps);
-        
-      }
 
     }
 
-    window.customElements.define(animationLogic.is, animationLogic);
+    window.customElements.define(animationView.is, animationView);
   </script>
 </dom-module>
