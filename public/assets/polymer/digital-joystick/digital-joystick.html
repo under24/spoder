@@ -178,7 +178,7 @@
             value: false,
             reflectToAttribute: true,
           },
-          expandValues: {
+          expandOutput: {
             type: Boolean,
             value: false
           }
@@ -291,7 +291,7 @@
         this.yShift = rockerData.yShift;
         
         // generate top - bottom, left - right values
-        if (this.expandValues) this.generateExpandedValues();
+        if (this.expandOutput) this.generateExpandedValues();
         
         // set debug data && redraw debug ui
         if (this.debug) this.pushDebugData(rockerData);
