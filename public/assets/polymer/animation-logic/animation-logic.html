@@ -81,8 +81,8 @@
         return +currentNumber;
       }
       
-      getAmountOfTicksBetween(prevVal, nextVal) {
-        return (nextVal - prevVal) + 1;
+      getAmountOfTicksBetween(startTick, endTick) {
+        return (endTick - startTick) + 1;
       }
       
       calcTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
