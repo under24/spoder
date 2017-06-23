@@ -46,7 +46,7 @@
       generateTimeline(amountOfTicks) {
         let timeline = Object.create(null);
         
-        for (let i = 0; i <= amountOfTicks; i++) {
+        for (let i = 1; i <= amountOfTicks; i++) {
           timeline[i] = {
             pct: Utils.roundNumber(100 / amountOfTicks * i, 1),
             payload: Object.create(null)
@@ -57,8 +57,8 @@
       }
       
       populateTimeline(data, timeline) {
-        let startTick = +this.getClosestTick(data.startPct, timeline);
-        let endTick = +this.getClosestTick(data.endPct, timeline);
+        let startTick = this.getClosestTick(data.startPct, timeline) + 1;
+        let endTick = this.getClosestTick(data.endPct, timeline);
         
         let ticksBetweenStartAndEnd = this.getAmountOfTicksBetween(startTick, endTick);
         
@@ -78,11 +78,11 @@
             currentNumber = key;
           }
         }
-        return currentNumber;
+        return +currentNumber;
       }
       
       getAmountOfTicksBetween(prevVal, nextVal) {
-        return (nextVal - prevVal) + 1; // + 1 for 0 value
+        return (nextVal - prevVal) + 1;
       }
       
       calcTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
@@ -99,15 +99,11 @@
         debugger;
         
         let initTime = +new Date();
-        
-        // console.log(data.timeline[0].pct + "%", 'at', +new Date() - initTime);
-        // this.logger(data.timeline[0].payload);
-        // console.log('----------------------');
 
         let n = 1;        
         let interval = setInterval(() => {
           
-          console.log(data.timeline[n].pct + "%", 'at', +new Date() - initTime);
+          console.log('tick:', n, data.timeline[n].pct + "%", 'at', +new Date() - initTime, 'ms');
           this.logger(data.timeline[n].payload);
           console.log('----------------------');
           
@@ -126,7 +122,6 @@
         for (let coordType in payload) {
           console.log(coordType, payload[coordType]);
           
-          debugger;
           store.dispatch({
             type: "CURSOR_XY_SHIFTED",
             legId: 1,
