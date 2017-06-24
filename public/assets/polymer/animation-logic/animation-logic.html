@@ -70,7 +70,7 @@
       getClosestTick(num, timeline) {
         let currentNumber = 0;
         
-        let diff = Math.abs(num - currentNumber);
+        let diff = num;
         for (let key in timeline) {
           let newDiff = Math.abs(num - timeline[key].pct);
           if (newDiff < diff) {
