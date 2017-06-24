@@ -8,15 +8,19 @@
         return {
           tps: {
             type: Number,
-            value: 60
+            value: 10
           },
           timelineDuration: {
             type: Number,
-            value: 10000
+            value: 1000
           },
           forceTiming: {
             type: Boolean,
             value: false
+          },
+          debug: {
+            type: Boolean,
+            value: true
           }
         };
       }
@@ -96,22 +100,26 @@
       }
       
       animate(data) {
-        debugger;
-        
-        let initTime = +new Date();
+        // debugger;
+        let startTime = +new Date();
 
-        let n = 1;        
-        let interval = setInterval(() => {
+        let n = 1;
+        let interval = window.setInterval(() => {
           
-          console.log('tick:', n, data.timeline[n].pct + "%", 'at', +new Date() - initTime, 'ms');
-          this.logger(data.timeline[n].payload);
-          console.log('----------------------');
+          if (this.debug) {
+            console.log('tick:', n, data.timeline[n].pct + "%", 'at', +new Date() - startTime, 'ms');
+            this.logger(data.timeline[n].payload);
+            console.log('----------------------');
+          }
           
+          // stop
           if (n >= data.amountOfTicks) {
-            clearInterval(interval);
+            window.clearInterval(interval);
             
-            console.log('Done ticking at', n);
-            console.log('Time passed:',+new Date() - initTime);
+            if (this.debug) {
+              console.log('Done ticking at', n);
+              console.log('Time passed:',+new Date() - startTime);
+            }
           }
           n++;
         }, 1000 / data.tps);

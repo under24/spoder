@@ -180,8 +180,9 @@
           },
           expandOutput: {
             type: Boolean,
-            value: false
-          }
+            value: true
+          },
+          expandedValues: Object
           // debug values
           // diffX: Number,
           // diffY: Number,
@@ -388,25 +389,25 @@
       }
       
       generateExpandedValues() {
-        let temp = {};
+        let expandedValues = {};
         
         // left - right
         if (this.xShift === 0) {
-          temp.left = temp.right = 0;
+          expandedValues.left = expandedValues.right = 0;
         } else {
-          temp.left = this.xShift;
-          temp.right = this.xShift * -1;
+          expandedValues.left = this.xShift;
+          expandedValues.right = this.xShift * -1;
         }
         
         // top - bottom
         if (this.xShift === 0) {
-          temp.top = temp.bottom = 0;
+          expandedValues.top = expandedValues.bottom = 0;
         } else {
-          temp.top = this.yShift;
-          temp.bottom = this.yShift * -1;
+          expandedValues.top = this.yShift;
+          expandedValues.bottom = this.yShift * -1;
         }
         
-        this.expandedValues = temp;
+        this.expandedValues = expandedValues;
       }
       
       dispatchData(xShift, yShift) {
