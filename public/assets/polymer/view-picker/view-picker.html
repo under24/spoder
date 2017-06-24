@@ -3,8 +3,61 @@
 <dom-module id="view-picker">
   <template>
     <style>
+      :host {
+        display: inline-block;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+      :host([view=none]) .close-view {
+        display: none;
+      }
+      .close-view {
+        display: inline-block;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 14px;
+        z-index: 1;
+      }
+      .selection-text {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .selection-section {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+      }
+      select {
+        padding: 5px;
+        text-align: center;
+        outline: none;
+        overflow: hidden;
+      }
     </style>
-
+    
+    <!-- reset view -->
+    <div class="close-view" on-click="resetView">CLOSE VIEW</div>
+    
+    <!-- selection -->
+    <template is="dom-if" if="[[computeView('none', view)]]" restamp>
+      <section class="selection-section">
+        <div class="selection-text">Choose view to load...</div>
+        <select value="{{view::change}}" multiple size="2">
+          <option value="none">None</option>
+          <option value="level-modifier-view">Level modifier view</option>
+        </select>
+      </section>
+    </template>
+    
+    <!-- level modifier view -->
+    <template is="dom-if" if="[[computeView('level-modifier-view', view)]]" restamp>
+      <level-modifier-view></level-modifier-view>
+    </template>
+    
   </template>
 
   <script>
@@ -12,14 +65,21 @@
       static get is() { return 'view-picker'; }
       static get properties() {
         return {
-          leftTiltY: {
-            type: Number,
-            value: 0
+          view: {
+            type: String,
+            value: 'none',
+            reflectToAttribute: true
           }
         };
       }
       
-
+      computeView(currView, view) {
+        return currView == view;
+      }
+      
+      resetView() {
+        this.view = 'none';
+      }
 
     }
 
