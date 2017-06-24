@@ -1,0 +1,28 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="view-picker">
+  <template>
+    <style>
+    </style>
+
+  </template>
+
+  <script>
+    class viewPicker extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'view-picker'; }
+      static get properties() {
+        return {
+          leftTiltY: {
+            type: Number,
+            value: 0
+          }
+        };
+      }
+      
+
+
+    }
+
+    window.customElements.define(viewPicker.is, viewPicker);
+  </script>
+</dom-module>
