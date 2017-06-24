@@ -8,11 +8,11 @@
         return {
           tps: {
             type: Number,
-            value: 10
+            value: 60
           },
           timelineDuration: {
             type: Number,
-            value: 1000
+            value: 10000
           },
           forceTiming: {
             type: Boolean,
@@ -122,11 +122,22 @@
         for (let coordType in payload) {
           console.log(coordType, payload[coordType]);
           
-          store.dispatch({
-            type: "CURSOR_XY_SHIFTED",
-            legId: 1,
-            payload: {[coordType]: payload[coordType]}
-          });
+          if (payload.sagittalCursorY) {
+            store.dispatch({
+              type: "CURSOR_XY_SHIFTED",
+              legId: 1,
+              payload: {[coordType]: payload.sagittalCursorY}
+            });
+          }
+          
+          if (payload.sagittalBaseY) {
+            store.dispatch({
+              type: "CURSOR_XY_SHIFTED",
+              legId: 1,
+              payload: {transverseCursorY: payload.sagittalBaseY}
+            });
+          }
+
         }
       }
 

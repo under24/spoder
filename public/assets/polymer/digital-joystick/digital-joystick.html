@@ -282,7 +282,7 @@
           rockerData = this.calcRockerData(rockerData.bx, rockerData.by);
         }
         
-        // redraw rocker
+        // redraw rocker ui
         this.rockerX = rockerData.rx;
         this.rockerY = rockerData.ry;
         
@@ -312,9 +312,8 @@
         // distance from center to rocker in pct
         let distInPct = this.getDistanceInPct(distInPxls);
         
-        // y point in pct from center
+        // x, y point in pct from center
         let xShift = this.getShiftCoords(rx);
-        // y point in pct from center
         let yShift = this.getShiftCoords(ry);
         
         // calc angle for calculations
@@ -408,7 +407,6 @@
         }
         
         this.expandedValues = temp;
-        
       }
       
       dispatchData(xShift, yShift) {

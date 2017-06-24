@@ -1,7 +1,7 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../digital-joystick/digital-joystick.html">
 <link rel="import" href="../level-modifier-view/level-modifier-view.html">
-
+<link rel="import" href="../animation-view/animation-view.html">
 
 <dom-module id="view-picker">
   <template>
@@ -49,9 +49,10 @@
     <template is="dom-if" if="[[computeView('none', view)]]" restamp>
       <section class="selection-section">
         <div class="selection-text">Choose view to load...</div>
-        <select value="{{view::change}}" multiple size="3">
+        <select value="{{view::change}}" multiple size="4">
           <option value="none">None</option>
           <option value="level-modifier-view">Level modifier view</option>
+          <option value="animation-view">Animation logic</option>
           <option value="digital-joystick">Joystick demo</option>
         </select>
       </section>
@@ -60,6 +61,11 @@
     <!-- level modifier view -->
     <template is="dom-if" if="[[computeView('level-modifier-view', view)]]" restamp>
       <level-modifier-view></level-modifier-view>
+    </template>
+    
+    <!-- animation view -->
+    <template is="dom-if" if="[[computeView('animation-view', view)]]" restamp>
+      <animation-view></animation-view>
     </template>
     
     <!-- joystick demo -->
