@@ -1,6 +1,6 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 
-<dom-module id="transverse-view-base">
+<dom-module id="animation-view-base">
   <template>
     <style>
       #base {
@@ -45,21 +45,19 @@
       <div id="baseRange"></div>
     </div>
   </template>
-
+  
   <script>
-    class transverseViewBase extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'transverse-view-base'; }
+    class animationViewBase extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'animation-view-base'; }
       static get properties() {
         return {
           legId: {
             type: Number,
-            statePath: 'views.transverseViewLegId',
+            value: 1
           },
           side: {
             type: String,
-            statePath(state) {
-              return state.legs[this.legId].side;
-            },
+            value: 'left',
             reflectToAttribute: true,
             observer: 'observeSide'
           },
@@ -221,6 +219,6 @@
 
     }
 
-    window.customElements.define(transverseViewBase.is, transverseViewBase);
+    window.customElements.define(animationViewBase.is, animationViewBase);
   </script>
 </dom-module>

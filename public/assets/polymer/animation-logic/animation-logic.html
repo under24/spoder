@@ -14,7 +14,7 @@
             type: Number,
             value: 1000
           },
-          forceTiming: {
+          overrideTiming: {
             type: Boolean,
             value: false
           },
@@ -27,13 +27,13 @@
       
       generateAnimationTimeline(dataArr, tps = this.tps, timelineDuration = this.timelineDuration) {
         // override passed values
-        if (this.forceTiming) {
+        if (this.overrideTiming) {
           tps = this.tps;
           timelineDuration = this.timelineDuration;
         }
         
         let amountOfTicks = this.getAmountOfTicks(tps, timelineDuration);
-        let timeline = this.generateTimeline(amountOfTicks);
+        let timeline = this.createTimeline(amountOfTicks);
         
         for (let i = 0; i < dataArr.length; i++) {
           this.populateTimeline(dataArr[i], timeline);
@@ -47,7 +47,7 @@
         return Utils.roundNumber(amountOfTicks, 0);
       }
       
-      generateTimeline(amountOfTicks) {
+      createTimeline(amountOfTicks) {
         let timeline = Object.create(null);
         
         for (let i = 1; i <= amountOfTicks; i++) {

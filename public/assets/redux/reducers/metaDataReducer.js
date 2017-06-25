@@ -3,7 +3,7 @@
 let metaDataInitState = {
   coxaLength: 100,
   femurLength: 100,
-  tibiaLength: 150,
+  tibiaLength: 140,
 };
 
 const metaDataReducer = (state = metaDataInitState, action) => {
