@@ -25,7 +25,7 @@
         };
       }
       
-      start(dataArr, tps = this.tps, timelineDuration = this.timelineDuration) {
+      generateAnimationTimeline(dataArr, tps = this.tps, timelineDuration = this.timelineDuration) {
         // override passed values
         if (this.forceTiming) {
           tps = this.tps;
@@ -99,7 +99,7 @@
         }
       }
       
-      animate(data) {
+      playTimeline(data) {
         // debugger;
         let startTime = +new Date();
 
@@ -112,7 +112,7 @@
             console.log('----------------------');
           }
           
-          // stop
+          // complete
           if (n >= data.amountOfTicks) {
             window.clearInterval(interval);
             

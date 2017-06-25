@@ -179,6 +179,14 @@
           output: {
             type: Object,
             notify: true
+          },
+          lockXAxis: {
+            type: Boolean,
+            value: false
+          },
+          lockYAxis: {
+            type: Boolean,
+            value: false
           }
           // debug values
           // diffX: Number,
@@ -273,6 +281,10 @@
       }
       
       renderJoystick(rx, ry) {
+        // lock axes if needed
+        if (this.lockXAxis) rx = this.centerX;
+        if (this.lockYAxis) ry = this.centerY;
+        
         let rockerData = this.calcRockerData(rx, ry);
         
         // recalc if the rx ry are outside the boundaries
