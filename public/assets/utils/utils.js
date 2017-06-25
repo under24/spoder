@@ -22,5 +22,8 @@ let Utils = {
       }
       return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
     }
+  },
+  calcImpossibleRange(l1, l2) {
+    return Math.abs(l1 - l2);
   }
 };

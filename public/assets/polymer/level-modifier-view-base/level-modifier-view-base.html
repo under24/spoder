@@ -347,9 +347,9 @@
         this.$.baseRange.style.width = combinedLegsLength + 'px';
         this.$.baseRange.style.height = combinedLegsLength * 2 + 'px';
 
-        // TODO revise this logic... right now incosrrect
-        this.$.baseInvalidRange.style.width = combinedLegsLength / 2 + 'px';
-        this.$.baseInvalidRange.style.height = combinedLegsLength / 2 + 'px';
+        let legnthDiff = Utils.calcImpossibleRange(this.femurLength, this.tibiaLength);
+        this.$.baseInvalidRange.style.width = legnthDiff * 2 + 'px';
+        this.$.baseInvalidRange.style.height = legnthDiff * 2 + 'px';
         
         this.redrawSide();
       }
