@@ -106,16 +106,16 @@
             }
             
             // glue cursorX to both views
-            if (payload[this.view + 'CursorX']) {
-              switch (this.view) {
-                case 'sagittal':
-                  payload.transverseCursorX = payload.sagittalCursorX;
-                  break;
-                case 'transverse':
-                  payload.sagittalCursorX = payload.transverseCursorX;
-                  break;
-              }
-            }
+            // if (payload[this.view + 'CursorX']) {
+            //   switch (this.view) {
+            //     case 'sagittal':
+            //       payload.transverseCursorX = payload.sagittalCursorX;
+            //       break;
+            //     case 'transverse':
+            //       payload.sagittalCursorX = payload.transverseCursorX;
+            //       break;
+            //   }
+            // }
             
             store.dispatch({
               type: "CURSOR_XY_SHIFTED",
