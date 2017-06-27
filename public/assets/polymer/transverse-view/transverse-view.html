@@ -16,13 +16,14 @@
     
     <transverse-view-base 
       leg-id="[[legId]]" 
-      x=[[baseX]] 
-      y=[[baseY]]
-      cursor-x="[[cursorX]]"
-      cursor-y="[[cursorY]]"
-      side="[[side]]"
-      coxa-screen-angle="[[leg.coxaScreenAngle]]"
+      x=[[coords.transverseBaseX]] 
+      y=[[coords.transverseBaseY]]
+      cursor-x="[[coords.transverseCursorX]]"
+      cursor-y="[[coords.transverseCursorY]]"
+      side="[[legs.side]]"
+      coxa-screen-angle="[[legs.coxaScreenAngle]]"
       meta-data="[[metaData]]"
+      
     >
     </transverse-view-base>
     
@@ -30,10 +31,10 @@
     
     <new-view-cursor
       view="transverse" 
-      side="[[side]]" 
+      side="[[legs.side]]" 
       output={{cursorOutput}} 
-      passed-x="[[cursorX]]" 
-      passed-y="[[cursorY]]"
+      passed-x="[[coords.transverseCursorX]]" 
+      passed-y="[[coords.transverseCursorY]]"
     >
     </new-view-cursor>
   </template>
@@ -47,32 +48,12 @@
           legId: {
             statePath: 'views.transverseViewLegId'
           },
-          side: {
+          coords: {
             statePath(state) {
-              return state.legs[this.legId].side;
+              return state.coords[this.legId];
             }
           },
-          cursorX: {
-            statePath(state) {
-              return state.coords[this.legId].transverseCursorX;
-            }
-          },
-          cursorY: {
-            statePath(state) {
-              return state.coords[this.legId].transverseCursorY;
-            }
-          },
-          baseX: {
-            statePath(state) {
-              return state.coords[this.legId].transverseBaseX;
-            }
-          },
-          baseY: {
-            statePath(state) {
-              return state.coords[this.legId].transverseBaseY;
-            }
-          },
-          leg: {
+          legs: {
             statePath(state) {
               return state.legs[this.legId];
             }
@@ -96,6 +77,10 @@
             transverseCursorY: newValue.y
           }
         });
+      }
+      
+      computeDiff(coords) {
+        debugger;
       }
 
     }
