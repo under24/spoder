@@ -163,14 +163,6 @@
         }
       }
       
-      observeBaseX(newX) {
-        this.redrawX(newX);
-      }
-      
-      observeBaseY(newY) {
-        this.redrawY(newY);
-      }
-      
       observeCoxaScreenAngle(newAngle) {
         switch (this.side) {
           case 'left':
@@ -264,6 +256,8 @@
       }
 
     }
+    transverseViewBase.prototype.observeBaseX = transverseViewBase.prototype.redrawX;
+    transverseViewBase.prototype.observeBaseY = transverseViewBase.prototype.redrawY;
 
     window.customElements.define(transverseViewBase.is, transverseViewBase);
   </script>
