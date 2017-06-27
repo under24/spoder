@@ -1,5 +1,4 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../view-cursor/view-cursor.html">
 <link rel="import" href="../transverse-view-base/transverse-view-base.html">
 <link rel="import" href="../transverse-view-debug-panel/transverse-view-debug-panel.html">
 <link rel="import" href="../new-view-cursor/new-view-cursor.html">
@@ -16,7 +15,6 @@
     </style>
     
     <transverse-view-base></transverse-view-base>
-    <view-cursor id="cursor" view="transverse"></view-cursor>
     <transverse-view-debug-panel></transverse-view-debug-panel>
     
     <new-view-cursor
@@ -25,8 +23,6 @@
       output={{cursorOutput}} 
       passed-x="[[cursorX]]" 
       passed-y="[[cursorY]]"
-      offset-x="100"
-      offset-y="100"
     >
     </new-view-cursor>
   </template>
