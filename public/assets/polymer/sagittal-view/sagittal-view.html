@@ -1,5 +1,4 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../view-cursor/view-cursor.html">
 <link rel="import" href="../sagittal-view-base/sagittal-view-base.html">
 <link rel="import" href="../sagittal-view-debug-panel/sagittal-view-debug-panel.html">
 <link rel="import" href="../new-view-cursor/new-view-cursor.html">
@@ -16,10 +15,16 @@
     </style>
     
     <sagittal-view-base></sagittal-view-base>
-    <view-cursor id="cursor" view="sagittal"></view-cursor>
     <sagittal-view-debug-panel></sagittal-view-debug-panel>
     
-    
+    <new-view-cursor
+      view="transverse" 
+      side="[[side]]" 
+      output={{cursorOutput}} 
+      passed-x="[[cursorX]]" 
+      passed-y="[[cursorY]]"
+    >
+    </new-view-cursor>
   </template>
 
   <script>
@@ -28,10 +33,38 @@
       static get properties() {
         return {
           legId: {
-            type: Number,
             statePath: 'views.sagittalViewLegId'
+          },
+          cursorOutput: {
+            observer: 'observeCursorOutput'
+          },
+          cursorX: {
+            statePath(state) {
+              return state.coords[this.legId].sagittalCursorX;
+            }
+          },
+          cursorY: {
+            statePath(state) {
+              return state.coords[this.legId].sagittalCursorY;
+            }
+          },
+          side: {
+            statePath(state) {
+              return state.legs[this.legId].side;
+            }
           }
         };
+      }
+      
+      observeCursorOutput(newValue, oldValue) {
+        store.dispatch({
+          type: "CURSOR_XY_SHIFTED",
+          legId: this.legId,
+          payload: {
+            sagittalCursorX: newValue.x,
+            sagittalCursorY: newValue.y
+          }
+        });
       }
 
     }
