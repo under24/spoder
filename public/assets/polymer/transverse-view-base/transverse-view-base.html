@@ -68,46 +68,33 @@
       static get is() { return 'transverse-view-base'; }
       static get properties() {
         return {
-          legId: {
-            statePath: 'views.transverseViewLegId',
-          },
+          legId: Number,
           side: {
-            statePath(state) {
-              return state.legs[this.legId].side;
-            },
             reflectToAttribute: true,
             observer: 'observeSide'
           },
           x: {
-            statePath(state) {
-              return state.coords[this.legId].transverseBaseX;
-            },
             observer: 'observeBaseX'
           },
           y: {
-            statePath(state) {
-              return state.coords[this.legId].transverseBaseY;
-            },
             observer: 'observeBaseY'
           },
           cursorX: {
-            statePath(state) {
-              return state.coords[this.legId].transverseCursorX;
-            }
+            type: Number
+            // statePath(state) {
+            //   return state.coords[this.legId].transverseCursorX;
+            // }
           },
           cursorY: {
-            statePath(state) {
-              return state.coords[this.legId].transverseCursorY;
-            }
+            type: Number
+            // statePath(state) {
+            //   return state.coords[this.legId].transverseCursorY;
+            // }
           },
           metaData: {
-            statePath: 'metaData',
             observer: 'observeMetaData'
           },
           coxaScreenAngle: {
-            statePath(state) {
-              return state.legs[this.legId].coxaScreenAngle;
-            },
             observer: 'observeCoxaScreenAngle'
           },
           combinedLegsLength: Number

@@ -14,7 +14,18 @@
       }
     </style>
     
-    <transverse-view-base></transverse-view-base>
+    <transverse-view-base 
+      leg-id="[[legId]]" 
+      x=[[baseX]] 
+      y=[[baseY]]
+      cursor-x="[[cursorX]]"
+      cursor-y="[[cursorY]]"
+      side="[[side]]"
+      coxa-screen-angle="[[leg.coxaScreenAngle]]"
+      meta-data="[[metaData]]"
+    >
+    </transverse-view-base>
+    
     <transverse-view-debug-panel></transverse-view-debug-panel>
     
     <new-view-cursor
@@ -32,11 +43,14 @@
       static get is() { return 'transverse-view'; }
       static get properties() {
         return {
+          // downcoming props
           legId: {
             statePath: 'views.transverseViewLegId'
           },
-          cursorOutput: {
-            observer: 'observeCursorOutput'
+          side: {
+            statePath(state) {
+              return state.legs[this.legId].side;
+            }
           },
           cursorX: {
             statePath(state) {
@@ -48,10 +62,27 @@
               return state.coords[this.legId].transverseCursorY;
             }
           },
-          side: {
+          baseX: {
             statePath(state) {
-              return state.legs[this.legId].side;
+              return state.coords[this.legId].transverseBaseX;
             }
+          },
+          baseY: {
+            statePath(state) {
+              return state.coords[this.legId].transverseBaseY;
+            }
+          },
+          leg: {
+            statePath(state) {
+              return state.legs[this.legId];
+            }
+          },
+          metaData: {
+            statePath: 'metaData',
+          },
+          // upcoming props
+          cursorOutput: {
+            observer: 'observeCursorOutput'
           }
         };
       }
