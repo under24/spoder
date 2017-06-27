@@ -25,9 +25,6 @@
       static get is() { return 'new-view-cursor'; }
       static get properties() {
         return {
-          legId: {
-            type: Number,
-          },
           offsetX: Number,
           passedX: Number,
           x: {
@@ -84,14 +81,8 @@
               clickCoords.y = e.pageY;
             }
             
-            debugger;
             // export data to the upper component
             this.output = payload;
-            // store.dispatch({
-            //   type: "CURSOR_XY_SHIFTED",
-            //   legId: this.legId,
-            //   payload
-            // });
             
             e.preventDefault();
             e.stopPropagation();

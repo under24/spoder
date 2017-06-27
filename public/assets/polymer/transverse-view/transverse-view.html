@@ -19,7 +19,16 @@
     <view-cursor id="cursor" view="transverse"></view-cursor>
     <transverse-view-debug-panel></transverse-view-debug-panel>
     
-    <new-view-cursor view="transverse" side="left" output={{cursorOutput}} passed-x="100" passed-y="100"></new-view-cursor>
+    <new-view-cursor
+      view="transverse" 
+      side="[[side]]" 
+      output={{cursorOutput}} 
+      passed-x="[[cursorX]]" 
+      passed-y="[[cursorY]]"
+      offset-x="100"
+      offset-y="100"
+    >
+    </new-view-cursor>
   </template>
 
   <script>
@@ -28,17 +37,38 @@
       static get properties() {
         return {
           legId: {
-            type: Number,
             statePath: 'views.transverseViewLegId'
           },
           cursorOutput: {
             observer: 'observeCursorOutput'
+          },
+          cursorX: {
+            statePath(state) {
+              return state.coords[this.legId].transverseCursorX;
+            }
+          },
+          cursorY: {
+            statePath(state) {
+              return state.coords[this.legId].transverseCursorY;
+            }
+          },
+          side: {
+            statePath(state) {
+              return state.legs[this.legId].side;
+            }
           }
         };
       }
       
       observeCursorOutput(newValue, oldValue) {
-        debugger;
+        store.dispatch({
+          type: "CURSOR_XY_SHIFTED",
+          legId: this.legId,
+          payload: {
+            transverseCursorX: newValue.x,
+            transverseCursorY: newValue.y
+          }
+        });
       }
 
     }
