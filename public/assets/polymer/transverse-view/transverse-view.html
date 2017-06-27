@@ -2,6 +2,7 @@
 <link rel="import" href="../view-cursor/view-cursor.html">
 <link rel="import" href="../transverse-view-base/transverse-view-base.html">
 <link rel="import" href="../transverse-view-debug-panel/transverse-view-debug-panel.html">
+<link rel="import" href="../new-view-cursor/new-view-cursor.html">
 
 <dom-module id="transverse-view">
   <template>
@@ -17,6 +18,8 @@
     <transverse-view-base></transverse-view-base>
     <view-cursor id="cursor" view="transverse"></view-cursor>
     <transverse-view-debug-panel></transverse-view-debug-panel>
+    
+    <new-view-cursor view="transverse" side="left" output={{cursorOutput}} passed-x="100" passed-y="100"></new-view-cursor>
   </template>
 
   <script>
@@ -27,8 +30,15 @@
           legId: {
             type: Number,
             statePath: 'views.transverseViewLegId'
+          },
+          cursorOutput: {
+            observer: 'observeCursorOutput'
           }
         };
+      }
+      
+      observeCursorOutput(newValue, oldValue) {
+        debugger;
       }
 
     }

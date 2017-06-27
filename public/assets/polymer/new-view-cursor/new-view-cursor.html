@@ -1,0 +1,150 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="new-view-cursor">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        background-color: rgba(255, 0, 0, 0.5);
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        border-radius: 100%;
+      }
+      :host([side=left]) {
+        transform: translate(-50%, -50%);
+      }
+      :host([side=right]) {
+        transform: translate(50%, -50%);
+      }
+    </style>
+  </template>
+
+  <script>
+    class newViewCursor extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'new-view-cursor'; }
+      static get properties() {
+        return {
+          legId: {
+            type: Number,
+          },
+          offsetX: Number,
+          passedX: Number,
+          x: {
+            type: Number,
+            computed: 'computeX(offsetX, passedX)',
+            observer: 'observeCursorX'
+          },
+          offsetY: Number,
+          passedY: Number,
+          y: {
+            type: Number,
+            computed: 'computeY(offsetY, passedY)',
+            observer: 'observeCursorY'
+          },
+          side: {
+            type: String,
+            reflectToAttribute: true,
+            observer: 'observeSide'
+          },
+          output: {
+            notify: true
+          }
+        };
+      }
+      
+      connectedCallback() {
+        super.connectedCallback();
+
+        this.onmousedown = (e) => {
+          let clickCoords = {x: e.pageX,y: e.pageY};
+
+          document.onmousemove = (e) => {
+            let diffX = clickCoords.x - e.pageX;
+            let diffY = clickCoords.y - e.pageY;
+            
+            // the position is the same
+            if (diffX === 0 && diffY === 0) return;
+            
+            // filter out 0 value
+            let payload = {};
+            if (diffX !== 0) {
+              switch (this.side) {
+                case 'left':
+                  payload.x = diffX; break;
+                case 'right':
+                  payload.x = diffX * -1; break;
+              }
+              // update prev coords
+              clickCoords.x = e.pageX;
+            }
+            if (diffY !== 0) {
+              payload.y = diffY;
+              // update prev coords
+              clickCoords.y = e.pageY;
+            }
+            
+            debugger;
+            // export data to the upper component
+            this.output = payload;
+            // store.dispatch({
+            //   type: "CURSOR_XY_SHIFTED",
+            //   legId: this.legId,
+            //   payload
+            // });
+            
+            e.preventDefault();
+            e.stopPropagation();
+          };
+          document.onmouseup = () => {
+            document.onmousemove = null;
+            document.onmouseup = null;
+          }
+          e.preventDefault();
+          e.stopPropagation()
+        }
+      }
+      
+      redrawX(x) {
+        switch (this.side) {
+          case 'left':
+            this.style.left = x + 'px';
+            break;
+          case 'right':
+            this.style.right = x + 'px';
+            break;
+        }
+      }
+      
+      redrawY(y) {
+        this.style.top = y + 'px';
+      }
+      
+      observeSide(newSide, oldSide) {
+        switch (newSide) {
+          case 'left':
+            this.style.right = '';
+            break;
+          case 'right':
+            this.style.left = '';
+            break;
+        }
+        this.redrawX(this.x);
+      }
+      
+      computeX(offsetX, passedX) {
+        return offsetX ? offsetX + passedX : passedX;
+      }
+      
+      computeY(offsetY, passedY) {
+        return offsetY ? offsetY + passedY : passedY;
+      }
+
+    }
+    
+    newViewCursor.prototype.observeCursorX = newViewCursor.prototype.redrawX;
+    newViewCursor.prototype.observeCursorY = newViewCursor.prototype.redrawY;
+
+    window.customElements.define(newViewCursor.is, newViewCursor);
+  </script>
+</dom-module>
