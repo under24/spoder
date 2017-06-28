@@ -2,6 +2,7 @@
 <link rel="import" href="../transverse-view-base/transverse-view-base.html">
 <link rel="import" href="../transverse-view-debug-panel/transverse-view-debug-panel.html">
 <link rel="import" href="../new-view-cursor/new-view-cursor.html">
+<link rel="import" href="../view-leg-selector/view-leg-selector.html">
 
 <dom-module id="transverse-view">
   <template>
@@ -24,9 +25,7 @@
       leg-length="[[computeLegLength(coords, metaData)]]"
       output="{{baseOutput}}">
     </transverse-view-base>
-    
-    <transverse-view-debug-panel></transverse-view-debug-panel>
-    
+        
     <new-view-cursor
       view="transverse" 
       side="[[legs.side]]" 
@@ -34,6 +33,12 @@
       passed-y="[[coords.transverseCursorY]]"
       output="{{cursorOutput}}">
     </new-view-cursor>
+    
+    <view-leg-selector 
+      position="right"
+      leg-id="[[legId]]"
+      output="{{selectorOutput}}">
+    </view-leg-selector>
   </template>
 
   <script>
@@ -64,6 +69,9 @@
           },
           baseOutput: {
             observer: 'observeBaseOutput'
+          },
+          selectorOutput: {
+            observer: 'observeselectorOutput'
           }
         };
       }
@@ -88,6 +96,13 @@
             transverseBaseX: newValue.x,
             transverseBaseY: newValue.y,
           }
+        });
+      }
+      
+      observeselectorOutput(newValue) {
+        store.dispatch({
+          type: "TRANSVERSE_VIEW_LEG_ID_CHANGED",
+          payload: newValue.value
         });
       }
       
