@@ -1,7 +1,7 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../sagittal-view-base/sagittal-view-base.html">
-<link rel="import" href="../sagittal-view-debug-panel/sagittal-view-debug-panel.html">
 <link rel="import" href="../new-view-cursor/new-view-cursor.html">
+<link rel="import" href="../view-leg-selector/view-leg-selector.html">
 
 <dom-module id="sagittal-view">
   <template>
@@ -15,16 +15,20 @@
     </style>
     
     <sagittal-view-base></sagittal-view-base>
-    <sagittal-view-debug-panel></sagittal-view-debug-panel>
     
     <new-view-cursor
       view="transverse" 
       side="[[side]]" 
       output={{cursorOutput}} 
       passed-x="[[cursorX]]" 
-      passed-y="[[cursorY]]"
-    >
+      passed-y="[[cursorY]]">
     </new-view-cursor>
+    
+    <view-leg-selector 
+      position="right"
+      leg-id="[[legId]]"
+      output="{{selectorOutput}}">
+    </view-leg-selector>
   </template>
 
   <script>
@@ -32,11 +36,9 @@
       static get is() { return 'sagittal-view'; }
       static get properties() {
         return {
+          // downcoming props
           legId: {
             statePath: 'views.sagittalViewLegId'
-          },
-          cursorOutput: {
-            observer: 'observeCursorOutput'
           },
           cursorX: {
             statePath(state) {
@@ -52,11 +54,18 @@
             statePath(state) {
               return state.legs[this.legId].side;
             }
+          },
+          // upcoming props
+          cursorOutput: {
+            observer: 'observeCursorOutput'
+          },
+          selectorOutput: {
+            observer: 'observeSelectorOutput'
           }
         };
       }
       
-      observeCursorOutput(newValue, oldValue) {
+      observeCursorOutput(newValue) {
         store.dispatch({
           type: "CURSOR_XY_SHIFTED",
           legId: this.legId,
@@ -64,6 +73,13 @@
             sagittalCursorX: newValue.x,
             sagittalCursorY: newValue.y
           }
+        });
+      }
+      
+      observeSelectorOutput(newValue) {
+        store.dispatch({
+          type: "SAGITTAL_VIEW_LEG_ID_CHANGED",
+          payload: newValue.value
         });
       }
 
