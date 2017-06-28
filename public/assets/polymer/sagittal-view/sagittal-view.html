@@ -18,10 +18,10 @@
     
     <new-view-cursor
       view="transverse" 
-      side="[[side]]" 
-      output={{cursorOutput}} 
-      passed-x="[[cursorX]]" 
-      passed-y="[[cursorY]]">
+      side="[[legs.side]]" 
+      passed-x="[[coords.sagittalCursorX]]" 
+      passed-y="[[coords.sagittalCursorY]]"
+      output={{cursorOutput}}> 
     </new-view-cursor>
     
     <view-leg-selector 
@@ -40,19 +40,17 @@
           legId: {
             statePath: 'views.sagittalViewLegId'
           },
-          cursorX: {
+          metaData: {
+            statePath: 'metaData',
+          },
+          coords: {
             statePath(state) {
-              return state.coords[this.legId].sagittalCursorX;
+              return state.coords[this.legId];
             }
           },
-          cursorY: {
+          legs: {
             statePath(state) {
-              return state.coords[this.legId].sagittalCursorY;
-            }
-          },
-          side: {
-            statePath(state) {
-              return state.legs[this.legId].side;
+              return state.legs[this.legId];
             }
           },
           // upcoming props
