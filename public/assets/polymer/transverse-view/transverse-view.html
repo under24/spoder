@@ -15,16 +15,14 @@
     </style>
     
     <transverse-view-base 
-      leg-id="[[legId]]" 
-      x=[[coords.transverseBaseX]] 
-      y=[[coords.transverseBaseY]]
-      cursor-x="[[coords.transverseCursorX]]"
-      cursor-y="[[coords.transverseCursorY]]"
+      passed-x="[[coords.transverseBaseX]]"
+      passed-y="[[coords.transverseBaseY]]"
       side="[[legs.side]]"
+      combined-legs-length="[[computeCombinedLegsLength(metaData)]]"
       coxa-screen-angle="[[legs.coxaScreenAngle]]"
-      meta-data="[[metaData]]"
-      
-    >
+      impossible-range="[[computeImpossibleRange(metaData)]]"
+      leg-length="[[computeLegLength(coords, metaData)]]"
+      output="{{baseOutput}}">
     </transverse-view-base>
     
     <transverse-view-debug-panel></transverse-view-debug-panel>
@@ -32,10 +30,9 @@
     <new-view-cursor
       view="transverse" 
       side="[[legs.side]]" 
-      output={{cursorOutput}} 
       passed-x="[[coords.transverseCursorX]]" 
       passed-y="[[coords.transverseCursorY]]"
-    >
+      output="{{cursorOutput}}">
     </new-view-cursor>
   </template>
 
@@ -48,6 +45,9 @@
           legId: {
             statePath: 'views.transverseViewLegId'
           },
+          metaData: {
+            statePath: 'metaData',
+          },
           coords: {
             statePath(state) {
               return state.coords[this.legId];
@@ -58,12 +58,12 @@
               return state.legs[this.legId];
             }
           },
-          metaData: {
-            statePath: 'metaData',
-          },
           // upcoming props
           cursorOutput: {
             observer: 'observeCursorOutput'
+          },
+          baseOutput: {
+            observer: 'observeBaseOutput'
           }
         };
       }
@@ -79,8 +79,35 @@
         });
       }
       
-      computeDiff(coords) {
+      observeBaseOutput(newValue, oldValue) {
         debugger;
+        store.dispatch({
+          type: "BASE_XY_SHIFTED",
+          legId: this.legId,
+          payload: {
+            transverseBaseX: newValue.x,
+            transverseBaseY: newValue.y,
+          }
+        });
+      }
+      
+      computeCombinedLegsLength(metaData) {
+        return metaData.femurLength + metaData.tibiaLength;
+      }
+      
+      computeImpossibleRange(metaData) {
+        return Utils.calcImpossibleRange(metaData.femurLength, metaData.tibiaLength);
+      }
+      
+      computeLegLength(coords, metaData) {
+        if (coords == undefined || metaData == undefined) return;
+        
+        let length = Utils.getDistance(coords.sagittalCursorX - coords.sagittalBaseX, coords.sagittalCursorY - coords.sagittalBaseY);
+        let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
+        
+        if (length > combinedLegsLength) length = combinedLegsLength;
+        
+        return length;
       }
 
     }

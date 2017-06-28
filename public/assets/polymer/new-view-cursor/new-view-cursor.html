@@ -28,14 +28,12 @@
           offsetX: Number,
           passedX: Number,
           x: {
-            type: Number,
             computed: 'computeX(offsetX, passedX)',
             observer: 'observeCursorX'
           },
           offsetY: Number,
           passedY: Number,
           y: {
-            type: Number,
             computed: 'computeY(offsetY, passedY)',
             observer: 'observeCursorY'
           },
