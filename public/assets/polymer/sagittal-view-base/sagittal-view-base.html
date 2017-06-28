@@ -126,13 +126,9 @@
             observer: 'observeTibiaScreenAngle'
           },
           femurLength: {
-            type: Number,
-            statePath: 'metaData.femurLength',
             observer: 'observeFemurLength'
           },
           tibiaLength: {
-            type: Number,
-            statePath: 'metaData.tibiaLength',
             observer: 'observeTibiaLength'
           },
           combinedLegsLength: {
@@ -192,27 +188,19 @@
         }
       }
       
-      observeBaseX(newX) {
-        this.redrawX(newX);
-      }
-      
-      observeBaseY(newY) {
-        this.redrawY(newY);
-      }
-      
-      redrawX(newX) {
+      redrawX(x) {
         switch (this.side) {
           case 'left':
-            this.$.base.style.left = newX + 'px';
+            this.$.base.style.left = x + 'px';
             break;
           case 'right':
-            this.$.base.style.right = newX + 'px';
+            this.$.base.style.right = x + 'px';
             break;
         }
       }
       
-      redrawY(newY) {
-        this.$.base.style.top = newY + 'px';
+      redrawY(y) {
+        this.$.base.style.top = y + 'px';
       }
       
       observeSide(newValue, oldValue) {
@@ -298,6 +286,8 @@
       }
 
     }
+    sagittalViewBase.prototype.observeBaseX = sagittalViewBase.prototype.redrawX;
+    sagittalViewBase.prototype.observeBaseY = sagittalViewBase.prototype.redrawY;
 
     window.customElements.define(sagittalViewBase.is, sagittalViewBase);
   </script>
