@@ -66,9 +66,11 @@
             if (diffX !== 0) {
               switch (this.side) {
                 case 'left':
-                  payload.x = diffX; break;
+                  payload.x = diffX;
+                  break;
                 case 'right':
-                  payload.x = diffX * -1; break;
+                  payload.x = diffX * -1;
+                  break;
               }
               // update prev coords
               clickCoords.x = e.pageX;
@@ -113,10 +115,10 @@
         switch (newSide) {
           case 'left':
             this.style.right = '';
-            break;
+            return;
           case 'right':
             this.style.left = '';
-            break;
+            return;
         }
         this.redrawX(this.x);
       }
