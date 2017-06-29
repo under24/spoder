@@ -152,10 +152,10 @@
         switch (this.side) {
           case 'left':
             this.$.coxa.style.transform = 'rotate(' + newAngle + 'deg)';
-            break;
+            return;
           case 'right':
             this.$.coxa.style.transform = 'rotate(' + newAngle * -1 + 'deg)';
-            break;
+            return;
         }
       }
       
@@ -163,10 +163,10 @@
         switch (this.side) {
           case 'left':
             this.$.base.style.left = x + 'px';
-            break;
+            return;
           case 'right':
             this.$.base.style.right = x + 'px';
-            break;
+            return;
         }
       }
       
@@ -187,7 +187,7 @@
             
             this.$.base.style.right = '';
             this.redrawX(this.x);
-            break;
+            return;
           case 'right':
             this.$.baseRange.style.borderBottomRightRadius = '';
             this.$.baseRange.style.borderTopRightRadius = '';
@@ -199,7 +199,7 @@
             
             this.$.base.style.left = '';
             this.redrawX(this.x);
-            break;
+            return;
         }
       }
       

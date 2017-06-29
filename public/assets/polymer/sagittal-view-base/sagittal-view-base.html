@@ -85,44 +85,26 @@
       static get is() { return 'sagittal-view-base'; }
       static get properties() {
         return {
-          legId: {
-            type: Number,
-            statePath: 'views.sagittalViewLegId',
-          },
           side: {
-            type: String,
-            statePath(state) {
-              return state.legs[this.legId].side;
-            },
             reflectToAttribute: true,
             observer: 'observeSide'
           },
+          offsetX: Number,
+          passedX: Number,
           x: {
-            type: Number,
-            statePath(state) {
-              return state.coords[this.legId].sagittalBaseX;
-            },
+            computed: 'computeX(offsetX, passedX)',
             observer: 'observeBaseX'
           },
+          offsetY: Number,
+          passedY: Number,
           y: {
-            type: Number,
-            statePath(state) {
-              return state.coords[this.legId].sagittalBaseY;
-            },
+            computed: 'computeY(offsetY, passedY)',
             observer: 'observeBaseY'
           },
           femurScreenAngle: {
-            type: Number,
-            statePath(state) {
-              return state.legs[this.legId].femurScreenAngle;
-            },
             observer: 'observeFemurScreenAngle'
           },
           tibiaScreenAngle: {
-            type: Number,
-            statePath(state) {
-              return state.legs[this.legId].tibiaScreenAngle;
-            },
             observer: 'observeTibiaScreenAngle'
           },
           femurLength: {
@@ -131,10 +113,14 @@
           tibiaLength: {
             observer: 'observeTibiaLength'
           },
+          impossibleRange: {
+            observer: 'observeImpossibleRange'
+          },
           combinedLegsLength: {
-            type: Number,
-            computed: 'computeCombinedLegsLength(femurLength, tibiaLength)',
             observer: 'observeCombinedLegsLength'
+          },
+          output: {
+            notify: true
           }
         };
       }
@@ -157,24 +143,21 @@
             if (diffX !== 0) {
               switch (this.side) {
                 case 'left':
-                  payload.sagittalBaseX = diffX;
+                  payload.x = diffX;
                   break;
                 case 'right':
-                  payload.sagittalBaseX = -diffX;
+                  payload.x = -diffX;
                   break;
               }
               this.clickCoords.x = e.pageX;
             }
             if (diffY !== 0) {
-              payload.sagittalBaseY = diffY;
+              payload.y = diffY;
               this.clickCoords.y = e.pageY;
             }
             
-            store.dispatch({
-              type: "BASE_XY_SHIFTED",
-              legId: this.legId,
-              payload
-            });
+            // export data to the upper component
+            this.output = payload;
             
             e.preventDefault();
             e.stopPropagation();
@@ -192,23 +175,15 @@
         switch (this.side) {
           case 'left':
             this.$.base.style.left = x + 'px';
-            break;
+            return;
           case 'right':
             this.$.base.style.right = x + 'px';
-            break;
+            return;
         }
       }
       
       redrawY(y) {
         this.$.base.style.top = y + 'px';
-      }
-      
-      observeSide(newValue, oldValue) {
-        if (oldValue === undefined) return;
-        
-        this.redrawSide();
-        this.observeFemurScreenAngle(this.femurScreenAngle);
-        this.observeTibiaScreenAngle(this.tibiaScreenAngle);
       }
       
       observeFemurScreenAngle(newAngle) {
@@ -226,10 +201,10 @@
         switch (this.side) {
           case 'left':
             this.$.tibia.style.transform = 'rotate(' + newAngle + 'deg)';
-            break;
+            return;
           case 'right':
             this.$.tibia.style.transform = 'rotate(' + newAngle * -1 + 'deg)';
-            break;
+            return;
         }
       }
       
@@ -260,6 +235,8 @@
             this.redrawX(this.x);
             break;
         }
+        this.observeFemurScreenAngle(this.femurScreenAngle);
+        this.observeTibiaScreenAngle(this.tibiaScreenAngle);
       }
       
       observeFemurLength(femurLength) {
@@ -270,24 +247,28 @@
         this.$.tibia.style.width = tibiaLength + 'px';
       }
       
-      computeCombinedLegsLength(femurLength, tibiaLength) {
-        return femurLength + tibiaLength;
-      }
-      
       observeCombinedLegsLength(combinedLegsLength) {
         this.$.baseRange.style.width = combinedLegsLength + 'px';
         this.$.baseRange.style.height = combinedLegsLength * 2 + 'px';
-
-        let legnthDiff = Utils.calcImpossibleRange(this.femurLength, this.tibiaLength);
-        this.$.baseInvalidRange.style.width = legnthDiff * 2 + 'px';
-        this.$.baseInvalidRange.style.height = legnthDiff * 2 + 'px';
-        
-        this.redrawSide();
+      }
+      
+      observeImpossibleRange(impRange) {
+        this.$.baseInvalidRange.style.width = impRange * 2 + 'px';
+        this.$.baseInvalidRange.style.height = impRange * 2 + 'px';
+      }
+      
+      computeX(offsetX, passedX) {
+        return offsetX ? offsetX + passedX : passedX;
+      }
+      
+      computeY(offsetY, passedY) {
+        return offsetY ? offsetY + passedY : passedY;
       }
 
     }
     sagittalViewBase.prototype.observeBaseX = sagittalViewBase.prototype.redrawX;
     sagittalViewBase.prototype.observeBaseY = sagittalViewBase.prototype.redrawY;
+    sagittalViewBase.prototype.observeSide = sagittalViewBase.prototype.redrawSide;
 
     window.customElements.define(sagittalViewBase.is, sagittalViewBase);
   </script>

@@ -15,8 +15,16 @@
     </style>
     
     <sagittal-view-base
+      passed-x="[[coords.sagittalBaseX]]"
+      passed-y="[[coords.sagittalBaseY]]"
+      side=[[legs.side]]
       femur-length="[[metaData.femurLength]]"
-      tibia-length="[[metaData.tibiaLength]]">
+      tibia-length="[[metaData.tibiaLength]]"
+      combined-legs-length="[[computeCombinedLegsLength(metaData)]]"
+      impossible-range=[[computeImpossibleRange(metaData)]]
+      femur-screen-angle="[[legs.femurScreenAngle]]"
+      tibia-screen-angle="[[legs.tibiaScreenAngle]]"
+      output="{{baseOutput}}">
     </sagittal-view-base>
     
     <new-view-cursor
@@ -60,6 +68,9 @@
           cursorOutput: {
             observer: 'observeCursorOutput'
           },
+          baseOutput: {
+            observer: 'observeBaseOutput'
+          },
           selectorOutput: {
             observer: 'observeSelectorOutput'
           }
@@ -77,11 +88,30 @@
         });
       }
       
+      observeBaseOutput(newValue) {
+        store.dispatch({
+          type: "BASE_XY_SHIFTED",
+          legId: this.legId,
+          payload: {
+            sagittalBaseX: newValue.x,
+            sagittalBaseY: newValue.y
+          }
+        });
+      }
+      
       observeSelectorOutput(newValue) {
         store.dispatch({
           type: "SAGITTAL_VIEW_LEG_ID_CHANGED",
           payload: newValue.value
         });
+      }
+      
+      computeCombinedLegsLength(metaData) {
+        return metaData.femurLength + metaData.tibiaLength;
+      }
+      
+      computeImpossibleRange(metaData) {
+        return Utils.calcImpossibleRange(metaData.femurLength, metaData.tibiaLength);
       }
 
     }
