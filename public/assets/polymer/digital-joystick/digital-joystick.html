@@ -172,10 +172,10 @@
             value: 30
           },
           rockerX: {
-            observer: 'redrawX'
+            observer: 'observeRockerX'
           },
           rockerY: {
-            observer: 'redrawY'
+            observer: 'observeRockerY'
           },
           centerX: Number,
           centerY: Number,
@@ -467,6 +467,8 @@
       }
 
     }
+    digitalJoystick.prototype.observeRockerX = digitalJoystick.prototype.redrawX;
+    digitalJoystick.prototype.observeRockerY = digitalJoystick.prototype.redrawY;
 
     window.customElements.define(digitalJoystick.is, digitalJoystick);
   </script>
