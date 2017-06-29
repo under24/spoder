@@ -100,10 +100,10 @@
         switch (this.side) {
           case 'left':
             this.style.left = x + 'px';
-            break;
+            return;
           case 'right':
             this.style.right = x + 'px';
-            break;
+            return;
         }
       }
       
@@ -111,14 +111,14 @@
         this.style.top = y + 'px';
       }
       
-      observeSide(newSide, oldSide) {
+      observeSide(newSide) {
         switch (newSide) {
           case 'left':
             this.style.right = '';
-            return;
+            break;
           case 'right':
             this.style.left = '';
-            return;
+            break;
         }
         this.redrawX(this.x);
       }
