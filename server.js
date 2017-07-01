@@ -11,9 +11,18 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html')
 });
 
-// five.Board().on('ready', function() {
+// var board = new five.Board({
+//   port: "/dev/cu.SPODER-SPPDev"
+// });
+// 
+// board.on('ready', function() {
 //   console.log('Arduino board is ready.');
 //   
+//   // board servo
+//   var a = new five.Servo(9);
+//   var ab = new five.Servo(10);
+//   
+//   // expansion board
 //   var a = new five.Servo({
 //     address: 0x40,
 //     controller: "PCA9685",
@@ -21,7 +30,7 @@ app.get('/', function(req, res) {
 //     invert: true,
 //     throttle: true
 //   });
-// 
+//   
 //   var b = new five.Servo({
 //     address: 0x40,
 //     controller: "PCA9685",
@@ -29,7 +38,7 @@ app.get('/', function(req, res) {
 //     pin: 15,
 //     throttle: true
 //   });
-// 
+//   // 
 //   var c = new five.Servo({
 //     address: 0x40,
 //     controller: "PCA9685",
@@ -37,7 +46,7 @@ app.get('/', function(req, res) {
 //     pin: 5,
 //     throttle: true
 //   });
-//   
+//   // 
 //   var d = new five.Servo({
 //     address: 0x40,
 //     controller: "PCA9685",
@@ -69,31 +78,6 @@ app.get('/', function(req, res) {
 //     pin: 3,
 //     throttle: true
 //   });
-//   
-//   // var proximity = new five.Proximity({
-//   //   controller: "HC-SR04",
-//   //   pin: 11,
-//   // });
-//   
-//   // proximity.on("data", function() {
-//   //   console.log("Proximity: ");
-//   //   console.log("  cm  : ", this.cm);
-//   //   // console.log("  in  : ", this.in);
-//   //   console.log("-----------------");
-//   // });
-//   
-//   // create a servo instance
-//   // let servo = new five.Servo({
-//   //   pin: 10,
-//   //   type: "normal",
-//   //   // range: [0,170],
-//   //   invert: true
-//   // });
-//   // servo.center();
-//   
-//   // setInterval(() => {
-//   //   console.log(proximity.cm);
-//   // },200)
 // 
 //   io.on('connection', function(client) {
 //     client.on('join', function(handshake) {
@@ -101,7 +85,9 @@ app.get('/', function(req, res) {
 //     });
 //         
 //     client.on('femur-servo-angle-changed', (data) => {
+//       console.log(data.value);
 //       a.to(data.value);
+//       ab.to(data.value);
 //       b.to(data.value);
 //       c.to(data.value);
 //       d.to(data.value);
@@ -113,9 +99,7 @@ app.get('/', function(req, res) {
 //   });
 //   
 //   // this.repl.inject({
-//   //   a: a,
-//   //   b: b,
-//   //   c: c,
+//   //   
 //   // });
 // });
 
