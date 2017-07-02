@@ -7,13 +7,14 @@ let coordsInitState = {
     sagittalCursorY: 280,
     sagittalBaseX: 100,
     sagittalBaseY: 250,
-    transverseCursorX: 250,
-    transverseCursorY: 280,
+    transverseCursorX: 200,
+    transverseCursorY: -250,
     transverseBaseX: 100,
     transverseBaseY: -150,
     side: 'left',
     screenSide: 'right',
-    row: 'front'
+    row: 'front',
+    transverseViewOffsetY: 350
   },
   2: {
     legId: 2,
@@ -21,13 +22,14 @@ let coordsInitState = {
     sagittalCursorY: 280,
     sagittalBaseX: 100,
     sagittalBaseY: 250,
-    transverseCursorX: 350,
-    transverseCursorY: 150,
+    transverseCursorX: 200,
+    transverseCursorY: -250,
     transverseBaseX: 100,
     transverseBaseY: -150,
     side: 'right',
     screenSide: 'left',
-    row: 'front'
+    row: 'front',
+    transverseViewOffsetY: 350
   },
   3: {
     legId: 3,
@@ -35,13 +37,14 @@ let coordsInitState = {
     sagittalCursorY: 280,
     sagittalBaseX: 100,
     sagittalBaseY: 250,
-    transverseCursorX: 350,
-    transverseCursorY: 150,
+    transverseCursorX: 300,
+    transverseCursorY: 0,
     transverseBaseX: 150,
     transverseBaseY: 0,
     side: 'left',
     screenSide: 'right',
-    row: 'middle'
+    row: 'middle',
+    transverseViewOffsetY: 0
   },
   4: {
     legId: 4,
@@ -49,13 +52,14 @@ let coordsInitState = {
     sagittalCursorY: 280,
     sagittalBaseX: 100,
     sagittalBaseY: 250,
-    transverseCursorX: 350,
-    transverseCursorY: 150,
+    transverseCursorX: 300,
+    transverseCursorY: 0,
     transverseBaseX: 150,
     transverseBaseY: 0,
     side: 'right',
     screenSide: 'left',
-    row: 'middle'
+    row: 'middle',
+    transverseViewOffsetY: 0
   },
   5: {
     legId: 5,
@@ -63,13 +67,14 @@ let coordsInitState = {
     sagittalCursorY: 280,
     sagittalBaseX: 100,
     sagittalBaseY: 250,
-    transverseCursorX: 350,
-    transverseCursorY: 150,
+    transverseCursorX: 200,
+    transverseCursorY: 250,
     transverseBaseX: 100,
     transverseBaseY: 150,
     side: 'left',
     screenSide: 'right',
-    row: 'back'
+    row: 'back',
+    transverseViewOffsetY: 0
   },
   6: {
     legId: 6,
@@ -77,13 +82,14 @@ let coordsInitState = {
     sagittalCursorY: 280,
     sagittalBaseX: 100,
     sagittalBaseY: 250,
-    transverseCursorX: 350,
-    transverseCursorY: 150,
+    transverseCursorX: 200,
+    transverseCursorY: 250,
     transverseBaseX: 100,
     transverseBaseY: 150,
     side: 'right',
     screenSide: 'left',
-    row: 'back'
+    row: 'back',
+    transverseViewOffsetY: 0
   },
 };
 
