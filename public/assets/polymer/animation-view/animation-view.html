@@ -1,28 +1,140 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../animation-view-base/animation-view-base.html">
-<link rel="import" href="../view-cursor/view-cursor.html">
+<link rel="import" href="../new-view-cursor/new-view-cursor.html">
+<link rel="import" href="../view-leg-selector/view-leg-selector.html">
 
 <dom-module id="animation-view">
   <template>
     <style>
-      
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
     </style>
-    <animation-view-base></animation-view-base>
-    <view-cursor id="cursor" view="transverse" passed-leg-id="1"></view-cursor>
+    
+    <animation-view-base 
+      passed-x="[[coords.transverseBaseX]]"
+      passed-y="[[coords.transverseBaseY]]"
+      side="[[legs.side]]"
+      combined-legs-length="[[computeCombinedLegsLength(metaData)]]"
+      coxa-screen-angle="[[legs.coxaScreenAngle]]"
+      impossible-range="[[computeImpossibleRange(metaData)]]"
+      leg-length="[[computeLegLength(coords, metaData)]]"
+      animation-center="[[computeAnimationCenter(metaData, coords)]]"
+      output="{{baseOutput}}">
+    </animation-view-base>
+        
+    <new-view-cursor
+      view="transverse" 
+      side="[[legs.side]]" 
+      passed-x="[[coords.transverseCursorX]]" 
+      passed-y="[[coords.transverseCursorY]]"
+      output="{{cursorOutput}}">
+    </new-view-cursor>
+    
+    <view-leg-selector 
+      position="right"
+      leg-id="[[legId]]"
+      output="{{selectorOutput}}">
+    </view-leg-selector>
   </template>
-  
+
   <script>
     class animationView extends ReduxMixin(Polymer.Element) {
       static get is() { return 'animation-view'; }
       static get properties() {
         return {
-          tps: {
-            type: Number,
-            value: 10
+          // downcoming props
+          legId: {
+            statePath: 'views.transverseViewLegId'
+          },
+          metaData: {
+            statePath: 'metaData',
+          },
+          coords: {
+            statePath(state) {
+              return state.coords[this.legId];
+            }
+          },
+          legs: {
+            statePath(state) {
+              return state.legs[this.legId];
+            }
+          },
+          // upcoming props
+          cursorOutput: {
+            observer: 'observeCursorOutput'
+          },
+          baseOutput: {
+            observer: 'observeBaseOutput'
+          },
+          selectorOutput: {
+            observer: 'observeselectorOutput'
           }
         };
       }
       
+      observeCursorOutput(newValue, oldValue) {
+        store.dispatch({
+          type: "CURSOR_XY_SHIFTED",
+          legId: this.legId,
+          payload: {
+            transverseCursorX: newValue.x,
+            transverseCursorY: newValue.y
+          }
+        });
+      }
+      
+      observeBaseOutput(newValue, oldValue) {
+        debugger;
+        store.dispatch({
+          type: "BASE_XY_SHIFTED",
+          legId: this.legId,
+          payload: {
+            transverseBaseX: newValue.x,
+            transverseBaseY: newValue.y,
+          }
+        });
+      }
+      
+      observeselectorOutput(newValue) {
+        store.dispatch({
+          type: "TRANSVERSE_VIEW_LEG_ID_CHANGED",
+          payload: newValue.value
+        });
+      }
+      
+      computeCombinedLegsLength(metaData) {
+        return metaData.femurLength + metaData.tibiaLength;
+      }
+      
+      computeImpossibleRange(metaData) {
+        return Utils.calcImpossibleRange(metaData.femurLength, metaData.tibiaLength);
+      }
+      
+      computeLegLength(coords, metaData) {
+        if (coords == undefined || metaData == undefined) return;
+        
+        let length = Utils.getDistance(coords.sagittalCursorX - coords.sagittalBaseX, coords.sagittalCursorY - coords.sagittalBaseY);
+        let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
+        
+        if (length > combinedLegsLength) length = combinedLegsLength;
+        
+        return length;
+      }
+      
+      computeAnimationCenter(metaData, coords) {
+        if (metaData == undefined || coords == undefined) return;
+        
+        let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
+        let impossibleRange = this.computeImpossibleRange(metaData) / 2
+        return {
+          x: (combinedLegsLength / 2) + impossibleRange + coords.transverseBaseX,
+          y: coords.transverseBaseY
+        }
+      }
 
     }
 
