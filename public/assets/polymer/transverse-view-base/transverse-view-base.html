@@ -223,6 +223,8 @@
             this.$.base.style.right = '';
             this.redrawX(this.x);
             
+            this.observeCoxaScreenAngle(this.coxaScreenAngle);
+            
             this.$.animationCircleCenter.style.right = '';
             this.redrawAnimationCircle(this.animationCenterCoords);
             return;
@@ -237,6 +239,8 @@
             
             this.$.base.style.left = '';
             this.redrawX(this.x);
+            
+            this.observeCoxaScreenAngle(this.coxaScreenAngle);
             
             this.$.animationCircleCenter.style.left = '';
             this.redrawAnimationCircle(this.animationCenterCoords);
