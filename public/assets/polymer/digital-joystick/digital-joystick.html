@@ -320,10 +320,6 @@
         
         // set debug data && redraw debug ui
         if (this.debug) this.pushDebugData(rockerData);
-        
-        // TODO
-        // remove dispatch && its function
-        this.dispatchData(rockerData.xShift, rockerData.yShift);
       }
       
       calcRockerData(rx, ry) {
@@ -434,36 +430,6 @@
         output.yShift = rockerData.yShift;
         
         this.output = output;
-      }
-      
-      dispatchData(xShift, yShift) {
-        let payload = {};
-        // left - right
-        if (xShift > 0) {
-          payload.leftTiltModifier = xShift;
-          payload.rightTiltModifier = xShift * -1;
-        } else if (xShift < 0) {
-          payload.rightTiltModifier = xShift * -1;
-          payload.leftTiltModifier = xShift;
-        }
-        
-        // top - bottom
-        if (yShift > 0) {
-          payload.frontTiltModifier = yShift;
-          payload.backTiltModifier = yShift * -1;
-        } else if (yShift < 0) {
-          payload.backTiltModifier = yShift * -1;
-          payload.frontTiltModifier = yShift;
-        }
-        
-        if (yShift === 0 && xShift === 0) {
-          payload.backTiltModifier = 0;
-          payload.frontTiltModifier = 0;
-          payload.leftTiltModifier = 0;
-          payload.rightTiltModifier = 0;
-        }
-        
-        store.dispatch({type: "BASE_Y_TILT_MODIFIER_CHANGED", payload});
       }
 
     }
