@@ -1,0 +1,53 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../digital-joystick/digital-joystick.html">
+
+<dom-module id="tilt-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+    </style>
+    
+    <digital-joystick
+      expand-output
+      output="{{joystickOutput}}">
+    </digital-joystick>
+  </template>
+
+  <script>
+    class tiltView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'tilt-view'; }
+      static get properties() {
+        return {
+          // downcoming props
+          legId: {
+            statePath: 'views.tiltViewLegId'
+          },
+          // upcoming props
+          joystickOutput: {
+            observer: 'observeJoystickOutput'
+          }
+        };
+      }
+      
+      observeJoystickOutput(newValue) {
+        store.dispatch({
+          type: "BASE_Y_TILT_MODIFIER_CHANGED",
+          payload: {
+            backTiltModifier: newValue.bottom,
+            frontTiltModifier: newValue.top,
+            leftTiltModifier: newValue.left,
+            rightTiltModifier: newValue.right
+          }
+        });
+      }
+
+    }
+
+    window.customElements.define(tiltView.is, tiltView);
+  </script>
+</dom-module>
