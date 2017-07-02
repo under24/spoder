@@ -23,16 +23,27 @@
       impossible-range="[[computeImpossibleRange(metaData)]]"
       leg-length="[[computeLegLength(coords, metaData)]]"
       animation-center="[[computeAnimationCenter(metaData, coords)]]"
+      animation-radius="[[computeAnimationRadius(metaData, coords)]]"
+      coords="[[coords]]"
+      deg-offset="-45"
       output="{{baseOutput}}">
     </animation-view-base>
-        
+    
     <new-view-cursor
+      view="transverse" 
+      side="[[legs.side]]" 
+      passed-x="[[computeCursorX(coords, legs)]]" 
+      passed-y="[[computeCursorY(coords, legs)]]"
+      output="{{cursorOutput}}">
+    </new-view-cursor>
+        
+    <!-- <new-view-cursor
       view="transverse" 
       side="[[legs.side]]" 
       passed-x="[[coords.transverseCursorX]]" 
       passed-y="[[coords.transverseCursorY]]"
       output="{{cursorOutput}}">
-    </new-view-cursor>
+    </new-view-cursor> -->
     
     <view-leg-selector 
       position="right"
@@ -88,7 +99,6 @@
       }
       
       observeBaseOutput(newValue, oldValue) {
-        debugger;
         store.dispatch({
           type: "BASE_XY_SHIFTED",
           legId: this.legId,
@@ -129,11 +139,56 @@
         if (metaData == undefined || coords == undefined) return;
         
         let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
-        let impossibleRange = this.computeImpossibleRange(metaData) / 2
-        return {
-          x: (combinedLegsLength / 2) + impossibleRange + coords.transverseBaseX,
-          y: coords.transverseBaseY
+        let impossibleRange = this.computeImpossibleRange(metaData);
+        
+        return (combinedLegsLength + impossibleRange) / 2;
+      }
+      
+      computeAnimationRadius(metaData, coords) {
+        if (metaData == undefined || coords == undefined) return;
+        
+        let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
+        let impossibleRange = this.computeImpossibleRange(metaData);
+        
+        return combinedLegsLength - impossibleRange;
+      }
+      
+      computeCursorX(coords, legs) {
+        if (coords == undefined || legs == undefined) return;
+        
+        function findNewPoint(x, y, angle, distance) {
+          var result = {};
+          x = coords.transverseBaseX;
+          y = coords.transverseBaseY;
+          angle = legs.coxaScreenAngle + -45;
+          distance = Utils.getDistance(coords.transverseBaseX - coords.transverseCursorX, coords.transverseBaseY - coords.transverseCursorY); 
+
+          result.x = Math.round(Math.cos(angle * Math.PI / 180) * distance + x);
+          result.y = Math.round(Math.sin(angle * Math.PI / 180) * distance + y);
+
+          return result;
         }
+        
+        return findNewPoint().x;
+      }
+      
+      computeCursorY(coords, legs) {
+        if (coords == undefined || legs == undefined) return;
+        
+        function findNewPoint(x, y, angle, distance) {
+          var result = {};
+          x = coords.transverseBaseX;
+          y = coords.transverseBaseY;
+          angle = legs.coxaScreenAngle + -45;
+          distance = Utils.getDistance(coords.transverseBaseX - coords.transverseCursorX, coords.transverseBaseY - coords.transverseCursorY); 
+
+          result.x = Math.round(Math.cos(angle * Math.PI / 180) * distance + x);
+          result.y = Math.round(Math.sin(angle * Math.PI / 180) * distance + y);
+
+          return result;
+        }
+        
+        return findNewPoint().y;
       }
 
     }
