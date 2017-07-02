@@ -54,12 +54,41 @@
         border-left-color: red;
         border-top-color: red;
       }
+      #animationCircleCenter {
+        position: absolute;
+        height: 0px;
+        width: 0px;
+        background-color: black;
+        pointer-events: none;
+      }
+      #animationCircle {
+        display: inline-block;
+        background-color: rgba(255, 0, 0, 0.1);
+        transform: translate(-50%, -50%);
+        border-radius: 100%;
+      }
+      #animationCircleCenter::after {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        transform: translate(-50%, -50%);
+        background-color: black;
+        border-radius: 100%;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+      }
     </style>
     
     <div id="base">
       <div id="coxa"></div>
       <div id="baseRange"></div>
       <div id="baseInvalidRange"></div>
+    </div>
+    
+    <div id="animationCircleCenter">
+      <div id="animationCircle"></div>
     </div>
   </template>
 
@@ -95,6 +124,12 @@
           },
           legLength: {
             observer: 'observeLegLength'
+          },
+          animationCenterCoords: {
+            observer: 'observeAnimationCenterCoords'
+          },
+          animationCircleRadius: {
+            observer: 'observeAnimationCircleRadius'
           },
           output: {
             notify: true
@@ -187,6 +222,9 @@
             
             this.$.base.style.right = '';
             this.redrawX(this.x);
+            
+            this.$.animationCircleCenter.style.right = '';
+            this.observeAnimationCenterCoords(this.animationCenterCoords);
             return;
           case 'right':
             this.$.baseRange.style.borderBottomRightRadius = '';
@@ -199,6 +237,9 @@
             
             this.$.base.style.left = '';
             this.redrawX(this.x);
+            
+            this.$.animationCircleCenter.style.left = '';
+            this.observeAnimationCenterCoords(this.animationCenterCoords);
             return;
         }
       }
@@ -223,6 +264,25 @@
       
       observeLegLength(length) {
         this.$.coxa.style.width = length + 'px';
+      }
+      
+      observeAnimationCenterCoords(coords) {
+        if (!this.side) return;
+        
+        switch (this.side) {
+          case 'left':
+            this.$.animationCircleCenter.style.left = coords.x + 'px';
+            break;
+          case 'right':
+            this.$.animationCircleCenter.style.right = coords.x + 'px';
+            break;
+        }
+        this.$.animationCircleCenter.style.top = coords.y + 'px';
+      }
+      
+      observeAnimationCircleRadius(radius) {
+        this.$.animationCircle.style.width = radius + 'px';
+        this.$.animationCircle.style.height = radius + 'px';
       }
 
     }

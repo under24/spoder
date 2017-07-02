@@ -22,6 +22,8 @@
       coxa-screen-angle="[[legs.coxaScreenAngle]]"
       impossible-range="[[computeImpossibleRange(metaData)]]"
       leg-length="[[computeLegLength(coords, metaData)]]"
+      animation-center-coords="[[computeAnimationCenterCoords(metaData, coords)]]"
+      animation-circle-radius="[[computeAnimationCircleRadius(metaData)]]"
       output="{{baseOutput}}">
     </transverse-view-base>
         
@@ -87,7 +89,6 @@
       }
       
       observeBaseOutput(newValue, oldValue) {
-        debugger;
         store.dispatch({
           type: "BASE_XY_SHIFTED",
           legId: this.legId,
@@ -122,6 +123,25 @@
         if (length > combinedLegsLength) length = combinedLegsLength;
         
         return length;
+      }
+      
+      computeAnimationCenterCoords(metaData, coords) {
+        if (metaData == undefined || coords == undefined) return;
+        
+        let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
+        let impossibleRange = this.computeImpossibleRange(metaData) / 2;
+        
+        return {
+          x: (combinedLegsLength / 2) + impossibleRange + coords.transverseBaseX,
+          y: coords.transverseBaseY
+        }
+      }
+      
+      computeAnimationCircleRadius(metaData) {        
+        let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
+        let impossibleRange = this.computeImpossibleRange(metaData);
+        
+        return combinedLegsLength - impossibleRange;
       }
 
     }
