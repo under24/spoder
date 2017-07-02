@@ -10,8 +10,9 @@ let coordsInitState = {
     transverseCursorX: 250,
     transverseCursorY: 280,
     transverseBaseX: 100,
-    transverseBaseY: 250,
+    transverseBaseY: -150,
     side: 'left',
+    screenSide: 'right',
     row: 'front'
   },
   2: {
@@ -22,9 +23,10 @@ let coordsInitState = {
     sagittalBaseY: 250,
     transverseCursorX: 350,
     transverseCursorY: 150,
-    transverseBaseX: 150,
-    transverseBaseY: 150,
+    transverseBaseX: 100,
+    transverseBaseY: -150,
     side: 'right',
+    screenSide: 'left',
     row: 'front'
   },
   3: {
@@ -36,8 +38,9 @@ let coordsInitState = {
     transverseCursorX: 350,
     transverseCursorY: 150,
     transverseBaseX: 150,
-    transverseBaseY: 150,
+    transverseBaseY: 0,
     side: 'left',
+    screenSide: 'right',
     row: 'middle'
   },
   4: {
@@ -49,8 +52,9 @@ let coordsInitState = {
     transverseCursorX: 350,
     transverseCursorY: 150,
     transverseBaseX: 150,
-    transverseBaseY: 150,
+    transverseBaseY: 0,
     side: 'right',
+    screenSide: 'left',
     row: 'middle'
   },
   5: {
@@ -61,9 +65,10 @@ let coordsInitState = {
     sagittalBaseY: 250,
     transverseCursorX: 350,
     transverseCursorY: 150,
-    transverseBaseX: 150,
+    transverseBaseX: 100,
     transverseBaseY: 150,
     side: 'left',
+    screenSide: 'right',
     row: 'back'
   },
   6: {
@@ -74,9 +79,10 @@ let coordsInitState = {
     sagittalBaseY: 250,
     transverseCursorX: 350,
     transverseCursorY: 150,
-    transverseBaseX: 150,
+    transverseBaseX: 100,
     transverseBaseY: 150,
     side: 'right',
+    screenSide: 'left',
     row: 'back'
   },
 };
