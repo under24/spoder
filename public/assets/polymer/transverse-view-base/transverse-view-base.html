@@ -224,7 +224,7 @@
             this.redrawX(this.x);
             
             this.$.animationCircleCenter.style.right = '';
-            this.observeAnimationCenterCoords(this.animationCenterCoords);
+            this.redrawAnimationCircle(this.animationCenterCoords);
             return;
           case 'right':
             this.$.baseRange.style.borderBottomRightRadius = '';
@@ -239,9 +239,23 @@
             this.redrawX(this.x);
             
             this.$.animationCircleCenter.style.left = '';
-            this.observeAnimationCenterCoords(this.animationCenterCoords);
+            this.redrawAnimationCircle(this.animationCenterCoords);
             return;
         }
+      }
+      
+      redrawAnimationCircle(coords) {
+        if (!this.side) return;
+        
+        switch (this.side) {
+          case 'left':
+            this.$.animationCircleCenter.style.left = coords.x + 'px';
+            break;
+          case 'right':
+            this.$.animationCircleCenter.style.right = coords.x + 'px';
+            break;
+        }
+        this.$.animationCircleCenter.style.top = coords.y + 'px';
       }
       
       computeX(offsetX, passedX) {
@@ -266,20 +280,6 @@
         this.$.coxa.style.width = length + 'px';
       }
       
-      observeAnimationCenterCoords(coords) {
-        if (!this.side) return;
-        
-        switch (this.side) {
-          case 'left':
-            this.$.animationCircleCenter.style.left = coords.x + 'px';
-            break;
-          case 'right':
-            this.$.animationCircleCenter.style.right = coords.x + 'px';
-            break;
-        }
-        this.$.animationCircleCenter.style.top = coords.y + 'px';
-      }
-      
       observeAnimationCircleRadius(radius) {
         this.$.animationCircle.style.width = radius + 'px';
         this.$.animationCircle.style.height = radius + 'px';
@@ -289,6 +289,7 @@
     transverseViewBase.prototype.observeBaseX = transverseViewBase.prototype.redrawX;
     transverseViewBase.prototype.observeBaseY = transverseViewBase.prototype.redrawY;
     transverseViewBase.prototype.observeSide = transverseViewBase.prototype.redrawSide;
+    transverseViewBase.prototype.observeAnimationCenterCoords = transverseViewBase.prototype.redrawAnimationCircle;
 
     window.customElements.define(transverseViewBase.is, transverseViewBase);
   </script>
