@@ -12,9 +12,10 @@ let coordsInitState = {
     transverseBaseX: 100,
     transverseBaseY: -150,
     side: 'left',
-    screenSide: 'right',
+    // screenSide: 'right',
     row: 'front',
-    transverseViewOffsetY: 350
+    transverseViewOffsetY: 400,
+    transverseViewOffsetX: 0
   },
   2: {
     legId: 2,
@@ -27,9 +28,10 @@ let coordsInitState = {
     transverseBaseX: 100,
     transverseBaseY: -150,
     side: 'right',
-    screenSide: 'left',
+    // screenSide: 'left',
     row: 'front',
-    transverseViewOffsetY: 350
+    transverseViewOffsetY: 400,
+    transverseViewOffsetX: 0
   },
   3: {
     legId: 3,
@@ -42,9 +44,10 @@ let coordsInitState = {
     transverseBaseX: 150,
     transverseBaseY: 0,
     side: 'left',
-    screenSide: 'right',
+    // screenSide: 'right',
     row: 'middle',
-    transverseViewOffsetY: 0
+    transverseViewOffsetY: 250,
+    transverseViewOffsetX: -50
   },
   4: {
     legId: 4,
@@ -57,9 +60,10 @@ let coordsInitState = {
     transverseBaseX: 150,
     transverseBaseY: 0,
     side: 'right',
-    screenSide: 'left',
+    // screenSide: 'left',
     row: 'middle',
-    transverseViewOffsetY: 0
+    transverseViewOffsetY: 250,
+    transverseViewOffsetX: -50
   },
   5: {
     legId: 5,
@@ -72,9 +76,10 @@ let coordsInitState = {
     transverseBaseX: 100,
     transverseBaseY: 150,
     side: 'left',
-    screenSide: 'right',
+    // screenSide: 'right',
     row: 'back',
-    transverseViewOffsetY: 0
+    transverseViewOffsetY: 100,
+    transverseViewOffsetX: 0
   },
   6: {
     legId: 6,
@@ -87,9 +92,10 @@ let coordsInitState = {
     transverseBaseX: 100,
     transverseBaseY: 150,
     side: 'right',
-    screenSide: 'left',
+    // screenSide: 'left',
     row: 'back',
-    transverseViewOffsetY: 0
+    transverseViewOffsetY: 100,
+    transverseViewOffsetX: 0
   },
 };
 
