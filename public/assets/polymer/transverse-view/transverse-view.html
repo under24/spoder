@@ -24,6 +24,8 @@
       leg-length="[[computeLegLength(coords, metaData)]]"
       animation-center-coords="[[computeAnimationCenterCoords(metaData, coords)]]"
       animation-circle-radius="[[computeAnimationCircleRadius(metaData)]]"
+      offset-y="[[coords.transverseViewOffsetY]]"
+      offset-x="[[coords.transverseViewOffsetX]]"
       output="{{baseOutput}}">
     </transverse-view-base>
         
@@ -32,6 +34,8 @@
       side="[[legs.side]]" 
       passed-x="[[coords.transverseCursorX]]" 
       passed-y="[[coords.transverseCursorY]]"
+      offset-y="[[coords.transverseViewOffsetY]]"
+      offset-x="[[coords.transverseViewOffsetX]]"
       output="{{cursorOutput}}">
     </new-view-cursor>
     
@@ -117,9 +121,17 @@
       computeLegLength(coords, metaData) {
         if (coords == undefined || metaData == undefined) return;
         
-        let length = Utils.getDistance(coords.sagittalCursorX - coords.sagittalBaseX, coords.sagittalCursorY - coords.sagittalBaseY);
-        let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
+        // let length = Utils.getDistance(coords.sagittalCursorX - coords.sagittalBaseX, coords.sagittalCursorY - coords.sagittalBaseY);
+        // let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
+        // 
+        // if (length > combinedLegsLength) length = combinedLegsLength;
+        // 
+        // return length;
         
+        let length = coords.sagittalCursorX - coords.sagittalBaseX;
+        if (length < metaData.femurLength) length = metaData.femurLength;
+        
+        let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
         if (length > combinedLegsLength) length = combinedLegsLength;
         
         return length;
@@ -132,8 +144,8 @@
         let impossibleRange = this.computeImpossibleRange(metaData) / 2;
         
         return {
-          x: (combinedLegsLength / 2) + impossibleRange + coords.transverseBaseX,
-          y: coords.transverseBaseY
+          x: (combinedLegsLength / 2) + impossibleRange + coords.transverseBaseX + coords.transverseViewOffsetX,
+          y: coords.transverseBaseY + coords.transverseViewOffsetY
         }
       }
       
