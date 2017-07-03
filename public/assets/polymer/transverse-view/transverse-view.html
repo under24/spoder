@@ -17,7 +17,7 @@
     <transverse-view-base 
       passed-x="[[coords.transverseBaseX]]"
       passed-y="[[coords.transverseBaseY]]"
-      side="[[legs.side]]"
+      side="[[coords.side]]"
       combined-legs-length="[[computeCombinedLegsLength(metaData)]]"
       coxa-screen-angle="[[legs.coxaScreenAngle]]"
       impossible-range="[[computeImpossibleRange(metaData)]]"
@@ -32,7 +32,7 @@
         
     <new-view-cursor
       view="transverse" 
-      side="[[legs.side]]" 
+      side="[[coords.side]]" 
       passed-x="[[coords.transverseCursorX]]" 
       passed-y="[[coords.transverseCursorY]]"
       offset-y="[[coords.transverseViewOffsetY]]"

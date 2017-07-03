@@ -17,7 +17,7 @@
     <sagittal-view-base
       passed-x="[[coords.sagittalBaseX]]"
       passed-y="[[coords.sagittalBaseY]]"
-      side=[[legs.side]]
+      side=[[coords.side]]
       femur-length="[[metaData.femurLength]]"
       tibia-length="[[metaData.tibiaLength]]"
       combined-legs-length="[[computeCombinedLegsLength(metaData)]]"
@@ -29,7 +29,7 @@
     
     <new-view-cursor
       view="transverse" 
-      side="[[legs.side]]" 
+      side="[[coords.side]]" 
       passed-x="[[coords.sagittalCursorX]]" 
       passed-y="[[coords.sagittalCursorY]]"
       output={{cursorOutput}}> 
