@@ -23,6 +23,9 @@ let Utils = {
       return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
     }
   },
+  flipNumber(num) {
+    return num * -1;
+  },
   getImpossibleRange(len1, len2) {
     return Math.abs(len1 - len2);
   },
