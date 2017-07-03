@@ -5,10 +5,7 @@
     <style>
       :host {
         display: inline-block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        position: relative;
       }
       .joystickContainer {
         border: 1px dashed rgba(0, 0, 0, 0.5);
@@ -46,7 +43,7 @@
         border-radius: 100%;
         position: absolute;
         transform: translate(-50%, -50%);
-        z-index: 7;
+        z-index: 1;
       }
       /* rocker center dot */
       :host([debug]) #rocker::before {
