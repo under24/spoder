@@ -34,7 +34,6 @@
       #baseRange {
         background-color: rgba(255, 0, 0, 0.02);
         display: inline-block;
-        transform: translate(0%, -50%);
         position: absolute;
         pointer-events: none;
       }
@@ -132,7 +131,6 @@
             observer: 'observeAnimationCircleRadius'
           },
           offsetRotation: {
-            type: Number,
             observer: 'observeOffsetRotation'
           },
           output: {
@@ -298,7 +296,7 @@
       }
       
       observeOffsetRotation(deg) {
-        debugger;
+        this.$.baseRange.style.transform = 'translate(0%, -50%) rotate(' + deg + 'deg)';
       }
 
     }
