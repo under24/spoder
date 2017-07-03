@@ -15,7 +15,8 @@ let coordsInitState = {
     // screenSide: 'right',
     row: 'front',
     transverseViewOffsetY: 400,
-    transverseViewOffsetX: 0
+    transverseViewOffsetX: 0,
+    offsetRotation: -45
   },
   2: {
     legId: 2,
@@ -31,7 +32,8 @@ let coordsInitState = {
     // screenSide: 'left',
     row: 'front',
     transverseViewOffsetY: 400,
-    transverseViewOffsetX: 0
+    transverseViewOffsetX: 0,
+    offsetRotation: 45
   },
   3: {
     legId: 3,

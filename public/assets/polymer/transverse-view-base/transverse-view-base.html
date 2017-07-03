@@ -131,6 +131,10 @@
           animationCircleRadius: {
             observer: 'observeAnimationCircleRadius'
           },
+          offsetRotation: {
+            type: Number,
+            observer: 'observeOffsetRotation'
+          },
           output: {
             notify: true
           }
@@ -227,6 +231,8 @@
             
             this.$.animationCircleCenter.style.right = '';
             this.redrawAnimationCircle(this.animationCenterCoords);
+            
+            this.$.baseRange.style.transformOrigin = 'center left';
             return;
           case 'right':
             this.$.baseRange.style.borderBottomRightRadius = '';
@@ -244,6 +250,8 @@
             
             this.$.animationCircleCenter.style.left = '';
             this.redrawAnimationCircle(this.animationCenterCoords);
+            
+            this.$.baseRange.style.transformOrigin = 'center right';
             return;
         }
       }
@@ -287,6 +295,10 @@
       observeAnimationCircleRadius(radius) {
         this.$.animationCircle.style.width = radius + 'px';
         this.$.animationCircle.style.height = radius + 'px';
+      }
+      
+      observeOffsetRotation(deg) {
+        debugger;
       }
 
     }
