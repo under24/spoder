@@ -5,7 +5,8 @@ const { combineReducers, createStore} = Redux;
 const modifierReducer = combineReducers({
   level: levelReducer,
   tilt: tiltReducer,
-  shift: shiftReducer
+  shift: shiftReducer,
+  rotation: rotationReducer
 });
 
 const reducers = combineReducers({
