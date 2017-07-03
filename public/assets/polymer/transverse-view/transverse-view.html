@@ -21,7 +21,7 @@
       combined-legs-length="[[computeCombinedLegsLength(metaData)]]"
       coxa-screen-angle="[[legs.coxaScreenAngle]]"
       impossible-range="[[computeImpossibleRange(metaData)]]"
-      leg-length="[[computeLegLength(coords, metaData)]]"
+      leg-length="[[computeLegLength(coords, metaData, legs.femurScreenAngle)]]"
       animation-center-coords="[[computeAnimationCenterCoords(metaData, coords)]]"
       animation-circle-radius="[[computeAnimationCircleRadius(metaData)]]"
       offset-y="[[coords.transverseViewOffsetY]]"
@@ -119,21 +119,33 @@
         return Utils.getImpossibleRange(metaData.femurLength, metaData.tibiaLength);
       }
       
-      computeLegLength(coords, metaData) {
-        if (coords == undefined || metaData == undefined) return;
+      computeLegLength(coords, metaData, femurScreenAngle) {
+        if (coords == undefined || metaData == undefined || femurScreenAngle == undefined) return;
         
+        let length;
+
         // let length = Utils.getDistance(coords.sagittalCursorX - coords.sagittalBaseX, coords.sagittalCursorY - coords.sagittalBaseY);
         // let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
         // 
         // if (length > combinedLegsLength) length = combinedLegsLength;
         // 
         // return length;
-        
-        let length = coords.sagittalCursorX - coords.sagittalBaseX;
-        if (length < metaData.femurLength) length = metaData.femurLength;
-        
+        debugger;
         let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
-        if (length > combinedLegsLength) length = combinedLegsLength;
+        let a = Utils.getDistance(coords.sagittalCursorX - coords.sagittalBaseX, coords.sagittalCursorY - coords.sagittalBaseY);
+        
+        
+        let distance = Utils.getDistance(coords.sagittalCursorX - coords.sagittalBaseX, coords.sagittalCursorY - coords.sagittalBaseY);
+        let newCoords = Utils.getCoordsFromDistanceAndAngle(coords.sagittalBaseX, coords.sagittalBaseY, femurScreenAngle, metaData.femurLength);
+        
+        if (newCoords.x > coords.sagittalCursorX)
+          length = newCoords.x - coords.sagittalBaseX;
+        else
+          length = coords.sagittalCursorX - coords.sagittalBaseX;
+          // console.log(coords.sagittalCursorX - coords.sagittalBaseX);
+        
+        // if (length > combinedLegsLength) length = combinedLegsLength;
+        if (a > combinedLegsLength) length = combinedLegsLength;
         
         return length;
       }
@@ -142,15 +154,24 @@
         if (metaData == undefined || coords == undefined) return;
         
         let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
-        let impossibleRange = this.computeImpossibleRange(metaData) / 2;
+        let impossibleRange = this.computeImpossibleRange(metaData);
+        let distance = (combinedLegsLength + impossibleRange) / 2;
         
-        return {
-          x: (combinedLegsLength / 2) + impossibleRange + coords.transverseBaseX + coords.transverseViewOffsetX,
-          y: coords.transverseBaseY + coords.transverseViewOffsetY
+        let x = coords.transverseBaseX + coords.transverseViewOffsetX;
+        let y = coords.transverseBaseY + coords.transverseViewOffsetY;
+        
+        let final;
+        if (coords.offsetRotation === 0)
+          final = { x: x + distance, y };
+        else {
+          let angle = coords.side == 'left' ? coords.offsetRotation : Utils.flipNumber(coords.offsetRotation);
+          final = Utils.getCoordsFromDistanceAndAngle(x, y, angle, distance);
         }
+        
+        return final;
       }
       
-      computeAnimationCircleRadius(metaData) {        
+      computeAnimationCircleRadius(metaData) {
         let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
         let impossibleRange = this.computeImpossibleRange(metaData);
         
