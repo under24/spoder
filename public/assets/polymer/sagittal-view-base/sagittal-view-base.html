@@ -23,6 +23,7 @@
         height: 1px;
         background-color: black;
         z-index: 1;
+        pointer-events: none;
       }
       :host([side=left]) #femur {
         transform-origin: left;
@@ -47,7 +48,7 @@
         right: 100%;
       }
       #baseRange {
-        background-color: rgba(255, 0, 0, 0.02);
+        background-color: rgba(255, 0, 0, 0.04);
         display: inline-block;
         transform: translate(0%, -50%);
         position: absolute;

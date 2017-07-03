@@ -77,7 +77,7 @@
             observer: 'observeBaseOutput'
           },
           selectorOutput: {
-            observer: 'observeselectorOutput'
+            observer: 'observeSelectorOutput'
           }
         };
       }
@@ -104,7 +104,7 @@
         });
       }
       
-      observeselectorOutput(newValue) {
+      observeSelectorOutput(newValue) {
         store.dispatch({
           type: "TRANSVERSE_VIEW_LEG_ID_CHANGED",
           payload: newValue.value
