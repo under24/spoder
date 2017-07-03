@@ -25,5 +25,13 @@ let Utils = {
   },
   getImpossibleRange(len1, len2) {
     return Math.abs(len1 - len2);
+  },
+  getCoordsFromDistanceAndAngle(x, y, angle, distance) {
+    let result = {};
+
+    result.x = Utils.roundNumber(Math.cos(angle * Math.PI / 180) * distance + x, 0);
+    result.y = Utils.roundNumber(Math.sin(angle * Math.PI / 180) * distance + y, 0);
+
+    return result;
   }
 };
