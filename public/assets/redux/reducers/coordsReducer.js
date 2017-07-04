@@ -49,7 +49,7 @@ let coordsInitState = {
     // screenSide: 'right',
     row: 'middle',
     transverseViewOffsetY: 250,
-    transverseViewOffsetX: -50,
+    transverseViewOffsetX: 0,
     offsetRotation: 0
   },
   4: {
@@ -66,7 +66,7 @@ let coordsInitState = {
     // screenSide: 'left',
     row: 'middle',
     transverseViewOffsetY: 250,
-    transverseViewOffsetX: -50,
+    transverseViewOffsetX: 0,
     offsetRotation: 0
   },
   5: {

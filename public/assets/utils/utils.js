@@ -4,11 +4,11 @@ let Utils = {
   lawOfCos(a, b, c) {
   	return Math.acos((a * a + b * b - c * c) / (2 * a * b));
   },
-  getDistance(diffX, diffY) {
-    return Math.sqrt( diffX * diffX + diffY * diffY );
+  getDistance(dx, dy) {
+    return Math.sqrt( dx * dx + dy * dy );
   },
-  getAngle(diffY, diffX) {
-    let atan2 = Math.atan2(diffY, diffX);
+  getAngle(dy, dx) {
+    let atan2 = Math.atan2(dy, dx);
     return (atan2 > 0 ? atan2 : (2 * Math.PI + atan2)) * 360 / (2 * Math.PI);
   },
   roundNumber(num, scale) {
