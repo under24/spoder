@@ -4,8 +4,8 @@ let Utils = {
   lawOfCos(a, b, c) {
   	return Math.acos((a * a + b * b - c * c) / (2 * a * b));
   },
-  getDistance(x, y) {
-    return Math.sqrt( x * x + y * y );
+  getDistance(diffX, diffY) {
+    return Math.sqrt( diffX * diffX + diffY * diffY );
   },
   getAngle(diffY, diffX) {
     let atan2 = Math.atan2(diffY, diffX);
