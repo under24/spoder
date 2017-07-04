@@ -7,8 +7,8 @@ let Utils = {
   getDistance(x, y) {
     return Math.sqrt( x * x + y * y );
   },
-  getDegrees(y, x) {
-    let atan2 = Math.atan2(y, x);
+  getAngle(diffY, diffX) {
+    let atan2 = Math.atan2(diffY, diffX);
     return (atan2 > 0 ? atan2 : (2 * Math.PI + atan2)) * 360 / (2 * Math.PI);
   },
   roundNumber(num, scale) {

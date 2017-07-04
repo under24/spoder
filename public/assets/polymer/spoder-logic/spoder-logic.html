@@ -78,7 +78,7 @@
       }
 
       getAngleFromDistance(legId, view) {
-        let screen = Utils.getDegrees(this.getYFromBase(legId, view), this.getXFromBase(legId, view));
+        let screen = Utils.getAngle(this.getYFromBase(legId, view), this.getXFromBase(legId, view));
         
         let servo = (screen - 270 < 0) ? screen + 90 : screen - 270;
         
