@@ -194,7 +194,7 @@
             this.$.femur.style.transform = 'rotate(' + newAngle + 'deg)';
             return;
           case 'right':
-            this.$.femur.style.transform = 'rotate(' + newAngle * -1 + 'deg)';
+            this.$.femur.style.transform = 'rotate(' + Utils.flipNumber(newAngle) + 'deg)';
             return;
         }
       }
@@ -205,7 +205,7 @@
             this.$.tibia.style.transform = 'rotate(' + newAngle + 'deg)';
             return;
           case 'right':
-            this.$.tibia.style.transform = 'rotate(' + newAngle * -1 + 'deg)';
+            this.$.tibia.style.transform = 'rotate(' + Utils.flipNumber(newAngle) + 'deg)';
             return;
         }
       }

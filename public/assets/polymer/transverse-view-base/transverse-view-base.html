@@ -193,7 +193,7 @@
             this.$.coxa.style.transform = 'rotate(' + newAngle + 'deg)';
             return;
           case 'right':
-            this.$.coxa.style.transform = 'rotate(' + newAngle * -1 + 'deg)';
+            this.$.coxa.style.transform = 'rotate(' + Utils.flipNumber(newAngle) + 'deg)';
             return;
         }
       }
