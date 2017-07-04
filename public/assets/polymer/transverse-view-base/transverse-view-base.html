@@ -175,6 +175,30 @@
             // export data to the upper component
             this.output = payload;
             
+            debugger;
+            let a = store.getState();
+
+            let fromZeroToBase = Utils.getDistance(a.coords[3].transverseBaseX, a.coords[3].transverseBaseY);
+            store.dispatch({
+              type: "BASE_XY_CHANGED",
+              legId: 3,
+              payload: {
+                sagittalBaseX: fromZeroToBase
+              }
+            })
+            // console.log('from 0 to base', fromZeroToBase);
+            
+            let fromBaseToCursor = Utils.getDistance(a.coords[3].transverseBaseX - a.coords[3].transverseCursorX, a.coords[3].transverseBaseY - a.coords[3].transverseCursorY);
+            store.dispatch({
+              type: "CURSOR_XY_CHANGED",
+              legId: 3,
+              payload: {
+                sagittalCursorX: fromBaseToCursor + fromZeroToBase
+              }
+            })
+            // console.log('from base to cursor', fromBaseToCursor);
+            // console.log('concatted ', fromBaseToCursor + fromZeroToBase);
+            
             e.preventDefault();
             e.stopPropagation();
           };
