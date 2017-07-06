@@ -26,9 +26,6 @@ let Utils = {
   flipNumber(num) {
     return num * -1;
   },
-  getImpossibleRange(len1, len2) {
-    return Math.abs(len1 - len2);
-  },
   getCoordsFromDistanceAndAngle(x, y, angle, distance) {
     let resultX = Utils.roundNumber(Math.cos(angle * Math.PI / 180) * distance + x, 0);
     let resultY = Utils.roundNumber(Math.sin(angle * Math.PI / 180) * distance + y, 0);

@@ -20,7 +20,7 @@
       side="[[coords.side]]"
       combined-legs-length="[[computeCombinedLegsLength(metaData)]]"
       coxa-screen-angle="[[legs.coxaScreenAngle]]"
-      impossible-range="[[computeImpossibleRange(metaData)]]"
+      impossible-range="[[metaData.impossibleRange]]"
       leg-length="[[computeLegLength(coords, metaData, legs.femurScreenAngle)]]"
       animation-center-coords="[[computeAnimationCenterCoords(metaData, coords)]]"
       animation-circle-radius="[[computeAnimationCircleRadius(metaData)]]"
@@ -115,10 +115,6 @@
         return metaData.femurLength + metaData.tibiaLength;
       }
       
-      computeImpossibleRange(metaData) {
-        return Utils.getImpossibleRange(metaData.femurLength, metaData.tibiaLength);
-      }
-      
       computeLegLength(coords, metaData, femurScreenAngle) {
         if (coords == undefined || metaData == undefined || femurScreenAngle == undefined) return;
         
@@ -154,8 +150,7 @@
         if (metaData == undefined || coords == undefined) return;
         
         let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
-        let impossibleRange = this.computeImpossibleRange(metaData);
-        let distance = (combinedLegsLength + impossibleRange) / 2;
+        let distance = (combinedLegsLength + metaData.impossibleRange) / 2;
         
         let x = coords.transverseBaseX + coords.transverseViewOffsetX;
         let y = coords.transverseBaseY + coords.transverseViewOffsetY;
@@ -173,9 +168,8 @@
       
       computeAnimationCircleRadius(metaData) {
         let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
-        let impossibleRange = this.computeImpossibleRange(metaData);
         
-        return combinedLegsLength - impossibleRange;
+        return combinedLegsLength - metaData.impossibleRange;
       }
 
     }
