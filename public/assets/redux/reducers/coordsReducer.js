@@ -114,25 +114,49 @@ const coordsReducer = (state = coordsInitState, action) => {
         { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
       );
     case "CURSOR_XY_SHIFTED":
-      let cursorXY = {};
-      if (action.payload.sagittalCursorX) {
-        cursorXY.sagittalCursorX = state[action.legId].sagittalCursorX - action.payload.sagittalCursorX;
+      {
+        let cursorXY = {};
+        if (action.payload.sagittalCursorX) {
+          cursorXY.sagittalCursorX = state[action.legId].sagittalCursorX - action.payload.sagittalCursorX;
+        }
+        if (action.payload.sagittalCursorY) {
+          cursorXY.sagittalCursorY = state[action.legId].sagittalCursorY - action.payload.sagittalCursorY;
+        }
+        if (action.payload.transverseCursorX) {
+          cursorXY.transverseCursorX = state[action.legId].transverseCursorX - action.payload.transverseCursorX;
+        }
+        if (action.payload.transverseCursorY) {
+          cursorXY.transverseCursorY = state[action.legId].transverseCursorY - action.payload.transverseCursorY;
+        }
+        
+        // compensative computations
+        // transverseCursorX/Y => sagittalBaseX + sagittalCursorX
+        if (cursorXY.transverseCursorX || cursorXY.transverseCursorY) {
+          let tcx = cursorXY.transverseCursorX || state[action.legId].transverseCursorX;
+          let tcy = cursorXY.transverseCursorY || state[action.legId].transverseCursorY;
+          
+          let tbx = state[action.legId].transverseBaseX;
+          let tby = state[action.legId].transverseBaseY;
+          
+          // from center (zero) point to transverse base
+          let newSagittalBaseX = Utils.roundNumber(Utils.getDistance(tbx, tby), 0);
+          if (newSagittalBaseX !== state[action.legId].sagittalBaseX) {
+            cursorXY.sagittalBaseX = newSagittalBaseX;
+          } 
+          
+          // from transverse base to transverse cursor
+          let newSagittalCursorX = newSagittalBaseX + Utils.roundNumber(Utils.getDistance(tbx - tcx, tby - tcy), 0);
+          if (newSagittalCursorX !== state[action.legId].sagittalCursorX) {
+            cursorXY.sagittalCursorX = newSagittalCursorX;
+          }
+        }
+        
+        return Object.assign(
+          {},
+          state,
+          { [action.legId]: Object.assign({}, state[action.legId], cursorXY)}
+        );
       }
-      if (action.payload.sagittalCursorY) {
-        cursorXY.sagittalCursorY = state[action.legId].sagittalCursorY - action.payload.sagittalCursorY;
-      }
-      if (action.payload.transverseCursorX) {
-        cursorXY.transverseCursorX = state[action.legId].transverseCursorX - action.payload.transverseCursorX;
-      }
-      if (action.payload.transverseCursorY) {
-        cursorXY.transverseCursorY = state[action.legId].transverseCursorY - action.payload.transverseCursorY;
-      }
-      
-      return Object.assign(
-        {},
-        state,
-        { [action.legId]: Object.assign({}, state[action.legId], cursorXY)}
-      );
     case 'BASE_XY_CHANGED':
       return Object.assign(
         {},
@@ -140,25 +164,49 @@ const coordsReducer = (state = coordsInitState, action) => {
         { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
       );
     case 'BASE_XY_SHIFTED':
-      let baseXY = {};
-      if (action.payload.sagittalBaseX) {
-        baseXY.sagittalBaseX = state[action.legId].sagittalBaseX - action.payload.sagittalBaseX;
-      }
-      if (action.payload.sagittalBaseY) {
-        baseXY.sagittalBaseY = state[action.legId].sagittalBaseY - action.payload.sagittalBaseY;
-      }
-      if (action.payload.transverseBaseX) {
-        baseXY.transverseBaseX = state[action.legId].transverseBaseX - action.payload.transverseBaseX;
-      }
-      if (action.payload.transverseBaseY) {
-        baseXY.transverseBaseY = state[action.legId].transverseBaseY - action.payload.transverseBaseY;
-      }
+      {
+        let baseXY = {};
+        if (action.payload.sagittalBaseX) {
+          baseXY.sagittalBaseX = state[action.legId].sagittalBaseX - action.payload.sagittalBaseX;
+        }
+        if (action.payload.sagittalBaseY) {
+          baseXY.sagittalBaseY = state[action.legId].sagittalBaseY - action.payload.sagittalBaseY;
+        }
+        if (action.payload.transverseBaseX) {
+          baseXY.transverseBaseX = state[action.legId].transverseBaseX - action.payload.transverseBaseX;
+        }
+        if (action.payload.transverseBaseY) {
+          baseXY.transverseBaseY = state[action.legId].transverseBaseY - action.payload.transverseBaseY;
+        }
+        
+        // compensative computations
+        // transverseBaseX/Y => sagittalBaseX + sagittalCursorX
+        if (baseXY.transverseBaseX || baseXY.transverseBaseY) {
+          let tbx = baseXY.transverseBaseX || state[action.legId].transverseBaseX;
+          let tby = baseXY.transverseBaseY || state[action.legId].transverseBaseY;
+          
+          let tcx = state[action.legId].transverseCursorX;
+          let tcy = state[action.legId].transverseCursorY;
+          
+          // from center (zero) point to transverse base
+          let newSagittalBaseX = Utils.roundNumber(Utils.getDistance(tbx, tby), 0);
+          if (newSagittalBaseX !== state[action.legId].sagittalBaseX) {
+            baseXY.sagittalBaseX = newSagittalBaseX;
+          }
 
-      return Object.assign(
-        {},
-        state,
-        { [action.legId]: Object.assign({}, state[action.legId], baseXY)}
-      );
+          // from transverse base to transverse cursor
+          let newSagittalCursorX = newSagittalBaseX + Utils.roundNumber(Utils.getDistance(tbx - tcx, tby - tcy), 0);
+          if (newSagittalCursorX !== state[action.legId].sagittalCursorX) {
+            baseXY.sagittalCursorX = newSagittalCursorX;
+          }
+        }
+          
+        return Object.assign(
+          {},
+          state,
+          { [action.legId]: Object.assign({}, state[action.legId], baseXY)}
+        );
+      }
     case 'BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y':
       {
         let newState = {};
