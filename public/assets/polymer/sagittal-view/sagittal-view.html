@@ -20,7 +20,7 @@
       side="[[coords.side]]"
       femur-length="[[metaData.femurLength]]"
       tibia-length="[[metaData.tibiaLength]]"
-      combined-legs-length="[[computeCombinedLegsLength(metaData)]]"
+      combined-legs-length="[[metaData.combinedLegsLength]]"
       impossible-range="[[metaData.impossibleRange]]"
       femur-screen-angle="[[legs.femurScreenAngle]]"
       tibia-screen-angle="[[legs.tibiaScreenAngle]]"
@@ -104,10 +104,6 @@
           type: "SAGITTAL_VIEW_LEG_ID_CHANGED",
           payload: newValue.value
         });
-      }
-      
-      computeCombinedLegsLength(metaData) {
-        return metaData.femurLength + metaData.tibiaLength;
       }
 
     }

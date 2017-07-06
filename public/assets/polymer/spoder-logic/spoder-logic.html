@@ -53,10 +53,6 @@
       
       // BEGIN HELPER FUNCTIONS
       
-      get combinedLegsLength() {
-        return this.metaData.femurLength + this.metaData.tibiaLength;
-      }
-      
       getDistanceFromBaseToCursor(legId, view) {
         return Utils.getDistance(this.getXFromBase(legId, view), this.getYFromBase(legId, view));
       }
@@ -70,7 +66,7 @@
       }
       
       getReachDistance(legId, view) {
-        return this.getDistanceFromBaseToCursor(legId, view) - this.combinedLegsLength;
+        return this.getDistanceFromBaseToCursor(legId, view) - this.metaData.combinedLegsLength;
       }
       
       targetWithinReach(legId, view) {
