@@ -17,31 +17,29 @@
     </style>
     <div class="diag-panel">
       <diag-section class="layout-text" header="Basic info:">
-        <diag-text label="Sagittal Base X:" value="[[sagittalBaseX]]"></diag-text>
-        <diag-text label="Sagittal Base Y:" value="[[sagittalBaseY]]"></diag-text>
-        <diag-text label="Sagittal Cursor X:" value="[[sagittalCursorX]]"></diag-text>
-        <diag-text label="Sagittal Cursor Y:" value="[[sagittalCursorY]]"></diag-text>
-        <diag-text label="Femur Screen Angle:" value="[[femurScreenAngle]]"></diag-text>
-        <diag-text label="Tibia Screen Angle:" value="[[tibiaScreenAngle]]"></diag-text>
+        <diag-text label="Sagittal Base X:" value="[[coords.sagittalBaseX]]"></diag-text>
+        <diag-text label="Sagittal Base Y:" value="[[coords.sagittalBaseY]]"></diag-text>
+        <diag-text label="Sagittal Cursor X:" value="[[coords.sagittalCursorX]]"></diag-text>
+        <diag-text label="Sagittal Cursor Y:" value="[[coords.sagittalCursorY]]"></diag-text>
+        <diag-text label="Femur Screen Angle:" value="[[legs.femurScreenAngle]]"></diag-text>
+        <diag-text label="Tibia Screen Angle:" value="[[legs.tibiaScreenAngle]]"></diag-text>
         <hr />
-        <diag-text label="BaseY Level Modifier:" value="[[levelModifier]]"></diag-text>
-        <hr />
-        <diag-text label="Transverse Base X:" value="[[transverseBaseX]]"></diag-text>
-        <diag-text label="Transverse Base Y:" value="[[transverseBaseY]]"></diag-text>
-        <diag-text label="Transverse Cursor X:" value="[[transverseCursorX]]"></diag-text>
-        <diag-text label="Transverse Cursor Y:" value="[[transverseCursorY]]"></diag-text>
-        <diag-text label="Coxa Screen Angle:" value="[[coxaScreenAngle]]"></diag-text>
+        <diag-text label="Transverse Base X:" value="[[coords.transverseBaseX]]"></diag-text>
+        <diag-text label="Transverse Base Y:" value="[[coords.transverseBaseY]]"></diag-text>
+        <diag-text label="Transverse Cursor X:" value="[[coords.transverseCursorX]]"></diag-text>
+        <diag-text label="Transverse Cursor Y:" value="[[coords.transverseCursorY]]"></diag-text>
+        <diag-text label="Coxa Screen Angle:" value="[[legs.coxaScreenAngle]]"></diag-text>
         <hr />
       </diag-section>
       <diag-section class="layout-bars" header="Leg 1 servos:">
-        <diag-bar value='[[coxaServoAngle]]'></diag-bar>
-        <diag-bar value="[[femurServoAngle]]"></diag-bar>
-        <diag-bar value="[[tibiaServoAngle]]"></diag-bar>
+        <diag-bar value='[[legs.coxaServoAngle]]'></diag-bar>
+        <diag-bar value="[[legs.femurServoAngle]]"></diag-bar>
+        <diag-bar value="[[legs.tibiaServoAngle]]"></diag-bar>
       </diag-section>
       <diag-section class="layout-text" header="Servos angle info:">
-        <diag-text label="Coxa Servo Angle:" value="[[coxaServoAngle]]"></diag-text>
-        <diag-text label="Femur Servo Angle:" value="[[femurServoAngle]]"></diag-text>
-        <diag-text label="Tibia Servo Angle:" value="[[tibiaServoAngle]]"></diag-text>
+        <diag-text label="Coxa Servo Angle:" value="[[legs.coxaServoAngle]]"></diag-text>
+        <diag-text label="Femur Servo Angle:" value="[[legs.femurServoAngle]]"></diag-text>
+        <diag-text label="Tibia Servo Angle:" value="[[legs.tibiaServoAngle]]"></diag-text>
       </diag-section>
     </div>
   </template>
@@ -55,93 +53,15 @@
             type: Number,
             value: 1
           },
-          sagittalCursorX: {
-            type: Number,
+          legs: {
             statePath(state) {
-              return state.coords[this.legId].sagittalCursorX;
+              return state.legs[this.legId];
             }
           },
-          sagittalCursorY: {
-            type: Number,
+          coords: {
             statePath(state) {
-              return state.coords[this.legId].sagittalCursorY;
+              return state.coords[this.legId];
             }
-          },
-          sagittalBaseX: {
-            type: Number,
-            statePath(state) {
-              return state.coords[this.legId].sagittalBaseX;
-            }
-          },
-          sagittalBaseY: {
-            type: Number,
-            statePath(state) {
-              return state.coords[this.legId].sagittalBaseY;
-            }
-          },
-          transverseBaseX: {
-            type: Number,
-            statePath(state) {
-              return state.coords[this.legId].transverseBaseX;
-            }
-          },
-          transverseBaseY: {
-            type: Number,
-            statePath(state) {
-              return state.coords[this.legId].transverseBaseY;
-            }
-          },
-          transverseCursorX: {
-            type: Number,
-            statePath(state) {
-              return state.coords[this.legId].transverseCursorX;
-            }
-          },
-          transverseCursorY: {
-            type: Number,
-            statePath(state) {
-              return state.coords[this.legId].transverseCursorY;
-            }
-          },
-          femurScreenAngle: {
-            type: Number,
-            statePath(state) {
-              return state.legs[this.legId].femurScreenAngle;
-            }
-          },
-          femurServoAngle: {
-            type: Number,
-            statePath(state) {
-              return state.legs[this.legId].femurServoAngle;
-            }
-          },
-          tibiaScreenAngle: {
-            type: Number,
-            statePath(state) {
-              return state.legs[this.legId].tibiaScreenAngle;
-            }
-          },
-          tibiaServoAngle: {
-            type: Number,
-            statePath(state) {
-              return state.legs[this.legId].tibiaServoAngle;
-            }
-          },
-          coxaScreenAngle: {
-            type: Number,
-            statePath(state) {
-              return state.legs[this.legId].coxaScreenAngle;
-            }
-          },
-          coxaServoAngle: {
-            type: Number,
-            statePath(state) {
-              return state.legs[this.legId].coxaServoAngle;
-            }
-          },
-          levelModifier: {
-            type: Number,
-            statePath: 'modifiers.level.levelModifier'
           }
         };
       }
