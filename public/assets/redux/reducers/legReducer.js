@@ -1,6 +1,6 @@
 'use strict';
 
-let legInitState = {
+let legReducerInitState = {
   1: {
     // IDs
     legId: 1,
@@ -104,7 +104,7 @@ let legInitState = {
     row: 'back'
   }
 }
-const legReducer = (state = legInitState, action) => {
+const legReducer = (state = legReducerInitState, action) => {
   switch (action.type) {
     case "LEG_ANGLE_CHANGED":
       return Object.assign(

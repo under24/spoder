@@ -1,11 +1,11 @@
 'use strict';
 
-let rotationInitState = {
+let rotationReducerInitState = {
   rotationModifier: 0,
   appliedTo: 'sagittalBaseY'
 }
 
-const rotationReducer = (state = rotationInitState, action) => {
+const rotationReducer = (state = rotationReducerInitState, action) => {
   switch (action.type) {
     case "a":
       

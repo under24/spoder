@@ -1,6 +1,6 @@
 'use strict';
 
-let coordsInitState = {
+let coordsReducerInitState = {
   1: {
     legId: 1,
     // sagittalCursorX: 250,
@@ -100,18 +100,18 @@ let coordsInitState = {
 };
 
 // compute sagittalBaseX and sagittalCursorX coords
-for (let key in coordsInitState) {
+for (let key in coordsReducerInitState) {
   let result = reduxUtils.getCompensativeCoords({
-    tbx: coordsInitState[key].transverseBaseX,
-    tby: coordsInitState[key].transverseBaseY,
-    tcx: coordsInitState[key].transverseCursorX,
-    tcy: coordsInitState[key].transverseCursorY
+    tbx: coordsReducerInitState[key].transverseBaseX,
+    tby: coordsReducerInitState[key].transverseBaseY,
+    tcx: coordsReducerInitState[key].transverseCursorX,
+    tcy: coordsReducerInitState[key].transverseCursorY
   });
   
-  Object.assign(coordsInitState[key], result);
+  Object.assign(coordsReducerInitState[key], result);
 }
 
-const coordsReducer = (state = coordsInitState, action) => {
+const coordsReducer = (state = coordsReducerInitState, action) => {
   switch (action.type) {
     case "CURSOR_XY_CHANGED":
       return Object.assign(

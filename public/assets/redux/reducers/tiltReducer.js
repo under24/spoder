@@ -1,6 +1,6 @@
 'use strict';
 
-let tiltInitState = {
+let tiltReducerInitState = {
   leftTiltModifier: 0,
   rightTiltModifier: 0,
   frontTiltModifier: 0,
@@ -8,7 +8,7 @@ let tiltInitState = {
   appliedTo: 'sagittalBaseY'
 }
 
-const tiltReducer = (state = tiltInitState, action) => {
+const tiltReducer = (state = tiltReducerInitState, action) => {
   switch (action.type) {
     case "BASE_Y_TILT_MODIFIER_CHANGED":
       return Object.assign({}, state, action.payload);

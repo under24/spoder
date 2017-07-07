@@ -5,7 +5,7 @@ let tibiaLength = 140;
 let combinedLegsLength = femurLength + tibiaLength;
 let impossibleRange = Math.abs(femurLength - tibiaLength);
 
-let metaDataInitState = {
+let metaDataReducerInitState = {
   coxaLength: 20,
   femurLength,
   tibiaLength,
@@ -13,7 +13,7 @@ let metaDataInitState = {
   impossibleRange
 };
 
-const metaDataReducer = (state = metaDataInitState, action) => {
+const metaDataReducer = (state = metaDataReducerInitState, action) => {
   switch (action.type) {
     case "a":
     

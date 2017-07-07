@@ -1,6 +1,6 @@
 'use strict';
 
-let shiftInitState = {
+let shiftReducerInitState = {
   leftShiftModifier: 0,
   rightShiftModifier: 0,
   frontShiftModifier: 0,
@@ -8,7 +8,7 @@ let shiftInitState = {
   appliedTo: 'sagittalBaseX'
 }
 
-const shiftReducer = (state = shiftInitState, action) => {
+const shiftReducer = (state = shiftReducerInitState, action) => {
   switch (action.type) {
     case "BASE_X_SHIFT_MODIFIER_CHANGED":
       return Object.assign({}, state, action.payload);

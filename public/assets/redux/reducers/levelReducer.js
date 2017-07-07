@@ -1,11 +1,11 @@
 'use strict';
 
-let levelInitState = {
+let levelReducerInitState = {
   levelModifier: 0,
   appliedTo: 'sagittalBaseY'
 }
 
-const levelReducer = (state = levelInitState, action) => {
+const levelReducer = (state = levelReducerInitState, action) => {
   switch (action.type) {
     case "BASE_Y_LEVEL_MODIFIER_CHANGED":
       return Object.assign({}, state, action.payload);

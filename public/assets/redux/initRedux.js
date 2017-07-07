@@ -13,7 +13,7 @@ const reducers = combineReducers({
   legs: legReducer,
   angles: angleReducer,
   metaData: metaDataReducer,
-  views: viewsReducer,
+  views: viewReducer,
   modifiers: modifierReducer,
   coords: coordsReducer
 });

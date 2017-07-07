@@ -2,12 +2,12 @@
 
 // BASE_Y_LEVEL_MODIFIER_CHANGED
 
-let viewsInitState = {
+let viewReducerInitState = {
   transverseViewLegId: 1,
   sagittalViewLegId: 1
 }
 
-const viewsReducer = (state = viewsInitState, action) => {
+const viewReducer = (state = viewReducerInitState, action) => {
   switch (action.type) {
     case "TRANSVERSE_VIEW_LEG_ID_CHANGED":
       return Object.assign({}, state, {transverseViewLegId: action.payload});
