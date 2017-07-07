@@ -27,8 +27,12 @@ let Utils = {
     return num * -1;
   },
   getCoordsFromDistanceAndAngle(x, y, angle, distance) {
-    let resultX = Utils.roundNumber(Math.cos(angle * Math.PI / 180) * distance + x, 0);
-    let resultY = Utils.roundNumber(Math.sin(angle * Math.PI / 180) * distance + y, 0);
-    return {x: resultX, y: resultY};
+    let resultX = Math.cos(angle * Math.PI / 180) * distance + x;
+    let resultY = Math.sin(angle * Math.PI / 180) * distance + y;
+    
+    return {
+      x: Utils.roundNumber(resultX, 0), 
+      y: Utils.roundNumber(resultY, 0)
+    };
   }
 };
