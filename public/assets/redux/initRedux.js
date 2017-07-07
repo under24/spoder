@@ -11,6 +11,7 @@ const modifierReducer = combineReducers({
 
 const reducers = combineReducers({
   legs: legReducer,
+  angles: angleReducer,
   metaData: metaDataReducer,
   views: viewsReducer,
   modifiers: modifierReducer,

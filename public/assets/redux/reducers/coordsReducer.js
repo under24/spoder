@@ -96,7 +96,7 @@ let coordsInitState = {
     transverseViewOffsetY: 100,
     transverseViewOffsetX: 0,
     offsetRotation: -45
-  },
+  }
 };
 
 // compute sagittalBaseX and sagittalCursorX coords
