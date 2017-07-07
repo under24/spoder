@@ -3,16 +3,15 @@
 let coordsInitState = {
   1: {
     legId: 1,
-    sagittalCursorX: 250,
+    // sagittalCursorX: 250,
     sagittalCursorY: 280,
-    sagittalBaseX: 100,
+    // sagittalBaseX: 100,
     sagittalBaseY: 250,
     transverseCursorX: 200,
     transverseCursorY: -250,
     transverseBaseX: 100,
     transverseBaseY: -150,
     side: 'left',
-    // screenSide: 'right',
     row: 'front',
     transverseViewOffsetY: 400,
     transverseViewOffsetX: 0,
@@ -20,16 +19,15 @@ let coordsInitState = {
   },
   2: {
     legId: 2,
-    sagittalCursorX: 250,
+    // sagittalCursorX: 250,
     sagittalCursorY: 280,
-    sagittalBaseX: 100,
+    // sagittalBaseX: 100,
     sagittalBaseY: 250,
     transverseCursorX: 200,
     transverseCursorY: -250,
     transverseBaseX: 100,
     transverseBaseY: -150,
     side: 'right',
-    // screenSide: 'left',
     row: 'front',
     transverseViewOffsetY: 400,
     transverseViewOffsetX: 0,
@@ -37,16 +35,15 @@ let coordsInitState = {
   },
   3: {
     legId: 3,
-    sagittalCursorX: 250,
+    // sagittalCursorX: 250,
     sagittalCursorY: 280,
-    sagittalBaseX: 100,
+    // sagittalBaseX: 100,
     sagittalBaseY: 250,
     transverseCursorX: 300,
     transverseCursorY: 0,
     transverseBaseX: 150,
     transverseBaseY: 0,
     side: 'left',
-    // screenSide: 'right',
     row: 'middle',
     transverseViewOffsetY: 250,
     transverseViewOffsetX: 0,
@@ -54,16 +51,15 @@ let coordsInitState = {
   },
   4: {
     legId: 4,
-    sagittalCursorX: 250,
+    // sagittalCursorX: 250,
     sagittalCursorY: 280,
-    sagittalBaseX: 100,
+    // sagittalBaseX: 100,
     sagittalBaseY: 250,
     transverseCursorX: 300,
     transverseCursorY: 0,
     transverseBaseX: 150,
     transverseBaseY: 0,
     side: 'right',
-    // screenSide: 'left',
     row: 'middle',
     transverseViewOffsetY: 250,
     transverseViewOffsetX: 0,
@@ -71,16 +67,15 @@ let coordsInitState = {
   },
   5: {
     legId: 5,
-    sagittalCursorX: 250,
+    // sagittalCursorX: 250,
     sagittalCursorY: 280,
-    sagittalBaseX: 100,
+    // sagittalBaseX: 100,
     sagittalBaseY: 250,
     transverseCursorX: 200,
     transverseCursorY: 250,
     transverseBaseX: 100,
     transverseBaseY: 150,
     side: 'left',
-    // screenSide: 'right',
     row: 'back',
     transverseViewOffsetY: 100,
     transverseViewOffsetX: 0,
@@ -88,22 +83,33 @@ let coordsInitState = {
   },
   6: {
     legId: 6,
-    sagittalCursorX: 250,
+    // sagittalCursorX: 250,
     sagittalCursorY: 280,
-    sagittalBaseX: 100,
+    // sagittalBaseX: 100,
     sagittalBaseY: 250,
     transverseCursorX: 200,
     transverseCursorY: 250,
     transverseBaseX: 100,
     transverseBaseY: 150,
     side: 'right',
-    // screenSide: 'left',
     row: 'back',
     transverseViewOffsetY: 100,
     transverseViewOffsetX: 0,
     offsetRotation: -45
   },
 };
+
+// compute sagittalBaseX and sagittalCursorX coords
+for (let key in coordsInitState) {
+  let result = reduxUtils.getCompensativeCoords({
+    tbx: coordsInitState[key].transverseBaseX,
+    tby: coordsInitState[key].transverseBaseY,
+    tcx: coordsInitState[key].transverseCursorX,
+    tcy: coordsInitState[key].transverseCursorY
+  });
+  
+  Object.assign(coordsInitState[key], result);
+}
 
 const coordsReducer = (state = coordsInitState, action) => {
   switch (action.type) {
@@ -132,23 +138,17 @@ const coordsReducer = (state = coordsInitState, action) => {
         // compensative computations
         // transverseCursorX/Y => sagittalBaseX + sagittalCursorX
         if (cursorXY.transverseCursorX || cursorXY.transverseCursorY) {
-          let tcx = cursorXY.transverseCursorX || state[action.legId].transverseCursorX;
-          let tcy = cursorXY.transverseCursorY || state[action.legId].transverseCursorY;
-          
-          let tbx = state[action.legId].transverseBaseX;
-          let tby = state[action.legId].transverseBaseY;
-          
-          // from center (zero) point to transverse base
-          let newSagittalBaseX = Utils.roundNumber(Utils.getDistance(tbx, tby), 0);
-          if (newSagittalBaseX !== state[action.legId].sagittalBaseX) {
-            cursorXY.sagittalBaseX = newSagittalBaseX;
-          } 
-          
-          // from transverse base to transverse cursor
-          let newSagittalCursorX = newSagittalBaseX + Utils.roundNumber(Utils.getDistance(tbx - tcx, tby - tcy), 0);
-          if (newSagittalCursorX !== state[action.legId].sagittalCursorX) {
-            cursorXY.sagittalCursorX = newSagittalCursorX;
+          let coords = {
+            tcx: cursorXY.transverseCursorX || state[action.legId].transverseCursorX,
+            tcy: cursorXY.transverseCursorY || state[action.legId].transverseCursorY,
+
+            tbx: state[action.legId].transverseBaseX,
+            tby: state[action.legId].transverseBaseY
           }
+          let result = reduxUtils.getCompensativeCoords(coords);
+          
+          if (result.sagittalBaseX !== state[action.legId].sagittalBaseX) cursorXY.sagittalBaseX = result.sagittalBaseX;
+          if (result.sagittalCursorX !== state[action.legId].sagittalCursorX) cursorXY.sagittalCursorX = result.sagittalCursorX;
         }
         
         return Object.assign(
@@ -182,23 +182,17 @@ const coordsReducer = (state = coordsInitState, action) => {
         // compensative computations
         // transverseBaseX/Y => sagittalBaseX + sagittalCursorX
         if (baseXY.transverseBaseX || baseXY.transverseBaseY) {
-          let tbx = baseXY.transverseBaseX || state[action.legId].transverseBaseX;
-          let tby = baseXY.transverseBaseY || state[action.legId].transverseBaseY;
-          
-          let tcx = state[action.legId].transverseCursorX;
-          let tcy = state[action.legId].transverseCursorY;
-          
-          // from center (zero) point to transverse base
-          let newSagittalBaseX = Utils.roundNumber(Utils.getDistance(tbx, tby), 0);
-          if (newSagittalBaseX !== state[action.legId].sagittalBaseX) {
-            baseXY.sagittalBaseX = newSagittalBaseX;
-          }
+          let coords = {
+            tbx: baseXY.transverseBaseX || state[action.legId].transverseBaseX,
+            tby: baseXY.transverseBaseY || state[action.legId].transverseBaseY,
 
-          // from transverse base to transverse cursor
-          let newSagittalCursorX = newSagittalBaseX + Utils.roundNumber(Utils.getDistance(tbx - tcx, tby - tcy), 0);
-          if (newSagittalCursorX !== state[action.legId].sagittalCursorX) {
-            baseXY.sagittalCursorX = newSagittalCursorX;
+            tcx: state[action.legId].transverseCursorX,
+            tcy: state[action.legId].transverseCursorY
           }
+          let result = reduxUtils.getCompensativeCoords(coords);
+          
+          if (result.sagittalBaseX !== state[action.legId].sagittalBaseX) baseXY.sagittalBaseX = result.sagittalBaseX;
+          if (result.sagittalCursorX !== state[action.legId].sagittalCursorX) baseXY.sagittalCursorX = result.sagittalCursorX;
         }
           
         return Object.assign(

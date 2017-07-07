@@ -8,6 +8,10 @@
     <script>let socket = io.connect(window.location.hostname + ':' + 3000);</script>
     <!-- redux library -->
     <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+    <!-- utility methods for calculations -->
+    <script src="assets/utils/utils.js"></script>
+    <!-- redux utils -->
+    <script src="assets/utils/reduxUtils.js"></script>
     <!-- reducers -->
     <script src="assets/redux/reducers/metaDataReducer.js"></script>
     <script src="assets/redux/reducers/legReducer.js"></script>
@@ -23,8 +27,6 @@
     <link rel="import" href="bower_components/polymer-redux/polymer-redux.html">
     <!-- init redux -->
     <script src="assets/redux/initRedux.js"></script>
-    <!-- utility methods for calculations -->
-    <script src="assets/utils/utils.js"></script>
     <!-- polymer components -->
     <link rel="import" href="assets/polymer/diag-panel/diag-panel.html">
     <link rel="import" href="assets/polymer/spoder-logic/spoder-logic.html">
