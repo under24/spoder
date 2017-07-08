@@ -44,7 +44,6 @@
         border-radius: 100%;
         position: absolute;
         border: 1px solid transparent;
-        transform: translate(-50%, -50%) rotateZ(-45deg);
         pointer-events: none;
         box-sizing: border-box;
       }
@@ -300,6 +299,7 @@
       
       observeOffsetRotation(deg) {
         this.$.baseRange.style.transform = 'translate(0%, -50%) rotate(' + deg + 'deg)';
+        this.$.baseInvalidRange.style.transform = 'translate(-50%, -50%) rotateZ(-45deg) rotate(' + deg + 'deg)';
       }
 
     }
