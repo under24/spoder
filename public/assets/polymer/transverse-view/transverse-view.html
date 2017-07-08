@@ -147,23 +147,23 @@
       computeAnimationCenterCoords(metaData, coords) {
         if (metaData == undefined || coords == undefined) return;
         
+        // distance to the center of the circle
         let distance = (metaData.combinedLegsLength + metaData.impossibleRange) / 2;
         
         let x = coords.transverseBaseX + coords.transverseViewOffsetX;
         let y = coords.transverseBaseY + coords.transverseViewOffsetY;
         
-        let final;
-        if (coords.offsetRotation === 0)
-          final = { x: x + distance, y };
+        let finalCoords;
+        if (coords.offsetRotation === 0) finalCoords = { x: x + distance, y };
         else {
           let angle = coords.side == 'left' ? coords.offsetRotation : Utils.flipNumber(coords.offsetRotation);
-          final = Utils.getCoordsFromDistanceAndAngle(x, y, angle, distance);
+          finalCoords = Utils.getCoordsFromDistanceAndAngle(x, y, angle, distance);
         }
         
-        return final;
+        return finalCoords;
       }
       
-      computeAnimationCircleRadius(metaData) {        
+      computeAnimationCircleRadius(metaData) {
         return metaData.combinedLegsLength - metaData.impossibleRange;
       }
 
