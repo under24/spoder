@@ -33,7 +33,7 @@
         transform-origin: right;
         right: 0px;
       }
-      #baseRange {
+      #reachRadius {
         background-color: rgba(255, 0, 0, 0.04);
         display: inline-block;
         position: absolute;
@@ -84,7 +84,7 @@
     
     <div id="base">
       <div id="coxa"></div>
-      <div id="baseRange"></div>
+      <div id="reachRadius"></div>
       <div id="baseInvalidRange"></div>
     </div>
     
@@ -216,13 +216,13 @@
       redrawSide() {
         switch(this.side) {
           case 'left':
-            this.$.baseRange.style.borderBottomLeftRadius = '';
-            this.$.baseRange.style.borderTopLeftRadius = '';
-            this.$.baseRange.style.right = '';
+            this.$.reachRadius.style.borderBottomLeftRadius = '';
+            this.$.reachRadius.style.borderTopLeftRadius = '';
+            this.$.reachRadius.style.right = '';
             
-            this.$.baseRange.style.borderBottomRightRadius = this.reachRadius * 2 + 'px';
-            this.$.baseRange.style.borderTopRightRadius = this.reachRadius * 2 + 'px';
-            this.$.baseRange.style.left = '0px';
+            this.$.reachRadius.style.borderBottomRightRadius = this.reachRadius * 2 + 'px';
+            this.$.reachRadius.style.borderTopRightRadius = this.reachRadius * 2 + 'px';
+            this.$.reachRadius.style.left = '0px';
             
             this.$.base.style.right = '';
             this.redrawX(this.x);
@@ -232,16 +232,16 @@
             this.$.animationCircleCenter.style.right = '';
             this.redrawAnimationCircle(this.animationCenterCoords);
             
-            this.$.baseRange.style.transformOrigin = 'center left';
+            this.$.reachRadius.style.transformOrigin = 'center left';
             return;
           case 'right':
-            this.$.baseRange.style.borderBottomRightRadius = '';
-            this.$.baseRange.style.borderTopRightRadius = '';
-            this.$.baseRange.style.left = '';
+            this.$.reachRadius.style.borderBottomRightRadius = '';
+            this.$.reachRadius.style.borderTopRightRadius = '';
+            this.$.reachRadius.style.left = '';
           
-            this.$.baseRange.style.borderBottomLeftRadius = this.reachRadius * 2 + 'px';
-            this.$.baseRange.style.borderTopLeftRadius = this.reachRadius * 2 + 'px';
-            this.$.baseRange.style.right = '0px';
+            this.$.reachRadius.style.borderBottomLeftRadius = this.reachRadius * 2 + 'px';
+            this.$.reachRadius.style.borderTopLeftRadius = this.reachRadius * 2 + 'px';
+            this.$.reachRadius.style.right = '0px';
             
             this.$.base.style.left = '';
             this.redrawX(this.x);
@@ -251,7 +251,7 @@
             this.$.animationCircleCenter.style.left = '';
             this.redrawAnimationCircle(this.animationCenterCoords);
             
-            this.$.baseRange.style.transformOrigin = 'center right';
+            this.$.reachRadius.style.transformOrigin = 'center right';
             return;
         }
       }
@@ -279,8 +279,8 @@
       }
       
       observeReachRadius(reachRadius) {
-        this.$.baseRange.style.width = reachRadius + 'px';
-        this.$.baseRange.style.height = reachRadius * 2 + 'px';
+        this.$.reachRadius.style.width = reachRadius + 'px';
+        this.$.reachRadius.style.height = reachRadius * 2 + 'px';
       }
       
       observeImpossibleRange(impRange) {
@@ -298,7 +298,7 @@
       }
       
       observeOffsetRotation(deg) {
-        this.$.baseRange.style.transform = 'translate(0%, -50%) rotate(' + deg + 'deg)';
+        this.$.reachRadius.style.transform = 'translate(0%, -50%) rotate(' + deg + 'deg)';
         this.$.baseInvalidRange.style.transform = 'translate(-50%, -50%) rotateZ(-45deg) rotate(' + deg + 'deg)';
       }
 

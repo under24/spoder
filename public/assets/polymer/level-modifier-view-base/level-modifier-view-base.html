@@ -45,7 +45,7 @@
         transform-origin: right;
         right: 100%;
       }
-      #baseRange {
+      #reachRadius {
         background-color: rgba(255, 0, 0, 0.04);
         display: inline-block;
         transform: translate(0%, -50%);
@@ -75,7 +75,7 @@
         <div id="tibia"></div>
       </div>
       
-      <div id="baseRange"></div>
+      <div id="reachRadius"></div>
       <div id="baseInvalidRange"></div>
     </div>
   </template>
@@ -212,25 +212,25 @@
       redrawSide() {
         switch(this.side) {
           case 'left':
-            this.$.baseRange.style.borderBottomLeftRadius = '';
-            this.$.baseRange.style.borderTopLeftRadius = '';
-            this.$.baseRange.style.right = '';
+            this.$.reachRadius.style.borderBottomLeftRadius = '';
+            this.$.reachRadius.style.borderTopLeftRadius = '';
+            this.$.reachRadius.style.right = '';
             
-            this.$.baseRange.style.borderBottomRightRadius = this.combinedLegsLength * 2 + 'px';
-            this.$.baseRange.style.borderTopRightRadius = this.combinedLegsLength * 2 + 'px';
-            this.$.baseRange.style.left = '0px';
+            this.$.reachRadius.style.borderBottomRightRadius = this.combinedLegsLength * 2 + 'px';
+            this.$.reachRadius.style.borderTopRightRadius = this.combinedLegsLength * 2 + 'px';
+            this.$.reachRadius.style.left = '0px';
             
             this.$.base.style.right = '';
             this.redrawX(this.x);
             break;
           case 'right':
-            this.$.baseRange.style.borderBottomRightRadius = '';
-            this.$.baseRange.style.borderTopRightRadius = '';
-            this.$.baseRange.style.left = '';
+            this.$.reachRadius.style.borderBottomRightRadius = '';
+            this.$.reachRadius.style.borderTopRightRadius = '';
+            this.$.reachRadius.style.left = '';
           
-            this.$.baseRange.style.borderBottomLeftRadius = this.combinedLegsLength * 2 + 'px';
-            this.$.baseRange.style.borderTopLeftRadius = this.combinedLegsLength * 2 + 'px';
-            this.$.baseRange.style.right = '0px';
+            this.$.reachRadius.style.borderBottomLeftRadius = this.combinedLegsLength * 2 + 'px';
+            this.$.reachRadius.style.borderTopLeftRadius = this.combinedLegsLength * 2 + 'px';
+            this.$.reachRadius.style.right = '0px';
 
             this.$.base.style.left = '';
             this.redrawX(this.x);
@@ -247,12 +247,12 @@
       }
       
       observeCombinedLegsLength(combinedLegsLength) {
-        this.$.baseRange.style.width = combinedLegsLength + 'px';
-        this.$.baseRange.style.height = combinedLegsLength * 2 + 'px';
+        this.$.reachRadius.style.width = combinedLegsLength + 'px';
+        this.$.reachRadius.style.height = combinedLegsLength * 2 + 'px';
 
-        let legnthDiff = Utils.getImpossibleRange(this.femurLength, this.tibiaLength);
-        this.$.baseInvalidRange.style.width = legnthDiff * 2 + 'px';
-        this.$.baseInvalidRange.style.height = legnthDiff * 2 + 'px';
+        // let legnthDiff = Utils.getImpossibleRange(this.femurLength, this.tibiaLength);
+        // this.$.baseInvalidRange.style.width = legnthDiff * 2 + 'px';
+        // this.$.baseInvalidRange.style.height = legnthDiff * 2 + 'px';
         
         this.redrawSide();
       }

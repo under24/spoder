@@ -47,7 +47,7 @@
         transform-origin: right;
         right: 100%;
       }
-      #baseRange {
+      #reachRadius {
         background-color: rgba(255, 0, 0, 0.04);
         display: inline-block;
         transform: translate(0%, -50%);
@@ -78,7 +78,7 @@
         <div id="tibia"></div>
       </div>
       
-      <div id="baseRange"></div>
+      <div id="reachRadius"></div>
       <div id="baseInvalidRange"></div>
     </div>
   </template>
@@ -119,8 +119,9 @@
           impossibleRange: {
             observer: 'observeImpossibleRange'
           },
-          combinedLegsLength: {
-            observer: 'observeCombinedLegsLength'
+          reachRadius: {
+            observer: 'observeReachRadius'
+          },
           },
           output: {
             notify: true
