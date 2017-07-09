@@ -19,9 +19,9 @@
       passed-y="[[coords.transverseBaseY]]"
       side="[[coords.side]]"
       reach-radius="[[computeReachRadius(metaData, coords)]]"
-      coxa-screen-angle="[[legs.coxaScreenAngle]]"
+      coxa-screen-angle="[[angles.coxaScreenAngle]]"
       impossible-range="[[metaData.impossibleRange]]"
-      leg-length="[[computeLegLength(coords, metaData, legs.femurScreenAngle)]]"
+      leg-length="[[computeLegLength(coords, metaData, angles.femurScreenAngle)]]"
       animation-center-coords="[[computeAnimationCenterCoords(metaData, coords)]]"
       animation-circle-radius="[[computeAnimationCircleRadius(metaData)]]"
       offset-y="[[coords.transverseViewOffsetY]]"
@@ -64,9 +64,9 @@
               return state.coords[this.legId];
             }
           },
-          legs: {
+          angles: {
             statePath(state) {
-              return state.legs[this.legId];
+              return state.angles[this.legId];
             }
           },
           // upcoming props

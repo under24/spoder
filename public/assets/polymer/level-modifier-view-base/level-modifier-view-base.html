@@ -127,14 +127,14 @@
           femurScreenAngle: {
             type: Number,
             statePath(state) {
-              return state.legs[this.legId].femurScreenAngle;
+              return state.angles[this.legId].femurScreenAngle;
             },
             observer: 'observeFemurScreenAngle'
           },
           tibiaScreenAngle: {
             type: Number,
             statePath(state) {
-              return state.legs[this.legId].tibiaScreenAngle;
+              return state.angles[this.legId].tibiaScreenAngle;
             },
             observer: 'observeTibiaScreenAngle'
           },

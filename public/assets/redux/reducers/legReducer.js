@@ -7,13 +7,6 @@ let legReducerInitState = {
     coxaServoN: 1,
     femurServoN: 2,
     tibiaServoN: 3,
-    // angles
-    coxaScreenAngle: null,
-    coxaServoAngle: null,
-    femurScreenAngle: null,
-    femurServoAngle: null,
-    tibiaScreenAngle: null,
-    tibiaServoAngle: null,
     // side
     side: 'left',
     row: 'front'
@@ -24,13 +17,6 @@ let legReducerInitState = {
     coxaServoN: 4,
     femurServoN: 5,
     tibiaServoN: 6,
-    // angles
-    coxaScreenAngle: null,
-    coxaServoAngle: null,
-    femurScreenAngle: null,
-    femurServoAngle: null,
-    tibiaScreenAngle: null,
-    tibiaServoAngle: null,
     // side
     side: 'right',
     row: 'front'
@@ -41,13 +27,6 @@ let legReducerInitState = {
     coxaServoN: 7,
     femurServoN: 8,
     tibiaServoN: 9,
-    // angles
-    coxaScreenAngle: null,
-    coxaServoAngle: null,
-    femurScreenAngle: null,
-    femurServoAngle: null,
-    tibiaScreenAngle: null,
-    tibiaServoAngle: null,
     // side
     side: 'left',
     row: 'middle'
@@ -58,13 +37,6 @@ let legReducerInitState = {
     coxaServoN: 10,
     femurServoN: 11,
     tibiaServoN: 12,
-    // angles
-    coxaScreenAngle: null,
-    coxaServoAngle: null,
-    femurScreenAngle: null,
-    femurServoAngle: null,
-    tibiaScreenAngle: null,
-    tibiaServoAngle: null,
     // side
     side: 'right',
     row: 'middle'
@@ -75,13 +47,6 @@ let legReducerInitState = {
     coxaServoN: 13,
     femurServoN: 14,
     tibiaServoN: 15,
-    // angles
-    coxaScreenAngle: null,
-    coxaServoAngle: null,
-    femurScreenAngle: null,
-    femurServoAngle: null,
-    tibiaScreenAngle: null,
-    tibiaServoAngle: null,
     // side
     side: 'left',
     row: 'back'
@@ -92,13 +57,6 @@ let legReducerInitState = {
     coxaServoN: 16,
     femurServoN: 17,
     tibiaServoN: 18,
-    // angles
-    coxaScreenAngle: null,
-    coxaServoAngle: null,
-    femurScreenAngle: null,
-    femurServoAngle: null,
-    tibiaScreenAngle: null,
-    tibiaServoAngle: null,
     // side
     side: 'right',
     row: 'back'
@@ -106,12 +64,12 @@ let legReducerInitState = {
 }
 const legReducer = (state = legReducerInitState, action) => {
   switch (action.type) {
-    case "LEG_ANGLE_CHANGED":
-      return Object.assign(
-        {}, 
-        state,
-        { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
-      );
+    // case "LEG_ANGLE_CHANGED":
+    //   return Object.assign(
+    //     {}, 
+    //     state,
+    //     { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
+    //   );
   }
   return state;
 }

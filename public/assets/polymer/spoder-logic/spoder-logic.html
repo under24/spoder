@@ -9,8 +9,8 @@
           metaData: {
             statePath: 'metaData'
           },
-          legs: {
-            statePath: 'legs'
+          angles: {
+            statePath: 'angles'
           },
           coords1: {
             statePath: 'coords.1',
@@ -92,10 +92,10 @@
 
         // filter out same values
         let payload = {};
-        if (this.legs[legId].coxaScreenAngle !== coxaCalculated.screen) {
+        if (this.angles[legId].coxaScreenAngle !== coxaCalculated.screen) {
           payload.coxaScreenAngle = coxaCalculated.screen;
         }
-        if (this.legs[legId].coxaServoAngle !== coxaCalculated.servo) {
+        if (this.angles[legId].coxaServoAngle !== coxaCalculated.servo) {
           payload.coxaServoAngle = coxaCalculated.servo;
         }
         
@@ -119,24 +119,24 @@
         let tibiaCalculated = this.getTibiaAngle(legId, view);
         
         // check if all the values are the same
-        if (this.legs[legId].femurScreenAngle === femurCalculated.screen &&
-            this.legs[legId].femurServoAngle === femurCalculated.servo &&
-            this.legs[legId].tibiaScreenAngle === tibiaCalculated.screen &&
-            this.legs[legId].tibiaServoAngle === tibiaCalculated.servo
+        if (this.angles[legId].femurScreenAngle === femurCalculated.screen &&
+            this.angles[legId].femurServoAngle === femurCalculated.servo &&
+            this.angles[legId].tibiaScreenAngle === tibiaCalculated.screen &&
+            this.angles[legId].tibiaServoAngle === tibiaCalculated.servo
         ) return;
         
         // filter out same values
         let payload = {};
-        if (this.legs[legId].femurScreenAngle !== femurCalculated.screen) {
+        if (this.angles[legId].femurScreenAngle !== femurCalculated.screen) {
           payload.femurScreenAngle = femurCalculated.screen;
         }
-        if (this.legs[legId].femurServoAngle !== femurCalculated.servo) {
+        if (this.angles[legId].femurServoAngle !== femurCalculated.servo) {
           payload.femurServoAngle = femurCalculated.servo;
         }
-        if (this.legs[legId].tibiaScreenAngle !== tibiaCalculated.screen) {
+        if (this.angles[legId].tibiaScreenAngle !== tibiaCalculated.screen) {
           payload.tibiaScreenAngle = tibiaCalculated.screen;
         }
-        if (this.legs[legId].tibiaServoAngle !== tibiaCalculated.servo) {
+        if (this.angles[legId].tibiaServoAngle !== tibiaCalculated.servo) {
           payload.tibiaServoAngle = tibiaCalculated.servo;
         }
         
@@ -154,24 +154,24 @@
         let angleCalculated = this.getAngleFromDistance(legId, view);
         
         // check if all the values are the same
-        if (this.legs[legId].femurScreenAngle === angleCalculated.screen &&
-            this.legs[legId].femurServoAngle === angleCalculated.servo &&
-            this.legs[legId].tibiaScreenAngle === 0 &&
-            this.legs[legId].tibiaServoAngle === 0
+        if (this.angles[legId].femurScreenAngle === angleCalculated.screen &&
+            this.angles[legId].femurServoAngle === angleCalculated.servo &&
+            this.angles[legId].tibiaScreenAngle === 0 &&
+            this.angles[legId].tibiaServoAngle === 0
         ) return;
         
         // filter out same values
         let payload = {};
-        if (this.legs[legId].femurScreenAngle !== angleCalculated.screen) {
+        if (this.angles[legId].femurScreenAngle !== angleCalculated.screen) {
           payload.femurScreenAngle = angleCalculated.screen;
         }
-        if (this.legs[legId].femurServoAngle !== angleCalculated.servo) {
+        if (this.angles[legId].femurServoAngle !== angleCalculated.servo) {
           payload.femurServoAngle = angleCalculated.servo;
         }
-        if (this.legs[legId].tibiaScreenAngle !== 0) {
+        if (this.angles[legId].tibiaScreenAngle !== 0) {
           payload.tibiaScreenAngle = 0;
         }
-        if (this.legs[legId].tibiaServoAngle !== 0) {
+        if (this.angles[legId].tibiaServoAngle !== 0) {
           payload.tibiaServoAngle = 0;
         }
 

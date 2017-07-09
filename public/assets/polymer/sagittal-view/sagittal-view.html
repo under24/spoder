@@ -22,8 +22,8 @@
       tibia-length="[[metaData.tibiaLength]]"
       combined-legs-length="[[metaData.combinedLegsLength]]"
       impossible-range="[[metaData.impossibleRange]]"
-      femur-screen-angle="[[legs.femurScreenAngle]]"
-      tibia-screen-angle="[[legs.tibiaScreenAngle]]"
+      femur-screen-angle="[[angles.femurScreenAngle]]"
+      tibia-screen-angle="[[angles.tibiaScreenAngle]]"
       output="{{baseOutput}}">
     </sagittal-view-base>
     
@@ -59,9 +59,9 @@
               return state.coords[this.legId];
             }
           },
-          legs: {
+          angles: {
             statePath(state) {
-              return state.legs[this.legId];
+              return state.angles[this.legId];
             }
           },
           // upcoming props

@@ -71,8 +71,12 @@ let angleReducerInitState = {
 
 const angleReducer = (state = angleReducerInitState, action) => {
   switch (action.type) {
-    case "b":
-      
+    case "LEG_ANGLE_CHANGED":
+      return Object.assign(
+        {}, 
+        state,
+        { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
+      );
   }
   return state;
 }

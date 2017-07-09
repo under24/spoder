@@ -21,25 +21,25 @@
         <diag-text label="Sagittal Base Y:" value="[[coords.sagittalBaseY]]"></diag-text>
         <diag-text label="Sagittal Cursor X:" value="[[coords.sagittalCursorX]]"></diag-text>
         <diag-text label="Sagittal Cursor Y:" value="[[coords.sagittalCursorY]]"></diag-text>
-        <diag-text label="Femur Screen Angle:" value="[[legs.femurScreenAngle]]"></diag-text>
-        <diag-text label="Tibia Screen Angle:" value="[[legs.tibiaScreenAngle]]"></diag-text>
+        <diag-text label="Femur Screen Angle:" value="[[angles.femurScreenAngle]]"></diag-text>
+        <diag-text label="Tibia Screen Angle:" value="[[angles.tibiaScreenAngle]]"></diag-text>
         <hr />
         <diag-text label="Transverse Base X:" value="[[coords.transverseBaseX]]"></diag-text>
         <diag-text label="Transverse Base Y:" value="[[coords.transverseBaseY]]"></diag-text>
         <diag-text label="Transverse Cursor X:" value="[[coords.transverseCursorX]]"></diag-text>
         <diag-text label="Transverse Cursor Y:" value="[[coords.transverseCursorY]]"></diag-text>
-        <diag-text label="Coxa Screen Angle:" value="[[legs.coxaScreenAngle]]"></diag-text>
+        <diag-text label="Coxa Screen Angle:" value="[[angles.coxaScreenAngle]]"></diag-text>
         <hr />
       </diag-section>
       <diag-section class="layout-bars" header="Leg 1 servos:">
-        <diag-bar value='[[legs.coxaServoAngle]]'></diag-bar>
-        <diag-bar value="[[legs.femurServoAngle]]"></diag-bar>
-        <diag-bar value="[[legs.tibiaServoAngle]]"></diag-bar>
+        <diag-bar value='[[angles.coxaServoAngle]]'></diag-bar>
+        <diag-bar value="[[angles.femurServoAngle]]"></diag-bar>
+        <diag-bar value="[[angles.tibiaServoAngle]]"></diag-bar>
       </diag-section>
       <diag-section class="layout-text" header="Servos angle info:">
-        <diag-text label="Coxa Servo Angle:" value="[[legs.coxaServoAngle]]"></diag-text>
-        <diag-text label="Femur Servo Angle:" value="[[legs.femurServoAngle]]"></diag-text>
-        <diag-text label="Tibia Servo Angle:" value="[[legs.tibiaServoAngle]]"></diag-text>
+        <diag-text label="Coxa Servo Angle:" value="[[angles.coxaServoAngle]]"></diag-text>
+        <diag-text label="Femur Servo Angle:" value="[[angles.femurServoAngle]]"></diag-text>
+        <diag-text label="Tibia Servo Angle:" value="[[angles.tibiaServoAngle]]"></diag-text>
       </diag-section>
     </div>
   </template>
@@ -53,9 +53,9 @@
             type: Number,
             value: 1
           },
-          legs: {
+          angles: {
             statePath(state) {
-              return state.legs[this.legId];
+              return state.angles[this.legId];
             }
           },
           coords: {
