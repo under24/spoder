@@ -15,6 +15,8 @@ let coordsReducerInitState = {
     row: 'front',
     transverseViewOffsetY: 400,
     transverseViewOffsetX: 0,
+    sagittalViewOffsetY: 300,
+    sagittalViewOffsetX: 0,
     offsetRotation: -45
   },
   2: {
@@ -31,6 +33,8 @@ let coordsReducerInitState = {
     row: 'front',
     transverseViewOffsetY: 400,
     transverseViewOffsetX: 0,
+    sagittalViewOffsetY: 300,
+    sagittalViewOffsetX: 0,
     offsetRotation: 45
   },
   3: {
@@ -47,6 +51,8 @@ let coordsReducerInitState = {
     row: 'middle',
     transverseViewOffsetY: 250,
     transverseViewOffsetX: 0,
+    sagittalViewOffsetY: 300,
+    sagittalViewOffsetX: 0,
     offsetRotation: 0
   },
   4: {
@@ -63,6 +69,8 @@ let coordsReducerInitState = {
     row: 'middle',
     transverseViewOffsetY: 250,
     transverseViewOffsetX: 0,
+    sagittalViewOffsetY: 300,
+    sagittalViewOffsetX: 0,
     offsetRotation: 0
   },
   5: {
@@ -79,6 +87,8 @@ let coordsReducerInitState = {
     row: 'back',
     transverseViewOffsetY: 100,
     transverseViewOffsetX: 0,
+    sagittalViewOffsetY: 300,
+    sagittalViewOffsetX: 0,
     offsetRotation: 45
   },
   6: {
@@ -95,6 +105,8 @@ let coordsReducerInitState = {
     row: 'back',
     transverseViewOffsetY: 100,
     transverseViewOffsetX: 0,
+    sagittalViewOffsetY: 300,
+    sagittalViewOffsetX: 0,
     offsetRotation: -45
   }
 };
