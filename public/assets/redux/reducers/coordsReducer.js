@@ -194,8 +194,16 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           
           let result = ReduxUtils.getTransverseCompensativeCoords(coords);
           
+          // compare with the existing coords
           if (result.sagittalBaseX !== state[action.legId].sagittalBaseX) baseXY.sagittalBaseX = result.sagittalBaseX;
           if (result.sagittalCursorX !== state[action.legId].sagittalCursorX) baseXY.sagittalCursorX = result.sagittalCursorX;
+        }
+        // compensative computations
+        // sagittalBaseX => transverseBaseX + transverseBaseY
+        else if (baseXY.sagittalBaseX) {
+          // let result = ReduxUtils.getSagittalCompensativeCoords(coords);
+          
+          debugger;
         }
           
         return Object.assign(
