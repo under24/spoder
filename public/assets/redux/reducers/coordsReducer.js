@@ -185,16 +185,13 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           baseXY.transverseBaseY = state[action.legId].transverseBaseY - action.payload.transverseBaseY;
         }
         
+        // gather up latest coords for further computations
+        let coords = ReduxUtils.aggregateCoords(baseXY, state[action.legId]);
+        
         // compensative computations
         // transverseBaseX/Y => sagittalBaseX + sagittalCursorX
         if (baseXY.transverseBaseX || baseXY.transverseBaseY) {
-          let coords = {
-            tbx: baseXY.transverseBaseX || state[action.legId].transverseBaseX,
-            tby: baseXY.transverseBaseY || state[action.legId].transverseBaseY,
-
-            tcx: state[action.legId].transverseCursorX,
-            tcy: state[action.legId].transverseCursorY
-          }
+          
           let result = ReduxUtils.getTransverseCompensativeCoords(coords);
           
           if (result.sagittalBaseX !== state[action.legId].sagittalBaseX) baseXY.sagittalBaseX = result.sagittalBaseX;

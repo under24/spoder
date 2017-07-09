@@ -2,7 +2,7 @@
 
 let ReduxUtils = {
   aggregateCoords(payload, state) {
-    let coords = {
+    return {
       tcx: payload.transverseCursorX || state.transverseCursorX,
       tcy: payload.transverseCursorY || state.transverseCursorY,
 
@@ -13,9 +13,8 @@ let ReduxUtils = {
       scy: payload.sagittalCursorY || state.sagittalCursorY,
 
       sbx: payload.sagittalBaseX || state.sagittalBaseX,
-      sby: payload.sagittalBaseY ||state.sagittalBaseY
-    }
-    return coords;
+      sby: payload.sagittalBaseY || state.sagittalBaseY
+    };
   },
   // { tbx, tby, tcx, tcy }
   getTransverseCompensativeCoords(coords) {
