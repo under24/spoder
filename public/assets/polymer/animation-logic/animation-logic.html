@@ -66,7 +66,7 @@
         
         let ticksBetweenStartAndEnd = this.getAmountOfTicksBetween(startTick, endTick);
         
-        let tickValue = this.calcTickValueBasedOnPxlsToMove(ticksBetweenStartAndEnd, data.pxlsToMove);
+        let tickValue = this.getTickValueBasedOnPxlsToMove(ticksBetweenStartAndEnd, data.pxlsToMove);
 
         this.pushDataToTimeline(startTick, endTick, data.coordType, tickValue, timeline);
       }
@@ -89,7 +89,7 @@
         return (endTick - startTick) + 1;
       }
       
-      calcTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
+      getTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
         return pixelsToMove / amountOfTicks;
       }
       

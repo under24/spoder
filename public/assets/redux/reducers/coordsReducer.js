@@ -113,7 +113,7 @@ let coordsReducerInitState = {
 
 // compute sagittalBaseX and sagittalCursorX coords
 for (let key in coordsReducerInitState) {
-  let result = ReduxUtils.getTransverseCompensativeCoords({
+  let result = ReduxUtils.getTransverseBaseXYCompensativeCoords({
     tbx: coordsReducerInitState[key].transverseBaseX,
     tby: coordsReducerInitState[key].transverseBaseY,
     tcx: coordsReducerInitState[key].transverseCursorX,
@@ -154,16 +154,14 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         // compensative computations from transverse coords
         // transverseCursorX/Y => sagittalCursorX
         if (cursorXY.transverseCursorX || cursorXY.transverseCursorY) {
-          let result = ReduxUtils.getTransverseCompensativeCoords(coords);
-          
+          let result = ReduxUtils.getTransverseBaseXYCompensativeCoords(coords);
           // compare with the existing coords
           if (result.sagittalCursorX !== state[action.legId].sagittalCursorX) cursorXY.sagittalCursorX = result.sagittalCursorX;
         }
         // compensative computations from sagittal coords
         // sagittalCursorX => transverseCursorX + transverseCursorY
         else if (cursorXY.sagittalCursorX) {
-          let result = ReduxUtils.getSagittalCompensativeCoords(coords);
-          
+          let result = ReduxUtils.getSagittalCursorXCompensativeCoords(coords);
           // compare with the existing coords
           if (result.transverseCursorX !== state[action.legId].transverseCursorX) cursorXY.transverseCursorX = result.transverseCursorX;
           if (result.transverseCursorY !== state[action.legId].transverseCursorY) cursorXY.transverseCursorY = result.transverseCursorY;
@@ -203,9 +201,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         // compensative computations
         // transverseBaseX/Y => sagittalBaseX + sagittalCursorX
         if (baseXY.transverseBaseX || baseXY.transverseBaseY) {
-          
-          let result = ReduxUtils.getTransverseCompensativeCoords(coords);
-          
+          let result = ReduxUtils.getTransverseBaseXYCompensativeCoords(coords);
           // compare with the existing coords
           if (result.sagittalBaseX !== state[action.legId].sagittalBaseX) baseXY.sagittalBaseX = result.sagittalBaseX;
           if (result.sagittalCursorX !== state[action.legId].sagittalCursorX) baseXY.sagittalCursorX = result.sagittalCursorX;
@@ -213,9 +209,10 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         // compensative computations
         // sagittalBaseX => transverseBaseX + transverseBaseY
         else if (baseXY.sagittalBaseX) {
-          // let result = ReduxUtils.getSagittalCompensativeCoords(coords);
-          
-          debugger;
+          let result = ReduxUtils.getSagittalBaseXCompensativeCoords(coords);
+          // compare with the existing coords
+          if (result.transverseBaseX !== state[action.legId].transverseBaseX) baseXY.transverseBaseX = result.transverseBaseX;
+          if (result.transverseBaseY !== state[action.legId].transverseBaseY) baseXY.transverseBaseY = result.transverseBaseY;
         }
           
         return Object.assign(

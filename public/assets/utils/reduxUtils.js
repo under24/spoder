@@ -17,7 +17,7 @@ let ReduxUtils = {
     };
   },
   // { tbx, tby, tcx, tcy }
-  getTransverseCompensativeCoords(coords) {
+  getTransverseBaseXYCompensativeCoords(coords) {
     // from center (zero) point to transverse base
     let sagittalBaseX = Utils.getDistance(coords.tbx, coords.tby);
     // from transverse base to transverse cursor
@@ -28,7 +28,7 @@ let ReduxUtils = {
       sagittalCursorX: Utils.roundNumber(sagittalCursorX, 0)
     };
   },
-  getSagittalCompensativeCoords(coords) {
+  getSagittalCursorXCompensativeCoords(coords) {
     let distance = coords.scx - coords.sbx;
     let angle = Utils.getAngle(coords.tcy - coords.tby, coords.tcx - coords.tbx);
     
@@ -38,5 +38,16 @@ let ReduxUtils = {
       transverseCursorX: result.x,
       transverseCursorY: result.y
     };
+  },
+  getSagittalBaseXCompensativeCoords(coords) {
+    let distance = coords.scx - coords.sbx;
+    let angle = Utils.getAngle(coords.tby - coords.tcy, coords.tbx - coords.tcx);
+    
+    let result = Utils.getCoordsFromDistanceAndAngle(coords.tcx, coords.tcy, angle, distance);
+    
+    return {
+      transverseBaseX: result.x,
+      transverseBaseY: result.y
+    }
   }
 }
