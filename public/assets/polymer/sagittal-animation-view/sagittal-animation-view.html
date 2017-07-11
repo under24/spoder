@@ -1,0 +1,117 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="sagittal-animation-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      digital-joystick {
+        position: absolute;
+        bottom: 40px;
+        right: 40px;
+      }
+      .centerPoint {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0px;
+        height: 0px
+      }
+      .centerPoint::after {
+        content: '';
+        display: inline-block;
+        border-radius: 100%;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        position: absolute;
+      }
+      .base {
+        height: 10px;
+        width: 10px;
+        display: inline-block;
+        background-color: blue;
+        position: absolute;
+        border-radius: 100%;
+      }
+      .cursor {
+        height: 10px;
+        width: 10px;
+        display: inline-block;
+        background-color: red;
+        position: absolute;
+        border-radius: 100%;
+      }
+      #spoder {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    
+    <div id="spoder">
+      <div class="centerPoint">
+        <div class="base leg1" style$="[[computeCoords(coords, '1')]]"></div>
+        <div class="base leg2" style$="[[computeCoords(coords, '2')]]"></div>
+        <div class="base leg3" style$="[[computeCoords(coords, '3')]]"></div>
+        <div class="base leg4" style$="[[computeCoords(coords, '4')]]"></div>
+        <div class="base leg5" style$="[[computeCoords(coords, '5')]]"></div>
+        <div class="base leg6" style$="[[computeCoords(coords, '6')]]"></div>
+        
+        <div class="cursor leg1" style$="[[computeCursor(coords, '1')]]"></div>
+        <div class="cursor leg2" style$="[[computeCursor(coords, '2')]]"></div>
+        <div class="cursor leg3" style$="[[computeCursor(coords, '3')]]"></div>
+        <div class="cursor leg4" style$="[[computeCursor(coords, '4')]]"></div>
+        <div class="cursor leg5" style$="[[computeCursor(coords, '5')]]"></div>
+        <div class="cursor leg6" style$="[[computeCursor(coords, '6')]]"></div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    class sagittalAnimationView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'sagittal-animation-view'; }
+      static get properties() {
+        return {
+          coords: {
+            statePath: 'coords'
+          },
+          angles: {
+            statePath: 'angles'
+          },
+          scale: {
+            type: Number,
+            value: 0.75,
+            observer: 'observeScale'
+          }
+        };
+      }
+      
+      computeCoords(coords, legId) {
+        let x = coords[legId].side + ': ' + coords[legId].sagittalBaseX + 'px;';
+        let y = 'top: ' + coords[legId].sagittalBaseY + 'px;';
+        
+        return x + y;
+      }
+      
+      computeCursor(coords, legId) {
+        let x = coords[legId].side + ': ' + coords[legId].sagittalCursorX + 'px;';
+        let y = 'top: ' + coords[legId].sagittalCursorY + 'px;';
+        
+        return x + y;
+      }
+      
+      observeScale(scale) {
+        this.$.spoder.style.transform = 'scale(' + scale + ')';
+      }
+
+    }
+
+    window.customElements.define(sagittalAnimationView.is, sagittalAnimationView);
+  </script>
+</dom-module>

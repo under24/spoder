@@ -24,14 +24,19 @@
       impossible-range="[[metaData.impossibleRange]]"
       femur-screen-angle="[[angles.femurScreenAngle]]"
       tibia-screen-angle="[[angles.tibiaScreenAngle]]"
+      offset-y="[[coords.sagittalViewOffsetY]]"
+      offset-x="[[coords.sagittalViewOffsetX]]"
+      debug-info="[[computeDebugInfo(coords, metaData)]]"
       output="{{baseOutput}}">
     </sagittal-view-base>
     
     <new-view-cursor
-      view="transverse" 
-      side="[[coords.side]]" 
-      passed-x="[[coords.sagittalCursorX]]" 
+      view="transverse"
+      side="[[coords.side]]"
+      passed-x="[[coords.sagittalCursorX]]"
       passed-y="[[coords.sagittalCursorY]]"
+      offset-y="[[coords.sagittalViewOffsetY]]"
+      offset-x="[[coords.sagittalViewOffsetX]]"
       output={{cursorOutput}}> 
     </new-view-cursor>
     
