@@ -238,11 +238,15 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
       }
     case "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y":
       {
+        if (action.payload.leftTiltModifier !== 0 || action.payload.rightTiltModifier !== 0) {
+          ReduxUtils.getTemp(action.payload, state);
+        }
+        
         let newState = {};
         for (let i = 1; i <= 6; i++) {
           
-          // LEFT SIDE LEGS
-          if (state[i].side === 'left') {
+          // RIGHT SIDE LEGS
+          if (state[i].side === 'right') {
             let finalModifierValue = action.payload.leftTiltModifier;
             // FRONT LEGS
             if (state[i].row === 'front') {
@@ -255,8 +259,8 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
             newState[i] = Object.assign({}, state[i], {sagittalBaseY: state[i].sagittalBaseY - finalModifierValue});
           }
           
-          // RIGHT SIDE LEGS
-          if (state[i].side === 'right') {
+          // LEFT SIDE LEGS
+          if (state[i].side === 'left') {
             let finalModifierValue = action.payload.rightTiltModifier;
             // FRONT LEGS
             if (state[i].row === 'front') {
