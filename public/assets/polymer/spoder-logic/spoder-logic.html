@@ -89,6 +89,8 @@
       
       positionCoxa(legId, view) {
         let coxaCalculated = this.getAngleFromDistance(legId, view);
+        
+        coxaCalculated.servo = this.validateCoxaOffset(legId, coxaCalculated.servo);
 
         // filter out same values
         let payload = {};
@@ -207,6 +209,15 @@
         let A2Servo = A2Screen;
         
         return {screen: A2Screen, servo: +A2Servo.toFixed(0)};
+      }
+      
+      validateCoxaOffset(legId, coxaAngle) {
+        coxaAngle += this['coords' + legId].logicOffsetRotation;
+        
+        if (coxaAngle < 0) coxaAngle = 360 + coxaAngle;
+        else if (coxaAngle > 360) coxaAngle = coxaAngle - 360;
+        
+        return coxaAngle;
       }
       
       // END POSITIONING LOGIC
