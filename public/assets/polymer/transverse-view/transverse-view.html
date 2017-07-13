@@ -113,14 +113,11 @@
       computeReachRadius(metaData, coords) {
         if (metaData == undefined || coords == undefined) return;
         
-        let sbx = coords.sagittalBaseX;
         let sby = coords.sagittalBaseY;
         let scy = coords.sagittalCursorY;
         let radius = metaData.combinedLegsLength;
-        
-        let chordBoundaryX = sbx + Math.sqrt(radius * radius - (scy - sby) * (scy - sby));
-        
-        return chordBoundaryX - sbx;
+
+        return Math.sqrt(radius * radius - (scy - sby) * (scy - sby));
       }
       
       computeLegLength(coords, metaData, femurScreenAngle) {
