@@ -238,9 +238,16 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
       }
     case "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y":
       {
-        if (action.payload.leftTiltModifier !== 0 || action.payload.rightTiltModifier !== 0) {
-          ReduxUtils.getTemp(action.payload, state);
-        }
+        let leftRightTilt, frontBackTilt;
+        
+        if (action.payload.leftTiltModifier !== 0 || action.payload.rightTiltModifier !== 0)
+          leftRightTilt = ReduxUtils.getLeftRightTilt(action.payload, state);
+        
+        if (action.payload.frontTiltModifier !== 0 || action.payload.backTiltModifier !== 0)
+          frontBackTilt = ReduxUtils.getFrontBackTilt(action.payload, state);
+          
+          debugger;
+        
         
         let newState = {};
         for (let i = 1; i <= 6; i++) {
