@@ -15,7 +15,8 @@ const reducers = combineReducers({
   metaData: metaDataReducer,
   views: viewReducer,
   modifiers: modifierReducer,
-  coords: coordsReducer
+  coords: coordsReducer,
+  misc: miscReducer
 });
 
 const store = createStore(
