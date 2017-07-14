@@ -39,11 +39,17 @@
         position: absolute;
         border-radius: 100%;
       }
+      .base.leg1, .base.leg5 {
+        transform: rotateY(-45deg);
+      }
+      .base.leg2, .base.leg6 {
+        transform: rotateY(45deg);
+      }
       .cursor {
         height: 10px;
         width: 10px;
         display: inline-block;
-        background-color: red;
+        background-color: rgba(255, 0, 0, 0.25);
         position: absolute;
         border-radius: 100%;
       }
@@ -52,16 +58,72 @@
         height: 100%;
         width: 100%;
       }
+      .femur{
+        width: 100px;
+        transform-origin: left;
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        height: 1px;
+        background-color: black;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .tibia {
+        width: 140px;
+        transform-origin: left;
+        left: 100%;
+        top: 0px;
+        position: absolute;
+        height: 1px;
+        background-color: black;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .femur.right {
+        transform-origin: right;
+        left: initial;
+        right: 50%;
+      }
+      .right .tibia {
+        left: initial;
+        right: 100%;
+        transform-origin: right;
+      }
     </style>
     
     <div id="spoder">
       <div class="centerPoint">
-        <div class="base leg1" style$="[[computeCoords(coords, '1')]]"></div>
-        <div class="base leg2" style$="[[computeCoords(coords, '2')]]"></div>
-        <div class="base leg3" style$="[[computeCoords(coords, '3')]]"></div>
-        <div class="base leg4" style$="[[computeCoords(coords, '4')]]"></div>
-        <div class="base leg5" style$="[[computeCoords(coords, '5')]]"></div>
-        <div class="base leg6" style$="[[computeCoords(coords, '6')]]"></div>
+        <div class="base leg1" style$="[[computeCoords(coords, angles, '1')]]">
+          <div class="femur right" style$="[[computeFemur(angles, '1')]]">
+            <div class="tibia" style$="[[computeTibia(angles, '1')]]"></div>
+          </div>
+        </div>
+        <div class="base leg2" style$="[[computeCoords(coords, angles, '2')]]">
+          <div class="femur left" style$="[[computeFemur(angles, '2')]]">
+            <div class="tibia" style$="[[computeTibia(angles, '2')]]"></div>
+          </div>
+        </div>
+        <div class="base leg3" style$="[[computeCoords(coords, angles, '3')]]">
+          <div class="femur right" style$="[[computeFemur(angles, '3')]]">
+            <div class="tibia" style$="[[computeTibia(angles, '3')]]"></div>
+          </div>
+        </div>
+        <div class="base leg4" style$="[[computeCoords(coords, angles, '4')]]">
+          <div class="femur left" style$="[[computeFemur(angles, '4')]]">
+            <div class="tibia" style$="[[computeTibia(angles, '4')]]"></div>
+          </div>
+        </div>
+        <div class="base leg5" style$="[[computeCoords(coords, angles, '5')]]">
+          <div class="femur right" style$="[[computeFemur(angles, '5')]]">
+            <div class="tibia" style$="[[computeTibia(angles, '5')]]"></div>
+          </div>
+        </div>
+        <div class="base leg6" style$="[[computeCoords(coords, angles, '6')]]">
+          <div class="femur left" style$="[[computeFemur(angles, '6')]]">
+            <div class="tibia" style$="[[computeTibia(angles, '6')]]"></div>
+          </div>
+        </div>
         
         <div class="cursor leg1" style$="[[computeCursor(coords, '1')]]"></div>
         <div class="cursor leg2" style$="[[computeCursor(coords, '2')]]"></div>
@@ -92,22 +154,56 @@
         };
       }
       
-      computeCoords(coords, legId) {
-        let x = coords[legId].side + ': ' + coords[legId].sagittalBaseX + 'px;';
+      computeCoords(coords, angles, legId) {
+        if (coords === undefined || angles === undefined) return;
+        
+        let side;
+        if (coords[legId].side == 'left') side = 'right';
+        if (coords[legId].side == 'right') side = 'left';
+        
+        let x = side + ': ' + coords[legId].transverseBaseX + 'px;';
         let y = 'top: ' + coords[legId].sagittalBaseY + 'px;';
         
-        return x + y;
+        // let angle = coords[legId].offsetRotation;
+        // let temp = 135 - angles[legId].coxaServoAngle;
+        // 
+        // let z = 'transform: rotateY(' + temp + 'deg);';
+        
+        return x + y ;
       }
       
       computeCursor(coords, legId) {
-        let x = coords[legId].side + ': ' + coords[legId].sagittalCursorX + 'px;';
+        let side;
+        if (coords[legId].side == 'left') side = 'right';
+        if (coords[legId].side == 'right') side = 'left';
+         
+        let x = side + ': ' + coords[legId].transverseCursorX + 'px;';
         let y = 'top: ' + coords[legId].sagittalCursorY + 'px;';
         
         return x + y;
       }
       
+      computeFemur(angles, legId) {
+        let a = angles[legId].femurScreenAngle;
+        if (angles[legId].side == 'left') {
+          a = a * -1;
+        }
+        
+        let angle = 'transform: rotate(' + a + 'deg);';
+        return angle;
+      }
+      
+      computeTibia(angles, legId) {
+        let a = angles[legId].tibiaScreenAngle;
+        if (angles[legId].side == 'left') {
+          a = a * -1;
+        }
+        let angle = `transform: rotate(${a}deg);`;
+        return angle;
+      }
+      
       observeScale(scale) {
-        this.$.spoder.style.transform = 'scale(' + scale + ')';
+        this.$.spoder.style.transform = `scale(${scale})`;
       }
 
     }
