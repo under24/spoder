@@ -47,16 +47,35 @@
         height: 100%;
         width: 100%;
       }
+      .coxa {
+        display: inline-block;
+        width: 100px;
+        border-top: 1px solid;
+        position: absolute;
+        top: 50%;
+      }
     </style>
     
     <div id="spoder">
       <div class="centerPoint">
-        <div class="base leg1" style$="[[computeCoords(coords, '1')]]"></div>
-        <div class="base leg2" style$="[[computeCoords(coords, '2')]]"></div>
-        <div class="base leg3" style$="[[computeCoords(coords, '3')]]"></div>
-        <div class="base leg4" style$="[[computeCoords(coords, '4')]]"></div>
-        <div class="base leg5" style$="[[computeCoords(coords, '5')]]"></div>
-        <div class="base leg6" style$="[[computeCoords(coords, '6')]]"></div>
+        <div class="base leg1" style$="[[computeCoords(coords, '1')]]">
+          <div class="coxa" style$="[[computeCoxa(angles, '1')]]"></div>
+        </div>
+        <div class="base leg2" style$="[[computeCoords(coords, '2')]]">
+          <div class="coxa" style$="[[computeCoxa(angles, '2')]]"></div>
+        </div>
+        <div class="base leg3" style$="[[computeCoords(coords, '3')]]">
+          <div class="coxa" style$="[[computeCoxa(angles, '3')]]"></div>
+        </div>
+        <div class="base leg4" style$="[[computeCoords(coords, '4')]]">
+          <div class="coxa" style$="[[computeCoxa(angles, '4')]]"></div>
+        </div>
+        <div class="base leg5" style$="[[computeCoords(coords, '5')]]">
+          <div class="coxa" style$="[[computeCoxa(angles, '5')]]"></div>
+        </div>
+        <div class="base leg6" style$="[[computeCoords(coords, '6')]]">
+          <div class="coxa" style$="[[computeCoxa(angles, '6')]]"></div>
+        </div>
         
         <div class="cursor leg1" style$="[[computeCursor(coords, '1')]]"></div>
         <div class="cursor leg2" style$="[[computeCursor(coords, '2')]]"></div>
@@ -76,6 +95,9 @@
           // downcoming props
           coords: {
             statePath: 'coords'
+          },
+          angles: {
+            statePath: 'angles'
           },
           scale: {
             type: Number,
@@ -100,8 +122,26 @@
         return x + y;
       }
       
+      computeCoxa(angles, legId) {
+        
+        let x, y, z;
+        if (angles[legId].side == 'left') {
+          y = 'transform-origin: left;';
+          z = 'left: 50%;';
+          x = `transform: rotate(${angles[legId].coxaScreenAngle}deg);`;
+        } 
+        if (angles[legId].side == 'right') {
+          y = 'transform-origin: right;';
+          z = 'right: 50%;';
+          let temp = angles[legId].coxaScreenAngle * -1;
+          x = `transform: rotate(${temp}deg);`;
+        } 
+        
+        return x + y + z;
+      }
+      
       observeScale(scale) {
-        this.$.spoder.style.transform = 'scale(' + scale + ')';
+        this.$.spoder.style.transform = `scale(${scale})`;
       }
 
     }
