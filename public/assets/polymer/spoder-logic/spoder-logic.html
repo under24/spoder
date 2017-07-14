@@ -81,6 +81,14 @@
         return {screen, servo: +servo.toFixed(0)};
       }
       
+      dispatchData(legId, payload) {
+        store.dispatch({
+          type: "LEG_ANGLE_CHANGED",
+          legId: legId,
+          payload
+        });
+      }
+      
       // END HELPER FUNCTIONS
       
       // -------------------------------------------------
@@ -101,19 +109,18 @@
           payload.coxaServoAngle = coxaCalculated.servo;
         }
         
-        store.dispatch({
-          type: "LEG_ANGLE_CHANGED",
-          legId: legId,
-          payload
-        });
+        this.dispatchData(legId, payload);
       }
       
       positionFemurAndTibia(legId, view) {
+        let payload;
+        
         if (this.targetWithinReach(legId, view)) {
-          this.calcForWithinReachMode(legId, view);
+          payload = this.calcForWithinReachMode(legId, view);
         } else {
-          this.calcForOutOfReachMode(legId, view);
+          payload = this.calcForOutOfReachMode(legId, view);
         }
+        this.dispatchData(legId, payload);
       }
       
       calcForWithinReachMode(legId, view) {
@@ -142,11 +149,7 @@
           payload.tibiaServoAngle = tibiaCalculated.servo;
         }
         
-        store.dispatch({
-          type: "LEG_ANGLE_CHANGED",
-          legId: legId,
-          payload
-        });
+        return payload;
         
         socket.emit('femur-servo-angle-changed', {value: femurCalculated.servo});
         socket.emit('tibia-servo-angle-changed', {value: tibiaCalculated.servo});
@@ -176,12 +179,8 @@
         if (this.angles[legId].tibiaServoAngle !== 0) {
           payload.tibiaServoAngle = 0;
         }
-
-        store.dispatch({
-          type: "LEG_ANGLE_CHANGED",
-          legId: legId,
-          payload
-        });
+        
+        return payload;
         
         socket.emit('femur-servo-angle-changed', {value: angleCalculated.servo});
         socket.emit('tibia-servo-angle-changed', {value: 0});

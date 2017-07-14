@@ -6,7 +6,7 @@ let combinedLegsLength = femurLength + tibiaLength;
 let impossibleRange = Math.abs(femurLength - tibiaLength);
 
 let metaDataReducerInitState = {
-  coxaLength: 20,
+  // coxaLength: 20,
   femurLength,
   tibiaLength,
   combinedLegsLength,
