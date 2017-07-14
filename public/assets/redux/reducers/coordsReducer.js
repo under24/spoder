@@ -236,6 +236,27 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
       
         return newState;
       }
+    case 'BASE_XY_SHIFT_MODIFIER_CHANGE_RECALC_BASE_XY':
+      {
+        let newState = {};
+        for (let i = 1; i <= 6; i++) {
+          
+          let transverseBaseX;
+          switch (state[i].side) {
+            case 'left':
+              transverseBaseX = state[i].transverseBaseX + action.payload.x; break;
+            case 'right':
+              transverseBaseX = state[i].transverseBaseX - action.payload.x; break;
+          }
+          
+          newState[i] = Object.assign({}, state[i], {
+            transverseBaseX: transverseBaseX,
+            transverseBaseY: state[i].transverseBaseY + action.payload.y
+          });
+        }
+      
+        return newState;
+      }
     case "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y":
       {
         let leftRightTilt, frontBackTilt;

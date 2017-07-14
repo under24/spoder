@@ -271,7 +271,13 @@
       }
       
       observeShiftModifier(newValue, oldValue) {
-        
+        if (oldValue === undefined) return;
+
+        let payload = {
+          x: oldValue.x - newValue.x,
+          y: oldValue.y - newValue.y
+        }
+        store.dispatch({type: "BASE_XY_SHIFT_MODIFIER_CHANGE_RECALC_BASE_XY", payload});
       }
       
       // END PROPERTY OBSERVERS

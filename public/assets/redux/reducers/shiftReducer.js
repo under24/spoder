@@ -1,11 +1,9 @@
 'use strict';
 
 let shiftReducerInitState = {
-  leftShiftModifier: 0,
-  rightShiftModifier: 0,
-  frontShiftModifier: 0,
-  backShiftModifier: 0,
-  appliedTo: 'sagittalBaseX'
+  x: 0,
+  y: 0,
+  appliedTo: 'transverseBaseXY'
 }
 
 const shiftReducer = (state = shiftReducerInitState, action) => {

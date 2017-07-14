@@ -44,10 +44,8 @@
         store.dispatch({
           type: "BASE_X_SHIFT_MODIFIER_CHANGED",
           payload: {
-            backShiftModifier: newValue.bottom,
-            frontShiftModifier: newValue.top,
-            leftShiftModifier: newValue.left,
-            rightShiftModifier: newValue.right
+            x: newValue.xShift,
+            y: newValue.yShift
           }
         });
       }
