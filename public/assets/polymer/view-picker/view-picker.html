@@ -2,6 +2,7 @@
 <link rel="import" href="../digital-joystick/digital-joystick.html">
 <link rel="import" href="../level-modifier-view/level-modifier-view.html">
 <link rel="import" href="../tilt-view/tilt-view.html">
+<link rel="import" href="../shift-view/shift-view.html">
 <link rel="import" href="../transverse-animation-view/transverse-animation-view.html">
 <link rel="import" href="../sagittal-animation-view/sagittal-animation-view.html">
 
@@ -57,11 +58,12 @@
     <template is="dom-if" if="[[computeView('none', view)]]" restamp>
       <section class="selection-section">
         <div class="selection-text">Choose view to load...</div>
-        <select value="{{view::change}}" multiple size="6">
+        <select value="{{view::change}}" multiple size="7">
           <option value="none">None</option>
           <option value="level-modifier-view">Level Modifier View</option>
           <option value="digital-joystick">Joystick Demo</option>
           <option value="tilt-view">Tilt View</option>
+          <option value="shift-view">Shift View</option>
           <option value="transverse-animation-view">Transverse Animation View</option>
           <option value="sagittal-animation-view">Sagittal Animation View</option>
         </select>
@@ -81,6 +83,11 @@
     <!-- tilt view -->
     <template is="dom-if" if="[[computeView('tilt-view', view)]]" restamp>
       <tilt-view></tilt-view>
+    </template>
+    
+    <!-- shift view -->
+    <template is="dom-if" if="[[computeView('shift-view', view)]]" restamp>
+      <shift-view></shift-view>
     </template>
     
     <!-- transverse animation view -->

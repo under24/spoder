@@ -1,0 +1,59 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../digital-joystick/digital-joystick.html">
+
+<dom-module id="shift-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      digital-joystick {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+    
+    <digital-joystick
+      expand-output
+      output="{{joystickOutput}}">
+    </digital-joystick>
+  </template>
+
+  <script>
+    class shiftView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'shift-view'; }
+      static get properties() {
+        return {
+          // downcoming props
+          // legId: {
+          //   statePath: 'views.shiftViewLegId'
+          // },
+          // upcoming props
+          joystickOutput: {
+            observer: 'observeJoystickOutput'
+          }
+        };
+      }
+      
+      observeJoystickOutput(newValue) {
+        store.dispatch({
+          type: "BASE_X_SHIFT_MODIFIER_CHANGED",
+          payload: {
+            backShiftModifier: newValue.bottom,
+            frontShiftModifier: newValue.top,
+            leftShiftModifier: newValue.left,
+            rightShiftModifier: newValue.right
+          }
+        });
+      }
+
+    }
+
+    window.customElements.define(shiftView.is, shiftView);
+  </script>
+</dom-module>
