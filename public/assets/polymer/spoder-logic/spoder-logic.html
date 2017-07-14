@@ -81,6 +81,31 @@
         return {screen, servo: +servo.toFixed(0)};
       }
       
+      getSagittalMiscData(legId, payload) {
+        let dx = this.getXFromBase(legId, 'sagittal');
+        let dy = this.getYFromBase(legId, 'sagittal');
+        let distance = Utils.getDistance(dx, dy);
+        let angle = Utils.getAngle(dy, dx);
+        let transverseLegLength = this[`coords${legId}`].sagittalCursorX - this[`coords${legId}`].sagittalBaseX;
+        let transverseReachRadius;
+
+        return payload;
+      }
+      
+      getTransverseMiscData(legId, payload) {
+        let dx = this.getXFromBase(legId, 'transverse');
+        let dy = this.getYFromBase(legId, 'transverse');
+        let distance = Utils.getDistance(dx, dy);
+        
+        return payload;
+      }
+      
+      getCommonMiscData(legId, payload) {
+        
+        
+        return payload;
+      }
+      
       dispatchData(legId, payload) {
         store.dispatch({
           type: "LEG_ANGLE_CHANGED",
@@ -109,6 +134,7 @@
           payload.coxaServoAngle = coxaCalculated.servo;
         }
         
+        // payload = this.getTransverseMiscData(legId, payload);
         this.dispatchData(legId, payload);
       }
       
@@ -120,6 +146,7 @@
         } else {
           payload = this.calcForOutOfReachMode(legId, view);
         }
+        // payload = this.getSagittalMiscData(legId, payload);
         this.dispatchData(legId, payload);
       }
       

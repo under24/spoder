@@ -238,6 +238,9 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
       }
     case 'BASE_XY_SHIFT_MODIFIER_CHANGE_RECALC_BASE_XY':
       {
+        // TODO
+        // implement coords compensation
+        
         let newState = {};
         for (let i = 1; i <= 6; i++) {
           
