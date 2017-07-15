@@ -72,10 +72,8 @@
         border-top-color: red;
       }
       #distanceLine {
-        transform-origin: left;
         border-top: 1px dashed black;
         position: absolute;
-        left: 0px;
       }
       #transverseReachEnd, #transverseReachBeginning, #boundaryBall {
         background-color: black;
@@ -297,7 +295,23 @@
       
       observeDistanceLine(data) {
         this.$.distanceLine.style.width = `${data.distance}px`;
-        this.$.distanceLine.style.transform = `rotate(${data.angle}deg)`;
+        
+        switch (this.side) {
+          case 'left':
+            this.$.distanceLine.style.right = '';
+            
+            this.$.distanceLine.style.left = '0px';
+            this.$.distanceLine.style.transform = `rotate(${data.angle}deg)`; 
+            this.$.distanceLine.style.transformOrigin = 'left';
+            return;
+          case 'right':
+            this.$.distanceLine.style.left = '';
+            
+            this.$.distanceLine.style.right = '0px';
+            this.$.distanceLine.style.transform = `rotate(-${data.angle}deg)`;
+            this.$.distanceLine.style.transformOrigin = 'right';
+            return;
+        }
       }
       
       observeDebugInfo(info) {
