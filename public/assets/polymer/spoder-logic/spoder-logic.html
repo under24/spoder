@@ -58,11 +58,11 @@
       }
       
       getXFromBase(legId, view) {
-        return this['coords' + legId][view + 'CursorX'] - this['coords' + legId][view + 'BaseX'];
+        return this[`coords${legId}`][`${view}CursorX`] - this[`coords${legId}`][`${view}BaseX`];
       }
       
       getYFromBase(legId, view) {
-        return this['coords' + legId][view + 'CursorY'] - this['coords' + legId][view + 'BaseY'];
+        return this[`coords${legId}`][`${view}CursorY`] - this[`coords${legId}`][`${view}BaseY`];
       }
       
       getReachDistance(legId, view) {
@@ -238,7 +238,7 @@
       }
       
       validateCoxaOffset(legId, coxaAngle) {
-        coxaAngle += this['coords' + legId].logicOffsetRotation;
+        coxaAngle += this[`coords${legId}`].logicOffsetRotation;
         
         if (coxaAngle < 0) coxaAngle = 360 + coxaAngle;
         else if (coxaAngle > 360) coxaAngle = coxaAngle - 360;
