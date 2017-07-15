@@ -130,6 +130,7 @@
             </label>
           </div>
           <div>Size (px): [[size]]</div>
+          <div>Rocker side (%): [[rockerSize]]</div>
           <div>Radius (px): [[radius]]</div>
           <div>RockerX (px): [[rockerX]]</div>
           <div>RockerY (px): [[rockerY]]</div>
@@ -186,9 +187,6 @@
             type: Boolean,
             value: false
           },
-          output: {
-            notify: true
-          },
           lockXAxis: {
             type: Boolean,
             value: false
@@ -196,6 +194,9 @@
           lockYAxis: {
             type: Boolean,
             value: false
+          },
+          output: {
+            notify: true
           }
           // debug values
           // diffX: Number,
@@ -290,7 +291,7 @@
       
       renderJoystick(rx, ry) {
         if (rx === this.prevRx && ry === this.prevRy) return;
-        this.prevRx = rx; this.prevRy = ry;        
+        this.prevRx = rx; this.prevRy = ry;
         
         // lock axes if needed
         if (this.lockXAxis) rx = this.centerX;
