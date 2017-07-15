@@ -86,14 +86,18 @@
         let dy = this.getYFromBase(legId, 'sagittal');
         let distance = Utils.getDistance(dx, dy);
         let angle = Utils.getAngle(dy, dx);
-        let transverseLegLength = this[`coords${legId}`].sagittalCursorX - this[`coords${legId}`].sagittalBaseX;
-        let transverseReachRadius;
+        let boundaryBallCoords = Utils.getCoordsFromDistanceAndAngle(this[`coords${legId}`].sagittalBaseX, this[`coords${legId}`].sagittalBaseY, angle, this.metaData.combinedLegsLength);
+        // let transverseLegLength = this[`coords${legId}`].sagittalCursorX - this[`coords${legId}`].sagittalBaseX;        
+
 
         return {
           sagittalDX: dx,
           sagittalDY: dy,
           sagittalDistance: distance,
-          sagittalAngle: angle
+          sagittalAngle: angle,
+          // transverseLegLength,
+          sagittalBoundaryBallX: boundaryBallCoords.x,
+          sagittalBoundaryBallY: boundaryBallCoords.y,
         };
       }
       

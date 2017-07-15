@@ -27,6 +27,7 @@
       offset-y="[[coords.sagittalViewOffsetY]]"
       offset-x="[[coords.sagittalViewOffsetX]]"
       distance-line="[[computeDistanceLine(misc)]]"
+      boundary-ball="[[computeBoundaryBall(misc, coords)]]"
       debug-info="[[computeDebugInfo(coords, metaData, misc)]]"
       output="{{baseOutput}}">
     </sagittal-view-base>
@@ -120,16 +121,25 @@
         return { distance: misc.sagittalDistance, angle: misc.sagittalAngle};
       }
       
+      computeBoundaryBall(misc, coords) {
+        if (misc === undefined || coords === undefined) return;
+        
+        return {
+          x: misc.sagittalBoundaryBallX + coords.sagittalViewOffsetX,
+          y: misc.sagittalBoundaryBallY + coords.sagittalViewOffsetY
+        };
+      }
+      
       computeDebugInfo(coords, metaData, misc) {
         if (coords === undefined || metaData === undefined || misc === undefined) return;
         
         let baseAndImpossible = coords.sagittalBaseX + metaData.impossibleRange;
         
-        let angle = misc.sagittalAngle;
-        let distance = metaData.combinedLegsLength;
+        // let angle = misc.sagittalAngle;
+        // let distance = metaData.combinedLegsLength;
         
         // boundary coords
-        let result = Utils.getCoordsFromDistanceAndAngle(coords.sagittalBaseX + coords.sagittalViewOffsetX, coords.sagittalBaseY + coords.sagittalViewOffsetY, angle, distance);
+        // let result = Utils.getCoordsFromDistanceAndAngle(coords.sagittalBaseX + coords.sagittalViewOffsetX, coords.sagittalBaseY + coords.sagittalViewOffsetY, angle, distance);
 
         
         let sbx = coords.sagittalBaseX + coords.sagittalViewOffsetX;
@@ -148,7 +158,7 @@
         let bpy = py;
         
         
-        return { bpx, bpy, baseAndImpossible, bx: result.x, by: result.y };
+        return { bpx, bpy, baseAndImpossible};
       }
 
     }

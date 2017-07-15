@@ -168,6 +168,9 @@
           distanceLine: {
             observer: 'observeDistanceLine'
           },
+          boundaryBall: {
+            observer: 'observerBoundaryBall'
+          },
           debugInfo: {
             observer: 'observeDebugInfo'
           },
@@ -306,15 +309,17 @@
         }
       }
       
+      observerBoundaryBall(data) {
+        this.$.boundaryBall.style.left = `${data.x}px`;
+        this.$.boundaryBall.style.top = `${data.y}px`;
+      }
+      
       observeDebugInfo(info) {
         this.$.transverseReachEnd.style.left = info.bpx + 'px';
         this.$.transverseReachEnd.style.top = info.bpy + 'px';
         
         this.$.transverseReachBeginning.style.left = info.baseAndImpossible + 'px';
         this.$.transverseReachBeginning.style.top = info.bpy + 'px';
-        
-        this.$.boundaryBall.style.left = info.bx + 'px';
-        this.$.boundaryBall.style.top = info.by + 'px';
       }
 
     }
