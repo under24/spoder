@@ -298,6 +298,7 @@
       
       observeShiftModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
+        if (newValue.x === oldValue.x && newValue.y === oldValue.y) return;        
 
         let payload = {
           x: oldValue.x - newValue.x,

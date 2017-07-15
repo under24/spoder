@@ -236,11 +236,6 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
       }
     case 'BASE_XY_SHIFT_MODIFIER_CHANGE_RECALC_BASE_XY':
       {
-        // TODO
-        // implement coords compensation
-        
-        // compensative computation
-        
         let newState = {};
         for (let i = 1; i <= 6; i++) {
           
@@ -252,12 +247,20 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
               transverseBaseX = state[i].transverseBaseX - action.payload.x; break;
           }
           
-          newState[i] = Object.assign({}, state[i], {
+          let shiftedCoords = {
             transverseBaseX: transverseBaseX,
             transverseBaseY: state[i].transverseBaseY + action.payload.y
-          });
+          };
+          
+          // compensative computation
+          let coords = ReduxUtils.aggregateCoords(shiftedCoords, state[i]);
+          let compensativeCoords = ReduxUtils.getTransverseBaseXYCompensativeCoords(coords);
+          
+          if (compensativeCoords.sagittalBaseX !== state[i].sagittalBaseX) shiftedCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
+          if (compensativeCoords.sagittalCursorX !== state[i].sagittalCursorX) shiftedCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
+          
+          newState[i] = Object.assign({}, state[i], shiftedCoords);
         }
-      
         return newState;
       }
     case "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y":
