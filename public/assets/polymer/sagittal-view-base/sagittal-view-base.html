@@ -195,11 +195,9 @@
             if (diffX !== 0) {
               switch (this.side) {
                 case 'left':
-                  payload.x = diffX;
-                  break;
+                  payload.x = diffX; break;
                 case 'right':
-                  payload.x = -diffX;
-                  break;
+                  payload.x = -diffX; break;
               }
               this.clickCoords.x = e.pageX;
             }
@@ -226,11 +224,9 @@
       redrawX(x) {
         switch (this.side) {
           case 'left':
-            this.$.base.style.left = `${x}px`;
-            return;
+            this.$.base.style.left = `${x}px`; return;
           case 'right':
-            this.$.base.style.right = `${x}px`;
-            return;
+            this.$.base.style.right = `${x}px`; return;
         }
       }
       
@@ -241,22 +237,18 @@
       observeFemurScreenAngle(newAngle) {
         switch (this.side) {
           case 'left':
-            this.$.femur.style.transform = `rotate(${newAngle}deg)`;
-            return;
+            this.$.femur.style.transform = `rotate(${newAngle}deg)`; return;
           case 'right':
-            this.$.femur.style.transform = `rotate(${Utils.flipNumber(newAngle)}deg)`;
-            return;
+            this.$.femur.style.transform = `rotate(${Utils.flipNumber(newAngle)}deg)`; return;
         }
       }
       
       observeTibiaScreenAngle(newAngle) {
         switch (this.side) {
           case 'left':
-            this.$.tibia.style.transform = `rotate(${newAngle}deg)`;
-            return;
+            this.$.tibia.style.transform = `rotate(${newAngle}deg)`; return;
           case 'right':
-            this.$.tibia.style.transform = `rotate(${Utils.flipNumber(newAngle)}deg)`;
-            return;
+            this.$.tibia.style.transform = `rotate(${Utils.flipNumber(newAngle)}deg)`; return;
         }
       }
       
