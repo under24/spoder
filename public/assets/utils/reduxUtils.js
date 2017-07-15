@@ -2,18 +2,17 @@
 
 let ReduxUtils = {
   aggregateCoords(payload, state) {
+    let coords = Object.assign({}, state, payload);
     return {
-      tcx: payload.transverseCursorX || state.transverseCursorX,
-      tcy: payload.transverseCursorY || state.transverseCursorY,
+      tcx: coords.transverseCursorX,
+      tcy: coords.transverseCursorY,
+      tbx: coords.transverseBaseX,
+      tby: coords.transverseBaseY,
 
-      tbx: payload.transverseBaseX || state.transverseBaseX,
-      tby: payload.transverseBaseY || state.transverseBaseY,
-
-      scx: payload.sagittalCursorX || state.sagittalCursorX,
-      scy: payload.sagittalCursorY || state.sagittalCursorY,
-
-      sbx: payload.sagittalBaseX || state.sagittalBaseX,
-      sby: payload.sagittalBaseY || state.sagittalBaseY
+      scx: coords.sagittalCursorX,
+      scy: coords.sagittalCursorY,
+      sbx: coords.sagittalBaseX,
+      sby: coords.sagittalBaseY
     };
   },
   // { tbx, tby, tcx, tcy }
