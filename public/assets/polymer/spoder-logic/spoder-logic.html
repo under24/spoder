@@ -81,7 +81,7 @@
         return {screen, servo: +servo.toFixed(0)};
       }
       
-      getSagittalMiscData(legId, payload) {
+      getSagittalMiscData(legId, angles) {
         let dx = this.getXFromBase(legId, 'sagittal');
         let dy = this.getYFromBase(legId, 'sagittal');
         let distance = Utils.getDistance(dx, dy);
@@ -89,28 +89,31 @@
         let transverseLegLength = this[`coords${legId}`].sagittalCursorX - this[`coords${legId}`].sagittalBaseX;
         let transverseReachRadius;
 
-        return payload;
+        return {
+          sagittalDX: dx,
+          sagittalDY: dy,
+          sagittalDistance: distance,
+          sagittalAngle: angle
+        };
       }
       
-      getTransverseMiscData(legId, payload) {
+      getTransverseMiscData(legId, angles) {
         let dx = this.getXFromBase(legId, 'transverse');
         let dy = this.getYFromBase(legId, 'transverse');
         let distance = Utils.getDistance(dx, dy);
         
-        return payload;
+        return {
+          transverseDX: dx,
+          transverseDY: dy,
+          transverseDistance: distance
+        };
       }
       
-      getCommonMiscData(legId, payload) {
-        
-        
-        return payload;
-      }
-      
-      dispatchData(legId, payload) {
+      dispatchData(legId, angles, misc) {
         store.dispatch({
           type: "LEG_ANGLE_CHANGED",
           legId: legId,
-          payload
+          payload: { angles, misc }
         });
       }
       
@@ -126,28 +129,28 @@
         coxaCalculated.servo = this.validateCoxaOffset(legId, coxaCalculated.servo);
 
         // filter out same values
-        let payload = {};
+        let angles = {};
         if (this.angles[legId].coxaScreenAngle !== coxaCalculated.screen) {
-          payload.coxaScreenAngle = coxaCalculated.screen;
+          angles.coxaScreenAngle = coxaCalculated.screen;
         }
         if (this.angles[legId].coxaServoAngle !== coxaCalculated.servo) {
-          payload.coxaServoAngle = coxaCalculated.servo;
+          angles.coxaServoAngle = coxaCalculated.servo;
         }
         
-        // payload = this.getTransverseMiscData(legId, payload);
-        this.dispatchData(legId, payload);
+        let misc = this.getTransverseMiscData(legId, angles);
+        this.dispatchData(legId, angles, misc);
       }
       
       positionFemurAndTibia(legId, view) {
-        let payload;
-        
+        let angles;
         if (this.targetWithinReach(legId, view)) {
-          payload = this.calcForWithinReachMode(legId, view);
+          angles = this.calcForWithinReachMode(legId, view);
         } else {
-          payload = this.calcForOutOfReachMode(legId, view);
+          angles = this.calcForOutOfReachMode(legId, view);
         }
-        // payload = this.getSagittalMiscData(legId, payload);
-        this.dispatchData(legId, payload);
+        
+        let misc = this.getSagittalMiscData(legId, angles);
+        this.dispatchData(legId, angles, misc);
       }
       
       calcForWithinReachMode(legId, view) {

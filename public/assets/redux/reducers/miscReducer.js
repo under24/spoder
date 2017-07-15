@@ -71,8 +71,12 @@ let miscReducerInitState = {
 
 const miscReducer = (state = miscReducerInitState, action) => {
   switch (action.type) {
-    case "a":
-      
+    case "LEG_ANGLE_CHANGED":
+      return Object.assign(
+        {}, 
+        state,
+        { [action.legId]: Object.assign({}, state[action.legId], action.payload.misc) }
+      );
   }
   return state;
 }

@@ -75,7 +75,7 @@ const angleReducer = (state = angleReducerInitState, action) => {
       return Object.assign(
         {}, 
         state,
-        { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
+        { [action.legId]: Object.assign({}, state[action.legId], action.payload.angles) }
       );
   }
   return state;
