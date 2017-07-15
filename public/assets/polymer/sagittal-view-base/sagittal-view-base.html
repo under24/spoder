@@ -93,11 +93,11 @@
       }
       :host([side=left]) #distanceLine {
         transform-origin: left;
-        right: initial !important;
+        left: 0px;
       }
       :host([side=right]) #distanceLine {
         transform-origin: right;
-        left: initial !important;
+        right: 0px;
       }
       #transverseReachEnd, #transverseReachBeginning, #boundaryBall {
         background-color: black;
@@ -257,13 +257,11 @@
           case 'left':
             this.$.reachRadius.style.borderBottomRightRadius = `${this.reachRadius * 2}px`;
             this.$.reachRadius.style.borderTopRightRadius = `${this.reachRadius * 2}px`;
-            
             this.redrawX(this.x);
             break;
           case 'right':
             this.$.reachRadius.style.borderBottomLeftRadius = `${this.reachRadius * 2}px`;
             this.$.reachRadius.style.borderTopLeftRadius = `${this.reachRadius * 2}px`;
-
             this.redrawX(this.x);
             break;
         }
@@ -302,13 +300,9 @@
         
         switch (this.side) {
           case 'left':
-            this.$.distanceLine.style.left = '0px';
-            this.$.distanceLine.style.transform = `rotate(${data.angle}deg)`; 
-            return;
+            this.$.distanceLine.style.transform = `rotate(${data.angle}deg)`; return;
           case 'right':
-            this.$.distanceLine.style.right = '0px';
-            this.$.distanceLine.style.transform = `rotate(-${data.angle}deg)`;
-            return;
+            this.$.distanceLine.style.transform = `rotate(-${data.angle}deg)`; return;
         }
       }
       
