@@ -71,6 +71,21 @@
         border-left-color: red;
         border-top-color: red;
       }
+      #distanceLine {
+        transform-origin: left;
+        border-top: 1px dashed black;
+        position: absolute;
+        left: 0px;
+      }
+      #transverseReachEnd, #transverseReachBeginning, #boundaryBall {
+        background-color: black;
+        height: 10px;
+        width: 10px;
+        display: inline-block;
+        position: absolute;
+        border-radius: 100%;
+        transform: translate(-50%, -50%)
+      }
     </style>
     
     <div id="base">
@@ -80,7 +95,13 @@
       
       <div id="reachRadius"></div>
       <div id="baseInvalidRange"></div>
+      
+      <div id="distanceLine"></div>
     </div>
+    
+    <div id="transverseReachEnd"></div>
+    <div id="transverseReachBeginning"></div>
+    <div id="boundaryBall"></div>
   </template>
 
   <script>
@@ -122,6 +143,11 @@
           reachRadius: {
             observer: 'observeReachRadius'
           },
+          distanceLine: {
+            observer: 'observeDistanceLine'
+          },
+          debugInfo: {
+            observer: 'observeDebugInfo'
           },
           output: {
             notify: true
@@ -267,6 +293,22 @@
       
       computeY(offsetY, passedY) {
         return offsetY ? offsetY + passedY : passedY;
+      }
+      
+      observeDistanceLine(data) {
+        this.$.distanceLine.style.width = `${data.distance}px`;
+        this.$.distanceLine.style.transform = `rotate(${data.angle}deg)`;
+      }
+      
+      observeDebugInfo(info) {
+        this.$.transverseReachEnd.style.left = info.bpx + 'px';
+        this.$.transverseReachEnd.style.top = info.bpy + 'px';
+        
+        this.$.transverseReachBeginning.style.left = info.baseAndImpossible + 'px';
+        this.$.transverseReachBeginning.style.top = info.bpy + 'px';
+        
+        this.$.boundaryBall.style.left = info.bx + 'px';
+        this.$.boundaryBall.style.top = info.by + 'px';
       }
 
     }
