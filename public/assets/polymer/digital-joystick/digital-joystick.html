@@ -289,6 +289,9 @@
       }
       
       renderJoystick(rx, ry) {
+        if (rx === this.prevRx && ry === this.prevRy) return;
+        this.prevRx = rx; this.prevRy = ry;        
+        
         // lock axes if needed
         if (this.lockXAxis) rx = this.centerX;
         if (this.lockYAxis) ry = this.centerY;
