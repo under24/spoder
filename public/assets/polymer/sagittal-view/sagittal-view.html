@@ -32,10 +32,8 @@
     
     <view-cursor
       side="[[coords.side]]"
-      passed-x="[[coords.sagittalCursorX]]"
-      passed-y="[[coords.sagittalCursorY]]"
-      offset-y="[[viewOffsets.sagittalViewOffsetY]]"
-      offset-x="[[viewOffsets.sagittalViewOffsetX]]"
+      x="[[computeXY(coords.sagittalCursorX, viewOffsets.sagittalViewOffsetX)]]"
+      y="[[computeXY(coords.sagittalCursorY, viewOffsets.sagittalViewOffsetY)]]"
       output={{cursorOutput}}> 
     </view-cursor>
     

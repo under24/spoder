@@ -13,9 +13,11 @@
       }
       :host([side=left]) {
         transform: translate(-50%, -50%);
+        right: initial !important;
       }
       :host([side=right]) {
         transform: translate(50%, -50%);
+        left: initial !important;
       }
     </style>
   </template>
@@ -25,22 +27,15 @@
       static get is() { return 'view-cursor'; }
       static get properties() {
         return {
-          offsetX: Number,
-          passedX: Number,
-          x: {
-            computed: 'computeX(offsetX, passedX)',
-            observer: 'observeCursorX'
-          },
-          offsetY: Number,
-          passedY: Number,
-          y: {
-            computed: 'computeY(offsetY, passedY)',
-            observer: 'observeCursorY'
-          },
           side: {
-            type: String,
             reflectToAttribute: true,
             observer: 'observeSide'
+          },
+          x: {
+            observer: 'observeCursorX'
+          },
+          y: {
+            observer: 'observeCursorY'
           },
           output: {
             notify: true
@@ -66,11 +61,9 @@
             if (diffX !== 0) {
               switch (this.side) {
                 case 'left':
-                  payload.x = diffX;
-                  break;
+                  payload.x = diffX; break;
                 case 'right':
-                  payload.x = Utils.flipNumber(diffX);
-                  break;
+                  payload.x = Utils.flipNumber(diffX); break;
               }
               // update prev coords
               clickCoords.x = e.pageX;
@@ -99,36 +92,18 @@
       redrawX(x) {
         switch (this.side) {
           case 'left':
-            this.style.left = x + 'px';
-            return;
+            this.style.left = `${x}px`; return;
           case 'right':
-            this.style.right = x + 'px';
-            return;
+            this.style.right = `${x}px`; return;
         }
       }
       
       redrawY(y) {
-        this.style.top = y + 'px';
+        this.style.top = `${y}px`;
       }
       
       observeSide(newSide) {
-        switch (newSide) {
-          case 'left':
-            this.style.right = '';
-            break;
-          case 'right':
-            this.style.left = '';
-            break;
-        }
         this.redrawX(this.x);
-      }
-      
-      computeX(offsetX, passedX) {
-        return offsetX ? offsetX + passedX : passedX;
-      }
-      
-      computeY(offsetY, passedY) {
-        return offsetY ? offsetY + passedY : passedY;
       }
 
     }
