@@ -23,7 +23,7 @@
       impossible-range="[[metaData.impossibleRange]]"
       leg-length="[[misc.sagittalDiff.dx]]"
       animation-center-coords="[[computeAnimationCenterCoords(metaData, coords, misc)]]"
-      animation-circle-radius="[[computeAnimationCircleRadius(metaData, misc)]]"
+      animation-circle-diameter="[[computeAnimationCircleDiameter(metaData, misc)]]"
       offset-y="[[coords.transverseViewOffsetY]]"
       offset-x="[[coords.transverseViewOffsetX]]"
       offset-rotation="[[coords.offsetRotation]]"
@@ -142,7 +142,7 @@
         return finalCoords;
       }
       
-      computeAnimationCircleRadius(metaData, misc) {
+      computeAnimationCircleDiameter(metaData, misc) {
         if (metaData === undefined ||  misc === undefined) return;
         
         // radius + offset from impossible range

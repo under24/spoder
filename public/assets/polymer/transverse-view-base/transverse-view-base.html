@@ -153,8 +153,8 @@
           animationCenterCoords: {
             observer: 'observeAnimationCenterCoords'
           },
-          animationCircleRadius: {
-            observer: 'observeAnimationCircleRadius'
+          animationCircleDiameter: {
+            observer: 'observeAnimationCircleDiameter'
           },
           offsetRotation: {
             observer: 'observeOffsetRotation'
@@ -284,9 +284,9 @@
         this.$.coxa.style.width = `${length}px`;
       }
       
-      observeAnimationCircleRadius(radius) {
-        this.$.animationCircle.style.width = `${radius}px`;
-        this.$.animationCircle.style.height = `${radius}px`;
+      observeAnimationCircleDiameter(diameter) {
+        this.$.animationCircle.style.width = `${diameter}px`;
+        this.$.animationCircle.style.height = `${diameter}px`;
       }
       
       observeOffsetRotation(deg) {
