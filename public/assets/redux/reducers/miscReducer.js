@@ -2,69 +2,51 @@
 
 let miscReducerInitState = {
   1: {
-    sagittalDX: null,
-    sagittalDY: null,
+    sagittalDiff: null,
     sagittalDistance: null,
     sagittalAngle: null,
-    transverseDX: null,
-    transverseDY: null,
+    transverseDiff: null,
     transverseDistance: null,
-    transverseLegLength: null,
     transverseReachRadius: null
   },
   2: {
-    sagittalDX: null,
-    sagittalDY: null,
+    sagittalDiff: null,
     sagittalDistance: null,
     sagittalAngle: null,
-    transverseDX: null,
-    transverseDY: null,
+    transverseDiff: null,
     transverseDistance: null,
-    transverseLegLength: null,
     transverseReachRadius: null
   },
   3: {
-    sagittalDX: null,
-    sagittalDY: null,
+    sagittalDiff: null,
     sagittalDistance: null,
     sagittalAngle: null,
-    transverseDX: null,
-    transverseDY: null,
+    transverseDiff: null,
     transverseDistance: null,
-    transverseLegLength: null,
     transverseReachRadius: null
   },
   4: {
-    sagittalDX: null,
-    sagittalDY: null,
+    sagittalDiff: null,
     sagittalDistance: null,
     sagittalAngle: null,
-    transverseDX: null,
-    transverseDY: null,
+    transverseDiff: null,
     transverseDistance: null,
-    transverseLegLength: null,
     transverseReachRadius: null
   },
   5: {
-    sagittalDX: null,
-    sagittalDY: null,
+    sagittalDiff: null,
     sagittalDistance: null,
     sagittalAngle: null,
-    transverseDX: null,
-    transverseDY: null,
+    transverseDiff: null,
     transverseDistance: null,
-    transverseLegLength: null,
     transverseReachRadius: null
   },
   6: {
-    sagittalDX: null,
-    sagittalDY: null,
+    sagittalDiff: null,
     sagittalDistance: null,
     sagittalAngle: null,
-    transverseDX: null,
-    transverseDY: null,
+    transverseDiff: null,
     transverseDistance: null,
-    transverseLegLength: null,
     transverseReachRadius: null
   }
 }

@@ -28,7 +28,7 @@
       offset-x="[[coords.sagittalViewOffsetX]]"
       distance-line="[[computeDistanceLine(misc)]]"
       boundary-ball="[[computeBoundaryBall(misc, coords)]]"
-      debug-info="[[computeDebugInfo(coords, metaData, misc)]]"
+      transverse-reach-points="[[computeTransverseReachPoints(misc, coords)]]"
       output="{{baseOutput}}">
     </sagittal-view-base>
     
@@ -125,40 +125,22 @@
         if (misc === undefined || coords === undefined) return;
         
         return {
-          x: misc.sagittalBoundaryBallX + coords.sagittalViewOffsetX,
-          y: misc.sagittalBoundaryBallY + coords.sagittalViewOffsetY
+          x: misc.boundaryBallCoords.x + coords.sagittalViewOffsetX,
+          y: misc.boundaryBallCoords.y + coords.sagittalViewOffsetY
         };
       }
       
-      computeDebugInfo(coords, metaData, misc) {
-        if (coords === undefined || metaData === undefined || misc === undefined) return;
+      computeTransverseReachPoints(misc, coords) {
+        if (misc === undefined || coords === undefined) return;
         
-        let baseAndImpossible = coords.sagittalBaseX + metaData.impossibleRange;
-        
-        // let angle = misc.sagittalAngle;
-        // let distance = metaData.combinedLegsLength;
-        
-        // boundary coords
-        // let result = Utils.getCoordsFromDistanceAndAngle(coords.sagittalBaseX + coords.sagittalViewOffsetX, coords.sagittalBaseY + coords.sagittalViewOffsetY, angle, distance);
-
-        
-        let sbx = coords.sagittalBaseX + coords.sagittalViewOffsetX;
-        let sby = coords.sagittalBaseY + coords.sagittalViewOffsetY;
-        
-        let radius = metaData.combinedLegsLength;
-        
-        let px = coords.sagittalCursorX + coords.sagittalViewOffsetX;
-        let py = coords.sagittalCursorY + coords.sagittalViewOffsetY;
-        
-        // on the right side of the circle
-        let bpx = sbx + Math.sqrt(radius * radius - (py - sby) * (py - sby));
-        // on the left side of the circle
-        // let bpx = sbx - Math.sqrt(radius * radius - (py - sby) * (py - sby));
-        
-        let bpy = py;
-        
-        
-        return { bpx, bpy, baseAndImpossible};
+        return {
+          endX: misc.transverseReachCoords.endX + coords.sagittalViewOffsetX,
+          endY: misc.transverseReachCoords.endY + coords.sagittalViewOffsetY,
+          // beginningX: misc.transverseReachCoords.beginningX + coords.sagittalViewOffsetX,
+          // beginningY: misc.transverseReachCoords.beginningY + coords.sagittalViewOffsetY,
+          possibleX: misc.transverseReachCoords.possibleX + coords.sagittalViewOffsetX,
+          possibleY: misc.transverseReachCoords.possibleY + coords.sagittalViewOffsetY
+        };
       }
 
     }

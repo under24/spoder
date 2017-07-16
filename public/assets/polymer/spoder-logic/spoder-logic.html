@@ -87,29 +87,26 @@
         let distance = Utils.getDistance(dx, dy);
         let angle = Utils.getAngle(dy, dx);
         let boundaryBallCoords = Utils.getCoordsFromDistanceAndAngle(this[`coords${legId}`].sagittalBaseX, this[`coords${legId}`].sagittalBaseY, angle, this.metaData.combinedLegsLength);
-        // let transverseLegLength = this[`coords${legId}`].sagittalCursorX - this[`coords${legId}`].sagittalBaseX;        
-
+        let transverseReachCoords = PositioningUtils.getTransverseReachCoords(this[`coords${legId}`], this.metaData);
 
         return {
-          sagittalDX: dx,
-          sagittalDY: dy,
+          sagittalDiff: {dx, dy},
           sagittalDistance: distance,
           sagittalAngle: angle,
-          // transverseLegLength,
-          sagittalBoundaryBallX: boundaryBallCoords.x,
-          sagittalBoundaryBallY: boundaryBallCoords.y,
+          transverseReachCoords,
+          transverseReachRadius: transverseReachCoords.endX - transverseReachCoords.beginningX,
+          boundaryBallCoords
         };
       }
       
       getTransverseMiscData(legId, angles) {
-        let dx = this.getXFromBase(legId, 'transverse');
-        let dy = this.getYFromBase(legId, 'transverse');
-        let distance = Utils.getDistance(dx, dy);
+        // let dx = this.getXFromBase(legId, 'transverse');
+        // let dy = this.getYFromBase(legId, 'transverse');
+        // let distance = Utils.getDistance(dx, dy);
         
         return {
-          transverseDX: dx,
-          transverseDY: dy,
-          transverseDistance: distance
+          // transverseDiff: {dx, dy},
+          // transverseDistance: distance
         };
       }
       
