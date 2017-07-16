@@ -1,0 +1,60 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="modifier-watcher">
+  <script>
+    class modifierWatcher extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'modifier-watcher'; }
+      static get properties() {
+        return {
+          levelModifier: {
+            statePath: 'modifiers.level',
+            observer: 'observeLevelModifier'
+          },
+          tiltModifier: {
+            statePath: 'modifiers.tilt',
+            observer: 'observeTiltModifier'
+          },
+          shiftModifier: {
+            statePath: 'modifiers.shift',
+            observer: 'observeShiftModifier'
+          }
+        };
+      }
+      
+      observeLevelModifier(newValue, oldValue) {
+        if (oldValue === undefined) return;
+        
+        store.dispatch({
+          type: "BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y",
+          payload: oldValue.levelModifier - newValue.levelModifier
+        });
+      }
+      
+      observeTiltModifier(newValue, oldValue) {
+        if (oldValue === undefined) return;
+        
+        let payload = {
+          backTiltModifier: oldValue.backTiltModifier - newValue.backTiltModifier,
+          frontTiltModifier: oldValue.frontTiltModifier - newValue.frontTiltModifier,
+          leftTiltModifier: oldValue.leftTiltModifier - newValue.leftTiltModifier,
+          rightTiltModifier: oldValue.rightTiltModifier - newValue.rightTiltModifier
+        }
+        store.dispatch({type: "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y", payload});
+      }
+      
+      observeShiftModifier(newValue, oldValue) {
+        if (oldValue === undefined) return;
+        if (newValue.x === oldValue.x && newValue.y === oldValue.y) return;        
+
+        let payload = {
+          x: oldValue.x - newValue.x,
+          y: oldValue.y - newValue.y
+        }
+        store.dispatch({type: "BASE_XY_SHIFT_MODIFIER_CHANGE_RECALC_BASE_XY", payload});
+      }
+
+    }
+
+    window.customElements.define(modifierWatcher.is, modifierWatcher);
+  </script>
+</dom-module>
