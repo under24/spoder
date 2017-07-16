@@ -1,6 +1,6 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../transverse-view-base/transverse-view-base.html">
-<link rel="import" href="../new-view-cursor/new-view-cursor.html">
+<link rel="import" href="../view-cursor/view-cursor.html">
 <link rel="import" href="../view-leg-selector/view-leg-selector.html">
 
 <dom-module id="transverse-view">
@@ -15,8 +15,8 @@
     </style>
     
     <transverse-view-base
-      x="[[computeTransverseBaseXY(coords.transverseBaseX, viewOffsets.transverseViewOffsetX)]]"
-      y="[[computeTransverseBaseXY(coords.transverseBaseY, viewOffsets.transverseViewOffsetY)]]"
+      x="[[computeXY(coords.transverseBaseX, viewOffsets.transverseViewOffsetX)]]"
+      y="[[computeXY(coords.transverseBaseY, viewOffsets.transverseViewOffsetY)]]"
       side="[[coords.side]]"
       reach-radius="[[misc.transverseReachRadius]]"
       coxa-screen-angle="[[angles.coxaScreenAngle]]"
@@ -28,14 +28,14 @@
       output="{{baseOutput}}">
     </transverse-view-base>
         
-    <new-view-cursor
+    <view-cursor
       side="[[coords.side]]" 
       passed-x="[[coords.transverseCursorX]]" 
       passed-y="[[coords.transverseCursorY]]"
       offset-y="[[viewOffsets.transverseViewOffsetY]]"
       offset-x="[[viewOffsets.transverseViewOffsetX]]"
       output="{{cursorOutput}}">
-    </new-view-cursor>
+    </view-cursor>
     
     <view-leg-selector 
       position="right"
@@ -152,7 +152,7 @@
         return misc.transverseReachRadius - metaData.impossibleRange;
       }
       
-      computeTransverseBaseXY(coord, offset) {
+      computeXY(coord, offset) {
         if (coord === undefined || offset === undefined) return;
 
         return coord + offset;

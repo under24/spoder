@@ -1,6 +1,6 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 
-<dom-module id="new-view-cursor">
+<dom-module id="view-cursor">
   <template>
     <style>
       :host {
@@ -21,8 +21,8 @@
   </template>
 
   <script>
-    class newViewCursor extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'new-view-cursor'; }
+    class viewCursor extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'view-cursor'; }
       static get properties() {
         return {
           offsetX: Number,
@@ -132,9 +132,9 @@
       }
 
     }
-    newViewCursor.prototype.observeCursorX = newViewCursor.prototype.redrawX;
-    newViewCursor.prototype.observeCursorY = newViewCursor.prototype.redrawY;
+    viewCursor.prototype.observeCursorX = viewCursor.prototype.redrawX;
+    viewCursor.prototype.observeCursorY = viewCursor.prototype.redrawY;
 
-    window.customElements.define(newViewCursor.is, newViewCursor);
+    window.customElements.define(viewCursor.is, viewCursor);
   </script>
 </dom-module>

@@ -1,6 +1,6 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../sagittal-view-base/sagittal-view-base.html">
-<link rel="import" href="../new-view-cursor/new-view-cursor.html">
+<link rel="import" href="../view-cursor/view-cursor.html">
 <link rel="import" href="../view-leg-selector/view-leg-selector.html">
 
 <dom-module id="sagittal-view">
@@ -15,8 +15,8 @@
     </style>
     
     <sagittal-view-base
-      x="[[computeSagittalBaseXY(coords.sagittalBaseX, viewOffsets.sagittalViewOffsetX)]]"
-      y="[[computeSagittalBaseXY(coords.sagittalBaseY, viewOffsets.sagittalViewOffsetY)]]"
+      x="[[computeXY(coords.sagittalBaseX, viewOffsets.sagittalViewOffsetX)]]"
+      y="[[computeXY(coords.sagittalBaseY, viewOffsets.sagittalViewOffsetY)]]"
       side="[[coords.side]]"
       femur-length="[[metaData.femurLength]]"
       tibia-length="[[metaData.tibiaLength]]"
@@ -30,14 +30,14 @@
       output="{{baseOutput}}">
     </sagittal-view-base>
     
-    <new-view-cursor
+    <view-cursor
       side="[[coords.side]]"
       passed-x="[[coords.sagittalCursorX]]"
       passed-y="[[coords.sagittalCursorY]]"
       offset-y="[[viewOffsets.sagittalViewOffsetY]]"
       offset-x="[[viewOffsets.sagittalViewOffsetX]]"
       output={{cursorOutput}}> 
-    </new-view-cursor>
+    </view-cursor>
     
     <view-leg-selector 
       position="right"
@@ -146,7 +146,7 @@
         };
       }
       
-      computeSagittalBaseXY(coord, offset) {
+      computeXY(coord, offset) {
         if (coord === undefined || offset === undefined) return;
         
         return coord + offset;
