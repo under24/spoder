@@ -24,11 +24,11 @@
       impossible-range="[[metaData.impossibleRange]]"
       femur-screen-angle="[[angles.femurScreenAngle]]"
       tibia-screen-angle="[[angles.tibiaScreenAngle]]"
-      offset-y="[[coords.sagittalViewOffsetY]]"
-      offset-x="[[coords.sagittalViewOffsetX]]"
+      offset-y="[[viewOffsets.sagittalViewOffsetY]]"
+      offset-x="[[viewOffsets.sagittalViewOffsetX]]"
       distance-line="[[computeDistanceLine(misc)]]"
-      boundary-ball="[[computeBoundaryBall(misc, coords)]]"
-      transverse-reach-points="[[computeTransverseReachPoints(misc, coords)]]"
+      boundary-ball="[[computeBoundaryBall(misc, viewOffsets)]]"
+      transverse-reach-points="[[computeTransverseReachPoints(misc, viewOffsets)]]"
       output="{{baseOutput}}">
     </sagittal-view-base>
     
@@ -36,8 +36,8 @@
       side="[[coords.side]]"
       passed-x="[[coords.sagittalCursorX]]"
       passed-y="[[coords.sagittalCursorY]]"
-      offset-y="[[coords.sagittalViewOffsetY]]"
-      offset-x="[[coords.sagittalViewOffsetX]]"
+      offset-y="[[viewOffsets.sagittalViewOffsetY]]"
+      offset-x="[[viewOffsets.sagittalViewOffsetX]]"
       output={{cursorOutput}}> 
     </new-view-cursor>
     
@@ -59,6 +59,11 @@
           },
           metaData: {
             statePath: 'metaData',
+          },
+          viewOffsets: {
+            statePath(state) {
+              return state.viewOffsets[this.legId];
+            }
           },
           coords: {
             statePath(state) {
@@ -121,25 +126,25 @@
         return { distance: misc.sagittalDistance, angle: misc.sagittalAngle};
       }
       
-      computeBoundaryBall(misc, coords) {
-        if (misc === undefined || coords === undefined) return;
+      computeBoundaryBall(misc, viewOffsets) {
+        if (misc === undefined || viewOffsets === undefined) return;
         
         return {
-          x: misc.boundaryBallCoords.x + coords.sagittalViewOffsetX,
-          y: misc.boundaryBallCoords.y + coords.sagittalViewOffsetY
+          x: misc.boundaryBallCoords.x + viewOffsets.sagittalViewOffsetX,
+          y: misc.boundaryBallCoords.y + viewOffsets.sagittalViewOffsetY
         };
       }
       
-      computeTransverseReachPoints(misc, coords) {
-        if (misc === undefined || coords === undefined) return;
+      computeTransverseReachPoints(misc, viewOffsets) {
+        if (misc === undefined || viewOffsets === undefined) return;
         
         return {
-          endX: misc.transverseReachCoords.endX + coords.sagittalViewOffsetX,
-          endY: misc.transverseReachCoords.endY + coords.sagittalViewOffsetY,
-          // beginningX: misc.transverseReachCoords.beginningX + coords.sagittalViewOffsetX,
-          // beginningY: misc.transverseReachCoords.beginningY + coords.sagittalViewOffsetY,
-          possibleX: misc.transverseReachCoords.possibleX + coords.sagittalViewOffsetX,
-          possibleY: misc.transverseReachCoords.possibleY + coords.sagittalViewOffsetY
+          endX: misc.transverseReachCoords.endX + viewOffsets.sagittalViewOffsetX,
+          endY: misc.transverseReachCoords.endY + viewOffsets.sagittalViewOffsetY,
+          // beginningX: misc.transverseReachCoords.beginningX + viewOffsets.sagittalViewOffsetX,
+          // beginningY: misc.transverseReachCoords.beginningY + viewOffsets.sagittalViewOffsetY,
+          possibleX: misc.transverseReachCoords.possibleX + viewOffsets.sagittalViewOffsetX,
+          possibleY: misc.transverseReachCoords.possibleY + viewOffsets.sagittalViewOffsetY
         };
       }
 

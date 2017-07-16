@@ -13,10 +13,6 @@ let coordsReducerInitState = {
     transverseBaseY: -150,
     side: 'left',
     row: 'front',
-    transverseViewOffsetY: 400,
-    transverseViewOffsetX: 0,
-    sagittalViewOffsetY: 280,
-    sagittalViewOffsetX: 0,
     offsetRotation: -45,
     logicOffsetRotation: 45
   },
@@ -32,10 +28,6 @@ let coordsReducerInitState = {
     transverseBaseY: -150,
     side: 'right',
     row: 'front',
-    transverseViewOffsetY: 400,
-    transverseViewOffsetX: 0,
-    sagittalViewOffsetY: 280,
-    sagittalViewOffsetX: 0,
     offsetRotation: 45,
     logicOffsetRotation: 45
   },
@@ -51,10 +43,6 @@ let coordsReducerInitState = {
     transverseBaseY: 0,
     side: 'left',
     row: 'middle',
-    transverseViewOffsetY: 250,
-    transverseViewOffsetX: 0,
-    sagittalViewOffsetY: 280,
-    sagittalViewOffsetX: 0,
     offsetRotation: 0,
     logicOffsetRotation: 0
   },
@@ -70,10 +58,6 @@ let coordsReducerInitState = {
     transverseBaseY: 0,
     side: 'right',
     row: 'middle',
-    transverseViewOffsetY: 250,
-    transverseViewOffsetX: 0,
-    sagittalViewOffsetY: 280,
-    sagittalViewOffsetX: 0,
     offsetRotation: 0,
     logicOffsetRotation: 0
   },
@@ -89,10 +73,6 @@ let coordsReducerInitState = {
     transverseBaseY: 150,
     side: 'left',
     row: 'back',
-    transverseViewOffsetY: 100,
-    transverseViewOffsetX: 0,
-    sagittalViewOffsetY: 280,
-    sagittalViewOffsetX: 0,
     offsetRotation: 45,
     logicOffsetRotation: -45
   },
@@ -108,10 +88,6 @@ let coordsReducerInitState = {
     transverseBaseY: 150,
     side: 'right',
     row: 'back',
-    transverseViewOffsetY: 100,
-    transverseViewOffsetX: 0,
-    sagittalViewOffsetY: 280,
-    sagittalViewOffsetX: 0,
     offsetRotation: -45,
     logicOffsetRotation: -45
   }

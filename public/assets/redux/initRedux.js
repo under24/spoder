@@ -16,7 +16,8 @@ const reducers = combineReducers({
   views: viewReducer,
   modifiers: modifierReducer,
   coords: coordsReducer,
-  misc: miscReducer
+  misc: miscReducer,
+  viewOffsets: viewOffsetsReducer
 });
 
 const store = createStore(

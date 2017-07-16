@@ -22,10 +22,10 @@
       coxa-screen-angle="[[angles.coxaScreenAngle]]"
       impossible-range="[[metaData.impossibleRange]]"
       leg-length="[[misc.sagittalDiff.dx]]"
-      animation-center-coords="[[computeAnimationCenterCoords(metaData, coords, misc)]]"
+      animation-center-coords="[[computeAnimationCenterCoords(metaData, coords, misc, viewOffsets)]]"
       animation-circle-diameter="[[computeAnimationCircleDiameter(metaData, misc)]]"
-      offset-y="[[coords.transverseViewOffsetY]]"
-      offset-x="[[coords.transverseViewOffsetX]]"
+      offset-y="[[viewOffsets.transverseViewOffsetY]]"
+      offset-x="[[viewOffsets.transverseViewOffsetX]]"
       offset-rotation="[[coords.offsetRotation]]"
       output="{{baseOutput}}">
     </transverse-view-base>
@@ -34,8 +34,8 @@
       side="[[coords.side]]" 
       passed-x="[[coords.transverseCursorX]]" 
       passed-y="[[coords.transverseCursorY]]"
-      offset-y="[[coords.transverseViewOffsetY]]"
-      offset-x="[[coords.transverseViewOffsetX]]"
+      offset-y="[[viewOffsets.transverseViewOffsetY]]"
+      offset-x="[[viewOffsets.transverseViewOffsetX]]"
       output="{{cursorOutput}}">
     </new-view-cursor>
     
@@ -57,6 +57,11 @@
           },
           metaData: {
             statePath: 'metaData',
+          },
+          viewOffsets: {
+            statePath(state) {
+              return state.viewOffsets[this.legId];
+            }
           },
           misc: {
             statePath(state) {
@@ -122,14 +127,14 @@
         // add angle visibility + out of reach restrictions
       }
       
-      computeAnimationCenterCoords(metaData, coords, misc) {
-        if (metaData == undefined || coords == undefined || misc === undefined) return;
+      computeAnimationCenterCoords(metaData, coords, misc, viewOffsets) {
+        if (metaData == undefined || coords == undefined || misc === undefined || viewOffsets === undefined) return;
         
         // distance to the center of the circle + offset from impossible range
         let distance = (misc.transverseReachRadius + metaData.impossibleRange) / 2;
         
-        let x = coords.transverseBaseX + coords.transverseViewOffsetX;
-        let y = coords.transverseBaseY + coords.transverseViewOffsetY;
+        let x = coords.transverseBaseX + viewOffsets.transverseViewOffsetX;
+        let y = coords.transverseBaseY + viewOffsets.transverseViewOffsetY;
         
         let finalCoords;
         if (coords.offsetRotation === 0) {
