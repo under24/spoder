@@ -18,12 +18,12 @@
       passed-x="[[coords.transverseBaseX]]"
       passed-y="[[coords.transverseBaseY]]"
       side="[[coords.side]]"
-      reach-radius="[[computeReachRadius(metaData, coords)]]"
+      reach-radius="[[misc.transverseReachRadius]]"
       coxa-screen-angle="[[angles.coxaScreenAngle]]"
       impossible-range="[[metaData.impossibleRange]]"
-      leg-length="[[computeLegLength(coords, metaData, angles.femurScreenAngle)]]"
-      animation-center-coords="[[computeAnimationCenterCoords(metaData, coords)]]"
-      animation-circle-radius="[[computeAnimationCircleRadius(metaData)]]"
+      leg-length="[[misc.sagittalDiff.dx]]"
+      animation-center-coords="[[computeAnimationCenterCoords(metaData, coords, misc)]]"
+      animation-circle-radius="[[computeAnimationCircleRadius(metaData, misc)]]"
       offset-y="[[coords.transverseViewOffsetY]]"
       offset-x="[[coords.transverseViewOffsetX]]"
       offset-rotation="[[coords.offsetRotation]]"
@@ -57,6 +57,11 @@
           },
           metaData: {
             statePath: 'metaData',
+          },
+          misc: {
+            statePath(state) {
+              return state.misc[this.legId];
+            }
           },
           coords: {
             statePath(state) {
@@ -110,50 +115,18 @@
         });
       }
       
-      computeReachRadius(metaData, coords) {
-        if (metaData == undefined || coords == undefined) return;
+      computeLegLength(misc) {
+        // return misc.sagittalDiff.dx;
         
-        let sby = coords.sagittalBaseY;
-        let scy = coords.sagittalCursorY;
-        let radius = metaData.combinedLegsLength;
-
-        return Math.sqrt(radius * radius - (scy - sby) * (scy - sby));
+        // TODO
+        // add angle visibility + out of reach restrictions
       }
       
-      computeLegLength(coords, metaData, femurScreenAngle) {
-        if (coords == undefined || metaData == undefined || femurScreenAngle == undefined) return;
+      computeAnimationCenterCoords(metaData, coords, misc) {
+        if (metaData == undefined || coords == undefined || misc === undefined) return;
         
-        let length;
-
-        // let length = Utils.getDistance(coords.sagittalCursorX - coords.sagittalBaseX, coords.sagittalCursorY - coords.sagittalBaseY);
-        // let combinedLegsLength = metaData.femurLength + metaData.tibiaLength;
-        // 
-        // if (length > combinedLegsLength) length = combinedLegsLength;
-        // 
-        // return length;
-        let a = Utils.getDistance(coords.sagittalCursorX - coords.sagittalBaseX, coords.sagittalCursorY - coords.sagittalBaseY);
-        
-        
-        let distance = Utils.getDistance(coords.sagittalCursorX - coords.sagittalBaseX, coords.sagittalCursorY - coords.sagittalBaseY);
-        let newCoords = Utils.getCoordsFromDistanceAndAngle(coords.sagittalBaseX, coords.sagittalBaseY, femurScreenAngle, metaData.femurLength);
-        
-        if (newCoords.x > coords.sagittalCursorX)
-          length = newCoords.x - coords.sagittalBaseX;
-        else
-          length = coords.sagittalCursorX - coords.sagittalBaseX;
-          // console.log(coords.sagittalCursorX - coords.sagittalBaseX);
-        
-        // if (length > combinedLegsLength) length = combinedLegsLength;
-        if (a > metaData.combinedLegsLength) length = metaData.combinedLegsLength;
-        
-        return length;
-      }
-      
-      computeAnimationCenterCoords(metaData, coords) {
-        if (metaData == undefined || coords == undefined) return;
-        
-        // distance to the center of the circle
-        let distance = (metaData.combinedLegsLength + metaData.impossibleRange) / 2;
+        // distance to the center of the circle + offset from impossible range
+        let distance = (misc.transverseReachRadius + metaData.impossibleRange) / 2;
         
         let x = coords.transverseBaseX + coords.transverseViewOffsetX;
         let y = coords.transverseBaseY + coords.transverseViewOffsetY;
@@ -168,8 +141,11 @@
         return finalCoords;
       }
       
-      computeAnimationCircleRadius(metaData) {
-        return metaData.combinedLegsLength - metaData.impossibleRange;
+      computeAnimationCircleRadius(metaData, misc) {
+        if (metaData === undefined ||  misc === undefined) return;
+        
+        // radius + offset from impossible range
+        return misc.transverseReachRadius - metaData.impossibleRange;
       }
 
     }
