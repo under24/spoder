@@ -132,12 +132,13 @@
         let y = coords.transverseBaseY + coords.transverseViewOffsetY;
         
         let finalCoords;
-        if (coords.offsetRotation === 0) finalCoords = { x: x + distance, y };
-        else {
+        if (coords.offsetRotation === 0) {
+          finalCoords = { x: x + distance, y };
+        } else {
+          // if side == left => use original offset, if side == right => flip offset number (1 => -1)
           let angle = coords.side == 'left' ? coords.offsetRotation : Utils.flipNumber(coords.offsetRotation);
           finalCoords = Utils.getCoordsFromDistanceAndAngle(x, y, angle, distance);
         }
-        
         return finalCoords;
       }
       
