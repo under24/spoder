@@ -126,16 +126,10 @@
             reflectToAttribute: true,
             observer: 'observeSide'
           },
-          offsetX: Number,
-          passedX: Number,
           x: {
-            computed: 'computeX(offsetX, passedX)',
             observer: 'observeBaseX'
           },
-          offsetY: Number,
-          passedY: Number,
           y: {
-            computed: 'computeY(offsetY, passedY)',
             observer: 'observeBaseY'
           },
           coxaScreenAngle: {
@@ -260,14 +254,6 @@
           case 'right':
             this.$.animationCircleCenter.style.right = `${coords.x}px`; return;
         }
-      }
-      
-      computeX(offsetX, passedX) {
-        return offsetX ? offsetX + passedX : passedX;
-      }
-      
-      computeY(offsetY, passedY) {
-        return offsetY ? offsetY + passedY : passedY;
       }
       
       observeReachRadius(reachRadius) {
