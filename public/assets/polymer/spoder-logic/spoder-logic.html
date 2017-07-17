@@ -70,12 +70,25 @@
       }
       
       getSagittalMiscData(legId, angles) {
+        // diff x/y
         let dx = this.getXFromBase(legId, 'sagittal');
         let dy = this.getYFromBase(legId, 'sagittal');
+        
+        // sagittal distance from sagittal cursor x/y to sagittal base x/y
         let distance = Utils.getDistance(dx, dy);
+        
+        // sagittal straight angle from base to cursor
         let angle = Utils.getAngle(dy, dx);
+        
         let boundaryBallCoords = Utils.getCoordsFromDistanceAndAngle(this[`coords${legId}`].sagittalBaseX, this[`coords${legId}`].sagittalBaseY, angle, this.metaData.combinedLegsLength);
         let transverseReachCoords = PositioningUtils.getTransverseReachCoords(this[`coords${legId}`], this.metaData);
+        let transverseReachRadius = transverseReachCoords.endX - transverseReachCoords.beginningX;
+        
+        let baseCenterCoords;
+        if (this.coords1 !== undefined && this.coords6 !== undefined && this.coords2 !== undefined && this.coords5 !== undefined) {
+          baseCenterCoords = PositioningUtils.getBaseCenter(this.coords1, this.coords6, this.coords2, this.coords5);
+        }
+        
 
         return {
           sagittalDiff: {dx, dy},
@@ -83,7 +96,8 @@
           sagittalAngle: angle,
           boundaryBallCoords,
           transverseReachCoords,
-          transverseReachRadius: transverseReachCoords.endX - transverseReachCoords.beginningX
+          transverseReachRadius,
+          baseCenterCoords
         };
       }
       
