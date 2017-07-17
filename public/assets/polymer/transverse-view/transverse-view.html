@@ -23,7 +23,7 @@
       impossible-range="[[metaData.impossibleRange]]"
       leg-length="[[misc.sagittalDiff.dx]]"
       animation-center-coords="[[computeAnimationCenterCoords(metaData, coords, misc, viewOffsets)]]"
-      animation-circle-diameter="[[computeAnimationCircleDiameter(metaData, misc)]]"
+      animation-circle-diameter="[[misc.transverseAnimationCircleDiameter]]"
       offset-rotation="[[coords.offsetRotation]]"
       output="{{baseOutput}}">
     </transverse-view-base>
@@ -141,13 +141,6 @@
           finalCoords = Utils.getCoordsFromDistanceAndAngle(x, y, angle, distance);
         }
         return finalCoords;
-      }
-      
-      computeAnimationCircleDiameter(metaData, misc) {
-        if (metaData === undefined ||  misc === undefined) return;
-        
-        // radius + offset from impossible range
-        return misc.transverseReachRadius - metaData.impossibleRange;
       }
       
       computeXY(coord, offset) {

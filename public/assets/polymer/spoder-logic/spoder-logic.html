@@ -83,6 +83,7 @@
         let boundaryBallCoords = Utils.getCoordsFromDistanceAndAngle(this[`coords${legId}`].sagittalBaseX, this[`coords${legId}`].sagittalBaseY, angle, this.metaData.combinedLegsLength);
         let transverseReachCoords = PositioningUtils.getTransverseReachCoords(this[`coords${legId}`], this.metaData);
         let transverseReachRadius = transverseReachCoords.endX - transverseReachCoords.beginningX;
+        let transverseAnimationCircleDiameter = transverseReachRadius - this.metaData.impossibleRange;
         
         let baseCenterCoords;
         if (this.coords1 !== undefined && this.coords6 !== undefined && this.coords2 !== undefined && this.coords5 !== undefined) {
@@ -97,7 +98,8 @@
           boundaryBallCoords,
           transverseReachCoords,
           transverseReachRadius,
-          baseCenterCoords
+          baseCenterCoords,
+          transverseAnimationCircleDiameter
         };
       }
       
