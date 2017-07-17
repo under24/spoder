@@ -53,6 +53,14 @@
         position: absolute;
         top: 50%;
       }
+      #baseCenter {
+        width: 10px;
+        height: 10px;
+        background-color: blue;
+        display: inline-block;
+        position: absolute;
+        border-radius: 100%;
+      }
     </style>
     
     <div id="spoder">
@@ -82,6 +90,8 @@
         <div class="cursor leg4" style$="[[computeCursor(coords, '4')]]"></div>
         <div class="cursor leg5" style$="[[computeCursor(coords, '5')]]"></div>
         <div class="cursor leg6" style$="[[computeCursor(coords, '6')]]"></div>
+        
+        <div id="baseCenter"></div>
       </div>
     </div>
   </template>
@@ -101,11 +111,15 @@
           misc: {
             statePath: 'misc'
           },
+          positioningMeta: {
+            statePath: 'positioningMeta',
+            observer: 'observePositioningMeta'
+          },
           scale: {
             type: Number,
             value: 0.75,
             observer: 'observeScale'
-          },
+          }
           // upcoming props
         };
       }
@@ -148,6 +162,11 @@
       
       observeScale(scale) {
         this.$.spoder.style.transform = `scale(${scale})`;
+      }
+      
+      observePositioningMeta(data) {
+        this.$.baseCenter.style.left = data.x + 'px';
+        this.$.baseCenter.style.top = data.y + 'px';
       }
 
     }
