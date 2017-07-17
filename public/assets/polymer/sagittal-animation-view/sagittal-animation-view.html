@@ -169,7 +169,31 @@
         // 
         // let z = 'transform: rotateY(' + temp + 'deg);';
         
-        return x + y ;
+        let a;
+        switch (coords[legId].legId) {
+          case 1:
+            a = (180 - angles[legId].coxaServoAngle) + coords[legId].offsetRotation;
+            break;
+          case 2:
+            a = 180 - angles[legId].coxaServoAngle - coords[legId].offsetRotation;
+            break;
+          case 3:
+            a = 180 - angles[legId].coxaServoAngle - 90;
+            break;
+          case 4:
+            a = 180 - angles[legId].coxaServoAngle - 90;
+            break;
+          case 5:
+            a = coords[legId].offsetRotation - angles[legId].coxaServoAngle;
+            break;
+          case 6:
+            a = Math.abs(coords[legId].offsetRotation) - angles[legId].coxaServoAngle;
+            break;
+        }
+        
+        a = `transform: rotateY(${a}deg);`
+        
+        return x + y + a;
       }
       
       computeCursor(coords, legId) {

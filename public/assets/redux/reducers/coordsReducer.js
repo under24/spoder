@@ -198,7 +198,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         return Object.assign(
           {},
           state,
-          { [action.legId]: Object.assign({}, state[action.legId], baseXY)}
+          { [action.legId]: Object.assign({}, state[action.legId], baseXY) }
         );
       }
     case 'BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y':
