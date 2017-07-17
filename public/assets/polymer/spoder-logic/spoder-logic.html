@@ -116,6 +116,11 @@
         let coxaCalculated = this.getAngleFromDistance(legId, view);
         
         coxaCalculated.servo = this.validateCoxaOffset(legId, coxaCalculated.servo);
+        
+        // check if all the values are the same
+        if (this.angles[legId].coxaScreenAngle === coxaCalculated.screen &&
+            this.angles[legId].coxaServoAngle === coxaCalculated.servo
+        ) return;
 
         // filter out same values
         let angles = {};
