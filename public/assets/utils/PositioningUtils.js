@@ -38,8 +38,8 @@ let PositioningUtils = {
     return {
         x: x1 + ua * (x2 - x1),
         y: y1 + ua * (y2 - y1),
-        seg1: ua >= 0 && ua <= 1,
-        seg2: ub >= 0 && ub <= 1
+        // seg1: ua >= 0 && ua <= 1,
+        // seg2: ub >= 0 && ub <= 1
     }
   },
   getRotatedCoords(baseCoords, rotation, angle, distance) {

@@ -80,7 +80,11 @@
         // sagittal straight angle from base to cursor
         let angle = Utils.getAngle(dy, dx);
         
-        let boundaryBallCoords = Utils.getCoordsFromDistanceAndAngle(this[`coords${legId}`].sagittalBaseX, this[`coords${legId}`].sagittalBaseY, angle, this.metaData.combinedLegsLength);
+        // sagittal boundary ball xy
+        let sbx = this[`coords${legId}`].sagittalBaseX;
+        let sby = this[`coords${legId}`].sagittalBaseY;
+        let boundaryBallCoords = Utils.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
+        
         let transverseReachCoords = PositioningUtils.getTransverseReachCoords(this[`coords${legId}`], this.metaData);
         let transverseReachRadius = transverseReachCoords.endX - transverseReachCoords.beginningX;
         let transverseAnimationCircleDiameter = transverseReachRadius - this.metaData.impossibleRange;
