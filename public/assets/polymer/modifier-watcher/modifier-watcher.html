@@ -17,12 +17,21 @@
           shiftModifier: {
             statePath: 'modifiers.shift',
             observer: 'observeShiftModifier'
+          },
+          rotationModifier: {
+            statePath: 'modifiers.rotation',
+            observer: 'observeRotationModifier'
+          },
+          positioningMeta: {
+            statePath: 'positioningMeta'
           }
         };
       }
       
       observeLevelModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
+        // TODO
+        // do validatioon here
         
         store.dispatch({
           type: "BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y",
@@ -32,6 +41,8 @@
       
       observeTiltModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
+        // TODO
+        // do validatioon here
         
         let payload = {
           backTiltModifier: oldValue.backTiltModifier - newValue.backTiltModifier,
@@ -51,6 +62,17 @@
           y: oldValue.y - newValue.y
         }
         store.dispatch({type: "BASE_XY_SHIFT_MODIFIER_CHANGE_RECALC_BASE_XY", payload});
+      }
+      
+      observeRotationModifier(newValue, oldValue) {
+        if (oldValue === undefined) return;
+        if (newValue.rotationModifier === oldValue.rotationModifier) return;
+        
+        store.dispatch({
+          type: 'BASE_XY_ROTATION_MODIFIER_CHANGE',
+          payload: newValue.rotationModifier,
+          baseCoords: this.positioningMeta
+        })
       }
 
     }

@@ -41,5 +41,8 @@ let PositioningUtils = {
         seg1: ua >= 0 && ua <= 1,
         seg2: ub >= 0 && ub <= 1
     }
+  },
+  getRotatedCoords(baseCoords, rotation, angle, distance) {
+    
   }
 }

@@ -20,6 +20,7 @@
     
     <digital-joystick
       expand-output
+      lock-y-axis
       output="{{joystickOutput}}">
     </digital-joystick>
   </template>
@@ -29,11 +30,6 @@
       static get is() { return 'rotation-view'; }
       static get properties() {
         return {
-          // downcoming props
-          // legId: {
-          //   statePath: 'views.rotationViewLegId'
-          // },
-          // upcoming props
           joystickOutput: {
             observer: 'observeJoystickOutput'
           }
@@ -42,11 +38,8 @@
       
       observeJoystickOutput(newValue) {
         store.dispatch({
-          type: "BASE_X_SHIFT_MODIFIER_CHANGED",
-          payload: {
-            x: newValue.xShift,
-            y: newValue.yShift
-          }
+          type: "BASE_XY_ROTATION_MODIFIER_CHANGED",
+          payload: { rotationModifier: newValue.xShift }
         });
       }
 

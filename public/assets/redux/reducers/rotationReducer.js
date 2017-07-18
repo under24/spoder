@@ -2,13 +2,13 @@
 
 let rotationReducerInitState = {
   rotationModifier: 0,
-  appliedTo: 'sagittalBaseY'
+  appliedTo: 'transverseBaseXY'
 }
 
 const rotationReducer = (state = rotationReducerInitState, action) => {
   switch (action.type) {
-    case "a":
-      
+    case "BASE_XY_ROTATION_MODIFIER_CHANGED":
+      return Object.assign({}, state, action.payload);
   }
   return state;
 }

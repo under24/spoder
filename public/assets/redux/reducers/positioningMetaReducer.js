@@ -1,7 +1,7 @@
 'use strict';
 
 let positioningMetaReducerInitState = {
-  a: 1
+  
 }
 
 const positioningMetaReducer = (state = positioningMetaReducerInitState, action) => {

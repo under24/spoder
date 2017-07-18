@@ -286,6 +286,18 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         }        
         return newState;
       }
+    case 'BASE_XY_ROTATION_MODIFIER_CHANGE':
+      {
+        debugger;
+        PositioningUtils.getRotatedCoords(action.baseCoords, action.payload, angle, distance);
+        
+        let newState = {};
+        for (let i = 1; i <= 6; i++) {
+          newState[i] = Object.assign({}, state[i], {sagittalBaseY: state[i].sagittalBaseY + action.payload});
+        }
+      
+        return newState;
+      }    
   }
   return state;
 }
