@@ -58,10 +58,11 @@
     <template is="dom-if" if="[[computeView('none', view)]]" restamp>
       <section class="selection-section">
         <div class="selection-text">Choose view to load...</div>
-        <select value="{{view::change}}" multiple size="7">
+        <select value="{{view::change}}" multiple size="8">
           <option value="none">None</option>
-          <option value="level-modifier-view">Level Modifier View</option>
           <option value="digital-joystick">Joystick Demo</option>
+          <option value="level-modifier-view">Level View</option>
+          <option value="ratation-modifier-view" disabled>Rotation view</option>
           <option value="tilt-view">Tilt View</option>
           <option value="shift-view">Shift View</option>
           <option value="transverse-animation-view">Transverse Animation View</option>
