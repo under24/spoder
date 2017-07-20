@@ -195,8 +195,8 @@
         
         return payload;
         
-        socket.emit('femur-servo-angle-changed', {value: femurCalculated.servo});
-        socket.emit('tibia-servo-angle-changed', {value: tibiaCalculated.servo});
+        socket.emit('femur-servo-angle-changed', { value: femurCalculated.servo });
+        socket.emit('tibia-servo-angle-changed', { value: tibiaCalculated.servo });
       }
       
       calcForOutOfReachMode(legId, view) {
@@ -226,32 +226,29 @@
         
         return payload;
         
-        socket.emit('femur-servo-angle-changed', {value: angleCalculated.servo});
-        socket.emit('tibia-servo-angle-changed', {value: 0});
+        socket.emit('femur-servo-angle-changed', { value: angleCalculated.servo });
+        socket.emit('tibia-servo-angle-changed', { value: 0 });
       }
       
       getFemurAngle(legId, view) {
-        let D1 = Math.atan2(this.getYFromBase(legId, view), this.getXFromBase(legId, view));
-        
-        let D2 = Utils.lawOfCos(this.getDistanceFromBaseToCursor(legId, view), this.metaData.femurLength, this.metaData.tibiaLength);
+        let D1 = Math.atan2(this.getYFromBase(legId, view), this.getXFromBase(legId, view)),
+            D2 = Utils.lawOfCos(this.getDistanceFromBaseToCursor(legId, view), this.metaData.femurLength, this.metaData.tibiaLength);
 
         let A1 = D2 - D1;
         
-        let A1Screen = A1 / Math.PI * -180;
-
-        let A1Servo = A1Screen + 90;
+        let A1Screen = A1 / Math.PI * -180,
+            A1Servo = A1Screen + 90;
         
-        return {screen: A1Screen, servo: +A1Servo.toFixed(0)};
+        return { screen: A1Screen, servo: +A1Servo.toFixed(0) };
       }
       
       getTibiaAngle(legId, view) {
         let A2 = Utils.lawOfCos(this.metaData.femurLength, this.metaData.tibiaLength, this.getDistanceFromBaseToCursor(legId, view));
         
-        let A2Screen = 180 - (A2 / Math.PI * 180);
+        let A2Screen = 180 - (A2 / Math.PI * 180),
+            A2Servo = A2Screen;
         
-        let A2Servo = A2Screen;
-        
-        return {screen: A2Screen, servo: +A2Servo.toFixed(0)};
+        return { screen: A2Screen, servo: +A2Servo.toFixed(0) };
       }
       
       validateCoxaOffset(legId, coxaAngle) {
