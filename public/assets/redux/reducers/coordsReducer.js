@@ -204,6 +204,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
     case 'BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y':
       {
         let newState = {};
+        
         for (let i = 1; i <= 6; i++) {
           newState[i] = Object.assign({}, state[i], {sagittalBaseY: state[i].sagittalBaseY + action.payload});
         }
@@ -213,6 +214,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
     case 'BASE_XY_SHIFT_MODIFIER_CHANGE_RECALC_BASE_XY':
       {
         let newState = {};
+        
         for (let i = 1; i <= 6; i++) {
           
           let transverseBaseX;
@@ -237,6 +239,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           
           newState[i] = Object.assign({}, state[i], shiftedCoords);
         }
+        
         return newState;
       }
     case "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y":
@@ -291,20 +294,25 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         let baseCenterCoords = ReduxUtils.getBaseCenter(state);
         
         let newState = {};
+        
         for (let i = 1; i <= 6; i++) {
-          let rotated = ReduxUtils.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[i]);
+          let rotatedCoords = ReduxUtils.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[i]);
           
-          newState[i] = Object.assign({}, state[i], {
-            transverseBaseX: rotated.x,
-            transverseBaseY: rotated.y
-          });
+          let finalCoords = {
+            transverseBaseX: rotatedCoords.x,
+            transverseBaseY: rotatedCoords.y
+          }
           
-          // newState[i] = Object.assign({}, state[i], {
-          //   sagittalBaseY: state[i].sagittalBaseY + action.payload,
-          //   sagittalBaseX: 0
-          // });
+          // gather up latest coords for further computations
+          let coords = ReduxUtils.aggregateCoords(finalCoords, state[i]);
+          let compensativeCoords = ReduxUtils.getTransverseBaseXYCompensativeCoords(coords);
+          // compare with the existing coords
+          if (compensativeCoords.sagittalBaseX !== state[i].sagittalBaseX) finalCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
+          if (compensativeCoords.sagittalCursorX !== state[i].sagittalCursorX) finalCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
+          
+          newState[i] = Object.assign({}, state[i], finalCoords);
         }
-      
+        
         return newState;
       }    
   }
