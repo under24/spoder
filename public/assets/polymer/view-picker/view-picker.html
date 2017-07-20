@@ -72,14 +72,19 @@
       </section>
     </template>
     
+    <!-- joystick demo -->
+    <template is="dom-if" if="[[computeView('digital-joystick', view)]]" restamp>
+      <digital-joystick style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></digital-joystick>
+    </template>
+    
     <!-- level modifier view -->
     <template is="dom-if" if="[[computeView('level-modifier-view', view)]]" restamp>
       <level-modifier-view></level-modifier-view>
     </template>
     
-    <!-- joystick demo -->
-    <template is="dom-if" if="[[computeView('digital-joystick', view)]]" restamp>
-      <digital-joystick style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></digital-joystick>
+    <!-- rotation modifier view -->
+    <template is="dom-if" if="[[computeView('rotation-modifier-view', view)]]" restamp>
+      <rotation-modifier-view></rotation-modifier-view>
     </template>
     
     <!-- tilt modifier view -->
@@ -90,11 +95,6 @@
     <!-- shift modifier view -->
     <template is="dom-if" if="[[computeView('shift-modifier-view', view)]]" restamp>
       <shift-modifier-view></shift-modifier-view>
-    </template>
-    
-    <!-- rotation modifier view -->
-    <template is="dom-if" if="[[computeView('rotation-modifier-view', view)]]" restamp>
-      <rotation-modifier-view></rotation-modifier-view>
     </template>
     
     <!-- transverse animation view -->
