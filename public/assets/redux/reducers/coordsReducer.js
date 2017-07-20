@@ -108,11 +108,13 @@ for (let key in coordsReducerInitState) {
 const coordsReducer = (state = coordsReducerInitState, action) => {
   switch (action.type) {
     case "CURSOR_XY_CHANGED":
-      return Object.assign(
-        {}, 
-        state,
-        { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
-      );
+      {
+        return Object.assign(
+          {}, 
+          state,
+          { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
+        );
+      }
     case "CURSOR_XY_SHIFTED":
       {
         // calc shifted coords
@@ -155,11 +157,13 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         );
       }
     case 'BASE_XY_CHANGED':
-      return Object.assign(
-        {},
-        state,
-        { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
-      );
+      {
+        return Object.assign(
+          {},
+          state,
+          { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
+        );
+      }
     case 'BASE_XY_SHIFTED':
       {
         let baseXY = {};
