@@ -75,7 +75,7 @@
         let sby = this[`coords${legId}`].sagittalBaseY;
         let sagittalWithinReach = this.targetWithinReach(legId, 'sagittal');
         
-        // diff x/y
+        // sagittal diff x/y
         let dx = this.getXFromBase(legId, 'sagittal');
         let dy = this.getYFromBase(legId, 'sagittal');
         
@@ -85,8 +85,10 @@
         // sagittal straight angle from base to cursor
         let angle = Utils.getAngle(dy, dx);
         
+        // sagittal misc data
         let sagittalBoundaryBallCoords = Utils.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
         
+        // transverse misc data
         let transverseReachCoords = PositioningUtils.getTransverseReachCoords(this[`coords${legId}`], this.metaData);
         let transverseReachRadius = PositioningUtils.getTransverseReachRadius(transverseReachCoords);
         let transverseAnimationCircleDiameter = PositioningUtils.getTransverseAnimationCircleDiameter(transverseReachRadius, this.metaData);
