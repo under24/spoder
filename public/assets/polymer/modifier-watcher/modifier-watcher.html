@@ -21,9 +21,6 @@
           rotationModifier: {
             statePath: 'modifiers.rotation',
             observer: 'observeRotationModifier'
-          },
-          positioningMeta: {
-            statePath: 'positioningMeta'
           }
         };
       }
@@ -70,8 +67,9 @@
         
         store.dispatch({
           type: 'BASE_XY_ROTATION_MODIFIER_CHANGE',
-          payload: newValue.rotationModifier,
-          baseCoords: this.positioningMeta.baseCenterCoords
+          payload: {
+            rotation: oldValue.rotationModifier - newValue.rotationModifier
+          }
         })
       }
 

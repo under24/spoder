@@ -39,7 +39,7 @@
       observeJoystickOutput(newValue) {
         store.dispatch({
           type: "BASE_XY_ROTATION_MODIFIER_CHANGED",
-          payload: { rotationModifier: newValue.xShift }
+          payload: { rotationModifier: +newValue.xShift.toFixed(0) }
         });
       }
 

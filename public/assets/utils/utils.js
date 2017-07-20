@@ -31,8 +31,8 @@ let Utils = {
     let resultY = Math.sin(angle * Math.PI / 180) * distance + y;
     
     return {
-      x: Utils.roundNumber(resultX, 0), 
-      y: Utils.roundNumber(resultY, 0)
+      x: resultX, 
+      y: resultY
     };
   }
 };

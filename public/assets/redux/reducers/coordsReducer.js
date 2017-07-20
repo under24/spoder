@@ -288,12 +288,21 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
       }
     case 'BASE_XY_ROTATION_MODIFIER_CHANGE':
       {
-        debugger;
-        PositioningUtils.getRotatedCoords(action.baseCoords, action.payload, angle, distance);
+        let baseCenterCoords = ReduxUtils.getBaseCenter(state);
         
         let newState = {};
         for (let i = 1; i <= 6; i++) {
-          newState[i] = Object.assign({}, state[i], {sagittalBaseY: state[i].sagittalBaseY + action.payload});
+          let rotated = ReduxUtils.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[i]);
+          
+          newState[i] = Object.assign({}, state[i], {
+            transverseBaseX: rotated.x,
+            transverseBaseY: rotated.y
+          });
+          
+          // newState[i] = Object.assign({}, state[i], {
+          //   sagittalBaseY: state[i].sagittalBaseY + action.payload,
+          //   sagittalBaseX: 0
+          // });
         }
       
         return newState;
