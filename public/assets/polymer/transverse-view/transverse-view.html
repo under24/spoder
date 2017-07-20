@@ -21,7 +21,7 @@
       reach-radius="[[misc.transverseReachRadius]]"
       coxa-screen-angle="[[angles.coxaScreenAngle]]"
       impossible-range="[[metaData.impossibleRange]]"
-      leg-length="[[misc.sagittalDiff.dx]]"
+      leg-length="[[misc.transverseLegLength]]"
       animation-center-coords="[[computeAnimationCenterCoords(metaData, coords, misc, viewOffsets)]]"
       animation-circle-diameter="[[misc.transverseAnimationCircleDiameter]]"
       offset-rotation="[[coords.offsetRotation]]"
@@ -114,13 +114,6 @@
           type: "TRANSVERSE_VIEW_LEG_ID_CHANGED",
           payload: newValue.value
         });
-      }
-      
-      computeLegLength(misc) {
-        // return misc.sagittalDiff.dx;
-        
-        // TODO
-        // add angle visibility + out of reach restrictions
       }
       
       computeAnimationCenterCoords(metaData, coords, misc, viewOffsets) {

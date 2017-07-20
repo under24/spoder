@@ -70,6 +70,11 @@
       }
       
       getSagittalMiscData(legId, angles) {
+        // sagittal boundary ball xy
+        let sbx = this[`coords${legId}`].sagittalBaseX;
+        let sby = this[`coords${legId}`].sagittalBaseY;
+        let withinReach = this.targetWithinReach(legId, 'sagittal');
+        
         // diff x/y
         let dx = this.getXFromBase(legId, 'sagittal');
         let dy = this.getYFromBase(legId, 'sagittal');
@@ -80,19 +85,11 @@
         // sagittal straight angle from base to cursor
         let angle = Utils.getAngle(dy, dx);
         
-        // sagittal boundary ball xy
-        let sbx = this[`coords${legId}`].sagittalBaseX;
-        let sby = this[`coords${legId}`].sagittalBaseY;
         let boundaryBallCoords = Utils.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
-        
         let transverseReachCoords = PositioningUtils.getTransverseReachCoords(this[`coords${legId}`], this.metaData);
-        let transverseReachRadius = transverseReachCoords.endX - transverseReachCoords.beginningX;
-        let transverseAnimationCircleDiameter = transverseReachRadius - this.metaData.impossibleRange;
-        
-        let baseCenterCoords;
-        if (this.coords1 !== undefined && this.coords6 !== undefined && this.coords2 !== undefined && this.coords5 !== undefined) {
-          baseCenterCoords = PositioningUtils.getBaseCenter(this.coords1, this.coords6, this.coords2, this.coords5);
-        }
+        let transverseReachRadius = PositioningUtils.getTransverseReachRadius(transverseReachCoords);
+        let transverseAnimationCircleDiameter = PositioningUtils.getTransverseAnimationCircleDiameter(transverseReachRadius, this.metaData);
+        let transverseLegLength = PositioningUtils.getTransverseLegLength(withinReach, dx, sbx, boundaryBallCoords);
         
 
         return {
@@ -102,7 +99,9 @@
           boundaryBallCoords,
           transverseReachCoords,
           transverseReachRadius,
-          transverseAnimationCircleDiameter
+          transverseAnimationCircleDiameter,
+          withinReach,
+          transverseLegLength
         };
       }
       
