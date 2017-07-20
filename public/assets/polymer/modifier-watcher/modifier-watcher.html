@@ -29,7 +29,7 @@
         if (oldValue === undefined) return;
         if (newValue.levelModifier === oldValue.levelModifier) return;
         
-        let payload = oldValue.levelModifier - newValue.levelModifier
+        let payload = oldValue.levelModifier - newValue.levelModifier;
         store.dispatch({ type: "BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y", payload });
       }
       

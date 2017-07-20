@@ -5,7 +5,7 @@
 <link rel="import" href="../shift-view/shift-view.html">
 <link rel="import" href="../transverse-animation-view/transverse-animation-view.html">
 <link rel="import" href="../sagittal-animation-view/sagittal-animation-view.html">
-<link rel="import" href="../rotation-view/rotation-view.html">
+<link rel="import" href="../rotation-modifier-view/rotation-modifier-view.html">
 
 <dom-module id="view-picker">
   <template>
@@ -62,8 +62,8 @@
         <select value="{{view::change}}" multiple size="8">
           <option value="none">None</option>
           <option value="digital-joystick">Joystick Demo</option>
-          <option value="level-modifier-view">Level View</option>
-          <option value="rotation-view">Rotation view</option>
+          <option value="level-modifier-view">Level Modifier View</option>
+          <option value="rotation-modifier-view">Rotation Modifier View</option>
           <option value="tilt-view">Tilt View</option>
           <option value="shift-view">Shift View</option>
           <option value="transverse-animation-view">Transverse Animation View</option>
@@ -92,9 +92,9 @@
       <shift-view></shift-view>
     </template>
     
-    <!-- rotation view -->
-    <template is="dom-if" if="[[computeView('rotation-view', view)]]" restamp>
-      <rotation-view></rotation-view>
+    <!-- rotation modifier view -->
+    <template is="dom-if" if="[[computeView('rotation-modifier-view', view)]]" restamp>
+      <rotation-modifier-view></rotation-modifier-view>
     </template>
     
     <!-- transverse animation view -->
