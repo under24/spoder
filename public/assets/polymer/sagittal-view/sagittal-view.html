@@ -126,8 +126,8 @@
         if (misc === undefined || viewOffsets === undefined) return;
         
         return {
-          x: misc.boundaryBallCoords.x + viewOffsets.sagittalViewOffsetX,
-          y: misc.boundaryBallCoords.y + viewOffsets.sagittalViewOffsetY
+          x: misc.sagittalBoundaryBallCoords.x + viewOffsets.sagittalViewOffsetX,
+          y: misc.sagittalBoundaryBallCoords.y + viewOffsets.sagittalViewOffsetY
         };
       }
       
