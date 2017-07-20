@@ -27,19 +27,19 @@
       
       observeLevelModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
-        // TODO
-        // do validatioon here
+        if (newValue.levelModifier === oldValue.levelModifier) return;
         
-        store.dispatch({
-          type: "BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y",
-          payload: oldValue.levelModifier - newValue.levelModifier
-        });
+        let payload = oldValue.levelModifier - newValue.levelModifier
+        store.dispatch({ type: "BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y", payload });
       }
       
       observeTiltModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
-        // TODO
-        // do validatioon here
+        if (newValue.backTiltModifier === oldValue.backTiltModifier &&
+            newValue.frontTiltModifier === oldValue.frontTiltModifier &&
+            newValue.leftTiltModifier === oldValue.leftTiltModifier &&
+            newValue.rightTiltModifier === oldValue.rightTiltModifier
+        ) return;
         
         let payload = {
           backTiltModifier: oldValue.backTiltModifier - newValue.backTiltModifier,
@@ -47,7 +47,7 @@
           leftTiltModifier: oldValue.leftTiltModifier - newValue.leftTiltModifier,
           rightTiltModifier: oldValue.rightTiltModifier - newValue.rightTiltModifier
         }
-        store.dispatch({type: "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y", payload});
+        store.dispatch({ type: "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y", payload });
       }
       
       observeShiftModifier(newValue, oldValue) {
@@ -58,19 +58,17 @@
           x: oldValue.x - newValue.x,
           y: oldValue.y - newValue.y
         }
-        store.dispatch({type: "BASE_XY_SHIFT_MODIFIER_CHANGE_RECALC_BASE_XY", payload});
+        store.dispatch({ type: "BASE_XY_SHIFT_MODIFIER_CHANGE_RECALC_BASE_XY", payload });
       }
       
       observeRotationModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
         if (newValue.rotationModifier === oldValue.rotationModifier) return;
         
-        store.dispatch({
-          type: 'BASE_XY_ROTATION_MODIFIER_CHANGE',
-          payload: {
-            rotation: oldValue.rotationModifier - newValue.rotationModifier
-          }
-        })
+        let payload = {
+          rotation: oldValue.rotationModifier - newValue.rotationModifier
+        }
+        store.dispatch({ type: 'BASE_XY_ROTATION_MODIFIER_CHANGE', payload });
       }
 
     }
