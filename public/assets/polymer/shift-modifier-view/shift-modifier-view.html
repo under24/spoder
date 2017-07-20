@@ -1,7 +1,7 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../digital-joystick/digital-joystick.html">
 
-<dom-module id="shift-view">
+<dom-module id="shift-modifier-view">
   <template>
     <style>
       :host {
@@ -25,8 +25,8 @@
   </template>
 
   <script>
-    class shiftView extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'shift-view'; }
+    class shiftModifierView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'shift-modifier-view'; }
       static get properties() {
         return {
           joystickOutput: {
@@ -47,6 +47,6 @@
 
     }
 
-    window.customElements.define(shiftView.is, shiftView);
+    window.customElements.define(shiftModifierView.is, shiftModifierView);
   </script>
 </dom-module>
