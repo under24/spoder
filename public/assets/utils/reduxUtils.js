@@ -107,9 +107,8 @@ let ReduxUtils = {
     let dx = tbx - baseCoords.x,
         dy = coords.transverseBaseY - baseCoords.y,
         distance = Utils.getDistance(dx, dy),
-        angle = Utils.getAngle(dy, dx);
-    
-    let rotatedCoords = Utils.getCoordsFromDistanceAndAngle(baseCoords.x, baseCoords.y, angle + rotation, distance);
+        angle = Utils.getAngle(dy, dx),
+        rotatedCoords = Utils.getCoordsFromDistanceAndAngle(baseCoords.x, baseCoords.y, angle + rotation, distance);
 
     return {
       x: coords.side === 'right' ? Utils.flipNumber(rotatedCoords.x) : rotatedCoords.x,
