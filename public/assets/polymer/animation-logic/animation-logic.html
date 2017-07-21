@@ -39,7 +39,7 @@
           this.populateTimeline(dataArr[i], timeline);
         }
         
-        return {timeline, tps, timelineDuration, amountOfTicks};
+        return { timeline, tps, timelineDuration, amountOfTicks };
       }
       
       getAmountOfTicks(tps, timelineDuration) {
@@ -134,7 +134,7 @@
             store.dispatch({
               type: "CURSOR_XY_SHIFTED",
               legId: 1,
-              payload: {[coordType]: payload.sagittalCursorY}
+              payload: { [coordType]: payload.sagittalCursorY }
             });
           }
           
@@ -142,7 +142,7 @@
             store.dispatch({
               type: "CURSOR_XY_SHIFTED",
               legId: 1,
-              payload: {transverseCursorY: payload.sagittalBaseY}
+              payload: { transverseCursorY: payload.sagittalBaseY }
             });
           }
 

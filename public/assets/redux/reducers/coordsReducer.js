@@ -153,7 +153,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         return Object.assign(
           {},
           state,
-          { [action.legId]: Object.assign({}, state[action.legId], cursorXY)}
+          { [action.legId]: Object.assign({}, state[action.legId], cursorXY) }
         );
       }
     case 'BASE_XY_CHANGED':
@@ -210,7 +210,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         let newState = {};
         
         for (let i = 1; i <= 6; i++) {
-          newState[i] = Object.assign({}, state[i], {sagittalBaseY: state[i].sagittalBaseY + action.payload});
+          newState[i] = Object.assign({}, state[i], { sagittalBaseY: state[i].sagittalBaseY + action.payload });
         }
       
         return newState;
@@ -273,7 +273,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
             if (state[i].row === 'back') {
               finalModifierValue += action.payload.backTiltModifier;
             }
-            newState[i] = Object.assign({}, state[i], {sagittalBaseY: state[i].sagittalBaseY - finalModifierValue});
+            newState[i] = Object.assign({}, state[i], { sagittalBaseY: state[i].sagittalBaseY - finalModifierValue });
           }
           
           // LEFT SIDE LEGS
@@ -287,7 +287,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
             if (state[i].row === 'back') {
               finalModifierValue += action.payload.backTiltModifier;
             }
-            newState[i] = Object.assign({}, state[i], {sagittalBaseY: state[i].sagittalBaseY - finalModifierValue});
+            newState[i] = Object.assign({}, state[i], { sagittalBaseY: state[i].sagittalBaseY - finalModifierValue });
           }
           
         }        

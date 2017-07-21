@@ -1,6 +1,6 @@
 'use strict';
 
-const { combineReducers, createStore} = Redux;
+const { combineReducers, createStore } = Redux;
 
 const modifierReducer = combineReducers({
   level: levelReducer,
