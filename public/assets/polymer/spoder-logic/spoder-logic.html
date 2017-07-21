@@ -144,12 +144,12 @@
 
         // filter out same values
         let angles = {};
-        if (this.angles[legId].coxaScreenAngle !== coxaCalculated.screen) {
+        
+        if (this.angles[legId].coxaScreenAngle !== coxaCalculated.screen)
           angles.coxaScreenAngle = coxaCalculated.screen;
-        }
-        if (this.angles[legId].coxaServoAngle !== coxaCalculated.servo) {
+          
+        if (this.angles[legId].coxaServoAngle !== coxaCalculated.servo)
           angles.coxaServoAngle = coxaCalculated.servo;
-        }
         
         let misc = this.getTransverseMiscData(legId, angles);
         this.dispatchData(legId, angles, misc);
@@ -157,11 +157,11 @@
       
       positionFemurAndTibia(legId, view) {
         let angles;
-        if (this.targetWithinReach(legId, view)) {
+        
+        if (this.targetWithinReach(legId, view))
           angles = this.calcForWithinReachMode(legId, view);
-        } else {
+        else
           angles = this.calcForOutOfReachMode(legId, view);
-        }
         
         let misc = this.getSagittalMiscData(legId, angles);
         this.dispatchData(legId, angles, misc);
@@ -180,18 +180,18 @@
         
         // filter out same values
         let payload = {};
-        if (this.angles[legId].femurScreenAngle !== femurCalculated.screen) {
+        
+        if (this.angles[legId].femurScreenAngle !== femurCalculated.screen)
           payload.femurScreenAngle = femurCalculated.screen;
-        }
-        if (this.angles[legId].femurServoAngle !== femurCalculated.servo) {
+          
+        if (this.angles[legId].femurServoAngle !== femurCalculated.servo)
           payload.femurServoAngle = femurCalculated.servo;
-        }
-        if (this.angles[legId].tibiaScreenAngle !== tibiaCalculated.screen) {
+          
+        if (this.angles[legId].tibiaScreenAngle !== tibiaCalculated.screen)
           payload.tibiaScreenAngle = tibiaCalculated.screen;
-        }
-        if (this.angles[legId].tibiaServoAngle !== tibiaCalculated.servo) {
+          
+        if (this.angles[legId].tibiaServoAngle !== tibiaCalculated.servo)
           payload.tibiaServoAngle = tibiaCalculated.servo;
-        }
         
         return payload;
         
@@ -211,18 +211,18 @@
         
         // filter out same values
         let payload = {};
-        if (this.angles[legId].femurScreenAngle !== angleCalculated.screen) {
+        
+        if (this.angles[legId].femurScreenAngle !== angleCalculated.screen)
           payload.femurScreenAngle = angleCalculated.screen;
-        }
-        if (this.angles[legId].femurServoAngle !== angleCalculated.servo) {
+          
+        if (this.angles[legId].femurServoAngle !== angleCalculated.servo)
           payload.femurServoAngle = angleCalculated.servo;
-        }
-        if (this.angles[legId].tibiaScreenAngle !== 0) {
+          
+        if (this.angles[legId].tibiaScreenAngle !== 0)
           payload.tibiaScreenAngle = 0;
-        }
-        if (this.angles[legId].tibiaServoAngle !== 0) {
+          
+        if (this.angles[legId].tibiaServoAngle !== 0)
           payload.tibiaServoAngle = 0;
-        }
         
         return payload;
         
