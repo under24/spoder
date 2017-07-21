@@ -246,48 +246,36 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
       }
     case "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y":
       {
-        let leftRightTilt, frontBackTilt;
+        debugger;
         
-        if (action.payload.leftTiltModifier !== 0 || action.payload.rightTiltModifier !== 0)
-          leftRightTilt = ReduxUtils.getLeftRightTilt(action.payload, state);
         
-        if (action.payload.frontTiltModifier !== 0 || action.payload.backTiltModifier !== 0)
-          frontBackTilt = ReduxUtils.getFrontBackTilt(action.payload, state);
-          
-          debugger;
-        
+        // let frontBackTilt = ReduxUtils.getFrontBackTilt(action.payload, state);
         
         let newState = {};
         for (let i = 1; i <= 6; i++) {
           
+          let finalModifierValue,
+              leftRightTilt = ReduxUtils.getLeftRightTilt(action.payload, state, i);
+          
           // RIGHT SIDE LEGS
           if (state[i].side === 'right') {
-            let finalModifierValue = action.payload.leftTiltModifier;
+            finalModifierValue = action.payload.leftTiltModifier;
             // FRONT LEGS
-            if (state[i].row === 'front') {
-              finalModifierValue += action.payload.frontTiltModifier;
-            }
+            if (state[i].row === 'front') finalModifierValue += action.payload.frontTiltModifier;
             // BACK LEGS
-            if (state[i].row === 'back') {
-              finalModifierValue += action.payload.backTiltModifier;
-            }
-            newState[i] = Object.assign({}, state[i], { sagittalBaseY: state[i].sagittalBaseY - finalModifierValue });
+            if (state[i].row === 'back') finalModifierValue += action.payload.backTiltModifier;
           }
-          
           // LEFT SIDE LEGS
           if (state[i].side === 'left') {
-            let finalModifierValue = action.payload.rightTiltModifier;
+            finalModifierValue = action.payload.rightTiltModifier;
             // FRONT LEGS
-            if (state[i].row === 'front') {
-              finalModifierValue += action.payload.frontTiltModifier;
-            }
+            if (state[i].row === 'front') finalModifierValue += action.payload.frontTiltModifier;
             // BACK LEGS
-            if (state[i].row === 'back') {
-              finalModifierValue += action.payload.backTiltModifier;
-            }
-            newState[i] = Object.assign({}, state[i], { sagittalBaseY: state[i].sagittalBaseY - finalModifierValue });
+            if (state[i].row === 'back') finalModifierValue += action.payload.backTiltModifier;
           }
           
+          // apply the values
+          newState[i] = Object.assign({}, state[i], { sagittalBaseY: state[i].sagittalBaseY - finalModifierValue });
         }        
         return newState;
       }

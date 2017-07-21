@@ -3,6 +3,7 @@
 let ReduxUtils = {
   aggregateCoords(payload, state) {
     let coords = Object.assign({}, state, payload);
+    
     return {
       tcx: coords.transverseCursorX,
       tcy: coords.transverseCursorY,
@@ -28,25 +29,23 @@ let ReduxUtils = {
     };
   },
   getSagittalCursorXCompensativeCoords(coords) {
-    let distance = coords.scx - coords.sbx;
-    let angle = Utils.getAngle(coords.tcy - coords.tby, coords.tcx - coords.tbx);
-    
-    let result = Utils.getCoordsFromDistanceAndAngle(coords.tbx, coords.tby, angle, distance);
+    let distance = coords.scx - coords.sbx,
+        angle = Utils.getAngle(coords.tcy - coords.tby, coords.tcx - coords.tbx),
+        newCoords = Utils.getCoordsFromDistanceAndAngle(coords.tbx, coords.tby, angle, distance);
     
     return {
-      transverseCursorX: result.x,
-      transverseCursorY: result.y
+      transverseCursorX: newCoords.x,
+      transverseCursorY: newCoords.y
     };
   },
   getSagittalBaseXCompensativeCoords(coords) {
-    let distance = coords.scx - coords.sbx;
-    let angle = Utils.getAngle(coords.tby - coords.tcy, coords.tbx - coords.tcx);
-    
-    let result = Utils.getCoordsFromDistanceAndAngle(coords.tcx, coords.tcy, angle, distance);
+    let distance = coords.scx - coords.sbx,
+        angle = Utils.getAngle(coords.tby - coords.tcy, coords.tbx - coords.tcx),
+        newCoords = Utils.getCoordsFromDistanceAndAngle(coords.tcx, coords.tcy, angle, distance);
     
     return {
-      transverseBaseX: result.x,
-      transverseBaseY: result.y
+      transverseBaseX: newCoords.x,
+      transverseBaseY: newCoords.y
     }
   },
   getLeftRightTilt(payload, state) {
@@ -70,9 +69,9 @@ let ReduxUtils = {
       
     }
   },
-  getFrontBackTilt(payload, state) {
-    
-  },
+  // getFrontBackTilt(payload, state) {
+  //   
+  // },
   getBaseCenter(coords) {    
     let x1 = coords[1].transverseBaseX,
         y1 = coords[1].transverseBaseY,
@@ -105,10 +104,10 @@ let ReduxUtils = {
         tbx = coords.transverseBaseX; break;
     }
     
-    let dx = tbx - baseCoords.x;
-    let dy = coords.transverseBaseY - baseCoords.y;
-    let distance = Utils.getDistance(dx, dy);
-    let angle = Utils.getAngle(dy, dx);
+    let dx = tbx - baseCoords.x,
+        dy = coords.transverseBaseY - baseCoords.y,
+        distance = Utils.getDistance(dx, dy),
+        angle = Utils.getAngle(dy, dx);
     
     let rotatedCoords = Utils.getCoordsFromDistanceAndAngle(baseCoords.x, baseCoords.y, angle + rotation, distance);
 
