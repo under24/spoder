@@ -119,18 +119,17 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
       {
         // calc shifted coords
         let cursorXY = {};
-        if (action.payload.sagittalCursorX) {
+        if (action.payload.sagittalCursorX)
           cursorXY.sagittalCursorX = state[action.legId].sagittalCursorX - action.payload.sagittalCursorX;
-        }
-        if (action.payload.sagittalCursorY) {
+          
+        if (action.payload.sagittalCursorY)
           cursorXY.sagittalCursorY = state[action.legId].sagittalCursorY - action.payload.sagittalCursorY;
-        }
-        if (action.payload.transverseCursorX) {
+          
+        if (action.payload.transverseCursorX)
           cursorXY.transverseCursorX = state[action.legId].transverseCursorX - action.payload.transverseCursorX;
-        }
-        if (action.payload.transverseCursorY) {
+          
+        if (action.payload.transverseCursorY)
           cursorXY.transverseCursorY = state[action.legId].transverseCursorY - action.payload.transverseCursorY;
-        }
         
         // gather up latest coords for further computations
         let coords = ReduxUtils.aggregateCoords(cursorXY, state[action.legId]);
@@ -167,18 +166,17 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
     case 'BASE_XY_SHIFTED':
       {
         let baseXY = {};
-        if (action.payload.sagittalBaseX) {
+        if (action.payload.sagittalBaseX)
           baseXY.sagittalBaseX = state[action.legId].sagittalBaseX - action.payload.sagittalBaseX;
-        }
-        if (action.payload.sagittalBaseY) {
+          
+        if (action.payload.sagittalBaseY)
           baseXY.sagittalBaseY = state[action.legId].sagittalBaseY - action.payload.sagittalBaseY;
-        }
-        if (action.payload.transverseBaseX) {
+          
+        if (action.payload.transverseBaseX)
           baseXY.transverseBaseX = state[action.legId].transverseBaseX - action.payload.transverseBaseX;
-        }
-        if (action.payload.transverseBaseY) {
+          
+        if (action.payload.transverseBaseY)
           baseXY.transverseBaseY = state[action.legId].transverseBaseY - action.payload.transverseBaseY;
-        }
         
         // gather up latest coords for further computations
         let coords = ReduxUtils.aggregateCoords(baseXY, state[action.legId]);
