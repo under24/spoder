@@ -30,6 +30,7 @@
         height: 10px;
         background-color: black;
         position: absolute;
+        transform: translate(-50%, -50%);
       }
       .base {
         height: 20px;
@@ -46,6 +47,7 @@
         background-color: rgba(255, 0, 0, 0.35);
         position: absolute;
         border-radius: 100%;
+        transform: translate(-50%,-50%);
       }
       #spoder {
         position: absolute;
@@ -83,6 +85,14 @@
         left: initial;
         right: 100%;
         transform-origin: right;
+      }
+      .floor {
+        display: inline-block;
+        border-top: 1px dashed rgba(255, 0, 0, 0.5);
+        position: absolute;
+        top: 0px;
+        width: 800px;
+        transform: translateX(-50%);
       }
     </style>
     
@@ -125,6 +135,8 @@
         <div class="cursor leg4" style$="[[computeCursor(coords, '4')]]"></div>
         <div class="cursor leg5" style$="[[computeCursor(coords, '5')]]"></div>
         <div class="cursor leg6" style$="[[computeCursor(coords, '6')]]"></div>
+        
+        <div class="floor"></div>
       </div>
     </div>
   </template>
@@ -185,7 +197,7 @@
             break;
         }
         
-        a = `transform: rotateY(${a}deg);`
+        a = `transform: rotateY(${a}deg) translate(-50%,-50%);`
         
         return x + y + a;
       }

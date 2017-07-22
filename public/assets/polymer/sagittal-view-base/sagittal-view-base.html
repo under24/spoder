@@ -108,6 +108,12 @@
         border-radius: 100%;
         transform: translate(-50%, -50%)
       }
+      #floor {
+        display: inline-block;
+        border-top: 1px dashed rgba(255, 0, 0, 0.5);
+        width: 100%;
+        position: absolute;
+      }
     </style>
     
     <div id="base">
@@ -121,6 +127,7 @@
       <div id="distanceLine"></div>
     </div>
     
+    <div id="floor"></div>
     <div id="transverseReachEnd"></div>
     <div id="transverseReachBeginning"></div>
     <div id="boundaryBall"></div>
@@ -167,6 +174,9 @@
           },
           transverseReachPoints: {
             observer: 'observeTransverseReachPoints'
+          },
+          floorLevel: {
+            observer: 'observeFloorLevel'
           },
           output: {
             notify: true
@@ -306,6 +316,10 @@
         
         this.$.transverseReachBeginning.style.left = `${data.possibleX}px`;
         this.$.transverseReachBeginning.style.top = `${data.possibleY}px`;
+      }
+      
+      observeFloorLevel(data) {
+        this.$.floor.style.top = `${data}px`;
       }
 
     }
