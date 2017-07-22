@@ -114,6 +114,12 @@
         width: 100%;
         position: absolute;
       }
+      #transverseReachRadius {
+        border-top: 2px dotted green;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+      }
     </style>
     
     <div id="base">
@@ -129,7 +135,9 @@
     
     <div id="floor"></div>
     <div id="transverseReachEnd"></div>
-    <div id="transverseReachBeginning"></div>
+    <div id="transverseReachBeginning">
+      <div id="transverseReachRadius"></div>
+    </div>
     <div id="boundaryBall"></div>
   </template>
 
@@ -316,6 +324,8 @@
         
         this.$.transverseReachBeginning.style.left = `${data.possibleX}px`;
         this.$.transverseReachBeginning.style.top = `${data.possibleY}px`;
+
+        this.$.transverseReachRadius.style.width = `${data.transverseReachRadius}px`;
       }
       
       observeFloorLevel(data) {
