@@ -23,10 +23,7 @@ let ReduxUtils = {
     // from transverse base to transverse cursor
     let sagittalCursorX = sagittalBaseX + Utils.getDistance(coords.tbx - coords.tcx, coords.tby - coords.tcy);
     
-    return {
-      sagittalBaseX : Utils.roundNumber(sagittalBaseX, 0),
-      sagittalCursorX: Utils.roundNumber(sagittalCursorX, 0)
-    };
+    return { sagittalBaseX, sagittalCursorX };
   },
   getSagittalCursorXCompensativeCoords(coords) {
     let distance = coords.scx - coords.sbx,
