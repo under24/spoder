@@ -48,30 +48,6 @@ let ReduxUtils = {
       transverseBaseY: newCoords.y
     }
   },
-  getLeftRightTilt(payload, state) {
-    
-    let furthestLeftLeg = state[3].sagittalBaseY - payload.rightTiltModifier;
-    let furthestRightLeft = state[4].sagittalBaseY - payload.leftTiltModifier;
-    
-    let x1 = furthestLeftLeg;
-    let x2 = furthestRightLeft;
-    
-    let y1 = -state[3].sagittalBaseX;
-    let y2 = state[4].sagittalBaseX;
-    
-    let d = ((x1 - x2) / 2) / 150 * 100 + ((x1 + x2) / 2);
-    let c = ((x2 - x1) / 2) / -150 * -100 + ((x1 + x2) / 2);
-    
-    
-    console.log(d, c);
-    
-    return {
-      
-    }
-  },
-  // getFrontBackTilt(payload, state) {
-  //   
-  // },
   getBaseCenter(coords) {    
     let x1 = coords[1].transverseBaseX,
         y1 = coords[1].transverseBaseY,
