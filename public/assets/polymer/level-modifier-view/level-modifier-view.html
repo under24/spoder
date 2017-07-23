@@ -30,6 +30,9 @@
       static get is() { return 'level-modifier-view'; }
       static get properties() {
         return {
+          levelModifier: {
+            statePath: 'modifiers.level',
+          },
           joystickOutput: {
             observer: 'observeJoystickOutput'
           }
@@ -37,6 +40,8 @@
       }
       
       observeJoystickOutput(newValue) {
+        if (this.levelModifier && newValue.yShift === this.levelModifier.levelModifier) return;
+        
         store.dispatch({
           type: "BASE_Y_LEVEL_MODIFIER_CHANGED",
           payload: { levelModifier: newValue.yShift }
