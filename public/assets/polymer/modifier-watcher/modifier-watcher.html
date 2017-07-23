@@ -27,7 +27,10 @@
       
       observeLevelModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
-        if (newValue.levelModifier === oldValue.levelModifier) return;
+        if (newValue.levelModifier === oldValue.levelModifier) {
+          console.warn('same values');
+          return;
+        }
         
         let payload = oldValue.levelModifier - newValue.levelModifier;
         store.dispatch({ type: "BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y", payload });
@@ -39,7 +42,10 @@
             newValue.frontTiltModifier === oldValue.frontTiltModifier &&
             newValue.leftTiltModifier === oldValue.leftTiltModifier &&
             newValue.rightTiltModifier === oldValue.rightTiltModifier
-        ) return;
+        ) {
+          console.warn('same values');
+          return;
+        }
         
         let payload = {
           backTiltModifier: oldValue.backTiltModifier - newValue.backTiltModifier,
@@ -52,7 +58,10 @@
       
       observeShiftModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
-        if (newValue.x === oldValue.x && newValue.y === oldValue.y) return;        
+        if (newValue.x === oldValue.x && newValue.y === oldValue.y) {
+          console.warn('same values');
+          return;
+        }  
 
         let payload = {
           x: oldValue.x - newValue.x,
@@ -63,7 +72,10 @@
       
       observeRotationModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
-        if (newValue.rotationModifier === oldValue.rotationModifier) return;
+        if (newValue.rotationModifier === oldValue.rotationModifier) {
+          console.warn('same values');
+          return;
+        }
         
         let payload = {
           rotation: oldValue.rotationModifier - newValue.rotationModifier
