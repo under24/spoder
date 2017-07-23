@@ -30,6 +30,9 @@
       static get is() { return 'rotation-modifier-view'; }
       static get properties() {
         return {
+          rotationModifier: {
+            statePath: 'modifiers.rotation',
+          },
           joystickOutput: {
             observer: 'observeJoystickOutput'
           }
@@ -37,9 +40,11 @@
       }
       
       observeJoystickOutput(newValue) {
+        if (this.rotationModifier && newValue.xShift === this.rotationModifier.rotationModifier) return;
+        
         store.dispatch({
           type: "BASE_XY_ROTATION_MODIFIER_CHANGED",
-          payload: { rotationModifier: +newValue.xShift.toFixed(0) }
+          payload: { rotationModifier: newValue.xShift }
         });
       }
 
