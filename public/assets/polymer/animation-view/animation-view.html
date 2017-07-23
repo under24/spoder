@@ -29,7 +29,7 @@
       static get is() { return 'animation-view'; }
       static get properties() {
         return {
-          animation: {
+          joystick: {
             statePath: 'animation.joystick',
           },
           joystickOutput: {
@@ -39,9 +39,9 @@
       }
       
       observeJoystickOutput(newValue) {
-        if (this.animation &&
-            newValue.xShift === this.animation.x &&
-            newValue.yShift === this.animation.y) return;
+        if (this.joystick &&
+            newValue.xShift === this.joystick.x &&
+            newValue.yShift === this.joystick.y) return;
         
         store.dispatch({
           type: "ANIMATION_JOYSTICK_VALUES_CHANGED",
