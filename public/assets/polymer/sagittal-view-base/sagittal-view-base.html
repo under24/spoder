@@ -106,7 +106,18 @@
         display: inline-block;
         position: absolute;
         border-radius: 100%;
-        transform: translate(-50%, -50%)
+      }
+      :host([side=left]) #transverseReachEnd,
+      :host([side=left]) #transverseReachBeginning,
+      :host([side=left]) #boundaryBall {
+        transform: translate(-50%, -50%);
+        right: initial !important;
+      }
+      :host([side=right]) #transverseReachEnd,
+      :host([side=right]) #transverseReachBeginning,
+      :host([side=right]) #boundaryBall {
+        transform: translate(50%, -50%);
+        left: initial !important;
       }
       #floor {
         display: inline-block;
@@ -114,11 +125,16 @@
         width: 100%;
         position: absolute;
       }
-      #transverseReachRadius {
+      #transverseReachLine {
         border-top: 2px dotted green;
         top: 50%;
-        left: 50%;
         position: absolute;
+      }
+      :host([side=left]) #transverseReachLine {
+        left: 50%;
+      }
+      :host([side=right]) #transverseReachLine {
+        right: 50%;
       }
     </style>
     
@@ -136,7 +152,7 @@
     <div id="floor"></div>
     <div id="transverseReachEnd"></div>
     <div id="transverseReachBeginning">
-      <div id="transverseReachRadius"></div>
+      <div id="transverseReachLine"></div>
     </div>
     <div id="boundaryBall"></div>
   </template>
@@ -314,18 +330,29 @@
       }
       
       observerBoundaryBall(data) {
-        this.$.boundaryBall.style.left = `${data.x}px`;
         this.$.boundaryBall.style.top = `${data.y}px`;
+        switch (this.side) {
+          case 'left':
+            this.$.boundaryBall.style.left = `${data.x}px`; return;
+          case 'right':
+            this.$.boundaryBall.style.right = `${data.x}px`; return;
+        }
       }
       
       observeTransverseReachPoints(data) {
-        this.$.transverseReachEnd.style.left = `${data.endX}px`;
+        switch (this.side) {
+          case 'left':
+            this.$.transverseReachEnd.style.left = `${data.endX}px`; 
+            this.$.transverseReachBeginning.style.left = `${data.possibleX}px`;
+            break;
+          case 'right':
+            this.$.transverseReachEnd.style.right = `${data.endX}px`;
+            this.$.transverseReachBeginning.style.right = `${data.possibleX}px`;
+            break;
+        }
         this.$.transverseReachEnd.style.top = `${data.endY}px`;
-        
-        this.$.transverseReachBeginning.style.left = `${data.possibleX}px`;
         this.$.transverseReachBeginning.style.top = `${data.possibleY}px`;
-
-        this.$.transverseReachRadius.style.width = `${data.transverseReachRadius}px`;
+        this.$.transverseReachLine.style.width = `${data.transverseReachRadius}px`;
       }
       
       observeFloorLevel(data) {
