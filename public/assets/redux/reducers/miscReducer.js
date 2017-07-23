@@ -2,63 +2,41 @@
 
 let miscReducerInitState = {
   1: {
-    sagittalDiff: null,
-    sagittalDistance: null,
-    sagittalAngle: null,
     transverseDiff: null,
-    transverseDistance: null,
-    transverseReachRadius: null
+    transverseDistance: null
   },
   2: {
-    sagittalDiff: null,
-    sagittalDistance: null,
-    sagittalAngle: null,
     transverseDiff: null,
-    transverseDistance: null,
-    transverseReachRadius: null
+    transverseDistance: null
   },
   3: {
-    sagittalDiff: null,
-    sagittalDistance: null,
-    sagittalAngle: null,
     transverseDiff: null,
-    transverseDistance: null,
-    transverseReachRadius: null
+    transverseDistance: null
   },
   4: {
-    sagittalDiff: null,
-    sagittalDistance: null,
-    sagittalAngle: null,
     transverseDiff: null,
-    transverseDistance: null,
-    transverseReachRadius: null
+    transverseDistance: null
   },
   5: {
-    sagittalDiff: null,
-    sagittalDistance: null,
-    sagittalAngle: null,
     transverseDiff: null,
-    transverseDistance: null,
-    transverseReachRadius: null
+    transverseDistance: null
   },
   6: {
-    sagittalDiff: null,
-    sagittalDistance: null,
-    sagittalAngle: null,
     transverseDiff: null,
-    transverseDistance: null,
-    transverseReachRadius: null
+    transverseDistance: null
   }
 }
 
 const miscReducer = (state = miscReducerInitState, action) => {
   switch (action.type) {
     case "LEG_ANGLE_CHANGED":
-      return Object.assign(
-        {}, 
-        state,
-        { [action.legId]: Object.assign({}, state[action.legId], action.payload.misc) }
-      );
+      {
+        return Object.assign(
+          {}, 
+          state,
+          { [action.legId]: Object.assign({}, state[action.legId], action.payload.misc) }
+        );
+      }
   }
   return state;
 }
