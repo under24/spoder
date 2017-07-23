@@ -22,7 +22,7 @@
       coxa-screen-angle="[[angles.coxaScreenAngle]]"
       impossible-range="[[metaData.impossibleRange]]"
       leg-length="[[misc.transverseLegLength]]"
-      animation-center-coords="[[computeAnimationCenterCoords(metaData, coords, misc, viewOffsets)]]"
+      animation-center-coords="[[computeAnimationCenterCoords(misc, viewOffsets)]]"
       animation-circle-diameter="[[misc.transverseAnimationCircleDiameter]]"
       offset-rotation="[[coords.offsetRotation]]"
       output="{{baseOutput}}">
@@ -116,24 +116,13 @@
         });
       }
       
-      computeAnimationCenterCoords(metaData, coords, misc, viewOffsets) {
-        if (metaData == undefined || coords == undefined || misc === undefined || viewOffsets === undefined) return;
+      computeAnimationCenterCoords(misc, viewOffsets) {
+        if (misc === undefined || viewOffsets === undefined) return;
         
-        // distance to the center of the circle + offset from impossible range
-        let distance = (misc.transverseReachRadius + metaData.impossibleRange) / 2;
-        
-        let x = coords.transverseBaseX + viewOffsets.transverseViewOffsetX;
-        let y = coords.transverseBaseY + viewOffsets.transverseViewOffsetY;
-        
-        let finalCoords;
-        if (coords.offsetRotation === 0) {
-          finalCoords = { x: x + distance, y };
-        } else {
-          // if side == left => use original offset, if side == right => flip offset number (1 => -1)
-          let angle = coords.side == 'left' ? coords.offsetRotation : Utils.flipNumber(coords.offsetRotation);
-          finalCoords = Utils.getCoordsFromDistanceAndAngle(x, y, angle, distance);
+        return {
+          x: misc.transverseAnimationCenterCoords.x + viewOffsets.transverseViewOffsetX,
+          y: misc.transverseAnimationCenterCoords.y + viewOffsets.transverseViewOffsetY,
         }
-        return finalCoords;
       }
       
       computeXY(coord, offset) {

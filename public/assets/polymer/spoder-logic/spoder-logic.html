@@ -93,6 +93,7 @@
         let transverseReachRadius = PositioningUtils.getTransverseReachRadius(transverseReachCoords);
         let transverseAnimationCircleDiameter = PositioningUtils.getTransverseAnimationCircleDiameter(transverseReachRadius, this.metaData);
         let transverseLegLength = PositioningUtils.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords);
+        let transverseAnimationCenterCoords = PositioningUtils.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], transverseReachRadius);
 
         return {
           sagittalDiff: { dx, dy },
@@ -103,6 +104,7 @@
           transverseReachCoords,
           transverseReachRadius,
           transverseAnimationCircleDiameter,
+          transverseAnimationCenterCoords,
           transverseLegLength
         };
       }
