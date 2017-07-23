@@ -1,0 +1,63 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="animation-watcher">
+  <script>
+    class animationWatcher extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'animation-watcher'; }
+      static get properties() {
+        return {
+          misc1: {
+            statePath: 'misc.1.transverseAnimationCircle'
+          },
+          misc2: {
+            statePath: 'misc.2.transverseAnimationCircle'
+          },
+          misc3: {
+            statePath: 'misc.3.transverseAnimationCircle'
+          },
+          misc4: {
+            statePath: 'misc.4.transverseAnimationCircle'
+          },
+          misc5: {
+            statePath: 'misc.5.transverseAnimationCircle'
+          },
+          misc6: {
+            statePath: 'misc.6.transverseAnimationCircle'
+          },
+          animation: {
+            statePath: 'animation'
+          },
+          
+        };
+      }
+      
+      static get observers() {
+        return [
+          'temp(misc1, animation)',
+          'temp(misc2, animation)',
+          'temp(misc3, animation)',
+          'temp(misc4, animation)',
+          'temp(misc5, animation)',
+          'temp(misc6, animation)'
+        ]
+      }
+      
+      temp(misc, animation) {
+        if (misc === undefined || animation === undefined) return;
+        
+        debugger;
+        
+        // store.dispatch({
+        //   type: "ANIMATION_POINTER_CHANGED",
+        //   legId: misc.legId,
+        //   payload: {
+        //     animationPointerXY: 1
+        //   }
+        // });
+      }
+
+    }
+
+    window.customElements.define(animationWatcher.is, animationWatcher);
+  </script>
+</dom-module>
