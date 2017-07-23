@@ -258,8 +258,10 @@
           e.preventDefault();
           e.stopPropagation()
         }
-        this.$.rocker.ondblclick = () => {
+        this.$.rocker.ondblclick = (e) => {
           this.centerRocker();
+          e.preventDefault();
+          e.stopPropagation()
         }
       }
       
@@ -308,16 +310,15 @@
         this.rockerX = rockerData.rx;
         this.rockerY = rockerData.ry;
         
-        if (this.expandOutput) {
+        if (this.expandOutput)
           // generate top - bottom, left - right values
-          this.generateExpandedOutput(rockerData);
-        } else {
+          this.output = this.generateExpandedOutput(rockerData);
+        else
           // set main values
           this.output = {
             xShift: rockerData.xShift,
             yShift: rockerData.yShift
           }
-        }
         
         // set debug data && redraw debug ui
         if (this.debug) this.pushDebugData(rockerData);
@@ -430,7 +431,7 @@
         output.xShift = rockerData.xShift;
         output.yShift = rockerData.yShift;
         
-        this.output = output;
+        return output;
       }
 
     }
