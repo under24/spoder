@@ -9,6 +9,11 @@ const modifierReducer = combineReducers({
   rotation: rotationReducer
 });
 
+const animationReducer = combineReducers({
+  joystick: animationJoystickReducer,
+  viewPointers: animationViewPointerReducer
+});
+
 const reducers = combineReducers({
   legs: legReducer,
   angles: angleReducer,
