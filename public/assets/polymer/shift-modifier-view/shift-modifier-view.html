@@ -29,6 +29,9 @@
       static get is() { return 'shift-modifier-view'; }
       static get properties() {
         return {
+          shiftModifier: {
+            statePath: 'modifiers.shift',
+          },
           joystickOutput: {
             observer: 'observeJoystickOutput'
           }
@@ -36,6 +39,10 @@
       }
       
       observeJoystickOutput(newValue) {
+        if (this.shiftModifier &&
+            newValue.xShift === this.shiftModifier.x &&
+            newValue.yShift === this.shiftModifier.y) return;
+        
         store.dispatch({
           type: "BASE_X_SHIFT_MODIFIER_CHANGED",
           payload: {
