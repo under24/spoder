@@ -6,6 +6,7 @@
 <link rel="import" href="../transverse-animation-view/transverse-animation-view.html">
 <link rel="import" href="../sagittal-animation-view/sagittal-animation-view.html">
 <link rel="import" href="../rotation-modifier-view/rotation-modifier-view.html">
+<link rel="import" href="../animation-view/animation-view.html">
 
 <dom-module id="view-picker">
   <template>
@@ -59,7 +60,7 @@
     <template is="dom-if" if="[[computeView('none', view)]]" restamp>
       <section class="selection-section">
         <div class="selection-text">Choose view to load...</div>
-        <select value="{{view::change}}" multiple size="8">
+        <select value="{{view::change}}" multiple size="9">
           <option value="none">None</option>
           <option value="digital-joystick">Joystick Demo</option>
           <option value="level-modifier-view">Level Modifier View</option>
@@ -68,6 +69,7 @@
           <option value="shift-modifier-view">Shift Modifier View</option>
           <option value="transverse-animation-view">Transverse Animation View</option>
           <option value="sagittal-animation-view">Sagittal Animation View</option>
+          <option value="animation-view">Animation View</option>
         </select>
       </section>
     </template>
@@ -105,6 +107,11 @@
     <!-- sagittal animation view -->
     <template is="dom-if" if="[[computeView('sagittal-animation-view', view)]]" restamp>
       <sagittal-animation-view></sagittal-animation-view>
+    </template>
+    
+    <!-- animation view -->
+    <template is="dom-if" if="[[computeView('animation-view', view)]]" restamp>
+      <animation-view></animation-view>
     </template>
     
   </template>

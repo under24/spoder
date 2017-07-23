@@ -1,0 +1,59 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../digital-joystick/digital-joystick.html">
+
+<dom-module id="animation-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      digital-joystick {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+    
+    <digital-joystick
+      expand-output
+      output="{{joystickOutput}}">
+    </digital-joystick>
+  </template>
+
+  <script>
+    class animationView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'animation-view'; }
+      static get properties() {
+        return {
+          animation: {
+            statePath: 'animation',
+          },
+          joystickOutput: {
+            observer: 'observeJoystickOutput'
+          }
+        };
+      }
+      
+      observeJoystickOutput(newValue) {
+        if (this.animation &&
+            newValue.xShift === this.animation.x &&
+            newValue.yShift === this.animation.y) return;
+        
+        store.dispatch({
+          type: "ANIMATION_JOYSTICK_VALUES_CHANGED",
+          payload: {
+            x: newValue.xShift,
+            y: newValue.yShift
+          }
+        });
+      }
+
+    }
+
+    window.customElements.define(animationView.is, animationView);
+  </script>
+</dom-module>
