@@ -89,11 +89,12 @@
         let sagittalBoundaryBallCoords = Utils.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
         
         // transverse misc data
-        let transverseReachCoords = PositioningUtils.getTransverseReachCoords(this[`coords${legId}`], this.metaData);
-        let transverseReachRadius = PositioningUtils.getTransverseReachRadius(transverseReachCoords);
-        let transverseAnimationCircleDiameter = PositioningUtils.getTransverseAnimationCircleDiameter(transverseReachRadius, this.metaData);
-        let transverseLegLength = PositioningUtils.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords);
-        let transverseAnimationCenterCoords = PositioningUtils.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], transverseReachRadius);
+        let transverseReachCoords = PositioningUtils.getTransverseReachCoords(this[`coords${legId}`], this.metaData),
+            transverseReachRadius = PositioningUtils.getTransverseReachRadius(transverseReachCoords),
+            transverseAnimationCircleDiameter = PositioningUtils.getTransverseAnimationCircleDiameter(transverseReachRadius, this.metaData),
+            transverseAnimationCircleRadius = transverseAnimationCircleDiameter / 2,
+            transverseLegLength = PositioningUtils.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords),
+            transverseAnimationCenterCoords = PositioningUtils.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], transverseReachRadius);
 
         return {
           sagittalDiff: { dx, dy },
@@ -104,6 +105,7 @@
           transverseReachCoords,
           transverseReachRadius,
           transverseAnimationCircleDiameter,
+          transverseAnimationCircleRadius,
           transverseAnimationCenterCoords,
           transverseLegLength
         };
