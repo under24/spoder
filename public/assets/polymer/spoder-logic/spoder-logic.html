@@ -91,10 +91,10 @@
         // transverse misc data
         let transverseReachCoords = PositioningUtils.getTransverseReachCoords(this[`coords${legId}`], this.metaData),
             transverseReachRadius = PositioningUtils.getTransverseReachRadius(transverseReachCoords),
+            transverseLegLength = PositioningUtils.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords),
             transverseAnimationCircleDiameter = PositioningUtils.getTransverseAnimationCircleDiameter(transverseReachRadius, this.metaData),
             transverseAnimationCircleRadius = transverseAnimationCircleDiameter / 2,
-            transverseLegLength = PositioningUtils.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords),
-            transverseAnimationCenterCoords = PositioningUtils.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], transverseReachRadius);
+            transverseAnimationCircleCenterCoords = PositioningUtils.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], transverseReachRadius);
 
         return {
           sagittalDiff: { dx, dy },
@@ -104,9 +104,12 @@
           sagittalWithinReach,
           transverseReachCoords,
           transverseReachRadius,
-          transverseAnimationCircleDiameter,
-          transverseAnimationCircleRadius,
-          transverseAnimationCenterCoords,
+          transverseAnimationCircle: {
+            centerX: transverseAnimationCircleCenterCoords.x,
+            centerY: transverseAnimationCircleCenterCoords.y,
+            radius: transverseAnimationCircleRadius,
+            diameter: transverseAnimationCircleDiameter
+          },
           transverseLegLength
         };
       }

@@ -22,8 +22,8 @@
       coxa-screen-angle="[[angles.coxaScreenAngle]]"
       impossible-range="[[metaData.impossibleRange]]"
       leg-length="[[misc.transverseLegLength]]"
-      animation-center-coords="[[computeAnimationCenterCoords(misc, viewOffsets)]]"
-      animation-circle-diameter="[[misc.transverseAnimationCircleDiameter]]"
+      animation-center-coords="[[computeAnimationCenterCoords(misc.transverseAnimationCircle, viewOffsets)]]"
+      animation-circle-diameter="[[misc.transverseAnimationCircle.diameter]]"
       offset-rotation="[[coords.offsetRotation]]"
       output="{{baseOutput}}">
     </transverse-view-base>
@@ -116,12 +116,12 @@
         });
       }
       
-      computeAnimationCenterCoords(misc, viewOffsets) {
-        if (misc === undefined || viewOffsets === undefined) return;
+      computeAnimationCenterCoords(transverseAnimationCircle, viewOffsets) {
+        if (transverseAnimationCircle === undefined || viewOffsets === undefined) return;
         
         return {
-          x: misc.transverseAnimationCenterCoords.x + viewOffsets.transverseViewOffsetX,
-          y: misc.transverseAnimationCenterCoords.y + viewOffsets.transverseViewOffsetY,
+          x: transverseAnimationCircle.centerX + viewOffsets.transverseViewOffsetX,
+          y: transverseAnimationCircle.centerY + viewOffsets.transverseViewOffsetY,
         }
       }
       
