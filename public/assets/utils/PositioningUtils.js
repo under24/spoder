@@ -18,8 +18,10 @@ let PositioningUtils = {
     }
   },
   getTransverseLegLength(withinReach, dx, sbx, boundaryCoords) {
-    if (withinReach) return dx;
-    else return boundaryCoords.x - sbx;
+    if (withinReach) 
+      return dx;
+    else 
+      return boundaryCoords.x - sbx;
   },
   getTransverseReachRadius(transverseReachCoords) {
     return transverseReachCoords.endX - transverseReachCoords.beginningX;
