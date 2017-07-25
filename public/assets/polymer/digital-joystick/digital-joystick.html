@@ -217,18 +217,18 @@
       }
       
       calcSizeAndRenderView() {
-        this.style.width = this.style.height = this.size + 'px';
+        this.style.width = this.style.height = `${this.size}px`;
         
         this.centerY = this.centerX = this.radius;
         
         this.centerRocker();
         
-        this.$.centerPoint.style.left = this.centerX + 'px';
-        this.$.centerPoint.style.top = this.centerY + 'px';
+        this.$.centerPoint.style.left = `${this.centerX}px`;
+        this.$.centerPoint.style.top = `${this.centerY}px`;
         
         // set rocker size
-        this.$.rocker.style.width = this.rockerSize + '%';
-        this.$.rocker.style.height = this.rockerSize + '%';
+        this.$.rocker.style.width = `${this.rockerSize}%`;
+        this.$.rocker.style.height = `${this.rockerSize}%`;
       }
       
       attachHandler() {
@@ -266,21 +266,21 @@
       }
       
       redrawX(x) {
-        this.$.rocker.style.left = x + 'px';
+        this.$.rocker.style.left = `${x}px`;
       }
       
       redrawY(y) {
-        this.$.rocker.style.top = y + 'px';
+        this.$.rocker.style.top = `${y}px`;
       }
       
       drawCenterGuideline(distInPxls, screenAngle) {
-        this.$.centerGuideline.style.width = distInPxls + 'px';
-        this.$.centerGuideline.style.transform = 'rotate(' + screenAngle + 'deg)';
+        this.$.centerGuideline.style.width = `${distInPxls}px`;
+        this.$.centerGuideline.style.transform = `rotate(${screenAngle}deg)`;
       }
       
       drawBoundaryBall(bx, by) {
-        this.$.boundaryCircle.style.left = bx + 'px';
-        this.$.boundaryCircle.style.top = by + 'px';
+        this.$.boundaryCircle.style.left = `${bx}px`;
+        this.$.boundaryCircle.style.top = `${by}px`;
       }
       
       centerRocker() {
