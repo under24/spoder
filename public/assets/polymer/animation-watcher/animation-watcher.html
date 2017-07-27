@@ -6,6 +6,12 @@
       static get is() { return 'animation-watcher'; }
       static get properties() {
         return {
+          legs: {
+            statePath: 'legs'
+          },
+          animationPointers: {
+            statePath: 'animation.pointers'
+          },
           misc1: {
             statePath: 'misc.1.transverseAnimationCircle'
           },
@@ -24,36 +30,43 @@
           misc6: {
             statePath: 'misc.6.transverseAnimationCircle'
           },
-          animation: {
-            statePath: 'animation'
-          },
-          
+          joystick: {
+            statePath: 'animation.joystick'
+          }
         };
       }
       
       static get observers() {
         return [
-          'temp(misc1, animation)',
-          'temp(misc2, animation)',
-          'temp(misc3, animation)',
-          'temp(misc4, animation)',
-          'temp(misc5, animation)',
-          'temp(misc6, animation)'
+          'observeAnimationPointer(misc1, joystick)',
+          'observeAnimationPointer(misc2, joystick)',
+          'observeAnimationPointer(misc3, joystick)',
+          'observeAnimationPointer(misc4, joystick)',
+          'observeAnimationPointer(misc5, joystick)',
+          'observeAnimationPointer(misc6, joystick)'
         ]
       }
       
-      temp(misc, animation) {
-        if (misc === undefined || animation === undefined) return;
+      observeAnimationPointer(misc, joystick) {
+        if (misc === undefined || joystick === undefined || this.legs === undefined) return;
         
-        debugger;
+        let x;
+        switch (this.legs[misc.legId].side) {
+          case 'left':
+            x = misc.centerX - misc.radius * (joystick.x / 100); break;
+          case 'right':
+            x = misc.centerX + misc.radius * (joystick.x / 100); break;
+        }
+        let y = misc.centerY - misc.radius * (joystick.y / 100);
         
-        // store.dispatch({
-        //   type: "ANIMATION_POINTER_CHANGED",
-        //   legId: misc.legId,
-        //   payload: {
-        //     animationPointerXY: 1
-        //   }
-        // });
+        if (this.animationPointers[misc.legId].x === x &&
+            this.animationPointers[misc.legId].y === y) return;
+        
+        store.dispatch({
+          type: "ANIMATION_POINTER_CHANGED",
+          legId: misc.legId,
+          payload: { x, y }
+        });
       }
 
     }

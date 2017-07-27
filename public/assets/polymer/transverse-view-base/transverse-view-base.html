@@ -104,6 +104,23 @@
         left: 50%;
         position: absolute;
       }
+      #animationPointer {
+        content: '';
+        background: rgba(0, 128, 0, 0.35);
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        border-radius: 100%;
+        position: absolute;
+      }
+      :host([side=left]) #animationPointer {
+        right: initial !important;
+        transform: translate(-50%,-50%);
+      }
+      :host([side=right]) #animationPointer {
+        left: initial !important;
+        transform: translate(50%,-50%);
+      }
     </style>
     
     <div id="base">
@@ -115,6 +132,8 @@
     <div id="animationCircleCenter">
       <div id="animationCircle"></div>
     </div>
+    
+    <div id="animationPointer"></div>
   </template>
 
   <script>
@@ -152,6 +171,9 @@
           },
           offsetRotation: {
             observer: 'observeOffsetRotation'
+          },
+          animationPointer: {
+            observer: 'observeAnimationPointer'
           },
           output: {
             notify: true
@@ -278,6 +300,16 @@
       observeOffsetRotation(deg) {
         this.$.reachRadius.style.transform = `translate(0%, -50%) rotate(${deg}deg)`;
         this.$.baseInvalidRange.style.transform = `translate(-50%, -50%) rotateZ(-45deg) rotate(${deg}deg)`;
+      }
+      
+      observeAnimationPointer(data) {
+        switch (this.side) {
+          case 'left':
+            this.$.animationPointer.style.left = `${data.x}px`; break;
+          case 'right':
+            this.$.animationPointer.style.right = `${data.x}px`; break;
+        }
+        this.$.animationPointer.style.top = `${data.y}px`;
       }
 
     }

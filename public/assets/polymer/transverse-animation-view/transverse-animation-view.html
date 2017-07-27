@@ -53,6 +53,14 @@
         position: absolute;
         top: 50%;
       }
+      .animationPointer {
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+        background-color: rgba(0, 128, 0, 0.35);
+        position: absolute;
+        border-radius: 100%;
+      }
     </style>
     
     <div id="spoder">
@@ -82,6 +90,13 @@
         <div class="cursor leg4" style$="[[computeCursor(coords, '4')]]"></div>
         <div class="cursor leg5" style$="[[computeCursor(coords, '5')]]"></div>
         <div class="cursor leg6" style$="[[computeCursor(coords, '6')]]"></div>
+        
+        <div class="animationPointer pointer1" style$="[[computeAnimationPointer(animationPointers, '1')]]"></div>
+        <div class="animationPointer pointer2" style$="[[computeAnimationPointer(animationPointers, '2')]]"></div>
+        <div class="animationPointer pointer3" style$="[[computeAnimationPointer(animationPointers, '3')]]"></div>
+        <div class="animationPointer pointer4" style$="[[computeAnimationPointer(animationPointers, '4')]]"></div>
+        <div class="animationPointer pointer5" style$="[[computeAnimationPointer(animationPointers, '5')]]"></div>
+        <div class="animationPointer pointer6" style$="[[computeAnimationPointer(animationPointers, '6')]]"></div>
       </div>
     </div>
   </template>
@@ -92,6 +107,9 @@
       static get properties() {
         return {
           // downcoming props
+          legs: {
+            statePath: 'legs'
+          },
           coords: {
             statePath: 'coords'
           },
@@ -105,6 +123,9 @@
             type: Number,
             value: 0.6,
             observer: 'observeScale'
+          },
+          animationPointers: {
+            statePath: 'animation.pointers'
           }
           // upcoming props
         };
@@ -144,6 +165,19 @@
         c = `width: ${c}px;`;
         
         return x + y + z + c;
+      }
+      
+      computeAnimationPointer(animationPointers, legId) {
+        let x;
+        switch (this.legs[legId].side) {
+          case 'left':
+            x = `left: ${animationPointers[legId].x}px;`; break;
+          case 'right':
+            x = `right: ${animationPointers[legId].x}px;`; break;
+        }
+        let y = `top: ${animationPointers[legId].y}px;`;
+        
+        return x + y;
       }
       
       observeScale(scale) {

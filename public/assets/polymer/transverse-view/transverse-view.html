@@ -25,6 +25,7 @@
       animation-center-coords="[[computeAnimationCenterCoords(misc.transverseAnimationCircle, viewOffsets)]]"
       animation-circle-diameter="[[misc.transverseAnimationCircle.diameter]]"
       offset-rotation="[[coords.offsetRotation]]"
+      animation-pointer="[[computeAnimationPointer(animationPointer, viewOffsets)]]"
       output="{{baseOutput}}">
     </transverse-view-base>
         
@@ -72,6 +73,11 @@
           angles: {
             statePath(state) {
               return state.angles[this.legId];
+            }
+          },
+          animationPointer: {
+            statePath(state) {
+              return state.animation.pointers[this.legId];
             }
           },
           // upcoming props
@@ -129,6 +135,15 @@
         if (coord === undefined || offset === undefined) return;
 
         return coord + offset;
+      }
+      
+      computeAnimationPointer(animationPointer, viewOffsets) {
+        if (animationPointer === undefined || viewOffsets === undefined || !Object.keys(animationPointer).length) return;
+        
+        return {
+          x: animationPointer.x + viewOffsets.transverseViewOffsetX,
+          y: animationPointer.y + viewOffsets.transverseViewOffsetY
+        };
       }
 
     }
