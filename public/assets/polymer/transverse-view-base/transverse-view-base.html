@@ -77,7 +77,6 @@
         position: absolute;
         height: 0px;
         width: 0px;
-        background-color: black;
         pointer-events: none;
       }
       :host([side=left]) #animationCircleCenter {
@@ -269,13 +268,13 @@
       redrawAnimationCircle(coords) {
         if (!this.side) return;
         
-        this.$.animationCircleCenter.style.top = `${coords.y}px`;  
         switch (this.side) {
           case 'left':
-            this.$.animationCircleCenter.style.left = `${coords.x}px`; return;
+            this.$.animationCircleCenter.style.left = `${coords.x}px`; break;
           case 'right':
-            this.$.animationCircleCenter.style.right = `${coords.x}px`; return;
+            this.$.animationCircleCenter.style.right = `${coords.x}px`; break;
         }
+        this.$.animationCircleCenter.style.top = `${coords.y}px`;  
       }
       
       observeReachRadius(reachRadius) {
