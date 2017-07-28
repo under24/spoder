@@ -25,6 +25,7 @@
         height: 10px;
         background-color: black;
         position: absolute;
+        transform: translate(-50%,-50%);
       }
       .base {
         height: 20px;
@@ -34,6 +35,12 @@
         position: absolute;
         border-radius: 100%;
       }
+      .base.left {
+        transform: translate(-50%,-50%);
+      }
+      .base.right {
+        transform: translate(50%,-50%);
+      }
       .cursor {
         height: 20px;
         width: 20px;
@@ -41,6 +48,12 @@
         background-color: rgba(255, 0, 0, 0.35);
         position: absolute;
         border-radius: 100%;
+      }
+      .cursor.left {
+        transform: translate(-50%,-50%);
+      }
+      .cursor.right {
+        transform: translate(50%,-50%);
       }
       #spoder {
         position: absolute;
@@ -61,42 +74,91 @@
         position: absolute;
         border-radius: 100%;
       }
+      .animationPointer.left {
+        transform: translate(-50%,-50%);
+      }
+      .animationPointer.right {
+        transform: translate(50%,-50%);
+      }
+      .animationCircleCenter {
+        position: absolute;
+        height: 0px;
+        width: 0px;
+        pointer-events: none;
+      }
+      .animationCircleCenter::after {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        transform: translate(-50%, -50%);
+        background-color: black;
+        border-radius: 100%;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+      }
+      .animationCircle {
+        display: inline-block;
+        background-color: rgba(255, 0, 0, 0.1);
+        transform: translate(-50%, -50%);
+        border-radius: 100%;
+      }
     </style>
     
     <div id="spoder">
       <div class="centerPoint">
-        <div class="base leg1" style$="[[computeCoords(coords, '1')]]">
+        <div class="base leg1 left" style$="[[computeCoords(coords, '1')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '1', misc)]]"></div>
         </div>
-        <div class="base leg2" style$="[[computeCoords(coords, '2')]]">
+        <div class="base leg2 right" style$="[[computeCoords(coords, '2')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '2', misc)]]"></div>
         </div>
-        <div class="base leg3" style$="[[computeCoords(coords, '3')]]">
+        <div class="base leg3 left" style$="[[computeCoords(coords, '3')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '3', misc)]]"></div>
         </div>
-        <div class="base leg4" style$="[[computeCoords(coords, '4')]]">
+        <div class="base leg4 right" style$="[[computeCoords(coords, '4')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '4', misc)]]"></div>
         </div>
-        <div class="base leg5" style$="[[computeCoords(coords, '5')]]">
+        <div class="base leg5 left" style$="[[computeCoords(coords, '5')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '5', misc)]]"></div>
         </div>
-        <div class="base leg6" style$="[[computeCoords(coords, '6')]]">
+        <div class="base leg6 right" style$="[[computeCoords(coords, '6')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '6', misc)]]"></div>
         </div>
         
-        <div class="cursor leg1" style$="[[computeCursor(coords, '1')]]"></div>
-        <div class="cursor leg2" style$="[[computeCursor(coords, '2')]]"></div>
-        <div class="cursor leg3" style$="[[computeCursor(coords, '3')]]"></div>
-        <div class="cursor leg4" style$="[[computeCursor(coords, '4')]]"></div>
-        <div class="cursor leg5" style$="[[computeCursor(coords, '5')]]"></div>
-        <div class="cursor leg6" style$="[[computeCursor(coords, '6')]]"></div>
+        <div class="cursor leg1 left" style$="[[computeCursor(coords, '1')]]"></div>
+        <div class="cursor leg2 right" style$="[[computeCursor(coords, '2')]]"></div>
+        <div class="cursor leg3 left" style$="[[computeCursor(coords, '3')]]"></div>
+        <div class="cursor leg4 right" style$="[[computeCursor(coords, '4')]]"></div>
+        <div class="cursor leg5 left" style$="[[computeCursor(coords, '5')]]"></div>
+        <div class="cursor leg6 right" style$="[[computeCursor(coords, '6')]]"></div>
         
-        <div class="animationPointer pointer1" style$="[[computeAnimationPointer(animationPointers, '1')]]"></div>
-        <div class="animationPointer pointer2" style$="[[computeAnimationPointer(animationPointers, '2')]]"></div>
-        <div class="animationPointer pointer3" style$="[[computeAnimationPointer(animationPointers, '3')]]"></div>
-        <div class="animationPointer pointer4" style$="[[computeAnimationPointer(animationPointers, '4')]]"></div>
-        <div class="animationPointer pointer5" style$="[[computeAnimationPointer(animationPointers, '5')]]"></div>
-        <div class="animationPointer pointer6" style$="[[computeAnimationPointer(animationPointers, '6')]]"></div>
+        <div class="animationPointer pointer1 left" style$="[[computeAnimationPointer(animationPointers, '1')]]"></div>
+        <div class="animationPointer pointer2 right" style$="[[computeAnimationPointer(animationPointers, '2')]]"></div>
+        <div class="animationPointer pointer3 left" style$="[[computeAnimationPointer(animationPointers, '3')]]"></div>
+        <div class="animationPointer pointer4 right" style$="[[computeAnimationPointer(animationPointers, '4')]]"></div>
+        <div class="animationPointer pointer5 left" style$="[[computeAnimationPointer(animationPointers, '5')]]"></div>
+        <div class="animationPointer pointer6 right" style$="[[computeAnimationPointer(animationPointers, '6')]]"></div>
+        
+        <div class="animationCircleCenter circleCenter1" style$="[[computeAnimationCircleCenter(misc, '1')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '1')]]"></div>
+        </div>
+        <div class="animationCircleCenter circleCenter2" style$="[[computeAnimationCircleCenter(misc, '2')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '2')]]"></div>
+        </div>
+        <div class="animationCircleCenter circleCenter3" style$="[[computeAnimationCircleCenter(misc, '3')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '3')]]"></div>
+        </div>
+        <div class="animationCircleCenter circleCenter4" style$="[[computeAnimationCircleCenter(misc, '4')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '4')]]"></div>
+        </div>
+        <div class="animationCircleCenter circleCenter5" style$="[[computeAnimationCircleCenter(misc, '5')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '5')]]"></div>
+        </div>
+        <div class="animationCircleCenter circleCenter6" style$="[[computeAnimationCircleCenter(misc, '6')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '6')]]"></div>
+        </div>
       </div>
     </div>
   </template>
@@ -178,6 +240,26 @@
         let y = `top: ${animationPointers[legId].y}px;`;
         
         return x + y;
+      }
+      
+      computeAnimationCircleCenter(misc, legId) {
+        let x;
+        switch (this.legs[legId].side) {
+          case 'left':
+            x = `left: ${misc[legId].transverseAnimationCircle.centerX}px;`; break;
+          case 'right':
+            x = `right: ${misc[legId].transverseAnimationCircle.centerX}px;`; break;
+        }
+        let y = `top: ${misc[legId].transverseAnimationCircle.centerY}px;`;
+        
+        return x + y;
+      }
+      
+      computeAnimationCircle(misc, legId) {
+        let width = `width: ${misc[legId].transverseAnimationCircle.diameter}px;`;
+        let height = `height: ${misc[legId].transverseAnimationCircle.diameter}px;`;
+        
+        return width + height;
       }
       
       observeScale(scale) {
