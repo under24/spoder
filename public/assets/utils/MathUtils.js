@@ -1,6 +1,7 @@
 'use strict';
 
-let Utils = {
+// MU == MathUtils
+let MU = {
   lawOfCos(a, b, c) {
   	return Math.acos((a * a + b * b - c * c) / (2 * a * b));
   },

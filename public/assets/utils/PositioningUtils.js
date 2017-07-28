@@ -1,6 +1,7 @@
 'use strict';
 
-let PositioningUtils = {
+// PU == PositioningUtils
+let PU = {
   getTransverseReachCoords(coords, metaData) {
     let scy = coords.sagittalCursorY;
     let radius = metaData.combinedLegsLength;
@@ -46,9 +47,9 @@ let PositioningUtils = {
         case 'left':
           angle = coords.offsetRotation; break;
         case 'right':
-          angle = Utils.flipNumber(coords.offsetRotation); break;
+          angle = MU.flipNumber(coords.offsetRotation); break;
       }
-      finalCoords = Utils.getCoordsFromDistanceAndAngle(coords.transverseBaseX, coords.transverseBaseY, angle, distance);
+      finalCoords = MU.getCoordsFromDistanceAndAngle(coords.transverseBaseX, coords.transverseBaseY, angle, distance);
     }
     return finalCoords;
   }

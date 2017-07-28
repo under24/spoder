@@ -44,7 +44,7 @@
       
       getAmountOfTicks(tps, timelineDuration) {
         let amountOfTicks = timelineDuration / (1000 / tps);
-        return Utils.roundNumber(amountOfTicks, 0);
+        return MU.roundNumber(amountOfTicks, 0);
       }
       
       createTimeline(amountOfTicks) {
@@ -52,7 +52,7 @@
         
         for (let i = 1; i <= amountOfTicks; i++) {
           timeline[i] = {
-            pct: Utils.roundNumber(100 / amountOfTicks * i, 1),
+            pct: MU.roundNumber(100 / amountOfTicks * i, 1),
             payload: Object.create(null)
           };
         }

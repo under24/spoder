@@ -42,7 +42,7 @@
       // BEGIN HELPER FUNCTIONS
       
       getDistanceFromBaseToCursor(legId, view) {
-        return Utils.getDistance(this.getXFromBase(legId, view), this.getYFromBase(legId, view));
+        return MU.getDistance(this.getXFromBase(legId, view), this.getYFromBase(legId, view));
       }
       
       getXFromBase(legId, view) {
@@ -62,7 +62,7 @@
       }
 
       getAngleFromDistance(legId, view) {
-        let screen = Utils.getAngle(this.getYFromBase(legId, view), this.getXFromBase(legId, view));
+        let screen = MU.getAngle(this.getYFromBase(legId, view), this.getXFromBase(legId, view));
         
         let servo = (screen - 270 < 0) ? screen + 90 : screen - 270;
         
@@ -80,21 +80,21 @@
         let dy = this.getYFromBase(legId, 'sagittal');
         
         // sagittal distance from sagittal cursor x/y to sagittal base x/y
-        let distance = Utils.getDistance(dx, dy);
+        let distance = MU.getDistance(dx, dy);
         
         // sagittal straight angle from base to cursor
-        let angle = Utils.getAngle(dy, dx);
+        let angle = MU.getAngle(dy, dx);
         
         // sagittal misc data
-        let sagittalBoundaryBallCoords = Utils.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
+        let sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
         
         // transverse misc data
-        let transverseReachCoords = PositioningUtils.getTransverseReachCoords(this[`coords${legId}`], this.metaData),
-            transverseReachRadius = PositioningUtils.getTransverseReachRadius(transverseReachCoords),
-            transverseLegLength = PositioningUtils.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords),
-            transverseAnimationCircleDiameter = PositioningUtils.getTransverseAnimationCircleDiameter(transverseReachRadius, this.metaData),
+        let transverseReachCoords = PU.getTransverseReachCoords(this[`coords${legId}`], this.metaData),
+            transverseReachRadius = PU.getTransverseReachRadius(transverseReachCoords),
+            transverseLegLength = PU.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords),
+            transverseAnimationCircleDiameter = PU.getTransverseAnimationCircleDiameter(transverseReachRadius, this.metaData),
             transverseAnimationCircleRadius = transverseAnimationCircleDiameter / 2,
-            transverseAnimationCircleCenterCoords = PositioningUtils.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], transverseReachRadius);
+            transverseAnimationCircleCenterCoords = PU.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], transverseReachRadius);
 
         return {
           sagittalDiff: { dx, dy },
@@ -118,7 +118,7 @@
       getTransverseMiscData(legId, angles) {
         // let dx = this.getXFromBase(legId, 'transverse');
         // let dy = this.getYFromBase(legId, 'transverse');
-        // let distance = Utils.getDistance(dx, dy);
+        // let distance = MU.getDistance(dx, dy);
         
         return {
           // transverseDiff: { dx, dy },
@@ -240,7 +240,7 @@
       
       getFemurAngle(legId, view) {
         let D1 = Math.atan2(this.getYFromBase(legId, view), this.getXFromBase(legId, view)),
-            D2 = Utils.lawOfCos(this.getDistanceFromBaseToCursor(legId, view), this.metaData.femurLength, this.metaData.tibiaLength);
+            D2 = MU.lawOfCos(this.getDistanceFromBaseToCursor(legId, view), this.metaData.femurLength, this.metaData.tibiaLength);
 
         let A1 = D2 - D1;
         
@@ -251,7 +251,7 @@
       }
       
       getTibiaAngle(legId, view) {
-        let A2 = Utils.lawOfCos(this.metaData.femurLength, this.metaData.tibiaLength, this.getDistanceFromBaseToCursor(legId, view));
+        let A2 = MU.lawOfCos(this.metaData.femurLength, this.metaData.tibiaLength, this.getDistanceFromBaseToCursor(legId, view));
         
         let A2Screen = 180 - (A2 / Math.PI * 180),
             A2Servo = A2Screen;
