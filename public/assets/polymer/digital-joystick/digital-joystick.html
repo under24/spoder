@@ -183,7 +183,7 @@
             value: false,
             reflectToAttribute: true,
           },
-          expandOutput: {
+          extendOutput: {
             type: Boolean,
             value: false
           },
@@ -310,11 +310,10 @@
         this.rockerX = rockerData.rx;
         this.rockerY = rockerData.ry;
         
-        if (this.expandOutput)
+        if (this.extendOutput)
           // generate top - bottom, left - right values
-          this.output = this.generateExpandedOutput(rockerData);
+          this.output = this.generateExtendedOutput(rockerData);
         else
-          // set main values
           this.output = {
             xShift: rockerData.xShift,
             yShift: rockerData.yShift
@@ -409,21 +408,21 @@
         this.boundaryY = rockerData.by;   
       }
       
-      generateExpandedOutput(rockerData) {
+      generateExtendedOutput(rockerData) {
         let output = {};
         
         // left - right
-        if (rockerData.xShift === 0) {
+        if (rockerData.xShift === 0)
           output.left = output.right = 0;
-        } else {
+        else {
           output.left = rockerData.xShift;
           output.right = Utils.flipNumber(rockerData.xShift);
         }
         
         // top - bottom
-        if (rockerData.yShift === 0) {
+        if (rockerData.yShift === 0)
           output.top = output.bottom = 0;
-        } else {
+        else {
           output.top = rockerData.yShift;
           output.bottom = Utils.flipNumber(rockerData.yShift);
         }
