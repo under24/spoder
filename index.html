@@ -48,26 +48,34 @@
     <modifier-watcher></modifier-watcher>
     <animation-watcher></animation-watcher>
     
-    <div style="display: flex;width: 100%;height: 100%;position: absolute;">
-      <div style="flex: 2;display: flex;flex-direction: column;">
-        <div style="flex:1;border-bottom:1px dashed;position:relative;">
+    <div class="flex-container">
+      <div class="flex-column-container">
+        <div class="flex-row-box">
           <view-picker view="sagittal-view"></view-picker>
         </div>
-        <div style="flex:1;border-right:1px dashed;position:relative;">
+        <div class="flex-row-box">
           <view-picker view="transverse-view"></view-picker>
         </div>
       </div>
-      <div style="flex: 2;display:flex;flex-direction:column;">
-        <div style="flex:1;border-left:1px dashed;position:relative;border-bottom:1px dashed;">
+      <div class="flex-column-container">
+        <div class="flex-row-box">
           <view-picker view="sagittal-animation-view"></view-picker>
         </div>
-        <div style="flex:1;position:relative;">
+        <div class="flex-row-box">
           <view-picker view="transverse-animation-view"></view-picker>
         </div>
       </div>
-      <div style="flex: 1;position:relative;">
-        <diag-panel></diag-panel>
+      <div class="flex-column-container">
+        <div class="flex-row-box">
+          <view-picker></view-picker>
+        </div>
+        <div class="flex-row-box">
+          <view-picker></view-picker>
+        </div>
       </div>
+      <!-- <div style="flex: 1;position:relative;">
+        <diag-panel></diag-panel>
+      </div> -->
     </div>
     
   </body>
