@@ -1,0 +1,27 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="diag-servo-output-view">
+  <template>
+    <style>
+      :host {
+        
+      }
+    </style>
+  </template>
+
+  <script>
+    class diagServoOutputView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'diag-servo-output-view'; }
+      static get properties() {
+        return {
+          // shiftModifier: {
+          //   statePath: 'modifiers.shift',
+          // },
+        };
+      }
+
+    }
+
+    window.customElements.define(diagServoOutputView.is, diagServoOutputView);
+  </script>
+</dom-module>
