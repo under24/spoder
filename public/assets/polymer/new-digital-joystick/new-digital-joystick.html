@@ -1,0 +1,498 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="new-digital-joystick">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        position: relative;
+      }
+      .joystick-container {
+        border: 1px dashed rgba(0, 0, 0, 0.5);
+        border-radius: 100%;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+      }
+      /* vertical line */
+      :host([debug]) .joystick-container::before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        top: 0px;
+        bottom: 0px;
+        border-left: 1px dashed rgba(0, 0, 0, 0.5);
+        transform: translateX(-50%);
+      }
+      /* horizontal line */
+      :host([debug]) .joystick-container::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        top: 50%;
+        border-top: 1px dashed rgba(0, 0, 0, 0.5);
+        transform: translateY(-50%);
+      }
+      #rocker {
+        display: inline-block;
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px dotted black;
+        border-radius: 100%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        box-sizing: border-box;
+      }
+      /* rocker center dot */
+      :host([debug]) #rocker::before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        background-color: rgba(0, 0, 0, 0.5);
+        transform: translate(-50%, -50%);
+        border-radius: 100%;
+      }
+      #centerPoint {
+        position: absolute;
+      }
+      /* center dot */
+      :host([debug]) #centerPoint::before {
+        content: '';
+        position: absolute;
+        height: 6px;
+        width: 6px;
+        background-color: red;
+        transform: translate(-50%,-50%);
+        border-radius: 100%;
+        top: 50%;
+        left: 50%;
+      }
+      :host([debug]) #boundaryCircle {
+        position: absolute;
+        height: 6px;
+        width: 6px;
+        background-color: red;
+        transform: translate(-50%,-50%);
+        border-radius: 100%;
+      }
+      :host([debug]) #centerGuideline {
+        transform-origin: left;
+        border-top: 1px dashed black;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+      }
+      .debug-info-block {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        transform: translateX(100%);
+      }
+    </style>
+    
+    <div class="joystick-container">
+      <div id="centerPoint">
+        <div id="centerGuideline"></div>
+      </div>
+      <div id="rocker"></div>
+      <div id="boundaryCircle"></div>
+      
+      <div class="debug-info-block">
+        <div>
+          <label>
+            <input type="checkbox" checked="{{debug::change}}">
+            Debug
+          </label>
+        </div>
+        <template is="dom-if" if="[[debug]]" restamp>
+          <div>
+            <label>
+               <input type="checkbox" checked="{{restrict::change}}">
+               Restrict
+            </label>
+          </div>
+          <div>
+            <label>
+               <input type="checkbox" checked="{{lockXAxis::change}}">
+               Lock X-Axis
+            </label>
+          </div>
+          <div>
+            <label>
+               <input type="checkbox" checked="{{lockYAxis::change}}">
+               Lock Y-Axis
+            </label>
+          </div>
+          <div>Size (px): [[size]]</div>
+          <div>Rocker side (%): [[rockerSize]]</div>
+          <div>Radius (px): [[radius]]</div>
+          <div>RockerX (px): [[rockerX]]</div>
+          <div>RockerY (px): [[rockerY]]</div>
+          <div>Angle (deg): [[angle]]</div>
+          <div>DiffX (px): [[diffX]]</div>
+          <div>DiffY (px): [[diffY]]</div>
+          <div>Distance (px): [[distInPxls]]</div>
+          <div>Distance (%): [[distInPct]]</div>
+          <div>BoundaryX (px): [[boundaryX]]</div>
+          <div>BoundaryY (px): [[boundaryY]]</div>
+          <hr>
+          <div>X Shift (%): [[output.xShift]]</div>
+          <div>Y Shift (%): [[output.yShift]]</div>
+        </template>
+      </div>
+    </div>
+    
+  </template>
+
+  <script>
+    class newDigitalJoystick extends ReduxMixin(Polymer.Element) {
+      
+      static get is() { return 'new-digital-joystick' }
+      
+      static get properties() {
+        return {
+          size: {
+            type: Number,
+            value: 300,
+            observer: 'observeSize'
+          },
+          radius: {
+            computed: 'computeRadius(size)'
+          },
+          restrict: {
+            type: Boolean,
+            value: true
+          },
+          rockerSize: {
+            type: Number,
+            value: 30
+          },
+          rockerX: {
+            observer: 'observeRockerX'
+          },
+          rockerY: {
+            observer: 'observeRockerY'
+          },
+          centerX: Number,
+          centerY: Number,
+          debug: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true,
+          },
+          extendOutput: {
+            type: Boolean,
+            value: false
+          },
+          lockXAxis: {
+            type: Boolean,
+            value: false
+          },
+          lockYAxis: {
+            type: Boolean,
+            value: false
+          },
+          input: {
+            observer: 'observeInput'
+          },
+          output: {
+            notify: true
+          }
+        }
+      }
+      
+      connectedCallback() {
+        super.connectedCallback();
+        
+        this.attachRockerHandler(); 
+      }
+      
+      observeSize() {
+        this.style.width = this.style.height = `${this.size}px`;
+        
+        this.centerY = this.centerX = this.radius;
+        
+        this.$.centerPoint.style.left = `${this.centerX}px`;
+        this.$.centerPoint.style.top = `${this.centerY}px`;
+        
+        // set rocker size
+        this.$.rocker.style.width = `${this.rockerSize}%`;
+        this.$.rocker.style.height = `${this.rockerSize}%`;
+      }
+      
+      attachRockerHandler() {
+        this.$.rocker.onmousedown = (e) => {
+          let clickCoords = { x: e.pageX, y: e.pageY };
+          let initCoords = { x: this.rockerX, y: this.rockerY };
+          document.onmousemove = (e) => {
+            let dragX = e.pageX - clickCoords.x;
+            let dragY = e.pageY - clickCoords.y;
+            
+            // same values -> bail out
+            if (dragX === 0 && dragY === 0) return;
+            
+            let rx = initCoords.x + dragX;
+            let ry = initCoords.y + dragY;
+            
+            this.processOutputFlow(rx, ry);
+            
+            e.preventDefault();
+            e.stopPropagation();
+          };
+          document.onmouseup = () => {
+            document.onmousemove = null;
+            document.onmouseup = null;
+          }
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        this.$.rocker.ondblclick = (e) => {
+          this.centerRocker();
+          
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+      
+      redrawX(x) {
+        this.$.rocker.style.left = `${x}px`;
+      }
+      
+      redrawY(y) {
+        this.$.rocker.style.top = `${y}px`;
+      }
+      
+      drawCenterGuideline(distInPxls, screenAngle) {
+        this.$.centerGuideline.style.width = `${distInPxls}px`;
+        this.$.centerGuideline.style.transform = `rotate(${screenAngle}deg)`;
+      }
+      
+      drawBoundaryBall(bx, by) {
+        this.$.boundaryCircle.style.left = `${bx}px`;
+        this.$.boundaryCircle.style.top = `${by}px`;
+      }
+      
+      centerRocker() {
+        this.processOutputFlow(this.centerX, this.centerY);
+      }
+      
+      computeRadius(size) {
+        return this.size / 2;
+      }
+      
+      processOutputFlow(rx, ry) {
+        if (this.sameOutputFlow(rx, ry)) return;
+
+        // lock axes if needed
+        if (this.lockXAxis) rx = this.centerX;
+        if (this.lockYAxis) ry = this.centerY;
+
+        let rockerData = this.getRockerData(rx, ry);
+
+        this.generateOutput(rockerData);
+      }
+      
+      sameOutputFlow(rx, ry) {
+        if (rx === this.prevRX && ry === this.prevRY) return true;
+        
+        this.prevRX = rx;
+        this.prevRY = ry;
+        return false;
+      }
+      
+      calcRockerData(rx, ry) {
+        // rockerX - centerX, rockerY - centerY
+        let diff = this.getDiffXY(rx, ry);
+        
+        // distance from center to rocker in pxls
+        let distInPxls = this.getDistanceInPixels(diff);
+
+        // distance from center to rocker in %
+        let distInPct = this.getDistanceInPct(distInPxls);
+        
+        // x, y point in % from center
+        let xShift = this.getShiftCoords(rx),
+            yShift = this.getShiftCoords(ry);
+        
+        // calc angle for calculations
+        let angle = this.getAngle(diff);
+        
+        // convert angle to screen angle
+        let screenAngle = this.getScreenAngle(angle);
+        
+        // boundary ball
+        let bx = this.getBoundaryX(this.centerX, angle),
+            by = this.getBoundaryY(this.centerY, angle);
+        
+        return {
+          rx: MU.roundNumber(rx, 0),
+          ry: MU.roundNumber(ry, 0),
+          diff,
+          distInPxls,
+          distInPct,
+          xShift: MU.roundNumber(xShift, 0),
+          yShift: MU.roundNumber(yShift, 0),
+          screenAngle,
+          bx,
+          by
+        }
+      }
+      
+      getDiffXY(rx, ry) {
+        return {
+          x: rx - this.centerX,
+          y: ry - this.centerY
+        }
+      }
+      
+      getDistanceInPixels(diff) {
+        return MU.getDistance(diff.x, diff.y);
+      }
+      
+      getDistanceInPct(pxls) {
+        return pxls / (this.radius / 100);
+      }
+      
+      getShiftCoords(coord) {
+        return (this.radius - coord) / (this.radius / 100);
+      }
+      
+      getAngle(diff) {
+        return Math.atan2(diff.y, diff.x);
+      }
+      
+      getScreenAngle(angle) {
+        return (angle > 0 ? angle : (2 * Math.PI + angle)) * 360 / (2 * Math.PI);
+      }
+      
+      getBoundaryX(cx, angle) {
+        return cx + this.radius * Math.cos(angle);
+      }
+      
+      getBoundaryY(cy, angle) {
+        return cy + this.radius * Math.sin(angle);
+      }
+      
+      generateOutput(rockerData) {
+        if (this.sameOutput(rockerData)) return;
+        
+        if (this.extendOutput)
+          // generate top - bottom, left - right values
+          this.output = this.generateExtendedOutput(rockerData);
+        else
+          this.output = {
+            xShift: rockerData.xShift,
+            yShift: rockerData.yShift
+          }
+      }
+      
+      sameOutput(rockerData) {
+        if (this.output && rockerData.xShift === this.output.xShift && rockerData.yShift === this.output.yShift)
+          return true;
+          
+        return false;
+      }
+      
+      generateExtendedOutput(rockerData) {
+        let output = {};
+        
+        // left - right
+        if (rockerData.xShift === 0)
+          output.left = output.right = 0;
+        else {
+          output.left = rockerData.xShift;
+          output.right = MU.flipNumber(rockerData.xShift);
+        }
+        
+        // top - bottom
+        if (rockerData.yShift === 0)
+          output.top = output.bottom = 0;
+        else {
+          output.top = rockerData.yShift;
+          output.bottom = MU.flipNumber(rockerData.yShift);
+        }
+        
+        output.xShift = rockerData.xShift;
+        output.yShift = rockerData.yShift;
+        
+        return output;
+      }
+      
+      getRockerData(rx, ry) {
+        let rockerData = this.calcRockerData(rx, ry);
+        
+        // if restrict == true && rx, ry are outside boundaries
+        // recalc using bx, by (boundary values)
+        if (this.restrict && rockerData.distInPxls > this.radius)
+          rockerData = this.calcRockerData(rockerData.bx, rockerData.by);
+        
+        return rockerData;
+      }
+      
+      processInputFlow(shiftInput) {
+        shiftInput = this.validateInputFlowData(shiftInput);
+        
+        let shiftPixels = this.convertXYShiftToRockerPixels(shiftInput),
+            rockerData = this.getRockerData(shiftPixels.x, shiftPixels.y);
+          
+        this.updateUI(rockerData);
+      }
+      
+      validateInputFlowData(input) {
+        if (input.xShift === undefined && input.yShift === undefined)
+          throw new Error ('Invalid joystick input');
+        else if (input.xShift === undefined)
+          input.xShift = 0;
+        else if (input.yShift === undefined)
+          input.yShift = 0;
+          
+        return input;
+      }
+      
+      convertXYShiftToRockerPixels(shiftInput) {
+        let rx = this.radius - this.radius * (shiftInput.xShift / 100),
+            ry = this.radius - this.radius * (shiftInput.yShift / 100);
+            
+        return {
+          x: MU.roundNumber(rx, 0),
+          y: MU.roundNumber(ry, 0)
+        }
+      }
+      
+      updateUI(rockerData) {
+        // redraw rocker ui
+        this.rockerX = rockerData.rx;
+        this.rockerY = rockerData.ry;
+        
+        // set debug data && redraw debug ui
+        if (this.debug) 
+          this.pushDebugData(rockerData);
+      }
+      
+      pushDebugData(rockerData) {
+        this.drawBoundaryBall(rockerData.bx, rockerData.by);
+        this.drawCenterGuideline(rockerData.distInPxls, rockerData.screenAngle);
+        this.diffX = rockerData.diff.x;
+        this.diffY = rockerData.diff.y;
+        this.distInPxls = rockerData.distInPxls;
+        this.distInPct = rockerData.distInPct;
+        this.angle = rockerData.screenAngle;
+        this.boundaryX = rockerData.bx;
+        this.boundaryY = rockerData.by;
+      }
+
+    }
+    newDigitalJoystick.prototype.observeRockerX = newDigitalJoystick.prototype.redrawX;
+    newDigitalJoystick.prototype.observeRockerY = newDigitalJoystick.prototype.redrawY;
+    newDigitalJoystick.prototype.observeInput = newDigitalJoystick.prototype.processInputFlow;
+
+    window.customElements.define(newDigitalJoystick.is, newDigitalJoystick);
+  </script>
+</dom-module>
