@@ -1,5 +1,6 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../digital-joystick/digital-joystick.html">
+<link rel="import" href="../new-digital-joystick/new-digital-joystick.html">
+
 
 <dom-module id="shift-modifier-view">
   <template>
@@ -10,7 +11,7 @@
         height: 100%;
         position: relative;
       }
-      digital-joystick {
+      new-digital-joystick {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -18,9 +19,10 @@
       }
     </style>
     
-    <digital-joystick
+    <new-digital-joystick
+      input="[[computeInput(shiftModifier)]]"
       output="{{joystickOutput}}">
-    </digital-joystick>
+    </new-digital-joystick>
   </template>
 
   <script>
@@ -49,6 +51,10 @@
             y: newValue.yShift
           }
         });
+      }
+      
+      computeInput(shiftModifier) {
+        return { xShift: shiftModifier.x, yShift: shiftModifier.y };
       }
 
     }
