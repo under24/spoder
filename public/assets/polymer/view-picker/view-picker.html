@@ -9,6 +9,7 @@
 <link rel="import" href="../animation-view/animation-view.html">
 <link rel="import" href="../sagittal-view/sagittal-view.html">
 <link rel="import" href="../transverse-view/transverse-view.html">
+<link rel="import" href="../sequencer-view/sequencer-view.html">
 
 <dom-module id="view-picker">
   <template>
@@ -62,7 +63,7 @@
     <template is="dom-if" if="[[computeView('none', view)]]" restamp>
       <section class="selection-section">
         <div class="selection-text">Choose view to load...</div>
-        <select value="{{view::change}}" multiple size="11">
+        <select value="{{view::change}}" multiple size="12">
           <option value="none">None</option>
           <option value="digital-joystick">Joystick Demo</option>
           <option value="level-modifier-view">Level Modifier View</option>
@@ -74,6 +75,7 @@
           <option value="animation-view">Animation View</option>
           <option value="sagittal-view">Sagittal View</option>
           <option value="transverse-view">Transverse View</option>
+          <option value="sequencer-view">Sequencer View</option>
         </select>
       </section>
     </template>
@@ -128,6 +130,11 @@
       <transverse-view></transverse-view>
     </template>
     
+    <!-- sequencer view -->
+    <template is="dom-if" if="[[computeView('sequencer-view', view)]]" restamp>
+      <sequencer-view></sequencer-view>
+    </template>
+    
   </template>
 
   <script>
@@ -144,7 +151,7 @@
       }
       
       computeView(currView, view) {
-        return currView == view;
+        return currView === view;
       }
       
       resetView() {
@@ -152,7 +159,6 @@
       }
 
     }
-
     window.customElements.define(viewPicker.is, viewPicker);
   </script>
 </dom-module>

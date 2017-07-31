@@ -1,0 +1,77 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="sequencer-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      #sequenceTimeline {
+        width: 90%;
+        border: 1px solid;
+        margin: auto;
+        box-sizing: border-box;
+      }
+      #sequenceTimeline .leg {
+        font-size: 17px;
+        border-bottom: 1px solid black;
+      }
+      #sequenceTimeline .leg:last-child {
+        border-bottom: none;
+      }
+      #sequenceTimeline hr {
+        margin: 0px;
+      }
+      #sequenceTimeline .leg-id {
+        display: inline-block;
+        border-right: 1px solid;
+        padding: 4px 0px 4px 8px;
+        width: 28px;
+      }
+    </style>
+    
+    <div id="controlls">sequencer</div>
+    
+    <div id="sequenceTimeline">
+      <div class="row leg legid1">
+        <div class="leg-id">L1</div>
+      </div>
+      <div class="row leg legid2">
+        <div class="leg-id">R1</div>
+      </div>
+      <div class="row leg legid3">
+        <div class="leg-id">L2</div>
+      </div>
+      <div class="row leg legid4">
+        <div class="leg-id">R2</div>
+      </div>
+      <div class="row leg legid5">
+        <div class="leg-id">L3</div>
+      </div>
+      <div class="row leg legid6">
+        <div class="leg-id">R3</div>
+      </div>
+    </div>
+    
+  </template>
+
+  <script>
+    class sequencerView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'sequencer-view'; }
+      static get properties() {
+        return {
+          // legId: {
+          //   statePath: 'views.sequencerViewLegId'
+          // },
+        };
+      }
+      
+
+    }
+
+    window.customElements.define(sequencerView.is, sequencerView);
+  </script>
+</dom-module>
