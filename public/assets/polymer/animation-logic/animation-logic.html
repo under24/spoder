@@ -32,8 +32,8 @@
           timelineDuration = this.timelineDuration;
         }
         
-        let amountOfTicks = this.getAmountOfTicks(tps, timelineDuration);
-        let timeline = this.createTimeline(amountOfTicks);
+        let amountOfTicks = this.getAmountOfTicks(tps, timelineDuration),
+            timeline = this.createTimeline(amountOfTicks);
         
         for (let i = 0; i < dataArr.length; i++) {
           this.populateTimeline(dataArr[i], timeline);
@@ -44,6 +44,7 @@
       
       getAmountOfTicks(tps, timelineDuration) {
         let amountOfTicks = timelineDuration / (1000 / tps);
+        
         return MU.roundNumber(amountOfTicks, 0);
       }
       
@@ -61,12 +62,10 @@
       }
       
       populateTimeline(data, timeline) {
-        let startTick = this.getClosestTick(data.startPct, timeline) + 1;
-        let endTick = this.getClosestTick(data.endPct, timeline);
-        
-        let ticksBetweenStartAndEnd = this.getAmountOfTicksBetween(startTick, endTick);
-        
-        let tickValue = this.getTickValueBasedOnPxlsToMove(ticksBetweenStartAndEnd, data.pxlsToMove);
+        let startTick = this.getClosestTick(data.startPct, timeline) + 1,
+            endTick = this.getClosestTick(data.endPct, timeline),
+            ticksBetweenStartAndEnd = this.getAmountOfTicksBetween(startTick, endTick),
+            tickValue = this.getTickValueBasedOnPxlsToMove(ticksBetweenStartAndEnd, data.pxlsToMove);
 
         this.pushDataToTimeline(startTick, endTick, data.coordType, tickValue, timeline);
       }
