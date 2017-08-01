@@ -10,17 +10,18 @@
         position: relative;
       }
       #sequenceTimeline {
-        width: 90%;
+        width: 95%;
         border: 1px solid;
         margin: auto;
         box-sizing: border-box;
+        position: relative;
       }
       #sequenceTimeline .leg {
         font-size: 17px;
-        border-bottom: 1px solid black;
+        border-top: 1px solid black;
       }
-      #sequenceTimeline .leg:last-child {
-        border-bottom: none;
+      #sequenceTimeline .leg:first-child {
+        border-top: none;
       }
       #sequenceTimeline hr {
         margin: 0px;
@@ -30,6 +31,34 @@
         border-right: 1px solid;
         padding: 4px 0px 4px 8px;
         width: 28px;
+      }
+      #cursor {
+        width: 1px;
+        background: black;
+        position: absolute;
+        display: inline-block;
+        top: 0px;
+        bottom: 0px;
+        left: 54%;
+      }
+      #cursor::after {
+        content: '';
+        display: inline-block;
+        width: 10px;
+        background-color: rgba(0, 0, 0, 0.05);
+        top: 0px;
+        bottom: 0px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      #cursorKnob {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(128, 128, 128, 0.21);
+        padding: 4px 8px 2px;
       }
     </style>
     
@@ -53,6 +82,10 @@
       </div>
       <div class="row leg legid6">
         <div class="leg-id">R3</div>
+      </div>
+      
+      <div id="cursor">
+        <div id="cursorKnob">50</div>
       </div>
     </div>
     
