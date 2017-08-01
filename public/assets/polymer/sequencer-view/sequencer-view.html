@@ -19,6 +19,7 @@
       #sequenceTimeline .leg {
         font-size: 17px;
         border-top: 1px solid black;
+        display: flex;
       }
       #sequenceTimeline .leg:first-child {
         border-top: none;
@@ -30,7 +31,7 @@
         display: inline-block;
         border-right: 1px solid;
         padding: 4px 0px 4px 8px;
-        width: 28px;
+        width: 50px;
       }
       #cursor {
         width: 1px;
@@ -60,28 +61,47 @@
         background-color: rgba(128, 128, 128, 0.21);
         padding: 4px 8px 2px;
       }
+      .leg-sequence {
+        flex: 1;
+        position: relative;
+      }
+      .leg-sequence .sequence {
+        height: 100%;
+        width: 50%;
+        left: 7%;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
     </style>
     
     <div id="controlls">sequencer</div>
     
     <div id="sequenceTimeline">
       <div class="row leg legid1">
-        <div class="leg-id">L1</div>
+        <div class="leg-id">L1 (1)</div>
+        <div class="leg-sequence">
+          <div class="sequence"></div>
+        </div>
       </div>
       <div class="row leg legid2">
-        <div class="leg-id">R1</div>
+        <div class="leg-id">R1 (2)</div>
+        <div class="leg-sequence"></div>
       </div>
       <div class="row leg legid3">
-        <div class="leg-id">L2</div>
+        <div class="leg-id">L2 (3)</div>
+        <div class="leg-sequence"></div>
       </div>
       <div class="row leg legid4">
-        <div class="leg-id">R2</div>
+        <div class="leg-id">R2 (4)</div>
+        <div class="leg-sequence"></div>
       </div>
       <div class="row leg legid5">
-        <div class="leg-id">L3</div>
+        <div class="leg-id">L3 (5)</div>
+        <div class="leg-sequence"></div>
       </div>
       <div class="row leg legid6">
-        <div class="leg-id">R3</div>
+        <div class="leg-id">R3 (6)</div>
+        <div class="leg-sequence"></div>
       </div>
       
       <div id="cursor">
