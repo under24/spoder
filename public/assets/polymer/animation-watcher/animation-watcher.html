@@ -13,51 +13,69 @@
             statePath: 'animation.pointers'
           },
           misc1: {
-            statePath: 'misc.1.transverseAnimationCircle'
+            statePath: 'misc.1.transverseAnimationCircle',
+            observer: 'observeMisc'
           },
           misc2: {
-            statePath: 'misc.2.transverseAnimationCircle'
+            statePath: 'misc.2.transverseAnimationCircle',
+            observer: 'observeMisc'
           },
           misc3: {
-            statePath: 'misc.3.transverseAnimationCircle'
+            statePath: 'misc.3.transverseAnimationCircle',
+            observer: 'observeMisc'
           },
           misc4: {
-            statePath: 'misc.4.transverseAnimationCircle'
+            statePath: 'misc.4.transverseAnimationCircle',
+            observer: 'observeMisc'
           },
           misc5: {
-            statePath: 'misc.5.transverseAnimationCircle'
+            statePath: 'misc.5.transverseAnimationCircle',
+            observer: 'observeMisc'
           },
           misc6: {
-            statePath: 'misc.6.transverseAnimationCircle'
+            statePath: 'misc.6.transverseAnimationCircle',
+            observer: 'observeMisc'
           },
           joystick: {
-            statePath: 'animation.joystick'
+            statePath: 'animation.joystick',
+            observer: 'observeJoystick'
           }
         };
       }
       
-      static get observers() {
-        return [
-          'observeAnimationPointer(misc1, joystick)',
-          'observeAnimationPointer(misc2, joystick)',
-          'observeAnimationPointer(misc3, joystick)',
-          'observeAnimationPointer(misc4, joystick)',
-          'observeAnimationPointer(misc5, joystick)',
-          'observeAnimationPointer(misc6, joystick)'
-        ]
+      observeJoystick(joystick) {
+        if (!this.misc1 || !this.misc2 || !this.misc3 || !this.misc4 || !this.misc5 || !this.misc6) return;
+
+        let payload = {};
+        for (let i = 1; i <= 6; i++) {
+          payload[i] = {};
+          
+          switch (this.legs[i].side) {
+            case 'left':
+              payload[i].x = this[`misc${i}`].centerX - this[`misc${i}`].radius * (joystick.x / 100); break;
+            case 'right':
+              payload[i].x = this[`misc${i}`].centerX + this[`misc${i}`].radius * (joystick.x / 100); break;
+          }
+          payload[i].y = this[`misc${i}`].centerY - this[`misc${i}`].radius * (joystick.y / 100);
+        }
+        
+        store.dispatch({
+          type: "ANIMATION_POINTERS_CHANGED_BATCHED",
+          payload
+        });
       }
       
-      observeAnimationPointer(misc, joystick) {
-        if (misc === undefined || joystick === undefined || this.legs === undefined) return;
+      observeMisc(misc) {
+        if (misc === undefined || this.joystick === undefined || this.legs === undefined) return;
         
         let x;
         switch (this.legs[misc.legId].side) {
           case 'left':
-            x = misc.centerX - misc.radius * (joystick.x / 100); break;
+            x = misc.centerX - misc.radius * (this.joystick.x / 100); break;
           case 'right':
-            x = misc.centerX + misc.radius * (joystick.x / 100); break;
+            x = misc.centerX + misc.radius * (this.joystick.x / 100); break;
         }
-        let y = misc.centerY - misc.radius * (joystick.y / 100);
+        let y = misc.centerY - misc.radius * (this.joystick.y / 100);
         
         if (this.animationPointers[misc.legId].x === x &&
             this.animationPointers[misc.legId].y === y) return;
@@ -70,7 +88,6 @@
       }
 
     }
-
     window.customElements.define(animationWatcher.is, animationWatcher);
   </script>
 </dom-module>
