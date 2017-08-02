@@ -22,9 +22,9 @@
       coxa-screen-angle="[[angles.coxaScreenAngle]]"
       impossible-range="[[metaData.impossibleRange]]"
       leg-length="[[misc.transverseLegLength]]"
-      animation-center-coords="[[computeAnimationCenterCoords(animationCircle, viewOffsets)]]"
-      animation-circle-diameter="[[animationCircle.diameter]]"
-      animation-pointer="[[computeAnimationPointer(animationPointer, viewOffsets)]]"
+      movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets)]]"
+      movement-circle-diameter="[[movementCircle.diameter]]"
+      movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets)]]"
       offset-rotation="[[coords.offsetRotation]]"
       output="{{baseOutput}}">
     </transverse-view-base>
@@ -60,7 +60,7 @@
               return state.viewOffsets[this.legId];
             }
           },
-          animationCircle: {
+          movementCircle: {
             statePath(state) {
               return state.movement.circles[this.legId];
             }
@@ -80,7 +80,7 @@
               return state.angles[this.legId];
             }
           },
-          animationPointer: {
+          movementPointer: {
             statePath(state) {
               return state.movement.pointers[this.legId];
             }
@@ -127,12 +127,12 @@
         });
       }
       
-      computeAnimationCenterCoords(animationCircle, viewOffsets) {
-        if (animationCircle === undefined || viewOffsets === undefined) return;
+      computeMovementCenterCoords(movementCircle, viewOffsets) {
+        if (movementCircle === undefined || viewOffsets === undefined) return;
         
         return {
-          x: animationCircle.centerX + viewOffsets.transverseViewOffsetX,
-          y: animationCircle.centerY + viewOffsets.transverseViewOffsetY,
+          x: movementCircle.centerX + viewOffsets.transverseViewOffsetX,
+          y: movementCircle.centerY + viewOffsets.transverseViewOffsetY,
         }
       }
       
@@ -142,12 +142,12 @@
         return coord + offset;
       }
       
-      computeAnimationPointer(animationPointer, viewOffsets) {
-        if (animationPointer === undefined || viewOffsets === undefined || !Object.keys(animationPointer).length) return;
+      computeMovementPointer(movementPointer, viewOffsets) {
+        if (movementPointer === undefined || viewOffsets === undefined || !Object.keys(movementPointer).length) return;
         
         return {
-          x: animationPointer.x + viewOffsets.transverseViewOffsetX,
-          y: animationPointer.y + viewOffsets.transverseViewOffsetY
+          x: movementPointer.x + viewOffsets.transverseViewOffsetX,
+          y: movementPointer.y + viewOffsets.transverseViewOffsetY
         };
       }
 
