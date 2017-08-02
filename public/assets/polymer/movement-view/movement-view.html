@@ -1,7 +1,7 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../new-digital-joystick/new-digital-joystick.html">
 
-<dom-module id="animation-view">
+<dom-module id="movement-view">
   <template>
     <style>
       :host {
@@ -25,8 +25,8 @@
   </template>
 
   <script>
-    class animationView extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'animation-view'; }
+    class movementView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'movement-view'; }
       static get properties() {
         return {
           joystick: {
@@ -57,7 +57,6 @@
       }
 
     }
-
-    window.customElements.define(animationView.is, animationView);
+    window.customElements.define(movementView.is, movementView);
   </script>
 </dom-module>

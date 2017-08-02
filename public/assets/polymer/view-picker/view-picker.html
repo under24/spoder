@@ -6,7 +6,7 @@
 <link rel="import" href="../transverse-animation-view/transverse-animation-view.html">
 <link rel="import" href="../sagittal-animation-view/sagittal-animation-view.html">
 <link rel="import" href="../rotation-modifier-view/rotation-modifier-view.html">
-<link rel="import" href="../animation-view/animation-view.html">
+<link rel="import" href="../movement-view/movement-view.html">
 <link rel="import" href="../sagittal-view/sagittal-view.html">
 <link rel="import" href="../transverse-view/transverse-view.html">
 <link rel="import" href="../sequencer-view/sequencer-view.html">
@@ -72,7 +72,7 @@
           <option value="shift-modifier-view">Shift Modifier View</option>
           <option value="transverse-animation-view">Transverse Animation View</option>
           <option value="sagittal-animation-view">Sagittal Animation View</option>
-          <option value="animation-view">Animation View</option>
+          <option value="movement-view">Movement View</option>
           <option value="sagittal-view">Sagittal View</option>
           <option value="transverse-view">Transverse View</option>
           <option value="sequencer-view">Sequencer View</option>
@@ -115,9 +115,9 @@
       <sagittal-animation-view></sagittal-animation-view>
     </template>
     
-    <!-- animation view -->
-    <template is="dom-if" if="[[computeView('animation-view', view)]]" restamp>
-      <animation-view></animation-view>
+    <!-- movement view -->
+    <template is="dom-if" if="[[computeView('movement-view', view)]]" restamp>
+      <movement-view></movement-view>
     </template>
     
     <!-- sagittal view -->
