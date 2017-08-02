@@ -1,20 +1,20 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 
-<dom-module id="animation-watcher">
+<dom-module id="movement-watcher">
   <script>
-    class animationWatcher extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'animation-watcher'; }
+    class movementWatcher extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'movement-watcher'; }
       static get properties() {
         return {
           legs: {
             statePath: 'legs'
           },
           joystick: {
-            statePath: 'animation.joystick',
+            statePath: 'movement.joystick',
             observer: 'observeJoystick'
           },
           circles: {
-            statePath: 'animation.circles',
+            statePath: 'movement.circles',
             observer: 'observeCircles'
           }
         }
@@ -71,6 +71,6 @@
       }
 
     }
-    window.customElements.define(animationWatcher.is, animationWatcher);
+    window.customElements.define(movementWatcher.is, movementWatcher);
   </script>
 </dom-module>
