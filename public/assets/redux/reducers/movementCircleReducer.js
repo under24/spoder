@@ -1,6 +1,6 @@
 'use strict';
 
-let animationCircleReducerInitState = {
+let movementCircleReducerInitState = {
   // 1: {},
   // 2: {},
   // 3: {},
@@ -9,7 +9,7 @@ let animationCircleReducerInitState = {
   // 6: {}
 }
 
-const animationCircleReducer = (state = animationCircleReducerInitState, action) => {
+const movementCircleReducer = (state = movementCircleReducerInitState, action) => {
   switch (action.type) {
     case "LEG_ANGLE_CHANGED":
       {

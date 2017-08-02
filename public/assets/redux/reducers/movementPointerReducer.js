@@ -1,6 +1,6 @@
 'use strict';
 
-let animationPointerReducerInitState = {
+let movementPointerReducerInitState = {
   1: {},
   2: {},
   3: {},
@@ -9,7 +9,7 @@ let animationPointerReducerInitState = {
   6: {}
 }
 
-const animationPointerReducer = (state = animationPointerReducerInitState, action) => {
+const movementPointerReducer = (state = movementPointerReducerInitState, action) => {
   switch (action.type) {
     // case "ANIMATION_POINTER_CHANGED":
     //   {

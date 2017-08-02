@@ -10,9 +10,9 @@ const modifierReducer = combineReducers({
 });
 
 const animationReducer = combineReducers({
-  joystick: animationJoystickReducer,
-  pointers: animationPointerReducer,
-  circles: animationCircleReducer
+  joystick: movementJoystickReducer,
+  pointers: movementPointerReducer,
+  circles: movementCircleReducer
 });
 
 const reducers = combineReducers({

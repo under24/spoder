@@ -1,11 +1,11 @@
 'use strict';
 
-let animationJoystickReducerInitState = {
+let movementJoystickReducerInitState = {
   x: 0,
   y: 0
 }
 
-const animationJoystickReducer = (state = animationJoystickReducerInitState, action) => {
+const movementJoystickReducer = (state = movementJoystickReducerInitState, action) => {
   switch (action.type) {
     case "ANIMATION_JOYSTICK_VALUES_CHANGED":
       {
