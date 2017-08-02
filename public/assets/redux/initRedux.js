@@ -9,7 +9,7 @@ const modifierReducer = combineReducers({
   rotation: rotationReducer
 });
 
-const animationReducer = combineReducers({
+const movementReducer = combineReducers({
   joystick: movementJoystickReducer,
   pointers: movementPointerReducer,
   circles: movementCircleReducer
@@ -24,7 +24,7 @@ const reducers = combineReducers({
   coords: coordsReducer,
   misc: miscReducer,
   viewOffsets: viewOffsetsReducer,
-  animation: animationReducer
+  animation: movementReducer
 });
 
 const store = createStore(
