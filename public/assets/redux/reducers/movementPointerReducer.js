@@ -19,7 +19,7 @@ const movementPointerReducer = (state = movementPointerReducerInitState, action)
     //       { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
     //     );
     //   }
-    case "ANIMATION_POINTERS_CHANGED_BATCHED":
+    case "MOVEMENT_POINTERS_CHANGED_BATCHED":
       {
         let newState = {};
         

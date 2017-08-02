@@ -116,24 +116,24 @@
         };
       }
       
-      getAnimationCircleData(animationReachRadius, legId) {
-        let animationCircleDiameter = PU.getTransverseAnimationCircleDiameter(animationReachRadius, this.metaData),
-            animationCircleRadius = animationCircleDiameter / 2,
-            animationCircleCenterCoords = PU.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], animationReachRadius);
+      getMovementCircleData(movementReachRadius, legId) {
+        let movementCircleDiameter = PU.getTransverseAnimationCircleDiameter(movementReachRadius, this.metaData),
+            movementCircleRadius = movementCircleDiameter / 2,
+            movementCircleCenterCoords = PU.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], movementReachRadius);
         
         return {
-          centerX: animationCircleCenterCoords.x,
-          centerY: animationCircleCenterCoords.y,
-          radius: animationCircleRadius,
-          diameter: animationCircleDiameter
+          centerX: movementCircleCenterCoords.x,
+          centerY: movementCircleCenterCoords.y,
+          radius: movementCircleRadius,
+          diameter: movementCircleDiameter
         }
       }
       
-      dispatchData(legId, angles, misc, animationCircle) {
+      dispatchData(legId, angles, misc, movementCircle) {
         let payload = { angles };
         
         if (misc) payload.misc = misc;
-        if (animationCircle) payload.animationCircle = animationCircle;
+        if (movementCircle) payload.movementCircle = movementCircle;
         
         store.dispatch({
           type: "LEG_ANGLE_CHANGED",
@@ -180,8 +180,8 @@
           angles = this.calcForOutOfReachMode(legId, view);
         
         let misc = this.getSagittalMiscData(legId, angles);
-        let animationCircle = this.getAnimationCircleData(misc.transverseReachRadius, legId);
-        this.dispatchData(legId, angles, misc, animationCircle);
+        let movementCircle = this.getMovementCircleData(misc.transverseReachRadius, legId);
+        this.dispatchData(legId, angles, misc, movementCircle);
       }
       
       calcForWithinReachMode(legId, view) {

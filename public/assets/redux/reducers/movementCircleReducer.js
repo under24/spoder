@@ -13,12 +13,12 @@ const movementCircleReducer = (state = movementCircleReducerInitState, action) =
   switch (action.type) {
     case "LEG_ANGLE_CHANGED":
       {
-        if (!action.payload.animationCircle) return state;
+        if (!action.payload.movementCircle) return state;
         
         return Object.assign(
           {}, 
           state,
-          { [action.legId]: Object.assign({}, state[action.legId], action.payload.animationCircle) }
+          { [action.legId]: Object.assign({}, state[action.legId], action.payload.movementCircle) }
         );
       }
   }

@@ -44,7 +44,7 @@
             newValue.yShift === this.joystick.y) return;
         
         store.dispatch({
-          type: "ANIMATION_JOYSTICK_VALUES_CHANGED",
+          type: "MOVEMENT_JOYSTICK_VALUES_CHANGED",
           payload: {
             x: newValue.xShift,
             y: newValue.yShift

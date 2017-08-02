@@ -7,7 +7,7 @@ let movementJoystickReducerInitState = {
 
 const movementJoystickReducer = (state = movementJoystickReducerInitState, action) => {
   switch (action.type) {
-    case "ANIMATION_JOYSTICK_VALUES_CHANGED":
+    case "MOVEMENT_JOYSTICK_VALUES_CHANGED":
       {
         return Object.assign({}, state, action.payload);
       }
