@@ -62,7 +62,7 @@
           },
           animationCircle: {
             statePath(state) {
-              return state.animation.circles[this.legId];
+              return state.movement.circles[this.legId];
             }
           },
           misc: {
@@ -82,7 +82,7 @@
           },
           animationPointer: {
             statePath(state) {
-              return state.animation.pointers[this.legId];
+              return state.movement.pointers[this.legId];
             }
           },
           // upcoming props
@@ -152,7 +152,6 @@
       }
 
     }
-
     window.customElements.define(transverseView.is, transverseView);
   </script>
 </dom-module>

@@ -27,10 +27,10 @@ let PU = {
   getTransverseReachRadius(transverseReachCoords) {
     return transverseReachCoords.endX - transverseReachCoords.beginningX;
   },
-  getTransverseAnimationCircleDiameter(transverseReachRadius, metaData) {
+  getMovementCircleDiameter(transverseReachRadius, metaData) {
     return transverseReachRadius - metaData.impossibleRange;
   },
-  getAnimationCenterCoords(metaData, coords, transverseReachRadius) {
+  getMovementCenterCoords(metaData, coords, transverseReachRadius) {
     // distance to the center of the circle + offset from impossible range
     let distance = (transverseReachRadius + metaData.impossibleRange) / 2,
         finalCoords;

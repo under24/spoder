@@ -116,10 +116,10 @@
         };
       }
       
-      getMovementCircleData(movementReachRadius, legId) {
-        let movementCircleDiameter = PU.getTransverseAnimationCircleDiameter(movementReachRadius, this.metaData),
+      getMovementCircleData(transverseReachRadius, legId) {
+        let movementCircleDiameter = PU.getMovementCircleDiameter(transverseReachRadius, this.metaData),
             movementCircleRadius = movementCircleDiameter / 2,
-            movementCircleCenterCoords = PU.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], movementReachRadius);
+            movementCircleCenterCoords = PU.getMovementCenterCoords(this.metaData, this[`coords${legId}`], transverseReachRadius);
         
         return {
           centerX: movementCircleCenterCoords.x,
