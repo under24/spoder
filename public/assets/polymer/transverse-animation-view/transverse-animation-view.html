@@ -134,30 +134,30 @@
         <div class="cursor leg5 left" style$="[[computeCursor(coords, '5')]]"></div>
         <div class="cursor leg6 right" style$="[[computeCursor(coords, '6')]]"></div>
         
-        <div class="movementPointer pointer1 left" style$="[[computeAnimationPointer(movementPointers, '1')]]"></div>
-        <div class="movementPointer pointer2 right" style$="[[computeAnimationPointer(movementPointers, '2')]]"></div>
-        <div class="movementPointer pointer3 left" style$="[[computeAnimationPointer(movementPointers, '3')]]"></div>
-        <div class="movementPointer pointer4 right" style$="[[computeAnimationPointer(movementPointers, '4')]]"></div>
-        <div class="movementPointer pointer5 left" style$="[[computeAnimationPointer(movementPointers, '5')]]"></div>
-        <div class="movementPointer pointer6 right" style$="[[computeAnimationPointer(movementPointers, '6')]]"></div>
+        <div class="movementPointer pointer1 left" style$="[[computeMovementPointer(movementPointers, '1')]]"></div>
+        <div class="movementPointer pointer2 right" style$="[[computeMovementPointer(movementPointers, '2')]]"></div>
+        <div class="movementPointer pointer3 left" style$="[[computeMovementPointer(movementPointers, '3')]]"></div>
+        <div class="movementPointer pointer4 right" style$="[[computeMovementPointer(movementPointers, '4')]]"></div>
+        <div class="movementPointer pointer5 left" style$="[[computeMovementPointer(movementPointers, '5')]]"></div>
+        <div class="movementPointer pointer6 right" style$="[[computeMovementPointer(movementPointers, '6')]]"></div>
         
-        <div class="movementCircleCenter circleCenter1" style$="[[computeAnimationCircleCenter(movementCircles, '1')]]">
-          <div class="movementCircle circle1" style$="[[computeAnimationCircle(movementCircles, '1')]]"></div>
+        <div class="movementCircleCenter circleCenter1" style$="[[computeMovementCircleCenter(movementCircles, '1')]]">
+          <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '1')]]"></div>
         </div>
-        <div class="movementCircleCenter circleCenter2" style$="[[computeAnimationCircleCenter(movementCircles, '2')]]">
-          <div class="movementCircle circle1" style$="[[computeAnimationCircle(movementCircles, '2')]]"></div>
+        <div class="movementCircleCenter circleCenter2" style$="[[computeMovementCircleCenter(movementCircles, '2')]]">
+          <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '2')]]"></div>
         </div>
-        <div class="movementCircleCenter circleCenter3" style$="[[computeAnimationCircleCenter(movementCircles, '3')]]">
-          <div class="movementCircle circle1" style$="[[computeAnimationCircle(movementCircles, '3')]]"></div>
+        <div class="movementCircleCenter circleCenter3" style$="[[computeMovementCircleCenter(movementCircles, '3')]]">
+          <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '3')]]"></div>
         </div>
-        <div class="movementCircleCenter circleCenter4" style$="[[computeAnimationCircleCenter(movementCircles, '4')]]">
-          <div class="movementCircle circle1" style$="[[computeAnimationCircle(movementCircles, '4')]]"></div>
+        <div class="movementCircleCenter circleCenter4" style$="[[computeMovementCircleCenter(movementCircles, '4')]]">
+          <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '4')]]"></div>
         </div>
-        <div class="movementCircleCenter circleCenter5" style$="[[computeAnimationCircleCenter(movementCircles, '5')]]">
-          <div class="movementCircle circle1" style$="[[computeAnimationCircle(movementCircles, '5')]]"></div>
+        <div class="movementCircleCenter circleCenter5" style$="[[computeMovementCircleCenter(movementCircles, '5')]]">
+          <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '5')]]"></div>
         </div>
-        <div class="movementCircleCenter circleCenter6" style$="[[computeAnimationCircleCenter(movementCircles, '6')]]">
-          <div class="movementCircle circle1" style$="[[computeAnimationCircle(movementCircles, '6')]]"></div>
+        <div class="movementCircleCenter circleCenter6" style$="[[computeMovementCircleCenter(movementCircles, '6')]]">
+          <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '6')]]"></div>
         </div>
       </div>
     </div>
@@ -232,7 +232,7 @@
         return x + y + z + c;
       }
       
-      computeAnimationPointer(movementPointers, legId) {
+      computeMovementPointer(movementPointers, legId) {
         let x;
         switch (this.legs[legId].side) {
           case 'left':
@@ -245,7 +245,7 @@
         return x + y;
       }
       
-      computeAnimationCircleCenter(movementCircles, legId) {
+      computeMovementCircleCenter(movementCircles, legId) {
         let x;
         switch (this.legs[legId].side) {
           case 'left':
@@ -258,7 +258,7 @@
         return x + y;
       }
       
-      computeAnimationCircle(movementCircles, legId) {
+      computeMovementCircle(movementCircles, legId) {
         let width = `width: ${movementCircles[legId].diameter}px;`;
         let height = `height: ${movementCircles[legId].diameter}px;`;
         
