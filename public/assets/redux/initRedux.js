@@ -11,7 +11,8 @@ const modifierReducer = combineReducers({
 
 const animationReducer = combineReducers({
   joystick: animationJoystickReducer,
-  pointers: animationPointerReducer
+  pointers: animationPointerReducer,
+  circles: animationCircleReducer
 });
 
 const reducers = combineReducers({

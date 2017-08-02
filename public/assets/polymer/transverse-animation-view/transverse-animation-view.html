@@ -141,23 +141,23 @@
         <div class="animationPointer pointer5 left" style$="[[computeAnimationPointer(animationPointers, '5')]]"></div>
         <div class="animationPointer pointer6 right" style$="[[computeAnimationPointer(animationPointers, '6')]]"></div>
         
-        <div class="animationCircleCenter circleCenter1" style$="[[computeAnimationCircleCenter(misc, '1')]]">
-          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '1')]]"></div>
+        <div class="animationCircleCenter circleCenter1" style$="[[computeAnimationCircleCenter(animationCircles, '1')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(animationCircles, '1')]]"></div>
         </div>
-        <div class="animationCircleCenter circleCenter2" style$="[[computeAnimationCircleCenter(misc, '2')]]">
-          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '2')]]"></div>
+        <div class="animationCircleCenter circleCenter2" style$="[[computeAnimationCircleCenter(animationCircles, '2')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(animationCircles, '2')]]"></div>
         </div>
-        <div class="animationCircleCenter circleCenter3" style$="[[computeAnimationCircleCenter(misc, '3')]]">
-          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '3')]]"></div>
+        <div class="animationCircleCenter circleCenter3" style$="[[computeAnimationCircleCenter(animationCircles, '3')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(animationCircles, '3')]]"></div>
         </div>
-        <div class="animationCircleCenter circleCenter4" style$="[[computeAnimationCircleCenter(misc, '4')]]">
-          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '4')]]"></div>
+        <div class="animationCircleCenter circleCenter4" style$="[[computeAnimationCircleCenter(animationCircles, '4')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(animationCircles, '4')]]"></div>
         </div>
-        <div class="animationCircleCenter circleCenter5" style$="[[computeAnimationCircleCenter(misc, '5')]]">
-          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '5')]]"></div>
+        <div class="animationCircleCenter circleCenter5" style$="[[computeAnimationCircleCenter(animationCircles, '5')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(animationCircles, '5')]]"></div>
         </div>
-        <div class="animationCircleCenter circleCenter6" style$="[[computeAnimationCircleCenter(misc, '6')]]">
-          <div class="animationCircle circle1" style$="[[computeAnimationCircle(misc, '6')]]"></div>
+        <div class="animationCircleCenter circleCenter6" style$="[[computeAnimationCircleCenter(animationCircles, '6')]]">
+          <div class="animationCircle circle1" style$="[[computeAnimationCircle(animationCircles, '6')]]"></div>
         </div>
       </div>
     </div>
@@ -177,6 +177,9 @@
           },
           angles: {
             statePath: 'angles'
+          },
+          animationCircles: {
+            statePath: 'animation.circles'
           },
           misc: {
             statePath: 'misc'
@@ -242,22 +245,22 @@
         return x + y;
       }
       
-      computeAnimationCircleCenter(misc, legId) {
+      computeAnimationCircleCenter(animationCircles, legId) {
         let x;
         switch (this.legs[legId].side) {
           case 'left':
-            x = `left: ${misc[legId].transverseAnimationCircle.centerX}px;`; break;
+            x = `left: ${animationCircles[legId].centerX}px;`; break;
           case 'right':
-            x = `right: ${misc[legId].transverseAnimationCircle.centerX}px;`; break;
+            x = `right: ${animationCircles[legId].centerX}px;`; break;
         }
-        let y = `top: ${misc[legId].transverseAnimationCircle.centerY}px;`;
+        let y = `top: ${animationCircles[legId].centerY}px;`;
         
         return x + y;
       }
       
-      computeAnimationCircle(misc, legId) {
-        let width = `width: ${misc[legId].transverseAnimationCircle.diameter}px;`;
-        let height = `height: ${misc[legId].transverseAnimationCircle.diameter}px;`;
+      computeAnimationCircle(animationCircles, legId) {
+        let width = `width: ${animationCircles[legId].diameter}px;`;
+        let height = `height: ${animationCircles[legId].diameter}px;`;
         
         return width + height;
       }

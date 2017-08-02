@@ -91,10 +91,7 @@
         // transverse misc data
         let transverseReachCoords = PU.getTransverseReachCoords(this[`coords${legId}`], this.metaData),
             transverseReachRadius = PU.getTransverseReachRadius(transverseReachCoords),
-            transverseLegLength = PU.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords),
-            transverseAnimationCircleDiameter = PU.getTransverseAnimationCircleDiameter(transverseReachRadius, this.metaData),
-            transverseAnimationCircleRadius = transverseAnimationCircleDiameter / 2,
-            transverseAnimationCircleCenterCoords = PU.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], transverseReachRadius);
+            transverseLegLength = PU.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords);
 
         return {
           sagittalDiff: { dx, dy },
@@ -104,13 +101,6 @@
           sagittalWithinReach,
           transverseReachCoords,
           transverseReachRadius,
-          transverseAnimationCircle: {
-            centerX: transverseAnimationCircleCenterCoords.x,
-            centerY: transverseAnimationCircleCenterCoords.y,
-            radius: transverseAnimationCircleRadius,
-            diameter: transverseAnimationCircleDiameter,
-            legId
-          },
           transverseLegLength
         };
       }
@@ -126,11 +116,29 @@
         };
       }
       
-      dispatchData(legId, angles, misc) {
+      getAnimationCircleData(animationReachRadius, legId) {
+        let animationCircleDiameter = PU.getTransverseAnimationCircleDiameter(animationReachRadius, this.metaData),
+            animationCircleRadius = animationCircleDiameter / 2,
+            animationCircleCenterCoords = PU.getAnimationCenterCoords(this.metaData, this[`coords${legId}`], animationReachRadius);
+        
+        return {
+          centerX: animationCircleCenterCoords.x,
+          centerY: animationCircleCenterCoords.y,
+          radius: animationCircleRadius,
+          diameter: animationCircleDiameter
+        }
+      }
+      
+      dispatchData(legId, angles, misc, animationCircle) {
+        let payload = { angles };
+        
+        if (misc) payload.misc = misc;
+        if (animationCircle) payload.animationCircle = animationCircle;
+        
         store.dispatch({
           type: "LEG_ANGLE_CHANGED",
           legId: legId,
-          payload: { angles, misc }
+          payload
         });
       }
       
@@ -172,7 +180,8 @@
           angles = this.calcForOutOfReachMode(legId, view);
         
         let misc = this.getSagittalMiscData(legId, angles);
-        this.dispatchData(legId, angles, misc);
+        let animationCircle = this.getAnimationCircleData(misc.transverseReachRadius, legId);
+        this.dispatchData(legId, angles, misc, animationCircle);
       }
       
       calcForWithinReachMode(legId, view) {
