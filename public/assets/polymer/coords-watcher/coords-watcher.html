@@ -167,8 +167,8 @@
         if (this.angles[legId].coxaServoAngle !== coxaCalculated.servo)
           angles.coxaServoAngle = coxaCalculated.servo;
         
-        let misc = this.getTransverseMiscData(legId, angles);
-        this.dispatchData(legId, angles, misc);
+        // let misc = this.getTransverseMiscData(legId, angles);
+        this.dispatchData(legId, angles);
       }
       
       positionFemurAndTibia(legId, view) {
