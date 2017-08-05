@@ -69,7 +69,7 @@
         return { screen, servo: +servo.toFixed(0) };
       }
       
-      getSagittalMiscData(legId, angles) {
+      getSagittalMiscData(legId) {
         // sagittal boundary ball xy
         let sbx = this[`coords${legId}`].sagittalBaseX;
         let sby = this[`coords${legId}`].sagittalBaseY;
@@ -179,7 +179,7 @@
         else
           angles = this.calcForOutOfReachMode(legId, view);
         
-        let misc = this.getSagittalMiscData(legId, angles);
+        let misc = this.getSagittalMiscData(legId);
         let movementCircle = this.getMovementCircleData(misc.transverseReachRadius, legId);
         this.dispatchData(legId, angles, misc, movementCircle);
       }
