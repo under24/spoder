@@ -1,7 +1,5 @@
 'use strict';
 
-// BASE_Y_LEVEL_MODIFIER_CHANGED
-
 let viewReducerInitState = {
   transverseViewLegId: 1,
   sagittalViewLegId: 1

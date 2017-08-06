@@ -43,7 +43,7 @@
         if (this.levelModifier && newValue.yShift === this.levelModifier.levelModifier) return;
         
         store.dispatch({
-          type: "BASE_Y_LEVEL_MODIFIER_CHANGED",
+          type: "LEVEL_MODIFIER_CHANGED",
           payload: { levelModifier: newValue.yShift }
         });
       }
