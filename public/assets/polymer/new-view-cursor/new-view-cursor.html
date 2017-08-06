@@ -1,0 +1,102 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="new-view-cursor">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        background-color: rgba(255, 0, 0, 0.35);
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        border-radius: 100%;
+        top: 0px;
+      }
+      :host([side=left]) {
+        right: initial !important;
+        left: 0px;
+      }
+      :host([side=right]) {
+        left: initial !important;
+        right: 0px;
+      }
+    </style>
+  </template>
+
+  <script>
+    class newViewCursor extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'new-view-cursor'; }
+      static get properties() {
+        return {
+          side: {
+            reflectToAttribute: true
+          },
+          xy: {
+            observer: 'observeXY'
+          },
+          output: {
+            notify: true
+          }
+        };
+      }
+      
+      connectedCallback() {
+        super.connectedCallback();
+
+        this.onmousedown = e => {
+          let clickCoords = { x: e.pageX, y: e.pageY };
+
+          document.onmousemove = e => {
+            let diffX = clickCoords.x - e.pageX;
+            let diffY = clickCoords.y - e.pageY;
+            
+            // the position is the same
+            if (diffX === 0 && diffY === 0) return;
+            
+            // filter out 0 value
+            let payload = {};
+            if (diffX !== 0) {
+              switch (this.side) {
+                case 'left':
+                  payload.x = diffX; break;
+                case 'right':
+                  payload.x = MU.flipNumber(diffX); break;
+              }
+              // update prev coords
+              clickCoords.x = e.pageX;
+            }
+            if (diffY !== 0) {
+              payload.y = diffY;
+              // update prev coords
+              clickCoords.y = e.pageY;
+            }
+            
+            // export data to the upper component
+            this.output = payload;
+            
+            e.preventDefault();
+            e.stopPropagation();
+          };
+          document.onmouseup = () => {
+            document.onmousemove = null;
+            document.onmouseup = null;
+          }
+          e.preventDefault();
+          e.stopPropagation()
+        }
+      }
+      
+      observeXY(xy) {
+        console.log(xy.x,xy.y);
+        switch (this.side) {
+          case 'left':
+            this.style.transform = `translate3d(calc(-50% + ${xy.x}px), calc(-50% + ${xy.y}px), 0px)`; break;
+          case 'right':
+            this.style.transform = `translate3d(calc(50% + ${-xy.x}px), calc(-50% + ${xy.y}px), 0px)`; break;
+        }
+      }
+
+    }
+    window.customElements.define(newViewCursor.is, newViewCursor);
+  </script>
+</dom-module>
