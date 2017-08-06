@@ -42,7 +42,8 @@
         border: 1px dotted black;
         border-radius: 100%;
         position: absolute;
-        transform: translate(-50%, -50%);
+        top: 0px;
+        left: 0px;
         z-index: 1;
         box-sizing: border-box;
       }
@@ -76,10 +77,11 @@
       }
       :host([debug]) #boundaryCircle {
         position: absolute;
+        top: 0px;
+        left: 0px;
         height: 6px;
         width: 6px;
         background-color: red;
-        transform: translate(-50%,-50%);
         border-radius: 100%;
       }
       :host([debug]) #centerGuideline {
@@ -133,8 +135,8 @@
           <div>Size (px): [[size]]</div>
           <div>Rocker side (%): [[rockerSize]]</div>
           <div>Radius (px): [[radius]]</div>
-          <div>RockerX (px): [[rockerX]]</div>
-          <div>RockerY (px): [[rockerY]]</div>
+          <div>RockerX (px): [[rockerXY.x]]</div>
+          <div>RockerY (px): [[rockerXY.y]]</div>
           <div>Angle (deg): [[angle]]</div>
           <div>DiffX (px): [[diffX]]</div>
           <div>DiffY (px): [[diffY]]</div>
@@ -174,11 +176,8 @@
             type: Number,
             value: 30
           },
-          rockerX: {
-            observer: 'observeRockerX'
-          },
-          rockerY: {
-            observer: 'observeRockerY'
+          rockerXY: {
+            observer: 'observeRockerXY'
           },
           centerX: Number,
           centerY: Number,
@@ -230,7 +229,7 @@
       attachRockerHandler() {
         this.$.rocker.onmousedown = e => {
           let clickCoords = { x: e.pageX, y: e.pageY };
-          let initCoords = { x: this.rockerX, y: this.rockerY };
+          let initCoords = { x: this.rockerXY.x, y: this.rockerXY.y };
           document.onmousemove = e => {
             let dragX = e.pageX - clickCoords.x;
             let dragY = e.pageY - clickCoords.y;
@@ -261,12 +260,8 @@
         }
       }
       
-      redrawX(x) {
-        this.$.rocker.style.left = `${x}px`;
-      }
-      
-      redrawY(y) {
-        this.$.rocker.style.top = `${y}px`;
+      redrawXY(newXY) {
+        this.$.rocker.style.transform = `translate3d(calc(-50% + ${newXY.x}px), calc(-50% + ${newXY.y}px), 0px)`;
       }
       
       drawCenterGuideline(distInPxls, screenAngle) {
@@ -275,8 +270,7 @@
       }
       
       drawBoundaryBall(bx, by) {
-        this.$.boundaryCircle.style.left = `${bx}px`;
-        this.$.boundaryCircle.style.top = `${by}px`;
+        this.$.boundaryCircle.style.transform = `translate3d(calc(-50% + ${bx}px), calc(-50% + ${by}px), 0px)`;
       }
       
       centerRocker() {
@@ -468,8 +462,10 @@
       
       updateUI(rockerData) {
         // redraw rocker ui
-        this.rockerX = rockerData.rx;
-        this.rockerY = rockerData.ry;
+        this.rockerXY = {
+          x: rockerData.rx,
+          y: rockerData.ry
+        }
         
         // set debug data && redraw debug ui
         if (this.debug) 
@@ -489,8 +485,7 @@
       }
 
     }
-    newDigitalJoystick.prototype.observeRockerX = newDigitalJoystick.prototype.redrawX;
-    newDigitalJoystick.prototype.observeRockerY = newDigitalJoystick.prototype.redrawY;
+    newDigitalJoystick.prototype.observeRockerXY = newDigitalJoystick.prototype.redrawXY;
     newDigitalJoystick.prototype.observeInput = newDigitalJoystick.prototype.processInputFlow;
 
     window.customElements.define(newDigitalJoystick.is, newDigitalJoystick);
