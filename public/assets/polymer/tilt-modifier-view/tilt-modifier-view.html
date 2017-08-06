@@ -47,7 +47,7 @@
             newValue.right === this.tiltModifier.rightTiltModifier) return;
         
         store.dispatch({
-          type: "BASE_Y_TILT_MODIFIER_CHANGED",
+          type: "TILT_MODIFIER_CHANGED",
           payload: {
             backTiltModifier: newValue.bottom,
             frontTiltModifier: newValue.top,

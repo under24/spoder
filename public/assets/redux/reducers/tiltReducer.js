@@ -10,7 +10,7 @@ let tiltReducerInitState = {
 
 const tiltReducer = (state = tiltReducerInitState, action) => {
   switch (action.type) {
-    case "BASE_Y_TILT_MODIFIER_CHANGED":
+    case "TILT_MODIFIER_CHANGED":
       return Object.assign({}, state, action.payload);
   }
   return state;
