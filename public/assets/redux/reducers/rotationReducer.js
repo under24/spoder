@@ -7,7 +7,7 @@ let rotationReducerInitState = {
 
 const rotationReducer = (state = rotationReducerInitState, action) => {
   switch (action.type) {
-    case "BASE_XY_ROTATION_MODIFIER_CHANGED":
+    case "ROTATION_MODIFIER_CHANGED":
       return Object.assign({}, state, action.payload);
   }
   return state;
