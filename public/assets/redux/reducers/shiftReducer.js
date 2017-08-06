@@ -8,7 +8,7 @@ let shiftReducerInitState = {
 
 const shiftReducer = (state = shiftReducerInitState, action) => {
   switch (action.type) {
-    case "BASE_X_SHIFT_MODIFIER_CHANGED":
+    case "SHIFT_MODIFIER_CHANGED":
       return Object.assign({}, state, action.payload);
   }
   return state;
