@@ -228,10 +228,10 @@
       }
       
       attachRockerHandler() {
-        this.$.rocker.onmousedown = (e) => {
+        this.$.rocker.onmousedown = e => {
           let clickCoords = { x: e.pageX, y: e.pageY };
           let initCoords = { x: this.rockerX, y: this.rockerY };
-          document.onmousemove = (e) => {
+          document.onmousemove = e => {
             let dragX = e.pageX - clickCoords.x;
             let dragY = e.pageY - clickCoords.y;
             
@@ -253,7 +253,7 @@
           e.preventDefault();
           e.stopPropagation();
         }
-        this.$.rocker.ondblclick = (e) => {
+        this.$.rocker.ondblclick = e => {
           this.centerRocker();
           
           e.preventDefault();

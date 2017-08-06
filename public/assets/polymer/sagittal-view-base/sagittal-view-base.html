@@ -211,10 +211,10 @@
       connectedCallback() {
         super.connectedCallback();
         
-        this.$.base.onmousedown = (e) => {
+        this.$.base.onmousedown = e => {
           this.clickCoords = {x: e.pageX,y: e.pageY};
 
-          document.onmousemove = (e) => {
+          document.onmousemove = e => {
             let diffX = this.clickCoords.x - e.pageX;
             let diffY = this.clickCoords.y - e.pageY;
             

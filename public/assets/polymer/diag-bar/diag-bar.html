@@ -98,7 +98,7 @@
       }
       
       attachHandler() {
-        this.$.barHandle.onmousedown = (e) => {
+        this.$.barHandle.onmousedown = e => {
           let clickY = e.clientY;
           let value = this.value;
           
