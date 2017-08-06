@@ -155,7 +155,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           { [action.legId]: Object.assign({}, state[action.legId], cursorXY) }
         );
       }
-    case 'BASE_XY_CHANGED':
+    case "BASE_XY_CHANGED":
       {
         return Object.assign(
           {},
@@ -163,7 +163,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
         );
       }
-    case 'BASE_XY_SHIFTED':
+    case "BASE_XY_SHIFTED":
       {
         let baseXY = {};
         if (action.payload.sagittalBaseX)
@@ -203,7 +203,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           { [action.legId]: Object.assign({}, state[action.legId], baseXY) }
         );
       }
-    case 'BASE_Y_LEVEL_MODIFIER_CHANGE_RECALC_BASE_Y':
+    case "APPLY_LEVEL_MODIFIER_TO_COORDS":
       {
         let newState = {};
         
@@ -213,7 +213,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
       
         return newState;
       }
-    case 'BASE_XY_SHIFT_MODIFIER_CHANGE_RECALC_BASE_XY':
+    case "APPLY_SHIFT_MODIFIER_TO_COORDS":
       {
         let newState = {};
         
@@ -244,7 +244,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         
         return newState;
       }
-    case "BASE_Y_TILT_MODIFIER_CHANGE_RECALC_BASE_Y":
+    case "APPLY_TILT_MODIFIER_TO_COORDS":
       {
         let distPct = 0.6666666666666666;
         
@@ -271,7 +271,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         }        
         return newState;
       }
-    case 'BASE_XY_ROTATION_MODIFIER_CHANGE':
+    case "APPLY_ROTATION_MODIFIER_TO_COORDS":
       {
         let baseCenterCoords = RU.getBaseCenter(state);
         
