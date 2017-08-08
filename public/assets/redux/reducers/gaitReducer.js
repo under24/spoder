@@ -1,12 +1,8 @@
 'use strict';
 
 let gaitReducerInitState = {
-  ripple: {
-    sequence: [ [2,5], [3], [1,6], [4] ]
-  },
-  rippleReversed: {
-    sequence: [ [4], [1,6], [3], [2,5] ]
-  }
+  ripple: [ [2,5], [3], [1,6], [4] ],
+  rippleReversed: [ [4], [1,6], [3], [2,5] ]
 }
 
 const gaitReducer = (state = gaitReducerInitState, action) => {
