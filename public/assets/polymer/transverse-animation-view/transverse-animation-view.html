@@ -233,6 +233,8 @@
       }
       
       computeMovementPointer(movementPointers, legId) {
+        if (movementPointers[legId] == undefined) return;
+        
         let x;
         switch (this.legs[legId].side) {
           case 'left':

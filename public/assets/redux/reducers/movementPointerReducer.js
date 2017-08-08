@@ -1,12 +1,12 @@
 'use strict';
 
 let movementPointerReducerInitState = {
-  1: {},
-  2: {},
-  3: {},
-  4: {},
-  5: {},
-  6: {}
+  1: null,
+  2: null,
+  3: null,
+  4: null,
+  5: null,
+  6: null
 }
 
 const movementPointerReducer = (state = movementPointerReducerInitState, action) => {
