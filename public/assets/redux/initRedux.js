@@ -24,7 +24,8 @@ const reducers = combineReducers({
   coords: coordsReducer,
   misc: miscReducer,
   viewOffsets: viewOffsetsReducer,
-  movement: movementReducer
+  movement: movementReducer,
+  gaits: gaitReducer
 });
 
 const store = createStore(
