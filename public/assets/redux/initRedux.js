@@ -13,7 +13,8 @@ const movementReducer = combineReducers({
   joystick: movementJoystickReducer,
   pointers: movementPointerReducer,
   circles: movementCircleReducer,
-  status: movementStatusReducer
+  status: movementStatusReducer,
+  sequence: sequenceReducer
 });
 
 const reducers = combineReducers({
