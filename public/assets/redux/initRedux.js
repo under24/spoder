@@ -14,7 +14,8 @@ const movementReducer = combineReducers({
   pointers: movementPointerReducer,
   circles: movementCircleReducer,
   status: movementStatusReducer,
-  sequence: sequenceReducer
+  sequence: sequenceReducer,
+  sequenceProgress: sequenceProgressReducer
 });
 
 const reducers = combineReducers({
