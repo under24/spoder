@@ -139,14 +139,14 @@
         
         for (let legId in blueprint) {
           if (!blueprint[legId].length) continue;
-          
+
           blueprint[legId].forEach(item => {
              let div = document.createElement('div');
              div.className = 'sequence';
              div.style.width = `${item.endPct - item.startPct}%`;
              div.style.left = `${item.startPct}%`;
              
-             this.$.leg1.querySelector('.leg-sequence').appendChild(div);
+             this.$[`leg${legId}`].querySelector('.leg-sequence').appendChild(div);
           })
         }
       }
