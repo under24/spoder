@@ -261,7 +261,7 @@
       }
       
       redrawXY(newXY) {
-        this.$.rocker.style.transform = `translate3d(calc(-50% + ${newXY.x}px), calc(-50% + ${newXY.y}px), 0px)`;
+        this.$.rocker.style.transform = `translate(calc(-50% + ${newXY.x}px), calc(-50% + ${newXY.y}px))`;
       }
       
       drawCenterGuideline(distInPxls, screenAngle) {
@@ -270,7 +270,7 @@
       }
       
       drawBoundaryBall(bx, by) {
-        this.$.boundaryCircle.style.transform = `translate3d(calc(-50% + ${bx}px), calc(-50% + ${by}px), 0px)`;
+        this.$.boundaryCircle.style.transform = `translate(calc(-50% + ${bx}px), calc(-50% + ${by}px))`;
       }
       
       centerRocker() {
