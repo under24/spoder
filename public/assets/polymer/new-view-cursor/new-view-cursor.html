@@ -90,9 +90,9 @@
         console.log(xy.x,xy.y);
         switch (this.side) {
           case 'left':
-            this.style.transform = `translate3d(calc(-50% + ${xy.x}px), calc(-50% + ${xy.y}px), 0px)`; break;
+            this.style.transform = `translate(calc(-50% + ${xy.x}px), calc(-50% + ${xy.y}px))`; break;
           case 'right':
-            this.style.transform = `translate3d(calc(50% + ${-xy.x}px), calc(-50% + ${xy.y}px), 0px)`; break;
+            this.style.transform = `translate(calc(50% + ${-xy.x}px), calc(-50% + ${xy.y}px))`; break;
         }
       }
 
