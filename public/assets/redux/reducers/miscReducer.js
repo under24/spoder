@@ -37,6 +37,21 @@ const miscReducer = (state = miscReducerInitState, action) => {
           { [action.legId]: Object.assign({}, state[action.legId], action.payload.misc) }
         );
       }
+    case "ANGLES_CHANGED_BATCHED":
+      {
+        if (!action.payload.misc) {
+          console.warn('mics data passed to misc reducer');
+          return state;
+        } 
+        
+        let newState = {};
+        
+        for (let legId in action.payload.misc) {
+          newState[legId] = Object.assign({}, state[legId], action.payload.misc[legId]);
+        }
+        
+        return Object.assign({}, state, newState);
+      }
   }
   return state;
 }
