@@ -1,6 +1,6 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../sagittal-view-base/sagittal-view-base.html">
-<link rel="import" href="../view-cursor/view-cursor.html">
+<link rel="import" href="../new-view-cursor/new-view-cursor.html">
 <link rel="import" href="../view-leg-selector/view-leg-selector.html">
 
 <dom-module id="sagittal-view">
@@ -31,12 +31,11 @@
       output="{{baseOutput}}">
     </sagittal-view-base>
     
-    <view-cursor
+    <new-view-cursor
       side="[[coords.side]]"
-      x="[[computeXY(coords.sagittalCursorX, viewOffsets.sagittalViewOffsetX)]]"
-      y="[[computeXY(coords.sagittalCursorY, viewOffsets.sagittalViewOffsetY)]]"
-      output={{cursorOutput}}> 
-    </view-cursor>
+      xy="[[computeCursorXY(coords.sagittalCursorX, viewOffsets.sagittalViewOffsetX, coords.sagittalCursorY, viewOffsets.sagittalViewOffsetY)]]"
+      output={{cursorOutput}}>
+    </new-view-cursor>
     
     <view-leg-selector 
       position="right"
@@ -151,9 +150,17 @@
         
         return coord + offset;
       }
-
+      
+      computeCursorXY(x, offsetX, y, offsetY) {
+        if (x === undefined || offsetX === undefined || y === undefined || offsetY === undefined) return;
+        
+        return {
+          x: x + offsetX,
+          y: y + offsetY
+        }
+      }
+ 
     }
-
     window.customElements.define(sagittalView.is, sagittalView);
   </script>
 </dom-module>

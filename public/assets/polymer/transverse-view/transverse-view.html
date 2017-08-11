@@ -1,6 +1,6 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../transverse-view-base/transverse-view-base.html">
-<link rel="import" href="../view-cursor/view-cursor.html">
+<link rel="import" href="../new-view-cursor/new-view-cursor.html">
 <link rel="import" href="../view-leg-selector/view-leg-selector.html">
 
 <dom-module id="transverse-view">
@@ -28,13 +28,12 @@
       offset-rotation="[[coords.offsetRotation]]"
       output="{{baseOutput}}">
     </transverse-view-base>
-        
-    <view-cursor
-      side="[[coords.side]]" 
-      x="[[computeXY(coords.transverseCursorX, viewOffsets.transverseViewOffsetX)]]"
-      y="[[computeXY(coords.transverseCursorY, viewOffsets.transverseViewOffsetY)]]"
-      output="{{cursorOutput}}">
-    </view-cursor>
+    
+    <new-view-cursor
+      side="[[coords.side]]"
+      xy="[[computeCursorXY(coords.transverseCursorX, viewOffsets.transverseViewOffsetX, coords.transverseCursorY, viewOffsets.transverseViewOffsetY)]]"
+      output={{cursorOutput}}>
+    </new-view-cursor>
     
     <view-leg-selector 
       position="right"
@@ -140,6 +139,15 @@
         if (coord === undefined || offset === undefined) return;
 
         return coord + offset;
+      }
+      
+      computeCursorXY(x, offsetX, y, offsetY) {
+        if (x === undefined || offsetX === undefined || y === undefined || offsetY === undefined) return;
+        
+        return {
+          x: x + offsetX,
+          y: y + offsetY
+        }
       }
       
       computeMovementPointer(movementPointer, viewOffsets) {
