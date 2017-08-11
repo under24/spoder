@@ -1,6 +1,6 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../transverse-view-base/transverse-view-base.html">
-<link rel="import" href="../new-view-cursor/new-view-cursor.html">
+<link rel="import" href="../view-cursor/view-cursor.html">
 <link rel="import" href="../view-leg-selector/view-leg-selector.html">
 
 <dom-module id="transverse-view">
@@ -29,11 +29,11 @@
       output="{{baseOutput}}">
     </transverse-view-base>
     
-    <new-view-cursor
+    <view-cursor
       side="[[coords.side]]"
       xy="[[computeCursorXY(coords.transverseCursorX, viewOffsets.transverseViewOffsetX, coords.transverseCursorY, viewOffsets.transverseViewOffsetY)]]"
       output={{cursorOutput}}>
-    </new-view-cursor>
+    </view-cursor>
     
     <view-leg-selector 
       position="right"
