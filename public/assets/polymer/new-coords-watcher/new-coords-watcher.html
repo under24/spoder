@@ -1,0 +1,320 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="new-coords-watcher">
+  <script>
+    class newCoordsWatcher extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'new-coords-watcher'; }
+      static get properties() {
+        return {
+          metaData: {
+            statePath: 'metaData'
+          },
+          angles: {
+            statePath: 'angles'
+          },
+          // misc: {
+          //   statePath: 'misc'
+          // },
+          coords: {
+            statePath: 'coords',
+            observer: 'observeCoords'
+          }
+        };
+      }
+      
+      // BEGIN HELPER FUNCTIONS
+      
+      getDistanceFromBaseToCursor(legId, view) {
+        return MU.getDistance(this.getDX(legId, view), this.getDY(legId, view));
+      }
+      
+      getDX(legId, view) {
+        return this.coords[legId][`${view}CursorX`] - this.coords[legId][`${view}BaseX`];
+      }
+      
+      getDY(legId, view) {
+        return this.coords[legId][`${view}CursorY`] - this.coords[legId][`${view}BaseY`];
+      }
+      
+      getReachDistance(legId, view) {
+        return this.getDistanceFromBaseToCursor(legId, view) - this.metaData.combinedLegsLength;
+      }
+      
+      targetWithinReach(legId, view) {
+        return this.getReachDistance(legId, view) > 0 ? false : true;
+      }
+
+      getAngleFromDistance(legId, view) {
+        let screen = MU.getAngle(this.getDY(legId, view), this.getDX(legId, view));
+        
+        let servo = (screen - 270 < 0) ? screen + 90 : screen - 270;
+        
+        return { screen, servo: +servo.toFixed(0) };
+      }
+      
+      sameCoords(newCoords, oldCoords, view, i) {
+        if (newCoords[i][`${view}CursorX`] !== oldCoords[i][`${view}CursorX`] ||
+            newCoords[i][`${view}CursorY`] !== oldCoords[i][`${view}CursorY`] ||
+            newCoords[i][`${view}BaseX`] !== oldCoords[i][`${view}BaseX`] ||
+            newCoords[i][`${view}BaseY`] !== oldCoords[i][`${view}BaseY`]) return false;
+            
+        return true;
+      }
+      
+      // END HELPER FUNCTIONS
+      
+      // -------------------------------------------------
+      
+      // BEGIN MISC GATHERING
+      
+      getSagittalMiscData(legId) {
+        // sagittal boundary ball xy
+        let sbx = this.coords[legId].sagittalBaseX;
+        let sby = this.coords[legId].sagittalBaseY;
+        let sagittalWithinReach = this.targetWithinReach(legId, 'sagittal');
+        
+        // sagittal diff x/y
+        let dx = this.getDX(legId, 'sagittal');
+        let dy = this.getDY(legId, 'sagittal');
+        
+        // sagittal distance from sagittal cursor x/y to sagittal base x/y
+        let distance = MU.getDistance(dx, dy);
+        
+        // sagittal straight angle from base to cursor
+        let angle = MU.getAngle(dy, dx);
+        
+        // sagittal misc data
+        let sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
+        
+        // transverse misc data
+        let transverseReachCoords = PU.getTransverseReachCoords(this.coords[legId], this.metaData),
+            transverseReachRadius = PU.getTransverseReachRadius(transverseReachCoords),
+            transverseLegLength = PU.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords);
+
+        return {
+          sagittalDiff: { dx, dy },
+          sagittalDistance: distance,
+          sagittalAngle: angle,
+          sagittalBoundaryBallCoords,
+          sagittalWithinReach,
+          transverseReachCoords,
+          transverseReachRadius,
+          transverseLegLength
+        };
+      }
+      
+      getTransverseMiscData(legId) {
+        // let dx = this.getDX(legId, 'transverse');
+        // let dy = this.getDY(legId, 'transverse');
+        // let distance = MU.getDistance(dx, dy);
+        
+        return {
+          // transverseDiff: { dx, dy },
+          // transverseDistance: distance
+        };
+      }
+      
+      getMovementCircleData(transverseReachRadius, legId) {
+        let movementCircleDiameter = PU.getMovementCircleDiameter(transverseReachRadius, this.metaData),
+            movementCircleRadius = movementCircleDiameter / 2,
+            movementCircleCenterCoords = PU.getMovementCenterCoords(this.metaData, this.coords[legId], transverseReachRadius);
+        
+        return {
+          centerX: movementCircleCenterCoords.x,
+          centerY: movementCircleCenterCoords.y,
+          radius: movementCircleRadius,
+          diameter: movementCircleDiameter
+        }
+      }
+      
+      // END MISC GATHERING
+      
+      // -------------------------------------------------
+      
+      // BEGIN POSITIONING LOGIC
+      
+      processTransverseCoordsIntoCoxaAngles(legId) {
+        let coxaAngles = this.getAngleFromDistance(legId, 'transverse');
+        
+        coxaAngles.servo = this.validateCoxaOffset(legId, coxaAngles.servo);
+
+        return coxaAngles;
+      }
+      
+      processSagittalCoordsIntoFemurAndTibiaAngles(legId) {
+        let femuAndTibiaAngles;
+        
+        if (this.targetWithinReach(legId, 'sagittal'))
+          femuAndTibiaAngles = this.calcForWithinReachMode(legId, 'sagittal');
+        else
+          femuAndTibiaAngles = this.calcForOutOfReachMode(legId, 'sagittal');
+        
+        return femuAndTibiaAngles;
+      }
+      
+      calcForWithinReachMode(legId, view) {
+        let femurAngles = this.getFemurAngle(legId, view);
+        let tibiaAngles = this.getTibiaAngle(legId, view);
+        
+        return {
+          femurScreenAngle: femurAngles.screen,
+          femurServoAngle: femurAngles.servo,
+          tibiaScreenAngle: tibiaAngles.screen,
+          tibiaServoAngle: tibiaAngles.servo
+        }
+      }
+      
+      calcForOutOfReachMode(legId, view) {
+        let femurAngles = this.getAngleFromDistance(legId, view);
+        
+        return {
+          femurScreenAngle: femurAngles.screen,
+          femurServoAngle: femurAngles.servo,
+          tibiaScreenAngle: 0,
+          tibiaServoAngle: 0
+        }
+      }
+      
+      gatherCoxaAngles(legId, coxaAngles, payload) {
+        // check if all the values are the same
+        if (this.angles[legId].coxaScreenAngle === coxaAngles.screen &&
+            this.angles[legId].coxaServoAngle === coxaAngles.servo) return false;
+        
+        payload[legId] = payload[legId] || {};
+        
+        if (this.angles[legId].coxaScreenAngle !== coxaAngles.screen)
+          payload[legId].coxaScreenAngle = coxaAngles.screen;
+          
+        if (this.angles[legId].coxaServoAngle !== coxaAngles.servo)
+          payload[legId].coxaServoAngle = coxaAngles.servo;
+          
+        return true;
+      }
+      
+      gatherFemurAndTibiaAngles(legId, angles, payload) {
+        // check if all the values are the same
+        if (this.angles[legId].femurScreenAngle === angles.femurScreenAngle &&
+            this.angles[legId].femurServoAngle === angles.femurServoAngle &&
+            this.angles[legId].tibiaScreenAngle === angles.tibiaScreenAngle &&
+            this.angles[legId].tibiaServoAngle === angles.tibiaServoAngle) return false;
+        
+        payload[legId] = payload[legId] || {};
+        
+        if (this.angles[legId].femurScreenAngle !== angles.femurScreenAngle)
+          payload[legId].femurScreenAngle = angles.femurScreenAngle;
+          
+        if (this.angles[legId].femurServoAngle !== angles.femurServoAngle)
+          payload[legId].femurServoAngle = angles.femurServoAngle;
+          
+        if (this.angles[legId].tibiaScreenAngle !== angles.tibiaScreenAngle)
+          payload[legId].tibiaScreenAngle = angles.tibiaScreenAngle;
+          
+        if (this.angles[legId].tibiaServoAngle !== angles.tibiaServoAngle)
+          payload[legId].tibiaServoAngle = angles.tibiaServoAngle;
+        
+        return true;
+      }
+      
+      gatherMiscValues(legId, misc, payload) {
+        payload[legId] = misc;
+        return true;
+      }
+      
+      gatherMovementCircleValues(legId, movementCircle, payload) {
+        payload[legId] = movementCircle;
+        return true;
+      }
+      
+      getFemurAngle(legId, view) {
+        let D1 = Math.atan2(this.getDY(legId, view), this.getDX(legId, view)),
+            D2 = MU.lawOfCos(this.getDistanceFromBaseToCursor(legId, view), this.metaData.femurLength, this.metaData.tibiaLength);
+
+        let A1 = D2 - D1;
+        
+        let A1Screen = A1 / Math.PI * -180,
+            A1Servo = A1Screen + 90;
+        
+        return { screen: A1Screen, servo: +A1Servo.toFixed(0) };
+      }
+      
+      getTibiaAngle(legId, view) {
+        let A2 = MU.lawOfCos(this.metaData.femurLength, this.metaData.tibiaLength, this.getDistanceFromBaseToCursor(legId, view));
+        
+        let A2Screen = 180 - (A2 / Math.PI * 180),
+            A2Servo = A2Screen;
+        
+        return { screen: A2Screen, servo: +A2Servo.toFixed(0) };
+      }
+      
+      validateCoxaOffset(legId, coxaAngle) {
+        coxaAngle += this.coords[legId].logicOffsetRotation;
+        
+        if (coxaAngle < 0) coxaAngle = 360 + coxaAngle;
+        else if (coxaAngle > 360) coxaAngle = coxaAngle - 360;
+        
+        return coxaAngle;
+      }
+      
+      // END POSITIONING LOGIC
+      
+      // -------------------------------------------------
+      
+      // BEGIN PROPERTY OBSERVERS
+      
+      observeCoords(newCoords, oldCoords) {
+        let angles = {},
+            misc = {}, 
+            movementCircle = {},
+            payload = {},
+            anglesSuccess, miscSuccess, movementCircleSuccess;
+
+        for (let i = 1; i <= 6; i++) {
+
+          // transverse coords => coxa angles
+          if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'transverse', i)) {
+            let coxaAngles = this.processTransverseCoordsIntoCoxaAngles(i);
+            anglesSuccess = this.gatherCoxaAngles(i, coxaAngles, angles);
+            
+            // let misc = this.getTransverseMiscData(legId);
+          }
+          
+          // sagittal coords => femur + tibia angles
+          if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'sagittal', i)) {
+            
+            let femuAndTibiaAngles = this.processSagittalCoordsIntoFemurAndTibiaAngles(i);
+            anglesSuccess = this.gatherFemurAndTibiaAngles(i, femuAndTibiaAngles, angles);
+            
+            let miscValue = this.getSagittalMiscData(i);
+            miscSuccess = this.gatherMiscValues(i, miscValue, misc);
+            
+            let movementCircleValue = this.getMovementCircleData(miscValue.transverseReachRadius, i);
+            movementCircleSuccess = this.gatherMovementCircleValues(i, movementCircleValue, movementCircle);
+          }
+          
+        }
+
+        if (anglesSuccess) payload.angles = angles;
+        if (miscSuccess) payload.misc = misc;
+        if (movementCircleSuccess) payload.movementCircle = movementCircle;
+
+        if (!anglesSuccess) {
+          console.log('empty payload object');
+          return;
+        }
+        
+        this.batchDispatch(payload);
+      }
+      
+      batchDispatch(payload) {
+        store.dispatch({
+          type: "ANGLES_CHANGED_BATCHED",
+          payload
+        });
+      }
+      
+      // END PROPERTY OBSERVERS
+
+    }
+    window.customElements.define(newCoordsWatcher.is, newCoordsWatcher);
+  </script>
+</dom-module>
