@@ -54,25 +54,25 @@
             if (diffX === 0 && diffY === 0) return;
             
             // filter out 0 value
-            let payload = {};
+            let output = {};
             if (diffX !== 0) {
               switch (this.side) {
                 case 'left':
-                  payload.x = diffX; break;
+                  output.x = diffX; break;
                 case 'right':
-                  payload.x = MU.flipNumber(diffX); break;
+                  output.x = MU.flipNumber(diffX); break;
               }
               // update prev coords
               clickCoords.x = e.pageX;
             }
             if (diffY !== 0) {
-              payload.y = diffY;
+              output.y = diffY;
               // update prev coords
               clickCoords.y = e.pageY;
             }
             
             // export data to the upper component
-            this.output = payload;
+            this.processOutputFlow(output);
             
             e.preventDefault();
             e.stopPropagation();
@@ -86,17 +86,22 @@
         }
       }
       
-      observeXY(xy) {
-        console.log(xy.x,xy.y);
+      processInputFlow(coords) {
         switch (this.side) {
           case 'left':
-            this.style.transform = `translate(calc(-50% + ${xy.x}px), calc(-50% + ${xy.y}px))`; break;
+            this.style.transform = `translate(${coords.x - 10}px, ${coords.y - 10}px)`; break;
           case 'right':
-            this.style.transform = `translate(calc(50% + ${-xy.x}px), calc(-50% + ${xy.y}px))`; break;
+            this.style.transform = `translate(${-coords.x + 10}px, ${coords.y - 10}px)`; break;
         }
+      }
+      
+      processOutputFlow(output) {
+        this.output = output;
       }
 
     }
+    newViewCursor.prototype.observeXY = newViewCursor.prototype.processInputFlow;
+    
     window.customElements.define(newViewCursor.is, newViewCursor);
   </script>
 </dom-module>
