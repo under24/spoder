@@ -3,11 +3,11 @@
 // PU == PositioningUtils
 let PU = {
   getTransverseReachCoords(coords, metaData) {
-    let scy = coords.sagittalCursorY;
-    let radius = metaData.combinedLegsLength;
-    let sbx = coords.sagittalBaseX;
-    let sby = coords.sagittalBaseY
-    let endX = sbx + Math.sqrt(radius * radius - (scy - sby) * (scy - sby));
+    let scy = coords.sagittalCursorY,
+        radius = metaData.combinedLegsLength,
+        sbx = coords.sagittalBaseX,
+        sby = coords.sagittalBaseY,
+        endX = sbx + Math.sqrt(radius * radius - (scy - sby) * (scy - sby));
     
     return {
       endX: endX,
