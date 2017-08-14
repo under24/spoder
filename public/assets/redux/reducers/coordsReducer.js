@@ -205,6 +205,85 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           { [action.legId]: Object.assign({}, state[action.legId], baseXY) }
         );
       }
+    case "SEQUENCE_SHIFTED_XY_BATCHED":
+      {
+        let newState = {};
+        
+        for (let legId in action.payload) {
+          
+          // cursorXY coords
+          let cursorXY = {};
+          if (action.payload[legId].sagittalCursorX)
+            cursorXY.sagittalCursorX = state[legId].sagittalCursorX - action.payload[legId].sagittalCursorX;
+            
+          if (action.payload[legId].sagittalCursorY)
+            cursorXY.sagittalCursorY = state[legId].sagittalCursorY - action.payload[legId].sagittalCursorY;
+            
+          if (action.payload[legId].transverseCursorX)
+            cursorXY.transverseCursorX = state[legId].transverseCursorX - action.payload[legId].transverseCursorX;
+            
+          if (action.payload[legId].transverseCursorY)
+            cursorXY.transverseCursorY = state[legId].transverseCursorY - action.payload[legId].transverseCursorY;
+            
+          // gather up latest coords for further computations
+          let cursorCoords = RU.aggregateCoords(state[legId], cursorXY);
+          
+          // compensative computations from transverse coords for sagittal
+          // transverseCursorX/Y => sagittalCursorX
+          if (cursorXY.transverseCursorX || cursorXY.transverseCursorY) {
+            let result = RU.getTransverseBaseXYCompensativeCoords(cursorCoords);
+            // compare with the existing coords
+            if (result.sagittalCursorX !== state[legId].sagittalCursorX) cursorXY.sagittalCursorX = result.sagittalCursorX;
+          }
+          // compensative computations from sagittal coords for transverse
+          // sagittalCursorX => transverseCursorX + transverseCursorY
+          else if (cursorXY.sagittalCursorX) {
+            let result = RU.getSagittalCursorXCompensativeCoords(cursorCoords);
+            // compare with the existing coords
+            if (result.transverseCursorX !== state[legId].transverseCursorX) cursorXY.transverseCursorX = result.transverseCursorX;
+            if (result.transverseCursorY !== state[legId].transverseCursorY) cursorXY.transverseCursorY = result.transverseCursorY;
+          }
+          
+          
+          // baseXY coords
+          let baseXY = {};
+          if (action.payload[legId].sagittalBaseX)
+            baseXY.sagittalBaseX = state[legId].sagittalBaseX - action.payload[legId].sagittalBaseX;
+            
+          if (action.payload[legId].sagittalBaseY)
+            baseXY.sagittalBaseY = state[legId].sagittalBaseY - action.payload[legId].sagittalBaseY;
+            
+          if (action.payload[legId].transverseBaseX)
+            baseXY.transverseBaseX = state[legId].transverseBaseX - action.payload[legId].transverseBaseX;
+            
+          if (action.payload[legId].transverseBaseY)
+            baseXY.transverseBaseY = state[legId].transverseBaseY - action.payload[legId].transverseBaseY;
+            
+          // gather up latest coords for further computations
+          let baseCoords = RU.aggregateCoords(state[legId], baseXY);
+          
+          // compensative computations from transverse coords for sagittal
+          // transverseBaseX/Y => sagittalBaseX + sagittalCursorX
+          if (baseXY.transverseBaseX || baseXY.transverseBaseY) {
+            let result = RU.getTransverseBaseXYCompensativeCoords(baseCoords);
+            // compare with the existing coords
+            if (result.sagittalBaseX !== state[legId].sagittalBaseX) baseXY.sagittalBaseX = result.sagittalBaseX;
+            if (result.sagittalCursorX !== state[legId].sagittalCursorX) baseXY.sagittalCursorX = result.sagittalCursorX;
+          }
+          // compensative computations from sagittal coords for transverse
+          // sagittalBaseX => transverseBaseX + transverseBaseY
+          else if (baseXY.sagittalBaseX) {
+            let result = RU.getSagittalBaseXCompensativeCoords(baseCoords);
+            // compare with the existing coords
+            if (result.transverseBaseX !== state[legId].transverseBaseX) baseXY.transverseBaseX = result.transverseBaseX;
+            if (result.transverseBaseY !== state[legId].transverseBaseY) baseXY.transverseBaseY = result.transverseBaseY;
+          }
+          
+          newState[legId] = Object.assign({}, state[legId], cursorXY, baseXY);
+        }
+        
+        return Object.assign({}, state, newState);
+      }
     case "APPLY_LEVEL_MODIFIER_TO_COORDS":
       {
         let newState = {};
