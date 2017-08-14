@@ -134,13 +134,14 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         // gather up latest coords for further computations
         let coords = RU.aggregateCoords(cursorXY, state[action.legId]);
         
-        // compensative computations from transverse coords
+        // compensative computations from transverse coords for sagittal
         // transverseCursorX/Y => sagittalCursorX
         if (cursorXY.transverseCursorX || cursorXY.transverseCursorY) {
           let result = RU.getTransverseBaseXYCompensativeCoords(coords);
           // compare with the existing coords
           if (result.sagittalCursorX !== state[action.legId].sagittalCursorX) cursorXY.sagittalCursorX = result.sagittalCursorX;
         }
+        // compensative computations from sagittal coords for transverse
         // sagittalCursorX => transverseCursorX + transverseCursorY
         else if (cursorXY.sagittalCursorX) {
           let result = RU.getSagittalCursorXCompensativeCoords(coords);
@@ -181,7 +182,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         // gather up latest coords for further computations
         let coords = RU.aggregateCoords(baseXY, state[action.legId]);
         
-        // compensative computations
+        // compensative computations from transverse coords for sagittal
         // transverseBaseX/Y => sagittalBaseX + sagittalCursorX
         if (baseXY.transverseBaseX || baseXY.transverseBaseY) {
           let result = RU.getTransverseBaseXYCompensativeCoords(coords);
@@ -189,6 +190,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           if (result.sagittalBaseX !== state[action.legId].sagittalBaseX) baseXY.sagittalBaseX = result.sagittalBaseX;
           if (result.sagittalCursorX !== state[action.legId].sagittalCursorX) baseXY.sagittalCursorX = result.sagittalCursorX;
         }
+        // compensative computations from sagittal coords for transverse
         // sagittalBaseX => transverseBaseX + transverseBaseY
         else if (baseXY.sagittalBaseX) {
           let result = RU.getSagittalBaseXCompensativeCoords(coords);
