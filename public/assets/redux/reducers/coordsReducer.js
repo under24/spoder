@@ -132,7 +132,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           cursorXY.transverseCursorY = state[action.legId].transverseCursorY - action.payload.transverseCursorY;
         
         // gather up latest coords for further computations
-        let coords = RU.aggregateCoords(cursorXY, state[action.legId]);
+        let coords = RU.aggregateCoords(state[action.legId], cursorXY);
         
         // compensative computations from transverse coords for sagittal
         // transverseCursorX/Y => sagittalCursorX
@@ -180,7 +180,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           baseXY.transverseBaseY = state[action.legId].transverseBaseY - action.payload.transverseBaseY;
         
         // gather up latest coords for further computations
-        let coords = RU.aggregateCoords(baseXY, state[action.legId]);
+        let coords = RU.aggregateCoords(state[action.legId], baseXY);
         
         // compensative computations from transverse coords for sagittal
         // transverseBaseX/Y => sagittalBaseX + sagittalCursorX
@@ -235,7 +235,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           };
           
           // compensative computation
-          let coords = RU.aggregateCoords(shiftedCoords, state[i]);
+          let coords = RU.aggregateCoords(state[i], shiftedCoords);
           let compensativeCoords = RU.getTransverseBaseXYCompensativeCoords(coords);
           
           if (compensativeCoords.sagittalBaseX !== state[i].sagittalBaseX) shiftedCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
@@ -288,7 +288,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           }
           
           // gather up latest coords for further computations
-          let coords = RU.aggregateCoords(finalCoords, state[i]);
+          let coords = RU.aggregateCoords(state[i], finalCoords);
           let compensativeCoords = RU.getTransverseBaseXYCompensativeCoords(coords);
           // compare with the existing coords
           if (compensativeCoords.sagittalBaseX !== state[i].sagittalBaseX) finalCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;

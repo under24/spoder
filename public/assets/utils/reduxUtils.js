@@ -2,7 +2,7 @@
 
 // RU == ReduxUtils
 let RU = {
-  aggregateCoords(payload, state) {
+  aggregateCoords(state, payload) {
     let coords = Object.assign({}, state, payload);
     
     return {
