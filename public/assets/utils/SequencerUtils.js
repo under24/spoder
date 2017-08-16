@@ -3,13 +3,13 @@
 // SU == SequencerUtils
 let SU = {
   abortSequnce: false,
-  generateSequenceTimeline(sequenceBlueprint, tps = 10, timelineDuration = 1000) {
+  generateSequenceTimeline(blueprint, tps = 10, timelineDuration = 1000) {
     let amountOfTicks = this.getAmountOfTicks(tps, timelineDuration),
         timeline = this.createTimeline(amountOfTicks);
     
-    for (let key in sequenceBlueprint) {
-      sequenceBlueprint[key].forEach(dataItem => {
-        this.populateTimeline(dataItem, key, timeline);
+    for (let legId in blueprint) {
+      blueprint[legId].forEach(dataItem => {
+        this.populateTimeline(dataItem, legId, timeline);
       });
     }
 
@@ -39,16 +39,16 @@ let SU = {
     
     return timeline;
   },
-  populateTimeline(dataItem, index, timeline) {
+  populateTimeline(dataItem, legId, timeline) {
     let startTick = this.getClosestTick(dataItem.startPct, timeline) + 1,
         endTick = this.getClosestTick(dataItem.endPct, timeline),
         ticksBetweenStartAndEnd = this.getAmountOfTicksBetween(startTick, endTick),
         tickValue = this.getTickValueBasedOnPxlsToMove(ticksBetweenStartAndEnd, dataItem.pxlsToMove);
 
     for (let i = startTick; i <= endTick; i++) {
-      timeline[i].payload[index] = timeline[i].payload[index] || {};
+      timeline[i].payload[legId] = timeline[i].payload[legId] || {};
       
-      timeline[i].payload[index][dataItem.coordType] = tickValue;
+      timeline[i].payload[legId][dataItem.coordType] = tickValue;
     }
   },
   getClosestTick(num, timeline) {
