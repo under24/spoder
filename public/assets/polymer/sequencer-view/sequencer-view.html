@@ -15,34 +15,34 @@
         margin: auto;
         box-sizing: border-box;
         position: relative;
-      }
-      #sequenceTimeline .leg {
-        font-size: 17px;
-        border-top: 1px solid black;
         display: flex;
+        flex-direction: column;
       }
-      #sequenceTimeline .leg:first-child {
-        border-top: none;
+      #sequenceTimeline .leg-sequence {
+        font-size: 17px;
+        display: flex;
       }
       #sequenceTimeline hr {
         margin: 0px;
+        border-bottom: none;
+        border-left: none;
+        border-right: none;
       }
-      #sequenceTimeline .leg-id {
+      #sequenceTimeline .sequence-header {
         display: inline-block;
         border-right: 1px solid;
         padding: 4px 0px 4px 8px;
         width: 50px;
       }
-      #cursor {
+      #sequenceTimeline #cursor {
         width: 1px;
         background: black;
         position: absolute;
         display: inline-block;
         top: 0px;
         bottom: 0px;
-        left: 54%;
       }
-      #cursor::after {
+      #sequenceTimeline #cursor::after {
         content: '';
         display: inline-block;
         width: 10px;
@@ -61,21 +61,17 @@
         background-color: rgba(128, 128, 128, 0.21);
         padding: 4px 8px 2px;
       }
-      .leg-sequence {
+      .sequence-content {
         flex: 1;
         position: relative;
       }
-      .leg-sequence .sequence {
+      .sequence-content .payload {
         position: absolute;
         background-color: rgba(0, 0, 0, 0.2);
-      }
-      .sequence:nth-child(odd) {
         top: 3px;
-        bottom: 15px;
-      }
-      .sequence:nth-child(even) {
         bottom: 3px;
-        top: 15px;
+        text-align: center;
+        line-height: 22px;
       }
       .cursor-wrapper {
         position: absolute;
@@ -84,43 +80,83 @@
         left: 59px;
         right: 0px;
       }
+      fieldset {
+        width: 95%;
+        box-sizing: border-box;
+        margin: 0px auto 10px auto;
+        border-width: 1px;
+      }
     </style>
-    
-    <div id="controlls">sequencer</div>
+
+    <br /><br /><br />
     
     <div id="sequenceTimeline">
-      <div class="row leg legid1" id="leg1">
-        <div class="leg-id">L1 (1)</div>
-        <div class="leg-sequence"></div>
+      <div class="leg-sequence" id="leg1">
+        <div class="sequence-header">L1 (1)</div>
+        <div class="sequence-content">
+          <div class="payload">25</div>
+        </div>
       </div>
-      <div class="row leg legid2" id="leg2">
-        <div class="leg-id">R1 (2)</div>
-        <div class="leg-sequence"></div>
+      <hr />
+      <div class="leg-sequence" id="leg2">
+        <div class="sequence-header">R1 (2)</div>
+        <div class="sequence-content">
+          <div class="payload">25</div>
+        </div>
       </div>
-      <div class="row leg legid3" id="leg3">
-        <div class="leg-id">L2 (3)</div>
-        <div class="leg-sequence"></div>
+      <hr />
+      <div class="leg-sequence" id="leg3">
+        <div class="sequence-header">L2 (3)</div>
+        <div class="sequence-content">
+          <div class="payload">25</div>
+        </div>
       </div>
-      <div class="row leg legid4" id="leg4">
-        <div class="leg-id">R2 (4)</div>
-        <div class="leg-sequence"></div>
+      <hr />
+      <div class="leg-sequence" id="leg4">
+        <div class="sequence-header">R2 (4)</div>
+        <div class="sequence-content">
+          <div class="payload">25</div>
+        </div>
       </div>
-      <div class="row leg legid5" id="leg5">
-        <div class="leg-id">L3 (5)</div>
-        <div class="leg-sequence"></div>
+      <hr />
+      <div class="leg-sequence" id="leg5">
+        <div class="sequence-header">L3 (5)</div>
+        <div class="sequence-content">
+          <div class="payload">25</div>
+        </div>
       </div>
-      <div class="row leg legid6" id="leg6">
-        <div class="leg-id">R3 (6)</div>
-        <div class="leg-sequence"></div>
+      <hr />
+      <div class="leg-sequence" id="leg6">
+        <div class="sequence-header">R3 (6)</div>
+        <div class="sequence-content">
+          <div class="payload">25</div>
+        </div>
       </div>
       
       <div class="cursor-wrapper">
-        <div id="cursor">
-          <div id="cursorKnob">50</div>
+        <div id="cursor" style$="left: [[sequenceProgress]]%">
+          <div id="cursorKnob">[[sequenceProgress]]</div>
         </div>
       </div>
 
     </div>
+    
+    <br /><br />
+    <fieldset>
+      <legend>Blueprint</legend>
+      <button type="button" on-click="onGenerateBlueprintButtonClicked">Generate Blueprint</button>
+      <button type="button">Load Blueprint UI</button>
+    </fieldset>
+    <fieldset>
+      <legend>Sequence</legend>
+      <button type="button" on-click="onGenerateSequenceButtonClicked">Generate Sequence</button>
+    </fieldset>
+    <fieldset>
+      <legend>Player</legend>
+      <button type="button" on-click="onPlaySequenceButtonClicked">Play</button>
+      <button type="button" on-click="onAbortSequenceButtonClicked">Stop</button>
+    </fieldset>
+    
     
   </template>
 
@@ -129,28 +165,101 @@
       static get is() { return 'sequencer-view'; }
       static get properties() {
         return {
-          // legId: {
-          //   statePath: 'views.sequencerViewLegId'
-          // },
+          pointers: {
+            statePath: 'movement.pointers'
+          },
+          circles: {
+            statePath: 'movement.circles'
+          },
+          coords: {
+            statePath: 'coords'
+          },
+          gaits: {
+            statePath: 'gaits'
+          },
+          sequenceProgress: {
+            statePath: 'movement.sequenceProgress'
+          }
         };
+      }
+      
+      generateSequenceBlueprint() {
+        let result = {};
+        
+        for (let i = 1; i <= 6; i++) {
+          let pointerToCursorX = this.coords[i].transverseCursorX - this.pointers[i].x,
+              pointerToCursorY = this.coords[i].transverseCursorY - this.pointers[i].y,
+
+              pointerToCircleCenterX = this.circles[i].centerX - this.pointers[i].x,
+              pointerToCircleCenterY = this.circles[i].centerY - this.pointers[i].y,
+
+              pctInfo = this.getStartAndEndPctBasedOnLegId(i);
+
+          result[i] = [
+            {
+              "coordType": "transverseBaseX",
+              "startPct": 0,
+              "endPct": 100,
+              "pxlsToMove": pointerToCircleCenterX
+            },
+            {
+              "coordType": "transverseBaseY",
+              "startPct": 0,
+              "endPct": 100,
+              "pxlsToMove": pointerToCircleCenterY
+            },
+            {
+              "coordType": "transverseCursorX",
+              "startPct": pctInfo.startPct,
+              "endPct": pctInfo.endPct,
+              "pxlsToMove": pointerToCursorX
+            },
+            {
+              "coordType": "transverseCursorY",
+              "startPct": pctInfo.startPct,
+              "endPct": pctInfo.endPct,
+              "pxlsToMove": pointerToCursorY
+            }
+          ];
+        }
+        
+        return result;
+      }
+      
+      getStartAndEndPctBasedOnLegId(legId) {
+        switch (legId) {
+          case 1:
+          case 6:
+            return { startPct: 50, endPct: 75 };
+          case 2:
+          case 5:
+            return { startPct: 0, endPct: 25 };
+          case 3:
+            return { startPct: 25, endPct: 50 };
+          case 4:
+            return { startPct: 75, endPct: 100 };
+        }
       }
       
       loadData(blueprint, timeline, metaData) {
         
-        for (let legId in blueprint) {
-          if (!blueprint[legId].length) continue;
-
-          blueprint[legId].forEach(item => {
-             let div = document.createElement('div');
-             div.className = 'sequence';
-             div.style.width = `${item.endPct - item.startPct}%`;
-             div.style.left = `${item.startPct}%`;
-             
-             this.$[`leg${legId}`].querySelector('.leg-sequence').appendChild(div);
-          })
-        }
       }
       
+      onGenerateBlueprintButtonClicked() {
+        this.blueprint = this.generateSequenceBlueprint();
+      }
+      
+      onGenerateSequenceButtonClicked() {
+        this.sequence = SU.generateSequenceTimeline(this.blueprint, 60, 750);
+      }
+      
+      onPlaySequenceButtonClicked() {
+        SU.playSequence(this.sequence);
+      }
+      
+      onAbortSequenceButtonClicked() {
+        SU.abortSequnce = true;
+      }
 
     }
     window.customElements.define(sequencerView.is, sequencerView);
