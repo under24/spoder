@@ -5,11 +5,28 @@ const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+// const fs = require('fs');
 
 app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html')
+  res.sendFile(__dirname + '/index.html');
 });
+
+
+// fs.readFile('./test.json', 'utf8', function (err,data) {
+//   if (err) {
+//     return console.log(err);
+//   }
+//   
+//   let result = JSON.parse(data);
+//   result.title = '123';
+//   result = JSON.stringify(result, '', 2);
+//   
+// 
+//   fs.writeFile('./test.json', result, 'utf8', function (err) {
+//      if (err) return console.log(err);
+//   });
+// });
 
 // var board = new five.Board({
 //   port: "/dev/cu.SPODER-SPPDev"
