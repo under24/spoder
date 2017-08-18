@@ -28,7 +28,7 @@
       observeLevelModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
         if (newValue.levelModifier === oldValue.levelModifier) {
-          console.warn('same values');
+          console.warn('same level modifier values');
           return;
         }
         
@@ -43,7 +43,7 @@
             newValue.leftTiltModifier === oldValue.leftTiltModifier &&
             newValue.rightTiltModifier === oldValue.rightTiltModifier
         ) {
-          console.warn('same values');
+          console.warn('same tilt modifier values');
           return;
         }
         
@@ -59,7 +59,7 @@
       observeShiftModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
         if (newValue.x === oldValue.x && newValue.y === oldValue.y) {
-          console.warn('same values');
+          console.warn('same shift modifier values');
           return;
         }  
 
@@ -73,7 +73,7 @@
       observeRotationModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
         if (newValue.rotationModifier === oldValue.rotationModifier) {
-          console.warn('same values');
+          console.warn('same rotation modifier value');
           return;
         }
         
@@ -84,7 +84,6 @@
       }
 
     }
-
     window.customElements.define(modifierWatcher.is, modifierWatcher);
   </script>
 </dom-module>
