@@ -91,51 +91,58 @@
     <br /><br /><br />
     
     <div id="sequenceTimeline">
+      <!-- <div class="leg-sequence" id="leg1">
+        <div class="sequence-header">Base</div>
+        <div class="sequence-content">
+          <div class="payload">25</div>
+        </div>
+      </div>
+      <hr /> -->
       <div class="leg-sequence" id="leg1">
         <div class="sequence-header">L1 (1)</div>
         <div class="sequence-content">
-          <div class="payload">25</div>
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'1')]]">[[computeBlueprintPayloadPeriod('1', blueprint)]]</div>
         </div>
       </div>
       <hr />
       <div class="leg-sequence" id="leg2">
         <div class="sequence-header">R1 (2)</div>
         <div class="sequence-content">
-          <div class="payload">25</div>
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'2')]]">[[computeBlueprintPayloadPeriod('2', blueprint)]]</div>
         </div>
       </div>
       <hr />
       <div class="leg-sequence" id="leg3">
         <div class="sequence-header">L2 (3)</div>
         <div class="sequence-content">
-          <div class="payload">25</div>
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'3')]]">[[computeBlueprintPayloadPeriod('3', blueprint)]]</div>
         </div>
       </div>
       <hr />
       <div class="leg-sequence" id="leg4">
         <div class="sequence-header">R2 (4)</div>
         <div class="sequence-content">
-          <div class="payload">25</div>
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'4')]]">[[computeBlueprintPayloadPeriod('4', blueprint)]]</div>
         </div>
       </div>
       <hr />
       <div class="leg-sequence" id="leg5">
         <div class="sequence-header">L3 (5)</div>
         <div class="sequence-content">
-          <div class="payload">25</div>
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'5')]]">[[computeBlueprintPayloadPeriod('5', blueprint)]]</div>
         </div>
       </div>
       <hr />
       <div class="leg-sequence" id="leg6">
         <div class="sequence-header">R3 (6)</div>
         <div class="sequence-content">
-          <div class="payload">25</div>
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'6')]]">[[computeBlueprintPayloadPeriod('6', blueprint)]]</div>
         </div>
       </div>
       
       <div class="cursor-wrapper">
-        <div id="cursor" style$="left: [[sequenceProgress]]%">
-          <div id="cursorKnob">[[sequenceProgress]]</div>
+        <div id="cursor" style$="left: [[sequenceProgress.pct]]%">
+          <div id="cursorKnob">[[sequenceProgress.pct]]</div>
         </div>
       </div>
 
@@ -145,7 +152,6 @@
     <fieldset>
       <legend>Blueprint</legend>
       <button type="button" on-click="onGenerateBlueprintButtonClicked">Generate Blueprint</button>
-      <button type="button">Load Blueprint UI</button>
     </fieldset>
     <fieldset>
       <legend>Sequence</legend>
@@ -154,7 +160,8 @@
     <fieldset>
       <legend>Player</legend>
       <button type="button" on-click="onPlaySequenceButtonClicked">Play</button>
-      <button type="button" on-click="onAbortSequenceButtonClicked">Stop</button>
+      <button type="button" on-click="onPauseSequenceButtonClicked">Pause</button>
+      <button type="button" on-click="onResumeSequenceButtonClicked">Resume</button>
     </fieldset>
     
     
@@ -184,18 +191,19 @@
       }
       
       generateSequenceBlueprint() {
-        let result = {};
+        let blueprint = {},
+            metaData = {};
         
         for (let i = 1; i <= 6; i++) {
           let pointerToCursorX = this.coords[i].transverseCursorX - this.pointers[i].x,
               pointerToCursorY = this.coords[i].transverseCursorY - this.pointers[i].y,
 
               pointerToCircleCenterX = this.circles[i].centerX - this.pointers[i].x,
-              pointerToCircleCenterY = this.circles[i].centerY - this.pointers[i].y,
+              pointerToCircleCenterY = this.circles[i].centerY - this.pointers[i].y;
 
-              pctInfo = this.getStartAndEndPctBasedOnLegId(i);
+              metaData[i] = BU.getStartAndEndPctBasedOnLegId(i);
 
-          result[i] = [
+          blueprint[i] = [
             {
               "coordType": "transverseBaseX",
               "startPct": 0,
@@ -210,43 +218,38 @@
             },
             {
               "coordType": "transverseCursorX",
-              "startPct": pctInfo.startPct,
-              "endPct": pctInfo.endPct,
+              "startPct": metaData[i].startPct,
+              "endPct": metaData[i].endPct,
               "pxlsToMove": pointerToCursorX
             },
             {
               "coordType": "transverseCursorY",
-              "startPct": pctInfo.startPct,
-              "endPct": pctInfo.endPct,
+              "startPct": metaData[i].startPct,
+              "endPct": metaData[i].endPct,
               "pxlsToMove": pointerToCursorY
             }
           ];
         }
         
-        return result;
+        return { blueprint, metaData };
       }
       
-      getStartAndEndPctBasedOnLegId(legId) {
-        switch (legId) {
-          case 1:
-          case 6:
-            return { startPct: 50, endPct: 75 };
-          case 2:
-          case 5:
-            return { startPct: 0, endPct: 25 };
-          case 3:
-            return { startPct: 25, endPct: 50 };
-          case 4:
-            return { startPct: 75, endPct: 100 };
-        }
+      computeBlueprintMetaData(blueprintMetaData ,legId) {
+        return `left: ${blueprintMetaData[legId].startPct}%; width: ${blueprintMetaData[legId].endPct - blueprintMetaData[legId].startPct}%`
       }
       
-      loadData(blueprint, timeline, metaData) {
+      computeBlueprintPayloadPeriod(legId) {        
+        let dx = this.coords[legId].transverseCursorX - this.pointers[legId].x,
+            dy = this.coords[legId].transverseCursorY - this.pointers[legId].y,
+            dist = MU.getDistance(dx, dy).toFixed(2);
         
+        return dist;
       }
       
       onGenerateBlueprintButtonClicked() {
-        this.blueprint = this.generateSequenceBlueprint();
+        let data = this.generateSequenceBlueprint();
+        this.blueprint = data.blueprint;
+        this.blueprintMetaData = data.metaData;
       }
       
       onGenerateSequenceButtonClicked() {
@@ -260,6 +263,9 @@
       onPauseSequenceButtonClicked() {
         SU.abortSequence = true;
       }
+      
+      onResumeSequenceButtonClicked() {
+        SU.playSequence(this.sequence, this.sequenceProgress.tick + 1)
       }
 
     }
