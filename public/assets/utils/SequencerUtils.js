@@ -70,29 +70,35 @@ let SU = {
   getTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
     return pixelsToMove / amountOfTicks;
   },
-  playSequence(sequence, loop) {
-    let n = 1;
+  playSequence(sequence, tick = 1, loop) {
     this.abortSequence = false;
     
     let interval = setInterval(() => {
       
       store.dispatch({
         type: "SEQUENCE_SHIFTED_XY_BATCHED",
-        payload: sequence.timeline[n].payload
-      });
-      
-      store.dispatch({
-        type: "SEQUENCE_PROGRESS_PCT_CHANGED",
-        payload: sequence.timeline[n].pct
+        payload: sequence.timeline[tick].payload,
+        pct: sequence.timeline[tick].pct,
+        tick
       });
       
       // complete
-      if (n === sequence.metaData.amountOfTicks || this.abortSequnce) {
+      if (tick === sequence.metaData.amountOfTicks) {
         clearInterval(interval);
-        if (loop) this.playSequence(sequence, true);
+
+        store.dispatch({
+          type: "SEQUENCE_PROGRESS_PCT_CHANGED",
+          pct: 0,
+          tick: 0
+        });
+        
+        if (loop) this.playSequence(sequence, 1, true);
+        
+      } else if (this.abortSequence) {
+        clearInterval(interval);
       }
       
-      n++;
+      tick++;
       
     }, 1000 / sequence.metaData.tps);
   }
