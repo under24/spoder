@@ -2,7 +2,7 @@
 
 // SU == SequencerUtils
 let SU = {
-  abortSequnce: false,
+  abortSequence: false,
   generateSequenceTimeline(blueprint, tps = 10, timelineDuration = 1000) {
     let amountOfTicks = this.getAmountOfTicks(tps, timelineDuration),
         timeline = this.createTimeline(amountOfTicks);
@@ -71,8 +71,8 @@ let SU = {
     return pixelsToMove / amountOfTicks;
   },
   playSequence(sequence, loop) {
-    this.abortSequnce = false;
     let n = 1;
+    this.abortSequence = false;
     
     let interval = setInterval(() => {
       
