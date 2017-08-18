@@ -260,7 +260,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
             baseXY.transverseBaseY = state[legId].transverseBaseY - action.payload[legId].transverseBaseY;
             
           // gather up latest coords for further computations
-          let baseCoords = RU.aggregateCoords(state[legId], baseXY);
+          let baseCoords = RU.aggregateCoords(state[legId], baseXY, cursorXY);
           
           // compensative computations from transverse coords for sagittal
           // transverseBaseX/Y => sagittalBaseX + sagittalCursorX

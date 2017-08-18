@@ -2,8 +2,8 @@
 
 // RU == ReduxUtils
 let RU = {
-  aggregateCoords(state, payload) {
-    let coords = Object.assign({}, state, payload);
+  aggregateCoords(state, payload, additional) {
+    let coords = Object.assign({}, state, payload, additional);
     
     return {
       tcx: coords.transverseCursorX,
