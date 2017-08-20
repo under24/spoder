@@ -2,7 +2,6 @@
 
 // SU == SequencerUtils
 let SU = {
-  abortSequence: false,
   generateSequenceTimeline(blueprint, tps = 10, timelineDuration = 1000) {
     let amountOfTicks = this.getAmountOfTicks(tps, timelineDuration),
         timeline = this.createTimeline(amountOfTicks);
@@ -69,37 +68,5 @@ let SU = {
   },
   getTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
     return pixelsToMove / amountOfTicks;
-  },
-  playSequence(sequence, tick = 1, loop) {
-    this.abortSequence = false;
-    
-    let interval = setInterval(() => {
-      
-      store.dispatch({
-        type: "SEQUENCE_SHIFTED_XY_BATCHED",
-        payload: sequence.timeline[tick].payload,
-        pct: sequence.timeline[tick].pct,
-        tick
-      });
-      
-      // complete
-      if (tick === sequence.metaData.amountOfTicks) {
-        clearInterval(interval);
-
-        store.dispatch({
-          type: "SEQUENCE_PROGRESS_PCT_CHANGED",
-          pct: 0,
-          tick: 0
-        });
-        
-        if (loop) this.playSequence(sequence, 1, true);
-        
-      } else if (this.abortSequence) {
-        clearInterval(interval);
-      }
-      
-      tick++;
-      
-    }, 1000 / sequence.metaData.tps);
   }
 }
