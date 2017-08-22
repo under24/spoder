@@ -1,5 +1,5 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../digital-joystick/digital-joystick.html">
+<link rel="import" href="../new-digital-joystick/new-digital-joystick.html">
 <link rel="import" href="../level-modifier-view/level-modifier-view.html">
 <link rel="import" href="../tilt-modifier-view/tilt-modifier-view.html">
 <link rel="import" href="../shift-modifier-view/shift-modifier-view.html">
@@ -82,7 +82,11 @@
     
     <!-- joystick demo -->
     <template is="dom-if" if="[[computeView('digital-joystick', view)]]" restamp>
-      <digital-joystick style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></digital-joystick>
+      <new-digital-joystick 
+        style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"
+        input="[[joystickOutput]]"
+        output="{{joystickOutput}}">
+      </new-digital-joystick>
     </template>
     
     <!-- level modifier view -->
@@ -146,6 +150,9 @@
             type: String,
             value: 'none',
             reflectToAttribute: true
+          },
+          joystickOutput: {
+            value: { xShift: 0, yShift: 0 }
           }
         };
       }
