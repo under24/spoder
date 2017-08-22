@@ -87,6 +87,11 @@
         border-width: 1px;
       }
     </style>
+    
+    <label>
+      <input type="checkbox" checked={{loop::click}} />
+      Loop sequence
+    </label>
 
     <br /><br /><br />
     
@@ -94,6 +99,9 @@
       <!-- <div class="leg-sequence" id="leg1">
         <div class="sequence-header">Base</div>
         <div class="sequence-content">
+          <div class="payload">25</div>
+          <div class="payload">25</div>
+          <div class="payload">25</div>
           <div class="payload">25</div>
         </div>
       </div>
@@ -159,9 +167,8 @@
     </fieldset>
     <fieldset>
       <legend>Player</legend>
-      <button type="button" on-click="onPlaySequenceButtonClicked">Play</button>
-      <button type="button" on-click="onPauseSequenceButtonClicked">Pause</button>
-      <button type="button" on-click="onResumeSequenceButtonClicked">Resume</button>
+      <button type="button" on-click="playOrResumeSequence">Play / Resume</button>
+      <button type="button" on-click="pauseSequence">Pause</button>
     </fieldset>
     
     
@@ -173,7 +180,11 @@
       static get properties() {
         return {
           pointers: {
-            statePath: 'movement.pointers'
+            statePath: 'movement.pointers',
+            observer: 'observePointers'
+          },
+          joystick: {
+            statePath: 'movement.joystick'
           },
           circles: {
             statePath: 'movement.circles'
@@ -186,6 +197,10 @@
           },
           sequenceProgress: {
             statePath: 'movement.sequenceProgress'
+          },
+          loop: {
+            value: true,
+            // statePath: 'movement.sequenceMetaData.loop'
           }
         };
       }
@@ -201,7 +216,7 @@
               pointerToCircleCenterX = this.circles[i].centerX - this.pointers[i].x,
               pointerToCircleCenterY = this.circles[i].centerY - this.pointers[i].y;
 
-              metaData[i] = BU.getStartAndEndPctBasedOnLegId(i);
+              metaData[i] = BU.getStartAndEndPctBasedOnLegId(i, this.gaits, 'ripple');
 
           blueprint[i] = [
             {
@@ -234,11 +249,67 @@
         return { blueprint, metaData };
       }
       
+      // modifyBlueprint() {
+      //   let blueprint = {},
+      //       metaData = {},
+      //       lastSequenceValues = this.sequenceProgress,
+      //       currentGaitIndex = BU.getLegIdFromMidPct(lastSequenceValues.pct);
+      //       
+      //   for (; currentGaitIndex < this.gaits.ripple.length; currentGaitIndex++) {
+      //     
+      //     this.gaits.ripple[currentGaitIndex].forEach((legId) => {
+      //       
+      //       debugger;
+      //       
+      //       let pointerToCursorX = this.coords[legId].transverseCursorX - this.pointers[legId].x,
+      //           pointerToCursorY = this.coords[legId].transverseCursorY - this.pointers[legId].y,
+      // 
+      //           pointerToCircleCenterX = this.circles[legId].centerX - this.pointers[legId].x,
+      //           pointerToCircleCenterY = this.circles[legId].centerY - this.pointers[legId].y,
+      //           iteratedGaitIndex = BU.getGaitIndexFromLegId(6, this.gaits, 'ripple');
+      // 
+      //           metaData[legId] = BU.getStartAndEndPctBasedOnLegId(legId, this.gaits, 'ripple');
+      //           
+      //       
+      //       if (currentGaitIndex === iteratedGaitIndex) metaData[legId].startPct = lastSequenceValues.pct;
+      //           
+      //       blueprint[legId] = [
+      //         {
+      //           coordType: "transverseBaseX",
+      //           startPct: 0,
+      //           endPct: 0,
+      //           pxlsToMove: pointerToCircleCenterX
+      //         },
+      //         {
+      //           coordType: "transverseBaseY",
+      //           startPct: 0,
+      //           endPct: 100,
+      //           pxlsToMove: pointerToCircleCenterY
+      //         },
+      //         {
+      //           coordType: "transverseCursorX",
+      //           startPct: metaData[legId].startPct,
+      //           endPct: metaData[legId].endPct,
+      //           pxlsToMove: pointerToCursorX
+      //         },
+      //         {
+      //           coordType: "transverseCursorY",
+      //           startPct: metaData[legId].startPct,
+      //           endPct: metaData[legId].endPct,
+      //           pxlsToMove: pointerToCursorY
+      //         }
+      //       ]
+      //     })
+      //   }
+      //   
+      //   return { blueprint, metaData };
+      // }
+      
       computeBlueprintMetaData(blueprintMetaData ,legId) {
         return `left: ${blueprintMetaData[legId].startPct}%; width: ${blueprintMetaData[legId].endPct - blueprintMetaData[legId].startPct}%`
       }
       
-      computeBlueprintPayloadPeriod(legId) {        
+      computeBlueprintPayloadPeriod(legId) {
         let dx = this.coords[legId].transverseCursorX - this.pointers[legId].x,
             dy = this.coords[legId].transverseCursorY - this.pointers[legId].y,
             dist = MU.getDistance(dx, dy).toFixed(2);
@@ -247,25 +318,77 @@
       }
       
       onGenerateBlueprintButtonClicked() {
-        let data = this.generateSequenceBlueprint();
-        this.blueprint = data.blueprint;
-        this.blueprintMetaData = data.metaData;
+        let result = this.generateSequenceBlueprint();
+        this.blueprint = result.blueprint;
+        this.blueprintMetaData = result.metaData;
       }
       
       onGenerateSequenceButtonClicked() {
         this.sequence = SU.generateSequenceTimeline(this.blueprint, 60, 750);
       }
       
-      onPlaySequenceButtonClicked() {
-        SU.playSequence(this.sequence);
+      pauseSequence() {
+        this.clearSequenceInterval();
       }
       
-      onPauseSequenceButtonClicked() {
-        SU.abortSequence = true;
+      clearSequenceInterval() {
+        clearInterval(this.sequenceInterval);
+        this.sequenceInterval = undefined;
       }
       
-      onResumeSequenceButtonClicked() {
-        SU.playSequence(this.sequence, this.sequenceProgress.tick + 1)
+      playOrResumeSequence() {
+        this.runSequence(this.sequenceProgress.tick + 1);
+      }
+      
+      observePointers() {
+        if (this.joystick === undefined || this.prevJoystickObj === this.joystick) return;
+
+        this.prevJoystickObj = this.joystick;
+        this.loadSequence();
+      }
+      
+      loadSequence() {
+        this.onGenerateBlueprintButtonClicked();
+        this.onGenerateSequenceButtonClicked();
+      }
+      
+      runSequence(tick = 1) {
+        // prevent multiple invokation
+        if (this.sequenceInterval) {
+          console.warn('sequence is already running');
+          return;
+        } 
+        
+        this.sequenceInterval = setInterval(() => {
+          
+          store.dispatch({
+            type: "SEQUENCE_SHIFTED_XY_BATCHED",
+            payload: this.sequence.timeline[tick].payload,
+            pct: this.sequence.timeline[tick].pct,
+            tick
+          });
+          
+          // sequence iteration complete
+          if (tick >= this.sequence.metaData.amountOfTicks) {
+            this.clearSequenceInterval();
+
+            // reset sequenceProgress to 0
+            store.dispatch({
+              type: "SEQUENCE_PROGRESS_PCT_CHANGED",
+              pct: 0,
+              tick: 0
+            });
+            
+            if (this.loop) {
+              this.loadSequence();
+              this.runSequence();
+            }
+          }
+          
+          // update next tick value
+          tick++;
+          
+        }, 1000 / this.sequence.metaData.tps);
       }
 
     }
