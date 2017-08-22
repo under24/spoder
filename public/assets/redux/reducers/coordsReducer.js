@@ -288,8 +288,8 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
       {
         let newState = {};
         
-        for (let i = 1; i <= 6; i++) {
-          newState[i] = Object.assign({}, state[i], { sagittalBaseY: state[i].sagittalBaseY + action.payload });
+        for (let legId = 1; legId <= 6; legId++) {
+          newState[legId] = Object.assign({}, state[legId], { sagittalBaseY: state[legId].sagittalBaseY + action.payload });
         }
       
         return newState;
@@ -298,43 +298,42 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
       {
         let newState = {};
         
-        for (let i = 1; i <= 6; i++) {
+        for (let legId = 1; legId <= 6; legId++) {
           
           let transverseBaseX;
-          switch (state[i].side) {
+          switch (state[legId].side) {
             case 'left':
-              transverseBaseX = state[i].transverseBaseX + action.payload.x; break;
+              transverseBaseX = state[legId].transverseBaseX + action.payload.x; break;
             case 'right':
-              transverseBaseX = state[i].transverseBaseX - action.payload.x; break;
+              transverseBaseX = state[legId].transverseBaseX - action.payload.x; break;
           }
           
           let shiftedCoords = {
             transverseBaseX: transverseBaseX,
-            transverseBaseY: state[i].transverseBaseY + action.payload.y
+            transverseBaseY: state[legId].transverseBaseY + action.payload.y
           };
           
           // compensative computation
-          let coords = RU.aggregateCoords(state[i], shiftedCoords);
+          let coords = RU.aggregateCoords(state[legId], shiftedCoords);
           let compensativeCoords = RU.getTransverseBaseXYCompensativeCoords(coords);
           
-          if (compensativeCoords.sagittalBaseX !== state[i].sagittalBaseX) shiftedCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
-          if (compensativeCoords.sagittalCursorX !== state[i].sagittalCursorX) shiftedCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
+          if (compensativeCoords.sagittalBaseX !== state[legId].sagittalBaseX) shiftedCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
+          if (compensativeCoords.sagittalCursorX !== state[legId].sagittalCursorX) shiftedCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
           
-          newState[i] = Object.assign({}, state[i], shiftedCoords);
+          newState[legId] = Object.assign({}, state[legId], shiftedCoords);
         }
         
         return newState;
       }
     case "APPLY_TILT_MODIFIER_TO_COORDS":
       {
-        let distPct = 0.6666666666666666;
+        let newState = {},
+            distPct = 0.6666666666666666;
         
-        let newState = {};
-        
-        for (let i = 1; i <= 6; i++) {
+        for (let legId = 1; legId <= 6; legId++) {
           let finalValue,
-              side = state[i].side,
-              row = state[i].row;
+              side = state[legId].side,
+              row = state[legId].row;
           
           switch(side) {
             case 'right':
@@ -348,18 +347,17 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
               if (row === 'back') finalValue = action.payload.rightTiltModifier * distPct + action.payload.backTiltModifier;
               break;
           }
-          newState[i] = Object.assign({}, state[i], { sagittalBaseY: state[i].sagittalBaseY - finalValue });
+          newState[legId] = Object.assign({}, state[legId], { sagittalBaseY: state[legId].sagittalBaseY - finalValue });
         }        
         return newState;
       }
     case "APPLY_ROTATION_MODIFIER_TO_COORDS":
       {
-        let baseCenterCoords = RU.getBaseCenter(state);
+        let newState = {},
+            baseCenterCoords = RU.getBaseCenter(state);
         
-        let newState = {};
-        
-        for (let i = 1; i <= 6; i++) {
-          let rotatedCoords = RU.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[i]);
+        for (let legId = 1; legId <= 6; legId++) {
+          let rotatedCoords = RU.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[legId]);
           
           let finalCoords = {
             transverseBaseX: rotatedCoords.x,
@@ -367,13 +365,13 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           }
           
           // gather up latest coords for further computations
-          let coords = RU.aggregateCoords(state[i], finalCoords);
-          let compensativeCoords = RU.getTransverseBaseXYCompensativeCoords(coords);
+          let coords = RU.aggregateCoords(state[legId], finalCoords),
+              compensativeCoords = RU.getTransverseBaseXYCompensativeCoords(coords);
           // compare with the existing coords
-          if (compensativeCoords.sagittalBaseX !== state[i].sagittalBaseX) finalCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
-          if (compensativeCoords.sagittalCursorX !== state[i].sagittalCursorX) finalCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
+          if (compensativeCoords.sagittalBaseX !== state[legId].sagittalBaseX) finalCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
+          if (compensativeCoords.sagittalCursorX !== state[legId].sagittalCursorX) finalCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
           
-          newState[i] = Object.assign({}, state[i], finalCoords);
+          newState[legId] = Object.assign({}, state[legId], finalCoords);
         }
         
         return newState;
