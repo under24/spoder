@@ -16,7 +16,8 @@ const movementReducer = combineReducers({
   status: movementStatusReducer,
   sequence: sequenceReducer,
   sequenceProgress: sequenceProgressReducer,
-  sequenceMetaData: sequenceMetaDataReducer
+  sequenceMetaData: sequenceMetaDataReducer,
+  turn: movementTurnReducer
 });
 
 const reducers = combineReducers({
