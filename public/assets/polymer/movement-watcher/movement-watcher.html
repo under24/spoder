@@ -9,9 +9,9 @@
           legs: {
             statePath: 'legs'
           },
-          joystick: {
-            statePath: 'movement.joystick',
-            observer: 'observeJoystick'
+          direction: {
+            statePath: 'movement.direction',
+            observer: 'observeDirection'
           },
           circles: {
             statePath: 'movement.circles',
@@ -20,8 +20,8 @@
         }
       }
       
-      observeJoystick() {
-        this.calcMovementPointersFrom('joystick');
+      observeDirection() {
+        this.calcMovementPointersFrom('direction');
       }
       
       observeCircles(newValue, oldValue) {
@@ -29,22 +29,22 @@
       }
       
       calcMovementPointersFrom(trigger) {
-        if (this.circles === undefined || this.joystick === undefined) return;
+        if (this.circles === undefined || this.direction === undefined) return;
 
         let payload = {};
         
         switch (trigger) {
-          case 'joystick':
+          case 'direction':
             {
               for (let i = 1; i <= 6; i++) {
                 payload[i] = {};
                 switch (this.legs[i].side) {
                   case 'left':
-                    payload[i].x = this.circles[i].centerX - this.circles[i].radius * (this.joystick.x / 100); break;
+                    payload[i].x = this.circles[i].centerX - this.circles[i].radius * (this.direction.x / 100); break;
                   case 'right':
-                    payload[i].x = this.circles[i].centerX + this.circles[i].radius * (this.joystick.x / 100); break;
+                    payload[i].x = this.circles[i].centerX + this.circles[i].radius * (this.direction.x / 100); break;
                 }
-                payload[i].y = this.circles[i].centerY - this.circles[i].radius * (this.joystick.y / 100);
+                payload[i].y = this.circles[i].centerY - this.circles[i].radius * (this.direction.y / 100);
               }
               break;
             }
@@ -54,11 +54,11 @@
                 payload[i] = {};
                 switch (this.legs[i].side) {
                   case 'left':
-                    payload[i].x = this.circles[i].centerX - this.circles[i].radius * (this.joystick.x / 100); break;
+                    payload[i].x = this.circles[i].centerX - this.circles[i].radius * (this.direction.x / 100); break;
                   case 'right':
-                    payload[i].x = this.circles[i].centerX + this.circles[i].radius * (this.joystick.x / 100); break;
+                    payload[i].x = this.circles[i].centerX + this.circles[i].radius * (this.direction.x / 100); break;
                 }
-                payload[i].y = this.circles[i].centerY - this.circles[i].radius * (this.joystick.y / 100);
+                payload[i].y = this.circles[i].centerY - this.circles[i].radius * (this.direction.y / 100);
               }
               break;
             }

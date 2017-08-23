@@ -10,7 +10,7 @@ const modifierReducer = combineReducers({
 });
 
 const movementReducer = combineReducers({
-  joystick: movementJoystickReducer,
+  direction: movementDirectionReducer,
   pointers: movementPointerReducer,
   circles: movementCircleReducer,
   status: movementStatusReducer,

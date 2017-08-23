@@ -183,8 +183,8 @@
             statePath: 'movement.pointers',
             observer: 'observePointers'
           },
-          joystick: {
-            statePath: 'movement.joystick'
+          direction: {
+            statePath: 'movement.direction'
           },
           circles: {
             statePath: 'movement.circles'
@@ -341,9 +341,9 @@
       }
       
       observePointers() {
-        if (this.joystick === undefined || this.prevJoystickObj === this.joystick) return;
+        if (this.direction === undefined || this.prevDirectionObj === this.direction) return;
 
-        this.prevJoystickObj = this.joystick;
+        this.prevDirectionObj = this.direction;
         this.loadSequence();
       }
       
