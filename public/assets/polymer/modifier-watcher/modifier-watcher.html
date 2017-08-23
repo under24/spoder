@@ -72,13 +72,13 @@
       
       observeRotationModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
-        if (newValue.rotationModifier === oldValue.rotationModifier) {
+        if (newValue.x === oldValue.x) {
           console.warn('same rotation modifier value');
           return;
         }
         
         let payload = {
-          rotation: oldValue.rotationModifier - newValue.rotationModifier
+          rotation: oldValue.x - newValue.x
         }
         store.dispatch({ type: 'APPLY_ROTATION_MODIFIER_TO_COORDS', payload });
       }

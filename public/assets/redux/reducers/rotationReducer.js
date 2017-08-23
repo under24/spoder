@@ -1,7 +1,7 @@
 'use strict';
 
 let rotationReducerInitState = {
-  rotationModifier: 0,
+  x: 0,
   appliedTo: 'transverseBaseXY'
 }
 

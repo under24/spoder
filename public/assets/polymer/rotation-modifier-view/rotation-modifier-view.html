@@ -40,16 +40,16 @@
       }
       
       observeJoystickOutput(newValue) {
-        if (this.rotationModifier && newValue.xShift === this.rotationModifier.rotationModifier) return;
+        if (this.rotationModifier && newValue.xShift === this.rotationModifier.x) return;
         
         store.dispatch({
           type: "ROTATION_MODIFIER_CHANGED",
-          payload: { rotationModifier: newValue.xShift }
+          payload: { x: newValue.xShift }
         });
       }
       
       computeInput(rotationModifier) {
-        return { xShift: rotationModifier.rotationModifier };
+        return { xShift: rotationModifier.x };
       }
 
     }
