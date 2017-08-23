@@ -66,13 +66,14 @@
       
       getSagittalMiscData(legId) {
         // sagittal boundary ball xy
-        let sbx = this.coords[legId].sagittalBaseX;
-        let sby = this.coords[legId].sagittalBaseY;
+        let sbx = this.coords[legId].sagittalBaseX,
+            sby = this.coords[legId].sagittalBaseY;
+            
         let sagittalWithinReach = this.targetWithinReach(legId, 'sagittal');
         
         // sagittal diff x/y
-        let dx = this.getDX(legId, 'sagittal');
-        let dy = this.getDY(legId, 'sagittal');
+        let dx = this.getDX(legId, 'sagittal'),
+            dy = this.getDY(legId, 'sagittal');
         
         // sagittal distance from sagittal cursor x/y to sagittal base x/y
         let distance = MU.getDistance(dx, dy);
@@ -150,8 +151,8 @@
       }
       
       calcForWithinReachMode(legId, view) {
-        let femurAngles = this.getFemurAngle(legId, view);
-        let tibiaAngles = this.getTibiaAngle(legId, view);
+        let femurAngles = this.getFemurAngle(legId, view),
+            tibiaAngles = this.getTibiaAngle(legId, view);
         
         return {
           femurScreenAngle: femurAngles.screen,
