@@ -13,8 +13,7 @@ let coordsReducerInitState = {
     transverseBaseY: -150,
     side: 'left',
     row: 'front',
-    offsetRotation: -45,
-    logicOffsetRotation: 45
+    offsetRotation: -45
   },
   2: {
     legId: 2,
@@ -28,8 +27,7 @@ let coordsReducerInitState = {
     transverseBaseY: -150,
     side: 'right',
     row: 'front',
-    offsetRotation: 45,
-    logicOffsetRotation: 45
+    offsetRotation: 45
   },
   3: {
     legId: 3,
@@ -43,8 +41,7 @@ let coordsReducerInitState = {
     transverseBaseY: 0,
     side: 'left',
     row: 'middle',
-    offsetRotation: 0,
-    logicOffsetRotation: 0
+    offsetRotation: 0
   },
   4: {
     legId: 4,
@@ -58,8 +55,7 @@ let coordsReducerInitState = {
     transverseBaseY: 0,
     side: 'right',
     row: 'middle',
-    offsetRotation: 0,
-    logicOffsetRotation: 0
+    offsetRotation: 0
   },
   5: {
     legId: 5,
@@ -73,8 +69,7 @@ let coordsReducerInitState = {
     transverseBaseY: 150,
     side: 'left',
     row: 'back',
-    offsetRotation: 45,
-    logicOffsetRotation: -45
+    offsetRotation: 45
   },
   6: {
     legId: 6,
@@ -88,8 +83,7 @@ let coordsReducerInitState = {
     transverseBaseY: 150,
     side: 'right',
     row: 'back',
-    offsetRotation: -45,
-    logicOffsetRotation: -45
+    offsetRotation: -45
   }
 };
 

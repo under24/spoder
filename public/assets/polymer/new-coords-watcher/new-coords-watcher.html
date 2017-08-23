@@ -245,7 +245,15 @@
       }
       
       validateCoxaOffset(legId, coxaAngle) {
-        coxaAngle += this.coords[legId].logicOffsetRotation;
+        // 3 and 4 have 0 offset rotation 
+        switch (legId) {
+          case 1:
+          case 2:
+            coxaAngle += 45; break;
+          case 5:
+          case 6:
+            coxaAngle += -45; break;
+        }
         
         if (coxaAngle < 0) coxaAngle = 360 + coxaAngle;
         else if (coxaAngle > 360) coxaAngle = coxaAngle - 360;
