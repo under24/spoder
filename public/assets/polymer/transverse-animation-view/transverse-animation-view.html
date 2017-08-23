@@ -108,31 +108,31 @@
     
     <div id="spoder">
       <div class="centerPoint">
-        <div class="base leg1 left" style$="[[computeCoords(coords, '1')]]">
+        <div class="base leg1 left" style$="[[computeBase(coords, offsets, '1')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '1', misc)]]"></div>
         </div>
-        <div class="base leg2 right" style$="[[computeCoords(coords, '2')]]">
+        <div class="base leg2 right" style$="[[computeBase(coords, offsets, '2')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '2', misc)]]"></div>
         </div>
-        <div class="base leg3 left" style$="[[computeCoords(coords, '3')]]">
+        <div class="base leg3 left" style$="[[computeBase(coords, offsets, '3')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '3', misc)]]"></div>
         </div>
-        <div class="base leg4 right" style$="[[computeCoords(coords, '4')]]">
+        <div class="base leg4 right" style$="[[computeBase(coords, offsets, '4')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '4', misc)]]"></div>
         </div>
-        <div class="base leg5 left" style$="[[computeCoords(coords, '5')]]">
+        <div class="base leg5 left" style$="[[computeBase(coords, offsets, '5')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '5', misc)]]"></div>
         </div>
-        <div class="base leg6 right" style$="[[computeCoords(coords, '6')]]">
+        <div class="base leg6 right" style$="[[computeBase(coords, offsets, '6')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '6', misc)]]"></div>
         </div>
         
-        <div class="cursor leg1 left" style$="[[computeCursor(coords, '1')]]"></div>
-        <div class="cursor leg2 right" style$="[[computeCursor(coords, '2')]]"></div>
-        <div class="cursor leg3 left" style$="[[computeCursor(coords, '3')]]"></div>
-        <div class="cursor leg4 right" style$="[[computeCursor(coords, '4')]]"></div>
-        <div class="cursor leg5 left" style$="[[computeCursor(coords, '5')]]"></div>
-        <div class="cursor leg6 right" style$="[[computeCursor(coords, '6')]]"></div>
+        <div class="cursor leg1 left" style$="[[computeCursor(coords, offsets, '1')]]"></div>
+        <div class="cursor leg2 right" style$="[[computeCursor(coords, offsets, '2')]]"></div>
+        <div class="cursor leg3 left" style$="[[computeCursor(coords, offsets, '3')]]"></div>
+        <div class="cursor leg4 right" style$="[[computeCursor(coords, offsets, '4')]]"></div>
+        <div class="cursor leg5 left" style$="[[computeCursor(coords, offsets, '5')]]"></div>
+        <div class="cursor leg6 right" style$="[[computeCursor(coords, offsets, '6')]]"></div>
         
         <div class="movementPointer pointer1 left" style$="[[computeMovementPointer(movementPointers, '1')]]"></div>
         <div class="movementPointer pointer2 right" style$="[[computeMovementPointer(movementPointers, '2')]]"></div>
@@ -172,6 +172,9 @@
           legs: {
             statePath: 'legs'
           },
+          offsets: {
+            statePath: 'viewOffsets'
+          },
           coords: {
             statePath: 'coords'
           },
@@ -196,16 +199,20 @@
         };
       }
       
-      computeCoords(coords, legId) {
-        let x = coords[legId].side + ': ' + coords[legId].transverseBaseX + 'px;';
-        let y = `top: ${coords[legId].transverseBaseY}px;`;
+      computeBase(coords, offsets, legId) {
+        if (coords === undefined || offsets === undefined) return;
+        
+        let x = `${coords[legId].side}: ${coords[legId].transverseBaseX + offsets[legId].transverseAnimationViewOffsetX}px;`;
+        let y = `top: ${coords[legId].transverseBaseY + offsets[legId].transverseAnimationViewOffsetY}px;`;
         
         return x + y;
       }
       
-      computeCursor(coords, legId) {
-        let x = coords[legId].side + ': ' + coords[legId].transverseCursorX + 'px;';
-        let y = 'top: ' + coords[legId].transverseCursorY + 'px;';
+      computeCursor(coords, offsets, legId) {
+        if (coords === undefined || offsets === undefined) return;
+        
+        let x = `${coords[legId].side}: ${coords[legId].transverseCursorX + offsets[legId].transverseAnimationViewOffsetX}px;`;
+        let y = `top: ${coords[legId].transverseCursorY + offsets[legId].transverseAnimationViewOffsetY}px;`;
         
         return x + y;
       }
