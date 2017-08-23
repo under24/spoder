@@ -27,12 +27,12 @@
       
       observeLevelModifier(newValue, oldValue) {
         if (oldValue === undefined) return;
-        if (newValue.levelModifier === oldValue.levelModifier) {
+        if (newValue.y === oldValue.y) {
           console.warn('same level modifier values');
           return;
         }
         
-        let payload = oldValue.levelModifier - newValue.levelModifier;
+        let payload = oldValue.y - newValue.y;
         store.dispatch({ type: "APPLY_LEVEL_MODIFIER_TO_COORDS", payload });
       }
       

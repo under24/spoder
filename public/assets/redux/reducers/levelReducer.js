@@ -1,7 +1,7 @@
 'use strict';
 
 let levelReducerInitState = {
-  levelModifier: 0,
+  y: 0,
   appliedTo: 'sagittalBaseY'
 }
 

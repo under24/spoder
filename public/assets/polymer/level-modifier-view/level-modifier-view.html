@@ -40,16 +40,16 @@
       }
       
       observeJoystickOutput(newValue) {
-        if (this.levelModifier && newValue.yShift === this.levelModifier.levelModifier) return;
+        if (this.levelModifier && newValue.yShift === this.levelModifier.y) return;
         
         store.dispatch({
           type: "LEVEL_MODIFIER_CHANGED",
-          payload: { levelModifier: newValue.yShift }
+          payload: { y: newValue.yShift }
         });
       }
       
       computeInput(levelModifier) {
-        return { yShift: levelModifier.levelModifier };
+        return { yShift: levelModifier.y };
       }
 
     }
