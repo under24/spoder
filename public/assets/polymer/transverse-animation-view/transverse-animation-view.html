@@ -198,7 +198,7 @@
       
       computeCoords(coords, legId) {
         let x = coords[legId].side + ': ' + coords[legId].transverseBaseX + 'px;';
-        let y = 'top: ' + coords[legId].transverseBaseY + 'px;';
+        let y = `top: ${coords[legId].transverseBaseY}px;`;
         
         return x + y;
       }
