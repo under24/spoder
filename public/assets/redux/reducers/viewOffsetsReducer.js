@@ -53,10 +53,34 @@ let viewOffsetsReducerInitState = {
 
 const viewOffsetsReducer = (state = viewOffsetsReducerInitState, action) => {
   switch (action.type) {
-    case "VIEW_OFFSET_SHIFTED":
+    // case "VIEW_OFFSET_SHIFTED":
+    //   {
+    //     let newOffsets = {};
+    //     // if (action.payload)
+    //     
+    //     return Object.assign(
+    //       {}, 
+    //       state,
+    //       { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
+    //     );
+    //   }
     case "SEQUENCE_SHIFTED_XY_BATCHED":
       {
-        // return Object.assign({}, state, action.payload);
+        let newState = {};
+        
+        for (let legId in action.payload) {
+          
+          let payload = {};
+          
+          if (action.payload[legId].transverseBaseX)
+            payload.transverseAnimationViewOffsetX = state[legId].transverseAnimationViewOffsetX + action.payload[legId].transverseBaseX;
+          
+          if (action.payload[legId].transverseBaseY)
+            payload.transverseAnimationViewOffsetY = state[legId].transverseAnimationViewOffsetY + action.payload[legId].transverseBaseY;
+          
+          newState[legId] = Object.assign({}, state[legId], payload);
+        }
+        return Object.assign({}, state, newState);
       }
   }
   return state;
