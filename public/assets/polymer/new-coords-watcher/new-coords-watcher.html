@@ -49,11 +49,11 @@
         return { screen, servo: +servo.toFixed(0) };
       }
       
-      sameCoords(newCoords, oldCoords, view, i) {
-        if (newCoords[i][`${view}CursorX`] !== oldCoords[i][`${view}CursorX`] ||
-            newCoords[i][`${view}CursorY`] !== oldCoords[i][`${view}CursorY`] ||
-            newCoords[i][`${view}BaseX`] !== oldCoords[i][`${view}BaseX`] ||
-            newCoords[i][`${view}BaseY`] !== oldCoords[i][`${view}BaseY`]) return false;
+      sameCoords(newCoords, oldCoords, view, legId) {
+        if (newCoords[legId][`${view}CursorX`] !== oldCoords[legId][`${view}CursorX`] ||
+            newCoords[legId][`${view}CursorY`] !== oldCoords[legId][`${view}CursorY`] ||
+            newCoords[legId][`${view}BaseX`] !== oldCoords[legId][`${view}BaseX`] ||
+            newCoords[legId][`${view}BaseY`] !== oldCoords[legId][`${view}BaseY`]) return false;
             
         return true;
       }
