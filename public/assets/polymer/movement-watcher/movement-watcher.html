@@ -21,53 +21,38 @@
       }
       
       observeDirection() {
-        this.calcMovementPointersFrom('direction');
+        this.calcMovementPointersFrom();
       }
       
-      observeCircles(newValue, oldValue) {
-        this.calcMovementPointersFrom('circles');
+      observeCircles() {
+        this.calcMovementPointersFrom();
       }
       
-      calcMovementPointersFrom(trigger) {
+      calcMovementPointersFrom() {
         if (this.circles === undefined || this.direction === undefined) return;
 
         let payload = {};
         
-        switch (trigger) {
-          case 'direction':
-            {
-              for (let i = 1; i <= 6; i++) {
-                payload[i] = {};
-                switch (this.legs[i].side) {
-                  case 'left':
-                    payload[i].x = this.circles[i].centerX - this.circles[i].radius * (this.direction.x / 100); break;
-                  case 'right':
-                    payload[i].x = this.circles[i].centerX + this.circles[i].radius * (this.direction.x / 100); break;
-                }
-                payload[i].y = this.circles[i].centerY - this.circles[i].radius * (this.direction.y / 100);
-              }
-              break;
-            }
-          case 'circles':
-            {
-              for (let i = 1; i <= 6; i++) {
-                payload[i] = {};
-                switch (this.legs[i].side) {
-                  case 'left':
-                    payload[i].x = this.circles[i].centerX - this.circles[i].radius * (this.direction.x / 100); break;
-                  case 'right':
-                    payload[i].x = this.circles[i].centerX + this.circles[i].radius * (this.direction.x / 100); break;
-                }
-                payload[i].y = this.circles[i].centerY - this.circles[i].radius * (this.direction.y / 100);
-              }
-              break;
-            }
+        for (let legId = 1; legId <= 6; legId++) {
+          payload[legId] = {};
+          
+          switch (this.legs[legId].side) {
+            case 'left':
+              payload[legId].x = this.circles[legId].centerX - this.circles[legId].radius * (this.direction.x / 100); break;
+            case 'right':
+              payload[legId].x = this.circles[legId].centerX + this.circles[legId].radius * (this.direction.x / 100); break;
+          }
+          payload[legId].y = this.circles[legId].centerY - this.circles[legId].radius * (this.direction.y / 100);
         }
         
+        this.batchDispatch(payload);    
+      }
+      
+      batchDispatch(payload) {
         store.dispatch({
           type: "MOVEMENT_POINTERS_CHANGED_BATCHED",
           payload
-        });       
+        });      
       }
 
     }
