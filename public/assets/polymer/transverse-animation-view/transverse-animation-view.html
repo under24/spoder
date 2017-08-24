@@ -134,29 +134,29 @@
         <div class="cursor leg5 left" style$="[[computeCursor(coords, offsets, '5')]]"></div>
         <div class="cursor leg6 right" style$="[[computeCursor(coords, offsets, '6')]]"></div>
         
-        <div class="movementPointer pointer1 left" style$="[[computeMovementPointer(movementPointers, '1')]]"></div>
-        <div class="movementPointer pointer2 right" style$="[[computeMovementPointer(movementPointers, '2')]]"></div>
-        <div class="movementPointer pointer3 left" style$="[[computeMovementPointer(movementPointers, '3')]]"></div>
-        <div class="movementPointer pointer4 right" style$="[[computeMovementPointer(movementPointers, '4')]]"></div>
-        <div class="movementPointer pointer5 left" style$="[[computeMovementPointer(movementPointers, '5')]]"></div>
-        <div class="movementPointer pointer6 right" style$="[[computeMovementPointer(movementPointers, '6')]]"></div>
+        <div class="movementPointer pointer1 left" style$="[[computeMovementPointer(movementPointers, offsets, '1')]]"></div>
+        <div class="movementPointer pointer2 right" style$="[[computeMovementPointer(movementPointers, offsets, '2')]]"></div>
+        <div class="movementPointer pointer3 left" style$="[[computeMovementPointer(movementPointers, offsets, '3')]]"></div>
+        <div class="movementPointer pointer4 right" style$="[[computeMovementPointer(movementPointers, offsets, '4')]]"></div>
+        <div class="movementPointer pointer5 left" style$="[[computeMovementPointer(movementPointers, offsets, '5')]]"></div>
+        <div class="movementPointer pointer6 right" style$="[[computeMovementPointer(movementPointers, offsets, '6')]]"></div>
         
-        <div class="movementCircleCenter circleCenter1" style$="[[computeMovementCircleCenter(movementCircles, '1')]]">
+        <div class="movementCircleCenter circleCenter1" style$="[[computeCircleCenter(movementCircles, offsets, '1')]]">
           <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '1')]]"></div>
         </div>
-        <div class="movementCircleCenter circleCenter2" style$="[[computeMovementCircleCenter(movementCircles, '2')]]">
+        <div class="movementCircleCenter circleCenter2" style$="[[computeCircleCenter(movementCircles, offsets, '2')]]">
           <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '2')]]"></div>
         </div>
-        <div class="movementCircleCenter circleCenter3" style$="[[computeMovementCircleCenter(movementCircles, '3')]]">
+        <div class="movementCircleCenter circleCenter3" style$="[[computeCircleCenter(movementCircles, offsets, '3')]]">
           <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '3')]]"></div>
         </div>
-        <div class="movementCircleCenter circleCenter4" style$="[[computeMovementCircleCenter(movementCircles, '4')]]">
+        <div class="movementCircleCenter circleCenter4" style$="[[computeCircleCenter(movementCircles, offsets, '4')]]">
           <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '4')]]"></div>
         </div>
-        <div class="movementCircleCenter circleCenter5" style$="[[computeMovementCircleCenter(movementCircles, '5')]]">
+        <div class="movementCircleCenter circleCenter5" style$="[[computeCircleCenter(movementCircles, offsets, '5')]]">
           <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '5')]]"></div>
         </div>
-        <div class="movementCircleCenter circleCenter6" style$="[[computeMovementCircleCenter(movementCircles, '6')]]">
+        <div class="movementCircleCenter circleCenter6" style$="[[computeCircleCenter(movementCircles, offsets, '6')]]">
           <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '6')]]"></div>
         </div>
       </div>
@@ -194,6 +194,9 @@
           },
           movementPointers: {
             statePath: 'movement.pointers'
+          },
+          useOffsets: {
+            value: true
           }
           // upcoming props
         };
@@ -202,8 +205,14 @@
       computeBase(coords, offsets, legId) {
         if (coords === undefined || offsets === undefined) return;
         
-        let x = `${coords[legId].side}: ${coords[legId].transverseBaseX + offsets[legId].transverseAnimationViewOffsetX}px;`;
-        let y = `top: ${coords[legId].transverseBaseY + offsets[legId].transverseAnimationViewOffsetY}px;`;
+        let x, y;
+        if (this.useOffsets) {
+          x = `${coords[legId].side}: ${coords[legId].transverseBaseX + offsets[legId].transverseAnimationViewOffsetX}px;`;
+          y = `top: ${coords[legId].transverseBaseY + offsets[legId].transverseAnimationViewOffsetY}px;`;
+        } else {
+          x = `${coords[legId].side}: ${coords[legId].transverseBaseX}px;`;
+          y = `top: ${coords[legId].transverseBaseY}px;`;
+        }
         
         return x + y;
       }
@@ -211,8 +220,14 @@
       computeCursor(coords, offsets, legId) {
         if (coords === undefined || offsets === undefined) return;
         
-        let x = `${coords[legId].side}: ${coords[legId].transverseCursorX + offsets[legId].transverseAnimationViewOffsetX}px;`;
-        let y = `top: ${coords[legId].transverseCursorY + offsets[legId].transverseAnimationViewOffsetY}px;`;
+        let x, y;
+        if (this.useOffsets) {
+          x = `${coords[legId].side}: ${coords[legId].transverseCursorX + offsets[legId].transverseAnimationViewOffsetX}px;`;
+          y = `top: ${coords[legId].transverseCursorY + offsets[legId].transverseAnimationViewOffsetY}px;`;
+        } else {
+          x = `${coords[legId].side}: ${coords[legId].transverseCursorX}px;`;
+          y = `top: ${coords[legId].transverseCursorY}px;`;
+        }
         
         return x + y;
       }
@@ -239,30 +254,52 @@
         return x + y + z + c;
       }
       
-      computeMovementPointer(movementPointers, legId) {
-        if (movementPointers[legId] == undefined) return;
+      computeMovementPointer(movementPointers, offsets, legId) {
+        if (movementPointers === undefined || movementPointers[legId] === null || offsets === undefined) return;
         
-        let x;
-        switch (this.legs[legId].side) {
-          case 'left':
-            x = `left: ${movementPointers[legId].x}px;`; break;
-          case 'right':
-            x = `right: ${movementPointers[legId].x}px;`; break;
+        let x, y;
+        if (this.useOffsets) {
+          switch (this.legs[legId].side) {
+            case 'left':
+              x = `left: ${movementPointers[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
+            case 'right':
+              x = `right: ${movementPointers[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
+          }
+          y = `top: ${movementPointers[legId].y + offsets[legId].transverseAnimationViewOffsetY}px;`;
+        } else {
+          switch (this.legs[legId].side) {
+            case 'left':
+              x = `left: ${movementPointers[legId].x}px;`; break;
+            case 'right':
+              x = `right: ${movementPointers[legId].x}px;`; break;
+          }
+          y = `top: ${movementPointers[legId].y}px;`;
         }
-        let y = `top: ${movementPointers[legId].y}px;`;
         
         return x + y;
       }
       
-      computeMovementCircleCenter(movementCircles, legId) {
-        let x;
-        switch (this.legs[legId].side) {
-          case 'left':
-            x = `left: ${movementCircles[legId].centerX}px;`; break;
-          case 'right':
-            x = `right: ${movementCircles[legId].centerX}px;`; break;
+      computeCircleCenter(movementCircles, offsets, legId) {
+        if (movementCircles === undefined || offsets === undefined) return;
+        
+        let x, y;
+        if (this.useOffsets) {
+          switch (this.legs[legId].side) {
+            case 'left':
+              x = `left: ${movementCircles[legId].centerX + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
+            case 'right':
+              x = `right: ${movementCircles[legId].centerX + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
+          }
+          y = `top: ${movementCircles[legId].centerY + offsets[legId].transverseAnimationViewOffsetY}px;`;
+        } else {
+          switch (this.legs[legId].side) {
+            case 'left':
+              x = `left: ${movementCircles[legId].centerX}px;`; break;
+            case 'right':
+              x = `right: ${movementCircles[legId].centerX}px;`; break;
+          }
+          y = `top: ${movementCircles[legId].centerY}px;`;
         }
-        let y = `top: ${movementCircles[legId].centerY}px;`;
         
         return x + y;
       }
