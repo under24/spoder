@@ -15,13 +15,9 @@ const movementPointerReducer = (state = movementPointerReducerInitState, action)
       {
         let newState = {};
         
-        for (let key in action.payload) {
-          newState[key] = Object.assign({}, state[key], action.payload[key]);
+        for (let legId in action.payload) {
+          newState[legId] = Object.assign({}, state[legId], action.payload[legId]);
         }
-        
-        // for (let i = 1; i <= 6; i++) {
-        //   newState[i] = Object.assign({}, state[i], action.payload[i]);
-        // }
         
         return newState;
       }
