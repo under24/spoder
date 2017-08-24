@@ -274,28 +274,28 @@
             payload = {},
             anglesSuccess, miscSuccess, movementCircleSuccess;
 
-        for (let i = 1; i <= 6; i++) {
+        for (let legId = 1; legId <= 6; legId++) {
 
           // transverse coords => coxa angles
-          if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'transverse', i)) {
+          if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'transverse', legId)) {
             
-            let coxaAngles = this.processTransverseCoordsIntoCoxaAngles(i);
-            anglesSuccess = this.gatherCoxaAngles(i, coxaAngles, angles);
+            let coxaAngles = this.processTransverseCoordsIntoCoxaAngles(legId);
+            anglesSuccess = this.gatherCoxaAngles(legId, coxaAngles, angles);
             
             // let misc = this.getTransverseMiscData(legId);
           }
           
           // sagittal coords => femur + tibia angles
-          if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'sagittal', i)) {
+          if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'sagittal', legId)) {
             
-            let femuAndTibiaAngles = this.processSagittalCoordsIntoFemurAndTibiaAngles(i);
-            anglesSuccess = this.gatherFemurAndTibiaAngles(i, femuAndTibiaAngles, angles);
+            let femuAndTibiaAngles = this.processSagittalCoordsIntoFemurAndTibiaAngles(legId);
+            anglesSuccess = this.gatherFemurAndTibiaAngles(legId, femuAndTibiaAngles, angles);
             
-            let miscValue = this.getSagittalMiscData(i);
-            miscSuccess = this.gatherMiscValues(i, miscValue, misc);
+            let miscValue = this.getSagittalMiscData(legId);
+            miscSuccess = this.gatherMiscValues(legId, miscValue, misc);
             
-            let movementCircleValue = this.getMovementCircleData(miscValue.transverseReachRadius, i);
-            movementCircleSuccess = this.gatherMovementCircleValues(i, movementCircleValue, movementCircle);
+            let movementCircleValue = this.getMovementCircleData(miscValue.transverseReachRadius, legId);
+            movementCircleSuccess = this.gatherMovementCircleValues(legId, movementCircleValue, movementCircle);
           }
           
         }
