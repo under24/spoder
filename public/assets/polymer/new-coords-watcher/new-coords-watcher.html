@@ -278,6 +278,7 @@
 
           // transverse coords => coxa angles
           if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'transverse', i)) {
+            
             let coxaAngles = this.processTransverseCoordsIntoCoxaAngles(i);
             anglesSuccess = this.gatherCoxaAngles(i, coxaAngles, angles);
             
