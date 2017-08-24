@@ -21,14 +21,14 @@
       }
       
       observeDirection() {
-        this.calcMovementPointersFrom();
+        this.calcMovementPointers();
       }
       
       observeCircles() {
-        this.calcMovementPointersFrom();
+        this.calcMovementPointers();
       }
       
-      calcMovementPointersFrom() {
+      calcMovementPointers() {
         if (this.circles === undefined || this.direction === undefined) return;
 
         let payload = {};
