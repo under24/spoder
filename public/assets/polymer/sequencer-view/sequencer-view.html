@@ -209,16 +209,16 @@
         let blueprint = {},
             metaData = {};
         
-        for (let i = 1; i <= 6; i++) {
-          let pointerToCursorX = this.coords[i].transverseCursorX - this.pointers[i].x,
-              pointerToCursorY = this.coords[i].transverseCursorY - this.pointers[i].y,
+        for (let legId = 1; legId <= 6; legId++) {
+          let pointerToCursorX = this.coords[legId].transverseCursorX - this.pointers[legId].x,
+              pointerToCursorY = this.coords[legId].transverseCursorY - this.pointers[legId].y,
 
-              pointerToCircleCenterX = this.circles[i].centerX - this.pointers[i].x,
-              pointerToCircleCenterY = this.circles[i].centerY - this.pointers[i].y;
+              pointerToCircleCenterX = this.circles[legId].centerX - this.pointers[legId].x,
+              pointerToCircleCenterY = this.circles[legId].centerY - this.pointers[legId].y;
 
-              metaData[i] = BU.getStartAndEndPctBasedOnLegId(i, this.gaits, 'ripple');
+              metaData[legId] = BU.getStartAndEndPctBasedOnLegId(legId, this.gaits, 'ripple');
 
-          blueprint[i] = [
+          blueprint[legId] = [
             {
               "coordType": "transverseBaseX",
               "startPct": 0,
@@ -233,14 +233,14 @@
             },
             {
               "coordType": "transverseCursorX",
-              "startPct": metaData[i].startPct,
-              "endPct": metaData[i].endPct,
+              "startPct": metaData[legId].startPct,
+              "endPct": metaData[legId].endPct,
               "pxlsToMove": pointerToCursorX
             },
             {
               "coordType": "transverseCursorY",
-              "startPct": metaData[i].startPct,
-              "endPct": metaData[i].endPct,
+              "startPct": metaData[legId].startPct,
+              "endPct": metaData[legId].endPct,
               "pxlsToMove": pointerToCursorY
             }
           ];
