@@ -1,9 +1,6 @@
 'use strict';
 
-let movementTurnReducerInitState = {
-  x: 0,
-  y: 0
-}
+let movementTurnReducerInitState = { x: 0 }
 
 const movementTurnReducer = (state = movementTurnReducerInitState, action) => {
   switch (action.type) {

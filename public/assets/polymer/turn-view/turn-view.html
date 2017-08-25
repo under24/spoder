@@ -38,22 +38,18 @@
         };
       }
       
-      observeJoystickOutput(newValue) {
+      observeJoystickOutput(joystickOutput) {
         if (this.turn &&
-            newValue.xShift === this.turn.x &&
-            newValue.yShift === this.turn.y) return;
+            joystickOutput.xShift === this.turn.x) return;
         
         store.dispatch({
           type: "MOVEMENT_TURN_VALUES_CHANGED",
-          payload: {
-            x: newValue.xShift,
-            y: newValue.yShift
-          }
+          payload: { x: joystickOutput.xShift }
         });
       }
       
       computeInput(turn) {
-        return { xShift: turn.x, yShift: turn.y };
+        return { xShift: turn.x };
       }
 
     }
