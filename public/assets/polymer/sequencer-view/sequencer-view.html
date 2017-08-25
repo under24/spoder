@@ -11,7 +11,7 @@
       }
       #sequenceTimeline {
         width: 95%;
-        border: 1px solid;
+        border: 1px dotted;
         margin: auto;
         box-sizing: border-box;
         position: relative;
@@ -21,18 +21,17 @@
       #sequenceTimeline .leg-sequence {
         font-size: 17px;
         display: flex;
+        border-top: 1px dotted;
       }
-      #sequenceTimeline hr {
-        margin: 0px;
-        border-bottom: none;
-        border-left: none;
-        border-right: none;
+      #sequenceTimeline .leg-sequence:first-child {
+        border-top: none;
       }
       #sequenceTimeline .sequence-header {
         display: inline-block;
-        border-right: 1px solid;
+        border-right: 1px dotted;
         padding: 4px 0px 4px 8px;
-        width: 50px;
+        width: 48px;
+        font-size: 16px;
       }
       #sequenceTimeline #cursor {
         width: 1px;
@@ -42,23 +41,12 @@
         top: 0px;
         bottom: 0px;
       }
-      #sequenceTimeline #cursor::after {
-        content: '';
-        display: inline-block;
-        width: 10px;
-        background-color: rgba(0, 0, 0, 0.05);
-        top: 0px;
-        bottom: 0px;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-      }
       #cursorKnob {
         position: absolute;
         top: 100%;
         left: 50%;
         transform: translateX(-50%);
-        background-color: rgba(128, 128, 128, 0.21);
+        background-color: rgba(128, 128, 128, 0.2);
         padding: 4px 8px 2px;
       }
       .sequence-content {
@@ -67,17 +55,17 @@
       }
       .sequence-content .payload {
         position: absolute;
-        background-color: rgba(0, 0, 0, 0.2);
-        top: 3px;
-        bottom: 3px;
+        background-color: rgba(0, 0, 0, 0.1);
+        top: 0px;
+        bottom: 0px;
         text-align: center;
-        line-height: 22px;
+        line-height: 26px;
       }
       .cursor-wrapper {
         position: absolute;
         top: 0px;
         bottom: 0px;
-        left: 59px;
+        left: 57px;
         right: 0px;
       }
       fieldset {
@@ -112,35 +100,30 @@
           <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'1')]]">[[computeBlueprintPayloadPeriod('1', blueprint)]]</div>
         </div>
       </div>
-      <hr />
       <div class="leg-sequence" id="leg2">
         <div class="sequence-header">R1 (2)</div>
         <div class="sequence-content">
           <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'2')]]">[[computeBlueprintPayloadPeriod('2', blueprint)]]</div>
         </div>
       </div>
-      <hr />
       <div class="leg-sequence" id="leg3">
         <div class="sequence-header">L2 (3)</div>
         <div class="sequence-content">
           <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'3')]]">[[computeBlueprintPayloadPeriod('3', blueprint)]]</div>
         </div>
       </div>
-      <hr />
       <div class="leg-sequence" id="leg4">
         <div class="sequence-header">R2 (4)</div>
         <div class="sequence-content">
           <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'4')]]">[[computeBlueprintPayloadPeriod('4', blueprint)]]</div>
         </div>
       </div>
-      <hr />
       <div class="leg-sequence" id="leg5">
         <div class="sequence-header">L3 (5)</div>
         <div class="sequence-content">
           <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'5')]]">[[computeBlueprintPayloadPeriod('5', blueprint)]]</div>
         </div>
       </div>
-      <hr />
       <div class="leg-sequence" id="leg6">
         <div class="sequence-header">R3 (6)</div>
         <div class="sequence-content">
