@@ -249,62 +249,6 @@
         return { blueprint, metaData };
       }
       
-      // modifyBlueprint() {
-      //   let blueprint = {},
-      //       metaData = {},
-      //       lastSequenceValues = this.sequenceProgress,
-      //       currentGaitIndex = BU.getLegIdFromMidPct(lastSequenceValues.pct);
-      //       
-      //   for (; currentGaitIndex < this.gaits.ripple.length; currentGaitIndex++) {
-      //     
-      //     this.gaits.ripple[currentGaitIndex].forEach((legId) => {
-      //       
-      //       debugger;
-      //       
-      //       let pointerToCursorX = this.coords[legId].transverseCursorX - this.pointers[legId].x,
-      //           pointerToCursorY = this.coords[legId].transverseCursorY - this.pointers[legId].y,
-      // 
-      //           pointerToCircleCenterX = this.circles[legId].centerX - this.pointers[legId].x,
-      //           pointerToCircleCenterY = this.circles[legId].centerY - this.pointers[legId].y,
-      //           iteratedGaitIndex = BU.getGaitIndexFromLegId(6, this.gaits, 'ripple');
-      // 
-      //           metaData[legId] = BU.getStartAndEndPctBasedOnLegId(legId, this.gaits, 'ripple');
-      //           
-      //       
-      //       if (currentGaitIndex === iteratedGaitIndex) metaData[legId].startPct = lastSequenceValues.pct;
-      //           
-      //       blueprint[legId] = [
-      //         {
-      //           coordType: "transverseBaseX",
-      //           startPct: 0,
-      //           endPct: 0,
-      //           pxlsToMove: pointerToCircleCenterX
-      //         },
-      //         {
-      //           coordType: "transverseBaseY",
-      //           startPct: 0,
-      //           endPct: 100,
-      //           pxlsToMove: pointerToCircleCenterY
-      //         },
-      //         {
-      //           coordType: "transverseCursorX",
-      //           startPct: metaData[legId].startPct,
-      //           endPct: metaData[legId].endPct,
-      //           pxlsToMove: pointerToCursorX
-      //         },
-      //         {
-      //           coordType: "transverseCursorY",
-      //           startPct: metaData[legId].startPct,
-      //           endPct: metaData[legId].endPct,
-      //           pxlsToMove: pointerToCursorY
-      //         }
-      //       ]
-      //     })
-      //   }
-      //   
-      //   return { blueprint, metaData };
-      // }
-      
       computeBlueprintMetaData(blueprintMetaData ,legId) {
         return `left: ${blueprintMetaData[legId].startPct}%; width: ${blueprintMetaData[legId].endPct - blueprintMetaData[legId].startPct}%`
       }
