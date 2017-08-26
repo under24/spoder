@@ -46,7 +46,7 @@ let RU = {
       transverseBaseY: newCoords.y
     }
   },
-  getBaseCenter(coords) {    
+  getBaseCenter(coords) {
     let x1 = coords[1].transverseBaseX,
         y1 = coords[1].transverseBaseY,
         x2 = MU.flipNumber(coords[6].transverseBaseX),
@@ -69,7 +69,7 @@ let RU = {
         // seg2: ub >= 0 && ub <= 1
     }
   },
-  getRotatedCoords(baseCoords, rotationAngle, coords) {
+  getRotatedCoords(baseCenterCoords, rotationAngle, coords) {
     let tbx;
     switch (coords.side) {
       case 'right':
@@ -78,11 +78,11 @@ let RU = {
         tbx = coords.transverseBaseX; break;
     }
     
-    let dx = tbx - baseCoords.x,
-        dy = coords.transverseBaseY - baseCoords.y,
+    let dx = tbx - baseCenterCoords.x,
+        dy = coords.transverseBaseY - baseCenterCoords.y,
         distance = MU.getDistance(dx, dy),
         angle = MU.getAngle(dy, dx),
-        rotatedCoords = MU.getCoordsFromDistanceAndAngle(baseCoords.x, baseCoords.y, angle + rotationAngle, distance);
+        rotatedCoords = MU.getCoordsFromDistanceAndAngle(baseCenterCoords.x, baseCenterCoords.y, angle + rotationAngle, distance);
 
     return {
       x: coords.side === 'right' ? MU.flipNumber(rotatedCoords.x) : rotatedCoords.x,
