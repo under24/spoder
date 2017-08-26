@@ -10,42 +10,66 @@
             statePath: 'legs'
           },
           direction: {
-            statePath: 'movement.direction',
-            observer: 'observeDirection'
+            statePath: 'movement.direction'
           },
           circles: {
-            statePath: 'movement.circles',
-            observer: 'observeCircles'
+            statePath: 'movement.circles'
+          },
+          turn: {
+            statePath: 'movement.turn'
           }
         }
       }
       
-      observeDirection() {
-        this.calcMovementPointers();
-      }
-      
-      observeCircles() {
-        this.calcMovementPointers();
+      static get observers() {
+        return [ 'calcMovementPointers(direction, circles, turn)' ];
       }
       
       calcMovementPointers() {
-        if (this.circles === undefined || this.direction === undefined) return;
+        if (this.circles === undefined || this.direction === undefined || this.turn === undefined) return;
 
-        let payload = {};
+        let pointers = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          payload[legId] = {};
+          pointers[legId] = {};
           
           switch (this.legs[legId].side) {
             case 'left':
-              payload[legId].x = this.circles[legId].centerX - this.circles[legId].radius * (this.direction.x / 100); break;
+              pointers[legId].x = this.circles[legId].centerX - this.circles[legId].radius * (this.direction.x / 100); break;
             case 'right':
-              payload[legId].x = this.circles[legId].centerX + this.circles[legId].radius * (this.direction.x / 100); break;
+              pointers[legId].x = this.circles[legId].centerX + this.circles[legId].radius * (this.direction.x / 100); break;
           }
-          payload[legId].y = this.circles[legId].centerY - this.circles[legId].radius * (this.direction.y / 100);
+          pointers[legId].y = this.circles[legId].centerY - this.circles[legId].radius * (this.direction.y / 100);
+          
+          // apply movement.turn values
+          if (this.turn.x)
+            this.applyTurn(pointers, this.circles, this.turn, legId, this.legs[legId].side);
         }
         
-        this.batchDispatch(payload);    
+        this.batchDispatch(pointers);    
+      }
+      
+      applyTurn(pointers, circles, turn, legId, side) {
+        let dx = pointers[legId].x - circles[legId].centerX,
+            dy = pointers[legId].y - circles[legId].centerY,
+            distance = MU.getDistance(dx, dy),
+            currentAngle = MU.getAngle(dy, dx);
+
+        let turnedPointerCoords,
+            cx = circles[legId].centerX,
+            cy = circles[legId].centerY;
+            
+        switch (side) {
+          case 'left':
+            turnedPointerCoords = MU.getCoordsFromDistanceAndAngle(cx, cy, currentAngle - turn.x, distance); break;
+          case 'right':
+            turnedPointerCoords = MU.getCoordsFromDistanceAndAngle(cx, cy, currentAngle + turn.x, distance); break;
+        }
+        
+        pointers[legId] = {
+          x: turnedPointerCoords.x,
+          y: turnedPointerCoords.y
+        }
       }
       
       batchDispatch(payload) {
