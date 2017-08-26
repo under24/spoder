@@ -55,20 +55,14 @@
             distance = MU.getDistance(dx, dy),
             currentAngle = MU.getAngle(dy, dx);
 
-        let turnedPointerCoords,
-            cx = circles[legId].centerX,
+        let cx = circles[legId].centerX,
             cy = circles[legId].centerY;
             
         switch (side) {
           case 'left':
-            turnedPointerCoords = MU.getCoordsFromDistanceAndAngle(cx, cy, currentAngle - turn.x, distance); break;
+            pointers[legId] = MU.getCoordsFromDistanceAndAngle(cx, cy, currentAngle - turn.x, distance); break;
           case 'right':
-            turnedPointerCoords = MU.getCoordsFromDistanceAndAngle(cx, cy, currentAngle + turn.x, distance); break;
-        }
-        
-        pointers[legId] = {
-          x: turnedPointerCoords.x,
-          y: turnedPointerCoords.y
+            pointers[legId] = MU.getCoordsFromDistanceAndAngle(cx, cy, currentAngle + turn.x, distance); break;
         }
       }
       
