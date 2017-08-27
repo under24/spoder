@@ -65,10 +65,6 @@
       // BEGIN MISC GATHERING
       
       getSagittalMiscData(legId) {
-        // sagittal boundary ball xy
-        let sbx = this.coords[legId].sagittalBaseX,
-            sby = this.coords[legId].sagittalBaseY;
-            
         let sagittalWithinReach = this.targetWithinReach(legId, 'sagittal');
         
         // sagittal diff x/y
@@ -81,8 +77,10 @@
         // sagittal straight angle from base to cursor
         let angle = MU.getAngle(dy, dx);
         
-        // sagittal misc data
-        let sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
+        // sagittal boundary ball xy
+        let sbx = this.coords[legId].sagittalBaseX,
+            sby = this.coords[legId].sagittalBaseY,
+            sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
         
         // transverse misc data
         let transverseReachCoords = PU.getTransverseReachCoords(this.coords[legId], this.metaData),
