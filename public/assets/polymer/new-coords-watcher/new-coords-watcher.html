@@ -12,6 +12,9 @@
           angles: {
             statePath: 'angles'
           },
+          baseDirection: {
+            statePath: 'baseDirection'
+          },
           coords: {
             statePath: 'coords',
             observer: 'observeCoords'
@@ -296,6 +299,21 @@
           }
           
         }
+        
+        debugger;
+        let baseCenterCoords = RU.getBaseCenter(newCoords),
+            baseDirection = MU.getAngle(newCoords[3].transverseBaseY - baseCenterCoords.y, newCoords[3].transverseBaseX - baseCenterCoords.x);
+            
+        if (baseDirection === 360) {
+          baseDirection = 0;
+        } 
+        else if (baseDirection > 360) {
+          baseDirection -= 360;
+        } 
+        else if (baseDirection < 0) {
+          baseDirection += 360;
+        }
+        this.dispatchBaseDirection(baseDirection);
 
         if (anglesSuccess) payload.angles = angles;
         if (miscSuccess) payload.misc = misc;
@@ -312,6 +330,16 @@
       batchDispatch(payload) {
         store.dispatch({
           type: "ANGLES_CHANGED_BATCHED",
+          payload
+        });
+      }
+      
+      dispatchBaseDirection(payload) {
+        // dispatch not needed
+        if (this.baseDirection !== undefined && payload === this.baseDirection) return;
+        
+        store.dispatch({
+          type: "BASE_DIRECTION_CHANGED",
           payload
         });
       }

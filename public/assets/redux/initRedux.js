@@ -30,7 +30,8 @@ const reducers = combineReducers({
   misc: miscReducer,
   viewOffsets: viewOffsetsReducer,
   movement: movementReducer,
-  gaits: gaitReducer
+  gaits: gaitReducer,
+  baseDirection: baseDirectionReducer
 });
 
 const store = createStore(
