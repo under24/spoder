@@ -252,8 +252,8 @@
             coxaAngle += -45; break;
         }
         
-        if (coxaAngle < 0) coxaAngle = 360 + coxaAngle;
-        else if (coxaAngle > 360) coxaAngle = coxaAngle - 360;
+        if (coxaAngle < 0) coxaAngle += 360;
+        else if (coxaAngle > 360) coxaAngle -= 360;
         
         return coxaAngle;
       }
