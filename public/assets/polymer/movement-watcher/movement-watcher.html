@@ -35,11 +35,11 @@
           
           switch (this.legs[legId].side) {
             case 'left':
-              pointers[legId].x = this.circles[legId].centerX - this.circles[legId].radius * (this.direction.x / 100); break;
+              pointers[legId].x = this.circles[legId].x - this.circles[legId].radius * (this.direction.x / 100); break;
             case 'right':
-              pointers[legId].x = this.circles[legId].centerX + this.circles[legId].radius * (this.direction.x / 100); break;
+              pointers[legId].x = this.circles[legId].x + this.circles[legId].radius * (this.direction.x / 100); break;
           }
-          pointers[legId].y = this.circles[legId].centerY - this.circles[legId].radius * (this.direction.y / 100);
+          pointers[legId].y = this.circles[legId].y - this.circles[legId].radius * (this.direction.y / 100);
           
           // apply movement.turn values
           if (this.turn.x)
@@ -50,13 +50,13 @@
       }
       
       applyTurn(pointers, circles, turn, legId, side) {
-        let dx = pointers[legId].x - circles[legId].centerX,
-            dy = pointers[legId].y - circles[legId].centerY,
+        let dx = pointers[legId].x - circles[legId].x,
+            dy = pointers[legId].y - circles[legId].y,
             distance = MU.getDistance(dx, dy),
             currentAngle = MU.getAngle(dy, dx);
 
-        let cx = circles[legId].centerX,
-            cy = circles[legId].centerY;
+        let cx = circles[legId].x,
+            cy = circles[legId].y;
             
         switch (side) {
           case 'left':

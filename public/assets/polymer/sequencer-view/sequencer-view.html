@@ -196,8 +196,8 @@
           let pointerToCursorX = this.coords[legId].transverseCursorX - this.pointers[legId].x,
               pointerToCursorY = this.coords[legId].transverseCursorY - this.pointers[legId].y,
 
-              pointerToCircleCenterX = this.circles[legId].centerX - this.pointers[legId].x,
-              pointerToCircleCenterY = this.circles[legId].centerY - this.pointers[legId].y;
+              pointerToCircleCenterX = this.circles[legId].x - this.pointers[legId].x,
+              pointerToCircleCenterY = this.circles[legId].y - this.pointers[legId].y;
 
           metaData[legId] = BU.getStartAndEndPctBasedOnLegId(legId, this.gaits, 'ripple');
 

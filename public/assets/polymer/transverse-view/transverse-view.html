@@ -130,8 +130,8 @@
         if (movementCircle === undefined || viewOffsets === undefined) return;
         
         return {
-          x: movementCircle.centerX + viewOffsets.transverseViewOffsetX,
-          y: movementCircle.centerY + viewOffsets.transverseViewOffsetY,
+          x: movementCircle.x + viewOffsets.transverseViewOffsetX,
+          y: movementCircle.y + viewOffsets.transverseViewOffsetY,
         }
       }
       

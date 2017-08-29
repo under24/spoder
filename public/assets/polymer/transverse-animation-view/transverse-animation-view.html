@@ -288,19 +288,19 @@
         if (this.useOffsets) {
           switch (this.legs[legId].side) {
             case 'left':
-              x = `left: ${movementCircles[legId].centerX + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
+              x = `left: ${movementCircles[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
             case 'right':
-              x = `right: ${movementCircles[legId].centerX + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
+              x = `right: ${movementCircles[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
           }
-          y = `top: ${movementCircles[legId].centerY + offsets[legId].transverseAnimationViewOffsetY}px;`;
+          y = `top: ${movementCircles[legId].y + offsets[legId].transverseAnimationViewOffsetY}px;`;
         } else {
           switch (this.legs[legId].side) {
             case 'left':
-              x = `left: ${movementCircles[legId].centerX}px;`; break;
+              x = `left: ${movementCircles[legId].x}px;`; break;
             case 'right':
-              x = `right: ${movementCircles[legId].centerX}px;`; break;
+              x = `right: ${movementCircles[legId].x}px;`; break;
           }
-          y = `top: ${movementCircles[legId].centerY}px;`;
+          y = `top: ${movementCircles[legId].y}px;`;
         }
         
         return x + y;
