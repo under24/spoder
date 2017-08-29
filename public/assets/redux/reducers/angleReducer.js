@@ -71,25 +71,12 @@ let angleReducerInitState = {
 
 const angleReducer = (state = angleReducerInitState, action) => {
   switch (action.type) {
-    case "LEG_ANGLE_CHANGED":
-      {
-        return Object.assign(
-          {}, 
-          state,
-          { [action.legId]: Object.assign({}, state[action.legId], action.payload.angles) }
-        );
-      }
     case "ANGLES_CHANGED_BATCHED":
       {
-        if (!action.payload.angles) {
-          console.warn('no angles passed to the angle reducer');
-          return state;
-        } 
-        
         let newState = {};
         
-        for (let legId in action.payload.angles) {
-          newState[legId] = Object.assign({}, state[legId], action.payload.angles[legId]);
+        for (let legId in action.payload) {
+          newState[legId] = Object.assign({}, state[legId], action.payload[legId]);
         }
         
         return Object.assign({}, state, newState);

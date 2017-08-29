@@ -29,25 +29,12 @@ let miscReducerInitState = {
 
 const miscReducer = (state = miscReducerInitState, action) => {
   switch (action.type) {
-    case "LEG_ANGLE_CHANGED":
+    case "MISC_CHANGED_BATCHED":
       {
-        return Object.assign(
-          {}, 
-          state,
-          { [action.legId]: Object.assign({}, state[action.legId], action.payload.misc) }
-        );
-      }
-    case "ANGLES_CHANGED_BATCHED":
-      {
-        if (!action.payload.misc) {
-          console.warn('mics data passed to misc reducer');
-          return state;
-        } 
-        
         let newState = {};
         
-        for (let legId in action.payload.misc) {
-          newState[legId] = Object.assign({}, state[legId], action.payload.misc[legId]);
+        for (let legId in action.payload) {
+          newState[legId] = Object.assign({}, state[legId], action.payload[legId]);
         }
         
         return Object.assign({}, state, newState);
