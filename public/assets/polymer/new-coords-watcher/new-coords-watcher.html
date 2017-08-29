@@ -176,7 +176,7 @@
       gatherCoxaAngles(legId, coxaAngles, payload) {
         // check if all the values are the same
         if (this.angles[legId].coxaScreenAngle === coxaAngles.screen &&
-            this.angles[legId].coxaServoAngle === coxaAngles.servo) return false;
+            this.angles[legId].coxaServoAngle === coxaAngles.servo) return;
         
         payload[legId] = payload[legId] || {};
         
@@ -185,8 +185,6 @@
           
         if (this.angles[legId].coxaServoAngle !== coxaAngles.servo)
           payload[legId].coxaServoAngle = coxaAngles.servo;
-          
-        return true;
       }
       
       gatherFemurAndTibiaAngles(legId, angles, payload) {
@@ -194,7 +192,7 @@
         if (this.angles[legId].femurScreenAngle === angles.femurScreenAngle &&
             this.angles[legId].femurServoAngle === angles.femurServoAngle &&
             this.angles[legId].tibiaScreenAngle === angles.tibiaScreenAngle &&
-            this.angles[legId].tibiaServoAngle === angles.tibiaServoAngle) return false;
+            this.angles[legId].tibiaServoAngle === angles.tibiaServoAngle) return;
         
         payload[legId] = payload[legId] || {};
         
@@ -209,18 +207,14 @@
           
         if (this.angles[legId].tibiaServoAngle !== angles.tibiaServoAngle)
           payload[legId].tibiaServoAngle = angles.tibiaServoAngle;
-        
-        return true;
       }
       
       gatherMiscValues(legId, misc, payload) {
         payload[legId] = misc;
-        return true;
       }
       
       gatherMovementCircleValues(legId, movementCircle, payload) {
         payload[legId] = movementCircle;
-        return true;
       }
       
       getFemurAngle(legId, view) {
@@ -268,73 +262,65 @@
       // BEGIN PROPERTY OBSERVERS
       
       observeCoords(newCoords, oldCoords) {
-        let angles = {},
-            misc = {}, 
-            movementCircle = {},
-            payload = {},
-            anglesSuccess, miscSuccess, movementCircleSuccess;
+        let anglesPayload = {},
+            miscPayload = {}, 
+            movementCirclesPayload = {};
+        
+        // calc and dispatch (if needed) baseDirection
+        let baseDirection = this.getBaseDirection(newCoords);
+        this.validateAndDispatchBaseDirection(baseDirection);
 
         for (let legId = 1; legId <= 6; legId++) {
-
           // transverse coords => coxa angles
           if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'transverse', legId)) {
             
             let coxaAngles = this.processTransverseCoordsIntoCoxaAngles(legId);
-            anglesSuccess = this.gatherCoxaAngles(legId, coxaAngles, angles);
+            this.gatherCoxaAngles(legId, coxaAngles, anglesPayload);
             
-            // let misc = this.getTransverseMiscData(legId);
+            // let miscValue = this.getTransverseMiscData(legId);
           }
           
           // sagittal coords => femur + tibia angles
           if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'sagittal', legId)) {
             
-            let femuAndTibiaAngles = this.processSagittalCoordsIntoFemurAndTibiaAngles(legId);
-            anglesSuccess = this.gatherFemurAndTibiaAngles(legId, femuAndTibiaAngles, angles);
+            let femurAndTibiaAngles = this.processSagittalCoordsIntoFemurAndTibiaAngles(legId);
+            this.gatherFemurAndTibiaAngles(legId, femurAndTibiaAngles, anglesPayload);
             
             let miscValue = this.getSagittalMiscData(legId);
-            miscSuccess = this.gatherMiscValues(legId, miscValue, misc);
+            this.gatherMiscValues(legId, miscValue, miscPayload);
             
-            let movementCircleValue = this.getMovementCircleData(miscValue.transverseReachRadius, legId);
-            movementCircleSuccess = this.gatherMovementCircleValues(legId, movementCircleValue, movementCircle);
+            let movementCircleValue = this.getMovementCircleData(miscValue.transverseReachRadius, legId, baseDirection);
+            this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
           }
-          
         }
-        
-        debugger;
-        let baseCenterCoords = RU.getBaseCenter(newCoords),
-            baseDirection = MU.getAngle(newCoords[3].transverseBaseY - baseCenterCoords.y, newCoords[3].transverseBaseX - baseCenterCoords.x);
-            
-        if (baseDirection === 360) {
-          baseDirection = 0;
-        } 
-        else if (baseDirection > 360) {
-          baseDirection -= 360;
-        } 
-        else if (baseDirection < 0) {
-          baseDirection += 360;
-        }
-        this.dispatchBaseDirection(baseDirection);
 
-        if (anglesSuccess) payload.angles = angles;
-        if (miscSuccess) payload.misc = misc;
-        if (movementCircleSuccess) payload.movementCircle = movementCircle;
-
-        if (!anglesSuccess) {
-          console.log('empty payload object');
-          return;
-        }
-        
-        this.batchDispatch(payload);
+        if (Object.keys(anglesPayload).length !== 0) this.dispatchAngles(anglesPayload);
+        if (Object.keys(miscPayload).length !== 0) this.dispatchMisc(miscPayload);
+        if (Object.keys(movementCirclesPayload).length !== 0) this.dispatchMovementCircles(movementCirclesPayload);
       }
       
-      batchDispatch(payload) {
+      dispatchAngles(payload) {
         store.dispatch({
           type: "ANGLES_CHANGED_BATCHED",
           payload
         });
       }
       
-      dispatchBaseDirection(payload) {
+      dispatchMisc(payload) {
+        store.dispatch({
+          type: "MISC_CHANGED_BATCHED",
+          payload
+        });
+      }
+      
+      dispatchMovementCircles(payload) {
+        store.dispatch({
+          type: "MOVEMENT_CIRCLES_CHANGED_BATCHED",
+          payload
+        })
+      }
+      
+      validateAndDispatchBaseDirection(payload) {
         // dispatch not needed
         if (this.baseDirection !== undefined && payload === this.baseDirection) return;
         
