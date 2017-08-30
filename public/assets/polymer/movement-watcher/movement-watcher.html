@@ -10,7 +10,8 @@
             statePath: 'legs'
           },
           direction: {
-            statePath: 'movement.direction'
+          directionJoystick: {
+            statePath: 'movement.directionJoystick'
           },
           circles: {
             statePath: 'movement.circles'
@@ -21,12 +22,13 @@
         }
       }
       
+      // calc pointers whenever directionJoystick || this.circles || this.turn changes
       static get observers() {
-        return [ 'calcMovementPointers(direction, circles, turn)' ];
+        return [ 'calcMovementPointers(directionJoystick, circles, turn)' ];
       }
       
       calcMovementPointers() {
-        if (this.circles === undefined || this.direction === undefined || this.turn === undefined) return;
+        if (this.circles === undefined || this.directionJoystick === undefined || this.turn === undefined) return;
 
         let pointers = {};
         
@@ -35,11 +37,11 @@
           
           switch (this.legs[legId].side) {
             case 'left':
-              pointers[legId].x = this.circles[legId].x - this.circles[legId].radius * (this.direction.x / 100); break;
+              pointers[legId].x = this.circles[legId].x - this.circles[legId].radius * (this.directionJoystick.x / 100); break;
             case 'right':
-              pointers[legId].x = this.circles[legId].x + this.circles[legId].radius * (this.direction.x / 100); break;
+              pointers[legId].x = this.circles[legId].x + this.circles[legId].radius * (this.directionJoystick.x / 100); break;
           }
-          pointers[legId].y = this.circles[legId].y - this.circles[legId].radius * (this.direction.y / 100);
+          pointers[legId].y = this.circles[legId].y - this.circles[legId].radius * (this.directionJoystick.y / 100);
           
           // apply movement.turn values
           if (this.turn.x)

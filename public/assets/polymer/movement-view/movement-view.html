@@ -30,7 +30,7 @@
       static get properties() {
         return {
           direction: {
-            statePath: 'movement.direction',
+            statePath: 'movement.directionJoystick',
           },
           joystickOutput: {
             observer: 'observeJoystickOutput'
@@ -44,7 +44,7 @@
             newValue.yShift === this.direction.y) return;
         
         store.dispatch({
-          type: "MOVEMENT_DIRECTION_CHANGED",
+          type: "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED",
           payload: {
             x: newValue.xShift,
             y: newValue.yShift
