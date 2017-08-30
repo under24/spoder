@@ -47,7 +47,7 @@
             this.applyTurn(pointers, this.circles, this.turn, legId, this.legs[legId].side);
         }
         
-        this.batchDispatch(pointers);
+        this.dispatchMovementPointers(pointers);
       }
       
       applyTurn(pointers, circles, turn, legId, side) {
@@ -67,7 +67,7 @@
         }
       }
       
-      batchDispatch(payload) {
+      dispatchMovementPointers(payload) {
         store.dispatch({
           type: "MOVEMENT_POINTERS_CHANGED_BATCHED",
           payload
