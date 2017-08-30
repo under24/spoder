@@ -141,6 +141,9 @@
       static get is() { return 'sagittal-animation-view'; }
       static get properties() {
         return {
+          baseCoxaPosition: {
+            statePath: 'baseCoxaPosition'
+          },
           coords: {
             statePath: 'coords'
           },
@@ -156,7 +159,7 @@
       }
       
       computeCoords(coords, angles, legId) {
-        if (coords === undefined || angles === undefined) return;
+        if (coords === undefined || angles === undefined || this.baseCoxaPosition === undefined) return;
         
         let side;
         if (coords[legId].side == 'left') side = 'right';
@@ -165,7 +168,7 @@
         let x = side + ': ' + coords[legId].transverseBaseX + 'px;';
         let y = 'top: ' + coords[legId].sagittalBaseY + 'px;';
         
-        // let angle = coords[legId].offsetRotation;
+        // let angle = this.baseCoxaPosition[legId].offsetRotation;
         // let temp = 135 - angles[legId].coxaServoAngle;
         // 
         // let z = 'transform: rotateY(' + temp + 'deg);';
@@ -173,10 +176,10 @@
         let a;
         switch (coords[legId].legId) {
           case 1:
-            a = (180 - angles[legId].coxaServoAngle) + coords[legId].offsetRotation;
+            a = (180 - angles[legId].coxaServoAngle) + this.baseCoxaPosition[legId].offsetRotation;
             break;
           case 2:
-            a = 180 - angles[legId].coxaServoAngle - coords[legId].offsetRotation;
+            a = 180 - angles[legId].coxaServoAngle - this.baseCoxaPosition[legId].offsetRotation;
             break;
           case 3:
             a = 180 - angles[legId].coxaServoAngle - 90;
@@ -185,10 +188,10 @@
             a = 180 - angles[legId].coxaServoAngle - 90;
             break;
           case 5:
-            a = coords[legId].offsetRotation - angles[legId].coxaServoAngle;
+            a = this.baseCoxaPosition[legId].offsetRotation - angles[legId].coxaServoAngle;
             break;
           case 6:
-            a = Math.abs(coords[legId].offsetRotation) - angles[legId].coxaServoAngle;
+            a = Math.abs(this.baseCoxaPosition[legId].offsetRotation) - angles[legId].coxaServoAngle;
             break;
         }
         

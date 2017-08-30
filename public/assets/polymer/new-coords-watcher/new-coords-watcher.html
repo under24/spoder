@@ -16,6 +16,9 @@
           baseDirection: {
             statePath: 'baseDirection'
           },
+          baseCoxaPosition: {
+            statePath: 'baseCoxaPosition'
+          },
           coords: {
             statePath: 'coords',
             observer: 'observeCoords'
@@ -116,7 +119,7 @@
       getMovementCircleData(transverseReachRadius, legId) {
         let movementCircleDiameter = PU.getMovementCircleDiameter(transverseReachRadius, this.metaData),
             movementCircleRadius = movementCircleDiameter / 2,
-            movementCircleCenterCoords = PU.getMovementCenterCoords(this.metaData, this.coords[legId], transverseReachRadius);
+            movementCircleCenterCoords = PU.getMovementCircleCenterCoords(this.metaData, this.coords[legId], this.baseCoxaPosition[legId], transverseReachRadius, direction);
         
         return {
           x: movementCircleCenterCoords.x,

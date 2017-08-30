@@ -31,7 +31,8 @@ const reducers = combineReducers({
   viewOffsets: viewOffsetsReducer,
   movement: movementReducer,
   gaits: gaitReducer,
-  baseDirection: baseDirectionReducer
+  baseDirection: baseDirectionReducer,
+  baseCoxaPosition: baseCoxaPositionReducer
 });
 
 const store = createStore(
