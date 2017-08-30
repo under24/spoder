@@ -6,8 +6,17 @@
       static get is() { return 'movement-watcher'; }
       static get properties() {
         return {
+          // to get side from
           legs: {
             statePath: 'legs'
+          },
+          // validate with the current pointers before dispatching
+          pointers: {
+            statePath: 'movement.pointers'
+          },
+          // respect current base direction when calculating pointers
+          baseDirection: {
+            statePath: 'baseDirection'
           },
           directionJoystick: {
             statePath: 'movement.directionJoystick'
@@ -27,44 +36,68 @@
       }
       
       calcMovementPointers() {
-        if (this.circles === undefined || this.directionJoystick === undefined || this.turnJoystick === undefined) return;
+        if (this.directionJoystick === undefined || this.circles === undefined || this.turnJoystick === undefined) return;
 
-        let pointers = {};
+        let payload = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          pointers[legId] = {};
+          let currentPointer = {};
           
           switch (this.legs[legId].side) {
             case 'left':
-              pointers[legId].x = this.circles[legId].x - this.circles[legId].radius * (this.directionJoystick.x / 100); break;
+              currentPointer.x = this.circles[legId].x - this.circles[legId].radius * (this.directionJoystick.x / 100); break;
             case 'right':
-              pointers[legId].x = this.circles[legId].x + this.circles[legId].radius * (this.directionJoystick.x / 100); break;
+              currentPointer.x = this.circles[legId].x + this.circles[legId].radius * (this.directionJoystick.x / 100); break;
           }
-          pointers[legId].y = this.circles[legId].y - this.circles[legId].radius * (this.directionJoystick.y / 100);
+          currentPointer.y = this.circles[legId].y - this.circles[legId].radius * (this.directionJoystick.y / 100);
           
-            this.applyTurn(pointers, this.circles, this.turn, legId, this.legs[legId].side);
-          // apply movement.turnJoystick values
-          // if (this.turnJoystick.x)
+          // apply baseDirection + turnJoystick
+          currentPointer = this.applyAngles(currentPointer, this.circles, this.baseDirection, this.turnJoystick.x, legId, this.legs[legId].side);
+          
+          // check for the same values before dispatching
+          this.validateAndGatherPayload(currentPointer, this.pointers, legId, payload);
         }
         
-        this.dispatchMovementPointers(pointers);
+        // prevent false dispatching
+        if (Object.keys(payload).length === 0) return;
+        this.dispatchMovementPointers(payload);
       }
       
-      applyTurn(pointers, circles, turn, legId, side) {
-        let dx = pointers[legId].x - circles[legId].x,
-            dy = pointers[legId].y - circles[legId].y,
+      applyAngles(pointers, circles, baseDirection, turn, legId, side) {
+        let dx = pointers.x - circles[legId].x,
+            dy = pointers.y - circles[legId].y,
+            cx = circles[legId].x,
+            cy = circles[legId].y,
             distance = MU.getDistance(dx, dy),
-            currentAngle = MU.getAngle(dy, dx);
-
-        let cx = circles[legId].x,
-            cy = circles[legId].y;
+            pointerToCircleAngle = MU.getAngle(dy, dx);
+        
+        // angle correction
+        if (pointerToCircleAngle === 360) pointerToCircleAngle = 0;
             
         switch (side) {
           case 'left':
-            pointers[legId] = MU.getCoordsFromDistanceAndAngle(cx, cy, currentAngle - turn.x, distance); break;
+            return MU.getCoordsFromDistanceAndAngle(cx, cy, pointerToCircleAngle + baseDirection - turn, distance);
           case 'right':
-            pointers[legId] = MU.getCoordsFromDistanceAndAngle(cx, cy, currentAngle + turn.x, distance); break;
+            return MU.getCoordsFromDistanceAndAngle(cx, cy, pointerToCircleAngle - baseDirection + turn, distance);
         }
+      }
+      
+      validateAndGatherPayload(currentPointer, statePointers, legId, payload) {
+        // init state
+        if (statePointers[legId] === null) {
+          payload[legId] = currentPointer;
+          return;
+        }
+        
+        // check if all the values are the same
+        if (currentPointer.x === statePointers[legId].x &&
+            currentPointer.y === statePointers[legId].y) return;
+
+        // if not then add them to the payload obj
+        payload[legId] = payload[legId] || {};
+        
+        if (statePointers[legId].x !== currentPointer.x) payload[legId].x = currentPointer.x;
+        if (statePointers[legId].y !== currentPointer.y) payload[legId].y = currentPointer.y;
       }
       
       dispatchMovementPointers(payload) {
