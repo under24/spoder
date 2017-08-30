@@ -11,13 +11,13 @@ const modifierReducer = combineReducers({
 
 const movementReducer = combineReducers({
   directionJoystick: movementDirectionJoystickReducer,
+  turn: movementTurnReducer,
   pointers: movementPointerReducer,
   circles: movementCircleReducer,
   status: movementStatusReducer,
   sequence: sequenceReducer,
   sequenceProgress: sequenceProgressReducer,
-  sequenceMetaData: sequenceMetaDataReducer,
-  turn: movementTurnReducer
+  sequenceMetaData: sequenceMetaDataReducer
 });
 
 const reducers = combineReducers({

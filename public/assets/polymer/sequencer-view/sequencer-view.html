@@ -166,8 +166,8 @@
             statePath: 'movement.pointers',
             observer: 'observePointers'
           },
-          direction: {
-            statePath: 'movement.direction'
+          directionJoystick: {
+            statePath: 'movement.directionJoystick'
           },
           circles: {
             statePath: 'movement.circles'
@@ -268,9 +268,9 @@
       }
       
       observePointers() {
-        if (this.direction === undefined || this.prevDirectionObj === this.direction) return;
+        if (this.directionJoystick === undefined || this.prevDirectionObj === this.directionJoystick) return;
 
-        this.prevDirectionObj = this.direction;
+        this.prevDirectionObj = this.directionJoystick;
         this.loadSequence();
       }
       

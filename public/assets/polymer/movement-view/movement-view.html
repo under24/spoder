@@ -19,7 +19,7 @@
     </style>
     
     <digital-joystick
-      input="[[computeInput(direction)]]"
+      input="[[computeInput(directionJoystick)]]"
       output="{{joystickOutput}}">
     </digital-joystick>
   </template>
@@ -29,7 +29,7 @@
       static get is() { return 'movement-view'; }
       static get properties() {
         return {
-          direction: {
+          directionJoystick: {
             statePath: 'movement.directionJoystick',
           },
           joystickOutput: {
@@ -39,9 +39,9 @@
       }
       
       observeJoystickOutput(newValue) {
-        if (this.direction &&
-            newValue.xShift === this.direction.x &&
-            newValue.yShift === this.direction.y) return;
+        if (this.directionJoystick &&
+            newValue.xShift === this.directionJoystick.x &&
+            newValue.yShift === this.directionJoystick.y) return;
         
         store.dispatch({
           type: "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED",
@@ -52,8 +52,8 @@
         });
       }
       
-      computeInput(direction) {
-        return { xShift: direction.x, yShift: direction.y };
+      computeInput(directionJoystick) {
+        return { xShift: directionJoystick.x, yShift: directionJoystick.y };
       }
 
     }
