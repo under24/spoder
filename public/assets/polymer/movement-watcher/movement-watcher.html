@@ -15,19 +15,19 @@
           circles: {
             statePath: 'movement.circles'
           },
-          turn: {
-            statePath: 'movement.turn'
+          turnJoystick: {
+            statePath: 'movement.turnJoystick'
           }
         }
       }
       
-      // calc pointers whenever directionJoystick || this.circles || this.turn changes
+      // calc pointers whenever directionJoystick || this.circles || this.turnJoystick changes
       static get observers() {
-        return [ 'calcMovementPointers(directionJoystick, circles, turn)' ];
+        return [ 'calcMovementPointers(directionJoystick, circles, turnJoystick)' ];
       }
       
       calcMovementPointers() {
-        if (this.circles === undefined || this.directionJoystick === undefined || this.turn === undefined) return;
+        if (this.circles === undefined || this.directionJoystick === undefined || this.turnJoystick === undefined) return;
 
         let pointers = {};
         
@@ -42,9 +42,9 @@
           }
           pointers[legId].y = this.circles[legId].y - this.circles[legId].radius * (this.directionJoystick.y / 100);
           
-          // apply movement.turn values
-          if (this.turn.x)
             this.applyTurn(pointers, this.circles, this.turn, legId, this.legs[legId].side);
+          // apply movement.turnJoystick values
+          // if (this.turnJoystick.x)
         }
         
         this.dispatchMovementPointers(pointers);

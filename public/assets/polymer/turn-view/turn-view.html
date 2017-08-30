@@ -20,7 +20,7 @@
     
     <digital-joystick
       lock-y-axis
-      input="[[computeInput(turn)]]"
+      input="[[computeInput(turnJoystick)]]"
       output="{{joystickOutput}}">
     </digital-joystick>
   </template>
@@ -30,8 +30,8 @@
       static get is() { return 'turn-view'; }
       static get properties() {
         return {
-          turn: {
-            statePath: 'movement.turn',
+          turnJoystick: {
+            statePath: 'movement.turnJoystick',
           },
           joystickOutput: {
             observer: 'observeJoystickOutput'
@@ -40,17 +40,17 @@
       }
       
       observeJoystickOutput(joystickOutput) {
-        if (this.turn &&
-            joystickOutput.xShift === this.turn.x) return;
+        if (this.turnJoystick &&
+            joystickOutput.xShift === this.turnJoystick.x) return;
         
         store.dispatch({
-          type: "MOVEMENT_TURN_VALUES_CHANGED",
+          type: "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED",
           payload: { x: joystickOutput.xShift }
         });
       }
       
-      computeInput(turn) {
-        return { xShift: turn.x };
+      computeInput(turnJoystick) {
+        return { xShift: turnJoystick.x };
       }
 
     }
