@@ -19,7 +19,7 @@ const movementPointerReducer = (state = movementPointerReducerInitState, action)
           newState[legId] = Object.assign({}, state[legId], action.payload[legId]);
         }
         
-        return newState;
+        return Object.assign({}, state, newState);
       }
   }
   return state;
