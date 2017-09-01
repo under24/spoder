@@ -6,10 +6,6 @@
       static get is() { return 'movement-watcher'; }
       static get properties() {
         return {
-          // to get side from
-          legs: {
-            statePath: 'legs'
-          },
           // validate with the current pointers before dispatching
           pointers: {
             statePath: 'movement.pointers'
@@ -43,7 +39,7 @@
         for (let legId = 1; legId <= 6; legId++) {
           let currentPointer = {};
           
-          switch (this.legs[legId].side) {
+          switch (GU.getSideFromLegId(legId)) {
             case 'left':
               currentPointer.x = this.circles[legId].x - this.circles[legId].radius * (this.directionJoystick.x / 100); break;
             case 'right':
@@ -74,7 +70,7 @@
         // angle correction
         if (pointerToCircleAngle === 360) pointerToCircleAngle = 0;
             
-        switch (side) {
+        switch (GU.getSideFromLegId(legId)) {
           case 'left':
             return MU.getCoordsFromDistanceAndAngle(cx, cy, pointerToCircleAngle + baseDirection - turn, distance);
           case 'right':
