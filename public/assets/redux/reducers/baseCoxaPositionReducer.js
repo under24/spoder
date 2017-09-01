@@ -11,9 +11,15 @@ let baseCoxaPositionReducerInitState = {
 
 const baseCoxaPositionReducer = (state = baseCoxaPositionReducerInitState, action) => {
   switch (action.type) {
-    // case "BASE_DIRECTION_CHANGED":
+    // case "COXA_OFFSET_ROTATION_CHANGED":
     //   {
-    //     return action.payload;
+    //     let newState = {};
+    //     
+    //     for (let legId = 1; legId <= 6; legId++) {
+    //       newState[legId] = Object.assign({}, state[legId], { offsetRotation: state[legId].offsetRotation + action.payload });
+    //     }
+    //   
+    //     return newState;
     //   }
   }
   return state;
