@@ -21,7 +21,8 @@
             statePath: 'movement.circles'
           },
           turnJoystick: {
-            statePath: 'movement.turnJoystick'
+            statePath: 'movement.turnJoystick',
+            // observer: 'observeTurnJoystick'
           }
         }
       }
@@ -48,7 +49,7 @@
           currentPointer.y = this.circles[legId].y - this.circles[legId].radius * (this.directionJoystick.y / 100);
           
           // apply baseDirection + turnJoystick
-          currentPointer = this.applyAngles(currentPointer, this.circles, this.baseDirection, this.turnJoystick.x, legId, this.legs[legId].side);
+          currentPointer = this.applyRotation(currentPointer, this.circles[legId], this.baseDirection, this.turnJoystick.x, legId);
           
           // check for the same values before dispatching
           this.validateAndGatherPayload(currentPointer, this.pointers, legId, payload);
@@ -59,22 +60,20 @@
         this.dispatchMovementPointers(payload);
       }
       
-      applyAngles(pointers, circles, baseDirection, turn, legId, side) {
-        let dx = pointers.x - circles[legId].x,
-            dy = pointers.y - circles[legId].y,
-            cx = circles[legId].x,
-            cy = circles[legId].y,
+      applyRotation(pointer, circle, baseDirection, turn, legId) {
+        let dx = pointer.x - circle.x,
+            dy = pointer.y - circle.y,
             distance = MU.getDistance(dx, dy),
-            pointerToCircleAngle = MU.getAngle(dy, dx);
+            circleToPointerAngle = MU.getAngle(dy, dx);
         
         // angle correction
-        if (pointerToCircleAngle === 360) pointerToCircleAngle = 0;
+        if (circleToPointerAngle === 360) circleToPointerAngle = 0;
             
         switch (GU.getSideFromLegId(legId)) {
           case 'left':
-            return MU.getCoordsFromDistanceAndAngle(cx, cy, pointerToCircleAngle + baseDirection - turn, distance);
+            return MU.getCoordsFromDistanceAndAngle(circle.x, circle.y, circleToPointerAngle + baseDirection - turn, distance);
           case 'right':
-            return MU.getCoordsFromDistanceAndAngle(cx, cy, pointerToCircleAngle - baseDirection + turn, distance);
+            return MU.getCoordsFromDistanceAndAngle(circle.x, circle.y, circleToPointerAngle - baseDirection + turn, distance);
         }
       }
       
@@ -95,6 +94,17 @@
         if (statePointers[legId].x !== currentPointer.x) payload[legId].x = currentPointer.x;
         if (statePointers[legId].y !== currentPointer.y) payload[legId].y = currentPointer.y;
       }
+      
+      // observeTurnJoystick(newValue, oldValue) {
+      //   // validate
+      //   if (oldValue === undefined) return;
+      //   if (newValue.x === oldValue.x) {
+      //     console.warn('same turn joystick values');
+      //     return;
+      //   }
+      //   
+      //   store.dispatch({ type: "COXA_OFFSET_ROTATION_CHANGED", payload: oldValue.x - newValue.x });
+      // }
       
       dispatchMovementPointers(payload) {
         store.dispatch({
