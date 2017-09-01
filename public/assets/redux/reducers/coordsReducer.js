@@ -289,7 +289,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         for (let legId = 1; legId <= 6; legId++) {
           
           let transverseBaseX;
-          switch (state[legId].side) {
+          switch (GU.getSideFromLegId(legId)) {
             case 'left':
               transverseBaseX = state[legId].transverseBaseX + action.payload.x; break;
             case 'right':
@@ -320,10 +320,9 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         
         for (let legId = 1; legId <= 6; legId++) {
           let finalValue,
-              side = state[legId].side,
-              row = state[legId].row;
+              row = GU.getRowFromLegId(legId);
           
-          switch(side) {
+          switch(GU.getSideFromLegId(legId)) {
             case 'right':
               if (row === 'front') finalValue = action.payload.leftTiltModifier * distPct + action.payload.frontTiltModifier;
               if (row === 'middle') finalValue = action.payload.leftTiltModifier;
