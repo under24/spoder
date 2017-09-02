@@ -2,50 +2,6 @@
 
 // RU == ReduxUtils
 let RU = {
-  aggregateCoords(state, payload, additional) {
-    let coords = Object.assign({}, state, payload, additional);
-    
-    return {
-      tcx: coords.transverseCursorX,
-      tcy: coords.transverseCursorY,
-      tbx: coords.transverseBaseX,
-      tby: coords.transverseBaseY,
-
-      scx: coords.sagittalCursorX,
-      scy: coords.sagittalCursorY,
-      sbx: coords.sagittalBaseX,
-      sby: coords.sagittalBaseY
-    };
-  },
-  // { tbx, tby, tcx, tcy }
-  getTransverseBaseXYCompensativeCoords(coords) {
-    // from center (zero) point to transverse base
-    let sagittalBaseX = MU.getDistance(coords.tbx, coords.tby);
-    // from transverse base to transverse cursor
-    let sagittalCursorX = sagittalBaseX + MU.getDistance(coords.tbx - coords.tcx, coords.tby - coords.tcy);
-    
-    return { sagittalBaseX, sagittalCursorX };
-  },
-  getSagittalCursorXCompensativeCoords(coords) {
-    let distance = coords.scx - coords.sbx,
-        angle = MU.getAngle(coords.tcy - coords.tby, coords.tcx - coords.tbx),
-        newCoords = MU.getCoordsFromDistanceAndAngle(coords.tbx, coords.tby, angle, distance);
-    
-    return {
-      transverseCursorX: newCoords.x,
-      transverseCursorY: newCoords.y
-    };
-  },
-  getSagittalBaseXCompensativeCoords(coords) {
-    let distance = coords.scx - coords.sbx,
-        angle = MU.getAngle(coords.tby - coords.tcy, coords.tbx - coords.tcx),
-        newCoords = MU.getCoordsFromDistanceAndAngle(coords.tcx, coords.tcy, angle, distance);
-    
-    return {
-      transverseBaseX: newCoords.x,
-      transverseBaseY: newCoords.y
-    }
-  },
   getBaseCenter(coords) {
     let x1 = coords[1].transverseBaseX,
         y1 = coords[1].transverseBaseY,

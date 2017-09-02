@@ -83,7 +83,7 @@ let coordsReducerInitState = {
 
 // compute sagittalBaseX and sagittalCursorX coords
 for (let key in coordsReducerInitState) {
-  let result = RU.getTransverseBaseXYCompensativeCoords({
+  let result = CU.getTransverseBaseXYCompensativeCoords({
     tbx: coordsReducerInitState[key].transverseBaseX,
     tby: coordsReducerInitState[key].transverseBaseY,
     tcx: coordsReducerInitState[key].transverseCursorX,
@@ -120,19 +120,19 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           cursorXY.transverseCursorY = state[action.legId].transverseCursorY - action.payload.transverseCursorY;
         
         // gather up latest coords for further computations
-        let coords = RU.aggregateCoords(state[action.legId], cursorXY);
+        let coords = CU.aggregateCoords(state[action.legId], cursorXY);
         
         // compensative computations from transverse coords for sagittal
         // transverseCursorX/Y => sagittalCursorX
         if (cursorXY.transverseCursorX || cursorXY.transverseCursorY) {
-          let result = RU.getTransverseBaseXYCompensativeCoords(coords);
+          let result = CU.getTransverseBaseXYCompensativeCoords(coords);
           // compare with the existing coords
           if (result.sagittalCursorX !== state[action.legId].sagittalCursorX) cursorXY.sagittalCursorX = result.sagittalCursorX;
         }
         // compensative computations from sagittal coords for transverse
         // sagittalCursorX => transverseCursorX + transverseCursorY
         else if (cursorXY.sagittalCursorX) {
-          let result = RU.getSagittalCursorXCompensativeCoords(coords);
+          let result = CU.getSagittalCursorXCompensativeCoords(coords);
           // compare with the existing coords
           if (result.transverseCursorX !== state[action.legId].transverseCursorX) cursorXY.transverseCursorX = result.transverseCursorX;
           if (result.transverseCursorY !== state[action.legId].transverseCursorY) cursorXY.transverseCursorY = result.transverseCursorY;
@@ -168,12 +168,12 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           baseXY.transverseBaseY = state[action.legId].transverseBaseY - action.payload.transverseBaseY;
         
         // gather up latest coords for further computations
-        let coords = RU.aggregateCoords(state[action.legId], baseXY);
+        let coords = CU.aggregateCoords(state[action.legId], baseXY);
         
         // compensative computations from transverse coords for sagittal
         // transverseBaseX/Y => sagittalBaseX + sagittalCursorX
         if (baseXY.transverseBaseX || baseXY.transverseBaseY) {
-          let result = RU.getTransverseBaseXYCompensativeCoords(coords);
+          let result = CU.getTransverseBaseXYCompensativeCoords(coords);
           // compare with the existing coords
           if (result.sagittalBaseX !== state[action.legId].sagittalBaseX) baseXY.sagittalBaseX = result.sagittalBaseX;
           if (result.sagittalCursorX !== state[action.legId].sagittalCursorX) baseXY.sagittalCursorX = result.sagittalCursorX;
@@ -181,7 +181,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         // compensative computations from sagittal coords for transverse
         // sagittalBaseX => transverseBaseX + transverseBaseY
         else if (baseXY.sagittalBaseX) {
-          let result = RU.getSagittalBaseXCompensativeCoords(coords);
+          let result = CU.getSagittalBaseXCompensativeCoords(coords);
           // compare with the existing coords
           if (result.transverseBaseX !== state[action.legId].transverseBaseX) baseXY.transverseBaseX = result.transverseBaseX;
           if (result.transverseBaseY !== state[action.legId].transverseBaseY) baseXY.transverseBaseY = result.transverseBaseY;
@@ -214,19 +214,19 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
             cursorXY.transverseCursorY = state[legId].transverseCursorY - action.payload[legId].transverseCursorY;
             
           // gather up latest coords for further computations
-          let cursorCoords = RU.aggregateCoords(state[legId], cursorXY);
+          let cursorCoords = CU.aggregateCoords(state[legId], cursorXY);
           
           // compensative computations from transverse coords for sagittal
           // transverseCursorX/Y => sagittalCursorX
           if (cursorXY.transverseCursorX || cursorXY.transverseCursorY) {
-            let result = RU.getTransverseBaseXYCompensativeCoords(cursorCoords);
+            let result = CU.getTransverseBaseXYCompensativeCoords(cursorCoords);
             // compare with the existing coords
             if (result.sagittalCursorX !== state[legId].sagittalCursorX) cursorXY.sagittalCursorX = result.sagittalCursorX;
           }
           // compensative computations from sagittal coords for transverse
           // sagittalCursorX => transverseCursorX + transverseCursorY
           else if (cursorXY.sagittalCursorX) {
-            let result = RU.getSagittalCursorXCompensativeCoords(cursorCoords);
+            let result = CU.getSagittalCursorXCompensativeCoords(cursorCoords);
             // compare with the existing coords
             if (result.transverseCursorX !== state[legId].transverseCursorX) cursorXY.transverseCursorX = result.transverseCursorX;
             if (result.transverseCursorY !== state[legId].transverseCursorY) cursorXY.transverseCursorY = result.transverseCursorY;
@@ -248,12 +248,12 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
             baseXY.transverseBaseY = state[legId].transverseBaseY - action.payload[legId].transverseBaseY;
             
           // gather up latest coords for further computations
-          let baseCoords = RU.aggregateCoords(state[legId], baseXY, cursorXY);
+          let baseCoords = CU.aggregateCoords(state[legId], baseXY, cursorXY);
           
           // compensative computations from transverse coords for sagittal
           // transverseBaseX/Y => sagittalBaseX + sagittalCursorX
           if (baseXY.transverseBaseX || baseXY.transverseBaseY) {
-            let result = RU.getTransverseBaseXYCompensativeCoords(baseCoords);
+            let result = CU.getTransverseBaseXYCompensativeCoords(baseCoords);
             // compare with the existing coords
             if (result.sagittalBaseX !== state[legId].sagittalBaseX) baseXY.sagittalBaseX = result.sagittalBaseX;
             if (result.sagittalCursorX !== state[legId].sagittalCursorX) baseXY.sagittalCursorX = result.sagittalCursorX;
@@ -261,7 +261,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           // compensative computations from sagittal coords for transverse
           // sagittalBaseX => transverseBaseX + transverseBaseY
           else if (baseXY.sagittalBaseX) {
-            let result = RU.getSagittalBaseXCompensativeCoords(baseCoords);
+            let result = CU.getSagittalBaseXCompensativeCoords(baseCoords);
             // compare with the existing coords
             if (result.transverseBaseX !== state[legId].transverseBaseX) baseXY.transverseBaseX = result.transverseBaseX;
             if (result.transverseBaseY !== state[legId].transverseBaseY) baseXY.transverseBaseY = result.transverseBaseY;
@@ -302,8 +302,8 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           };
           
           // compensative computation
-          let coords = RU.aggregateCoords(state[legId], shiftedCoords);
-          let compensativeCoords = RU.getTransverseBaseXYCompensativeCoords(coords);
+          let coords = CU.aggregateCoords(state[legId], shiftedCoords);
+          let compensativeCoords = CU.getTransverseBaseXYCompensativeCoords(coords);
           
           if (compensativeCoords.sagittalBaseX !== state[legId].sagittalBaseX) shiftedCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
           if (compensativeCoords.sagittalCursorX !== state[legId].sagittalCursorX) shiftedCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
@@ -352,8 +352,8 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           }
           
           // gather up latest coords for further computations
-          let coords = RU.aggregateCoords(state[legId], finalCoords),
-              compensativeCoords = RU.getTransverseBaseXYCompensativeCoords(coords);
+          let coords = CU.aggregateCoords(state[legId], finalCoords),
+              compensativeCoords = CU.getTransverseBaseXYCompensativeCoords(coords);
           // compare with the existing coords
           if (compensativeCoords.sagittalBaseX !== state[legId].sagittalBaseX) finalCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
           if (compensativeCoords.sagittalCursorX !== state[legId].sagittalCursorX) finalCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
