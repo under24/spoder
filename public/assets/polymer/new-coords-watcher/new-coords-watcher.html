@@ -16,6 +16,10 @@
           baseDirection: {
             statePath: 'baseDirection'
           },
+          // used for comparison before dispatching
+          baseCenterCoords: {
+            statePath: 'baseCenterCoords'
+          },
           baseCoxaPosition: {
             statePath: 'baseCoxaPosition'
           },
@@ -270,9 +274,8 @@
             miscPayload = {}, 
             movementCirclesPayload = {};
         
-        // calc and dispatch (if needed) baseDirection
-        let baseDirection = this.getBaseDirection(newCoords);
-        this.validateAndDispatchBaseDirection(baseDirection);
+        let baseCenterCoords = RU.getBaseCenter(newCoords),
+            baseDirection = this.getBaseDirection(newCoords, baseCenterCoords);
 
         for (let legId = 1; legId <= 6; legId++) {
           // transverse coords => coxa angles
@@ -299,6 +302,7 @@
         }
 
         if (Object.keys(anglesPayload).length !== 0) this.dispatchAngles(anglesPayload);
+        this.validateAndDispatchBaseCenterCoords(baseCenterCoords);
         if (Object.keys(miscPayload).length !== 0) this.dispatchMisc(miscPayload);
         if (Object.keys(movementCirclesPayload).length !== 0) this.dispatchMovementCircles(movementCirclesPayload);
       }
@@ -337,6 +341,15 @@
       getBaseDirection(newCoords) {
         let baseCenterCoords = RU.getBaseCenter(newCoords),
             baseDirection = MU.getAngle(newCoords[3].transverseBaseY - baseCenterCoords.y, newCoords[3].transverseBaseX - baseCenterCoords.x);
+      validateAndDispatchBaseCenterCoords(payload) {
+        // dispatch not needed
+        if (this.baseCenterCoords !== undefined && payload === this.baseCenterCoords) return;
+        
+        store.dispatch({
+          type: "BASE_CENTER_COORDS_CHANGED",
+          payload
+        })
+      }
             
         if (baseDirection === 360) {
           baseDirection = 0;
