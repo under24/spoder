@@ -25,7 +25,7 @@
       movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets)]]"
       movement-circle-diameter="[[movementCircle.diameter]]"
       movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets)]]"
-      offset-rotation="[[baseCoxaPosition.offsetRotation]]"
+      offset-rotation="[[baseCoxaAttachmentAngle.offsetRotation]]"
       output="{{baseOutput}}">
     </transverse-view-base>
     
@@ -69,9 +69,9 @@
               return state.misc[this.legId];
             }
           },
-          baseCoxaPosition: {
+          baseCoxaAttachmentAngle: {
             statePath(state) {
-              return state.base.coxaPosition[this.legId];
+              return state.base.coxaAttachmentAngle[this.legId];
             }
           },
           coords: {

@@ -23,7 +23,7 @@ const movementReducer = combineReducers({
 const baseReducer = combineReducers({
   direction: baseDirectionReducer,
   centerCoords: baseCenterCoordsReducer,
-  coxaPosition: baseCoxaPositionReducer
+  coxaAttachmentAngle: baseCoxaPositionReducer
 });
 
 const reducers = combineReducers({
