@@ -168,7 +168,7 @@
         let x = side + ': ' + coords[legId].transverseBaseX + 'px;';
         let y = 'top: ' + coords[legId].sagittalBaseY + 'px;';
         
-        // let angle = this.baseCoxaAttachmentAngle[legId].offsetRotation;
+        // let angle = this.baseCoxaAttachmentAngle[legId];
         // let temp = 135 - angles[legId].coxaServoAngle;
         // 
         // let z = 'transform: rotateY(' + temp + 'deg);';
@@ -176,10 +176,10 @@
         let a;
         switch (coords[legId].legId) {
           case 1:
-            a = (180 - angles[legId].coxaServoAngle) + this.baseCoxaAttachmentAngle[legId].offsetRotation;
+            a = (180 - angles[legId].coxaServoAngle) + this.baseCoxaAttachmentAngle[legId];
             break;
           case 2:
-            a = 180 - angles[legId].coxaServoAngle - this.baseCoxaAttachmentAngle[legId].offsetRotation;
+            a = 180 - angles[legId].coxaServoAngle - this.baseCoxaAttachmentAngle[legId];
             break;
           case 3:
             a = 180 - angles[legId].coxaServoAngle - 90;
@@ -188,10 +188,10 @@
             a = 180 - angles[legId].coxaServoAngle - 90;
             break;
           case 5:
-            a = this.baseCoxaAttachmentAngle[legId].offsetRotation - angles[legId].coxaServoAngle;
+            a = this.baseCoxaAttachmentAngle[legId] - angles[legId].coxaServoAngle;
             break;
           case 6:
-            a = Math.abs(this.baseCoxaAttachmentAngle[legId].offsetRotation) - angles[legId].coxaServoAngle;
+            a = Math.abs(this.baseCoxaAttachmentAngle[legId]) - angles[legId].coxaServoAngle;
             break;
         }
         

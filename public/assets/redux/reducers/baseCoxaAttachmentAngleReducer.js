@@ -1,16 +1,16 @@
 'use strict';
 
 let baseCoxaAttachmentAngleReducerInitState = {
-  1: { offsetRotation: -45 },
-  2: { offsetRotation: 45 },
-  3: { offsetRotation: 0 },
-  4: { offsetRotation: 0 },
-  5: { offsetRotation: 45 },
-  6: { offsetRotation: -45 }
+  1: -45,
+  2: 45,
+  3: 0,
+  4: 0,
+  5: 45,
+  6: -45
 };
 
 const baseCoxaAttachmentAngleReducer = (state = baseCoxaAttachmentAngleReducerInitState, action) => {
-  switch (action.type) {
+  // switch (action.type) {
     // case "COXA_OFFSET_ROTATION_CHANGED":
     //   {
     //     let newState = {};
@@ -21,6 +21,6 @@ const baseCoxaAttachmentAngleReducer = (state = baseCoxaAttachmentAngleReducerIn
     //   
     //     return newState;
     //   }
-  }
+  // }
   return state;
 }
