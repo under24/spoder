@@ -1,6 +1,6 @@
 'use strict';
 
-let baseCoxaPositionReducerInitState = {
+let baseCoxaAttachmentAngleReducerInitState = {
   1: { offsetRotation: -45 },
   2: { offsetRotation: 45 },
   3: { offsetRotation: 0 },
@@ -9,7 +9,7 @@ let baseCoxaPositionReducerInitState = {
   6: { offsetRotation: -45 }
 };
 
-const baseCoxaPositionReducer = (state = baseCoxaPositionReducerInitState, action) => {
+const baseCoxaAttachmentAngleReducer = (state = baseCoxaAttachmentAngleReducerInitState, action) => {
   switch (action.type) {
     // case "COXA_OFFSET_ROTATION_CHANGED":
     //   {
