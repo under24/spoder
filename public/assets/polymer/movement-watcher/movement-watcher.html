@@ -21,8 +21,7 @@
             statePath: 'movement.circles'
           },
           turnJoystick: {
-            statePath: 'movement.turnJoystick',
-            // observer: 'observeTurnJoystick'
+            statePath: 'movement.turnJoystick'
           }
         }
       }
@@ -94,17 +93,6 @@
         if (statePointers[legId].x !== currentPointer.x) payload[legId].x = currentPointer.x;
         if (statePointers[legId].y !== currentPointer.y) payload[legId].y = currentPointer.y;
       }
-      
-      // observeTurnJoystick(newValue, oldValue) {
-      //   // validate
-      //   if (oldValue === undefined) return;
-      //   if (newValue.x === oldValue.x) {
-      //     console.warn('same turn joystick values');
-      //     return;
-      //   }
-      //   
-      //   store.dispatch({ type: "COXA_OFFSET_ROTATION_CHANGED", payload: oldValue.x - newValue.x });
-      // }
       
       dispatchMovementPointers(payload) {
         store.dispatch({
