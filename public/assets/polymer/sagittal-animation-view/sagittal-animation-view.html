@@ -162,8 +162,8 @@
         if (coords === undefined || angles === undefined || this.baseCoxaAttachmentAngle === undefined) return;
         
         let side;
-        if (coords[legId].side == 'left') side = 'right';
-        if (coords[legId].side == 'right') side = 'left';
+        if (GU.getSideFromLegId(legId) === 'left') side = 'right';
+        if (GU.getSideFromLegId(legId) === 'right') side = 'left';
         
         let x = side + ': ' + coords[legId].transverseBaseX + 'px;';
         let y = 'top: ' + coords[legId].sagittalBaseY + 'px;';
@@ -202,8 +202,8 @@
       
       computeCursor(coords, legId) {
         let side;
-        if (coords[legId].side == 'left') side = 'right';
-        if (coords[legId].side == 'right') side = 'left';
+        if (GU.getSideFromLegId(legId) === 'left') side = 'right';
+        if (GU.getSideFromLegId(legId) === 'right') side = 'left';
          
         let x = side + ': ' + coords[legId].transverseCursorX + 'px;';
         let y = 'top: ' + coords[legId].sagittalCursorY + 'px;';
@@ -213,7 +213,7 @@
       
       computeFemur(angles, legId) {
         let a = angles[legId].femurScreenAngle;
-        if (angles[legId].side == 'left') {
+        if (GU.getSideFromLegId(legId) === 'left') {
           a = a * -1;
         }
         
@@ -223,7 +223,7 @@
       
       computeTibia(angles, legId) {
         let a = angles[legId].tibiaScreenAngle;
-        if (angles[legId].side == 'left') {
+        if (GU.getSideFromLegId(legId) === 'left') {
           a = a * -1;
         }
         let angle = `transform: rotate(${a}deg);`;

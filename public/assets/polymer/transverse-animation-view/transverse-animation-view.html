@@ -175,9 +175,6 @@
           baseCenterCoords: {
             statePath: 'base.centerCoords'
           },
-          legs: {
-            statePath: 'legs'
-          },
           offsets: {
             statePath: 'viewOffsets'
           },
@@ -212,10 +209,10 @@
         
         let x, y;
         if (this.useOffsets) {
-          x = `${coords[legId].side}: ${coords[legId].transverseBaseX + offsets[legId].transverseAnimationViewOffsetX}px;`;
+          x = `${GU.getSideFromLegId(legId)}: ${coords[legId].transverseBaseX + offsets[legId].transverseAnimationViewOffsetX}px;`;
           y = `top: ${coords[legId].transverseBaseY + offsets[legId].transverseAnimationViewOffsetY}px;`;
         } else {
-          x = `${coords[legId].side}: ${coords[legId].transverseBaseX}px;`;
+          x = `${GU.getSideFromLegId(legId)}: ${coords[legId].transverseBaseX}px;`;
           y = `top: ${coords[legId].transverseBaseY}px;`;
         }
         
@@ -227,10 +224,10 @@
         
         let x, y;
         if (this.useOffsets) {
-          x = `${coords[legId].side}: ${coords[legId].transverseCursorX + offsets[legId].transverseAnimationViewOffsetX}px;`;
+          x = `${GU.getSideFromLegId(legId)}: ${coords[legId].transverseCursorX + offsets[legId].transverseAnimationViewOffsetX}px;`;
           y = `top: ${coords[legId].transverseCursorY + offsets[legId].transverseAnimationViewOffsetY}px;`;
         } else {
-          x = `${coords[legId].side}: ${coords[legId].transverseCursorX}px;`;
+          x = `${GU.getSideFromLegId(legId)}: ${coords[legId].transverseCursorX}px;`;
           y = `top: ${coords[legId].transverseCursorY}px;`;
         }
         
@@ -241,12 +238,12 @@
         if (angles === undefined || misc === undefined) return;
 
         let x, y, z;
-        if (angles[legId].side == 'left') {
+        if (GU.getSideFromLegId(legId) === 'left') {
           y = 'transform-origin: left;';
           z = 'left: 50%;';
           x = `transform: rotate(${angles[legId].coxaScreenAngle}deg);`;
         } 
-        if (angles[legId].side == 'right') {
+        if (GU.getSideFromLegId(legId) === 'right') {
           y = 'transform-origin: right;';
           z = 'right: 50%;';
           let temp = angles[legId].coxaScreenAngle * -1;
@@ -264,7 +261,7 @@
         
         let x, y;
         if (this.useOffsets) {
-          switch (this.legs[legId].side) {
+          switch (GU.getSideFromLegId(legId)) {
             case 'left':
               x = `left: ${movementPointers[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
             case 'right':
@@ -272,7 +269,7 @@
           }
           y = `top: ${movementPointers[legId].y + offsets[legId].transverseAnimationViewOffsetY}px;`;
         } else {
-          switch (this.legs[legId].side) {
+          switch (GU.getSideFromLegId(legId)) {
             case 'left':
               x = `left: ${movementPointers[legId].x}px;`; break;
             case 'right':
@@ -289,7 +286,7 @@
         
         let x, y;
         if (this.useOffsets) {
-          switch (this.legs[legId].side) {
+          switch (GU.getSideFromLegId(legId)) {
             case 'left':
               x = `left: ${movementCircles[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
             case 'right':
@@ -297,7 +294,7 @@
           }
           y = `top: ${movementCircles[legId].y + offsets[legId].transverseAnimationViewOffsetY}px;`;
         } else {
-          switch (this.legs[legId].side) {
+          switch (GU.getSideFromLegId(legId)) {
             case 'left':
               x = `left: ${movementCircles[legId].x}px;`; break;
             case 'right':
