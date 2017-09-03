@@ -20,6 +20,10 @@ const movementReducer = combineReducers({
   sequenceMetaData: sequenceMetaDataReducer
 });
 
+const baseReducer = combineReducers({
+  direction: baseDirectionReducer
+});
+
 const reducers = combineReducers({
   legs: legReducer,
   angles: angleReducer,
@@ -31,9 +35,9 @@ const reducers = combineReducers({
   viewOffsets: viewOffsetsReducer,
   movement: movementReducer,
   gaits: gaitReducer,
-  baseDirection: baseDirectionReducer,
   baseCoxaPosition: baseCoxaPositionReducer,
-  baseCenterCoords: baseCenterCoordsReducer
+  baseCenterCoords: baseCenterCoordsReducer,
+  base: baseReducer
 });
 
 const store = createStore(
