@@ -22,7 +22,8 @@ const movementReducer = combineReducers({
 
 const baseReducer = combineReducers({
   direction: baseDirectionReducer,
-  centerCoords: baseCenterCoordsReducer
+  centerCoords: baseCenterCoordsReducer,
+  coxaPosition: baseCoxaPositionReducer
 });
 
 const reducers = combineReducers({
@@ -36,7 +37,6 @@ const reducers = combineReducers({
   viewOffsets: viewOffsetsReducer,
   movement: movementReducer,
   gaits: gaitReducer,
-  baseCoxaPosition: baseCoxaPositionReducer,
   base: baseReducer
 });
 
