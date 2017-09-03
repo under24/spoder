@@ -301,7 +301,11 @@
           }
         }
 
-        if (Object.keys(anglesPayload).length !== 0) this.dispatchAngles(anglesPayload);
+        
+        if (Object.keys(anglesPayload).length !== 0) {
+          // this.sendServoAngleToSpoder(anglesPayload);
+          this.dispatchAngles(anglesPayload);
+        } 
         this.validateAndDispatchBaseCenterCoords(baseCenterCoords);
         if (Object.keys(miscPayload).length !== 0) this.dispatchMisc(miscPayload);
         if (Object.keys(movementCirclesPayload).length !== 0) this.dispatchMovementCircles(movementCirclesPayload);
@@ -363,6 +367,11 @@
         
         return baseDirection;
       }
+      
+      // sendServoAngleToSpoder(servoAngles) {
+      //   debugger;
+      //   socket.emit('femur-servo-angle-changed', { value: femurCalculated.servo });
+      // }
       
       // END PROPERTY OBSERVERS
 
