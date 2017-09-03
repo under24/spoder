@@ -3,8 +3,6 @@
 let angleReducerInitState = {
   1: {
     legId: 1,
-    side: 'left',
-    row: 'front',
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
@@ -14,8 +12,6 @@ let angleReducerInitState = {
   },
   2: {
     legId: 2,
-    side: 'right',
-    row: 'front',
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
@@ -25,8 +21,6 @@ let angleReducerInitState = {
   },
   3: {
     legId: 3,
-    side: 'left',
-    row: 'middle',
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
@@ -36,8 +30,6 @@ let angleReducerInitState = {
   },
   4: {
     legId: 4,
-    side: 'right',
-    row: 'middle',
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
@@ -47,8 +39,6 @@ let angleReducerInitState = {
   },
   5: {
     legId: 5,
-    side: 'left',
-    row: 'back',
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
@@ -58,8 +48,6 @@ let angleReducerInitState = {
   },
   6: {
     legId: 6,
-    side: 'right',
-    row: 'back',
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
