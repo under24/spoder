@@ -43,7 +43,7 @@ let PU = {
   //   else {
   //     // if side == left => use original offset, if side == right => flip offset number (1 => -1)
   //     let angle;
-  //     switch (coords.side) {
+  //     switch (GU.getSideFromLegId(coords.legId)) {
   //       case 'left':
   //         angle = coords.offsetRotation; break;
   //       case 'right':
