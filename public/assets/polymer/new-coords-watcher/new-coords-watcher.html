@@ -296,7 +296,7 @@
             let miscValue = this.getSagittalMiscData(legId);
             this.gatherMiscValues(legId, miscValue, miscPayload);
             
-            let movementCircleValue = this.getMovementCircleData(miscValue.transverseReachRadius, legId, baseDirection);
+            let movementCircleValue = this.getMovementCircleData(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection);
             this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
           }
         }
@@ -306,6 +306,7 @@
           // this.sendServoAngleToSpoder(anglesPayload);
           this.dispatchAngles(anglesPayload);
         } 
+        this.validateAndDispatchBaseDirection(baseDirection);
         this.validateAndDispatchBaseCenterCoords(baseCenterCoords);
         if (Object.keys(miscPayload).length !== 0) this.dispatchMisc(miscPayload);
         if (Object.keys(movementCirclesPayload).length !== 0) this.dispatchMovementCircles(movementCirclesPayload);
@@ -342,18 +343,18 @@
         });
       }
       
-      getBaseDirection(newCoords) {
-        let baseCenterCoords = RU.getBaseCenter(newCoords),
-            baseDirection = MU.getAngle(newCoords[3].transverseBaseY - baseCenterCoords.y, newCoords[3].transverseBaseX - baseCenterCoords.x);
       validateAndDispatchBaseCenterCoords(payload) {
         // dispatch not needed
-        if (this.baseCenterCoords !== undefined && payload === this.baseCenterCoords) return;
+        if (this.baseCenterCoords && payload.x === this.baseCenterCoords.x && payload.y === this.baseCenterCoords.y) return;
         
         store.dispatch({
           type: "BASE_CENTER_COORDS_CHANGED",
           payload
         })
       }
+      
+      getBaseDirection(newCoords, baseCenterCoords) {
+        let baseDirection = MU.getAngle(newCoords[3].transverseBaseY - baseCenterCoords.y, newCoords[3].transverseBaseX - baseCenterCoords.x);
             
         if (baseDirection === 360) {
           baseDirection = 0;
