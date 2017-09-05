@@ -33,6 +33,14 @@ let MU = {
       y: Math.sin(angle * Math.PI / 180) * distance + y
     };
   },
+  rotationMatrix(x, y, angle) {
+    angle = Math.PI * angle / 180;
+
+    return {
+      x: x * Math.cos(angle) - y * Math.sin(angle),
+      y: x * Math.sin(angle) + y * Math.cos(angle)
+    }
+  }
   // interceptOnCircleOrig(p1, p2, c, r) {
   //   //p1 is the first line point
   //   //p2 is the second line point
