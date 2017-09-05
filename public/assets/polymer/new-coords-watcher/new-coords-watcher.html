@@ -20,8 +20,16 @@
           baseCenterCoords: {
             statePath: 'base.centerCoords'
           },
+          // used for supplying values to movement circles
+          misc: {
+            statePath: 'misc'
+          },
           baseCoxaAttachmentAngle: {
             statePath: 'base.coxaAttachmentAngle'
+          },
+          turnJoystick: {
+            statePath: 'movement.turnJoystick',
+            observer: 'observeTurnJoystick'
           },
           coords: {
             statePath: 'coords',
@@ -367,6 +375,19 @@
         }
         
         return baseDirection;
+      }
+      
+      observeTurnJoystick(newValue, oldValue) {
+        if (oldValue === undefined) return;
+        
+        let movementCirclesPayload = {};
+        
+        for (let legId = 1; legId <= 6; legId++) {
+          let movementCircleValue = this.getMovementCircleData(legId, this.misc[legId].transverseReachRadius, this.coords[legId], this.baseDirection);
+          this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
+        }
+        
+        if (Object.keys(movementCirclesPayload).length !== 0) this.dispatchMovementCircles(movementCirclesPayload);
       }
       
       // sendServoAngleToSpoder(servoAngles) {
