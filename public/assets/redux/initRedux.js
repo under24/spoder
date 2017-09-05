@@ -14,10 +14,10 @@ const movementReducer = combineReducers({
   turnJoystick: movementTurnJoystickReducer,
   pointers: movementPointerReducer,
   circles: movementCircleReducer,
-  status: movementStatusReducer,
-  sequence: sequenceReducer,
+  // status: movementStatusReducer,
+  // sequence: sequenceReducer,
   sequenceProgress: sequenceProgressReducer,
-  sequenceMetaData: sequenceMetaDataReducer
+  // sequenceMetaData: sequenceMetaDataReducer
 });
 
 const baseReducer = combineReducers({
