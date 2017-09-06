@@ -128,10 +128,40 @@
         };
       }
       
-      getMovementCircleData(transverseReachRadius, legId) {
+      getMovementCircleData(legId, transverseReachRadius, coords, baseDirection) {
         let movementCircleDiameter = PU.getMovementCircleDiameter(transverseReachRadius, this.metaData),
-            movementCircleRadius = movementCircleDiameter / 2,
-            movementCircleCenterCoords = PU.getMovementCircleCenterCoords(this.metaData, this.coords[legId], this.baseCoxaPosition[legId], transverseReachRadius, direction);
+            movementCircleRadius = movementCircleDiameter / 2;
+            
+                
+            
+            
+            
+            
+        let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
+            finalCoords,
+            angle,
+            turnedCoords;
+            
+        switch (GU.getSideFromLegId(legId)) {
+          case 'left':
+            angle = this.baseCoxaAttachmentAngle[legId] + baseDirection - this.turnJoystick.x; break;
+          case 'right':
+            angle = MU.flipNumber(this.baseCoxaAttachmentAngle[legId]) - baseDirection + this.turnJoystick.x; break;
+        }
+        
+        
+        if (this.turnJoystick.x) {
+          turnedCoords = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId]);
+        }
+        
+        
+        let x = turnedCoords && turnedCoords.x || coords.transverseBaseX;
+        let y = turnedCoords && turnedCoords.y || coords.transverseBaseY;
+        
+        let movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(x, y, angle, distance);
+            
+            
+            
         
         return {
           x: movementCircleCenterCoords.x,
