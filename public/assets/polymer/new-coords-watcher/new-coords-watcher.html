@@ -295,10 +295,7 @@
             coxaAngle += -45; break;
         }
         
-        if (coxaAngle < 0) coxaAngle += 360;
-        else if (coxaAngle > 360) coxaAngle -= 360;
-        
-        return coxaAngle;
+        return GU.correctAngle(coxaAngle);
       }
       
       // END POSITIONING LOGIC
@@ -393,18 +390,8 @@
       
       getBaseDirection(newCoords, baseCenterCoords) {
         let baseDirection = MU.getAngle(newCoords[3].transverseBaseY - baseCenterCoords.y, newCoords[3].transverseBaseX - baseCenterCoords.x);
-            
-        if (baseDirection === 360) {
-          baseDirection = 0;
-        } 
-        else if (baseDirection > 360) {
-          baseDirection -= 360;
-        } 
-        else if (baseDirection < 0) {
-          baseDirection += 360;
-        }
         
-        return baseDirection;
+        return GU.correctAngle(baseDirection);
       }
       
       observeTurnJoystick(newValue, oldValue) {
