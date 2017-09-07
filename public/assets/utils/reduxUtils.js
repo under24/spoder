@@ -32,13 +32,8 @@ let RU = {
   getRotatedCoords(baseCenterCoords, rotationAngle, coords) {
     let side = GU.getSideFromLegId(coords.legId);
     
-    let tbx;
-    switch (side) {
-      case 'right':
-        tbx = MU.flipNumber(coords.transverseBaseX); break;
-      case 'left':
-        tbx = coords.transverseBaseX; break;
-    }
+    // use flipped values for the right side
+    let tbx = side === 'right' ? MU.flipNumber(coords.transverseBaseX) : coords.transverseBaseX;
     
     let dx = tbx - baseCenterCoords.x,
         dy = coords.transverseBaseY - baseCenterCoords.y,
