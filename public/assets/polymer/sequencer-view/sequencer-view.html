@@ -294,9 +294,35 @@
         if (this.sequenceInterval) {
           console.warn('another sequence is in progress');
           return;
-        } 
+        }
         
         this.sequenceInterval = setInterval(() => {
+          
+          if (this.turnJoystick.x) {
+            let stepAngle = this.turnJoystick.x / this.sequence.metaData.amountOfTicks;
+            let result = {};
+            
+            for (let legId = 1; legId <= 6; legId++) {
+              let side = GU.getSideFromLegId(legId);  
+              let x = this.coords[legId].transverseBaseX;
+              let y = this.coords[legId].transverseBaseY;
+              let rotatedCoords;
+
+              rotatedCoords = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(stepAngle), this.coords[legId]);
+              
+              result[legId] = {
+                x: x - rotatedCoords.x,
+                y: y - rotatedCoords.y
+              }
+            }
+            
+            // merge values
+            for (let legId = 1; legId <= 6; legId++) {
+              this.sequence.timeline[tick].payload[legId].transverseBaseX += result[legId].x;
+              this.sequence.timeline[tick].payload[legId].transverseBaseY += result[legId].y;
+            }
+          }
+          
           
           store.dispatch({
             type: "SEQUENCE_SHIFTED_XY_BATCHED",
