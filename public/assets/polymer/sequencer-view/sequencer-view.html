@@ -279,10 +279,14 @@
       }
       
       observePointers() {
-        if (this.directionJoystick === undefined || this.prevDirectionObj === this.directionJoystick) return;
-
-        this.prevDirectionObj = this.directionJoystick;
-        this.loadSequence();
+        if (this.directionJoystick !== undefined && this.prevDirectionJoystick !== this.directionJoystick) {
+          this.prevDirectionJoystick = this.directionJoystick;
+          this.loadSequence();
+        }
+        else if (this.turnJoystick !== undefined && this.prevTurnJoystick !== this.turnJoystick) {
+          this.prevTurnJoystick = this.turnJoystick;
+          this.loadSequence();
+        }
       }
       
       loadSequence() {
