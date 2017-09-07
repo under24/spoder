@@ -204,11 +204,6 @@
 
               pointerToCircleCenterX = this.circles[legId].x - this.pointers[legId].x,
               pointerToCircleCenterY = this.circles[legId].y - this.pointers[legId].y;
-              
-          // let turnedCoords = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId]);
-          // 
-          // pointerToCircleCenterX += this.coords[legId].transverseBaseX - turnedCoords.x;
-          // pointerToCircleCenterY += this.coords[legId].transverseBaseY - turnedCoords.y;
 
           metaData[legId] = BU.getStartAndEndPctBasedOnLegId(legId, this.gaits, 'ripple');
 
