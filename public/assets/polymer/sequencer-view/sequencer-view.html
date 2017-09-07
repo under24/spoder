@@ -162,24 +162,24 @@
       static get is() { return 'sequencer-view'; }
       static get properties() {
         return {
-          // baseCenterCoords: {
-          //   statePath: 'base.centerCoords'
-          // },
-          // turnJoystick: {
-          //   statePath: 'movement.turnJoystick'
-          // },
+          baseCenterCoords: {
+            statePath: 'base.centerCoords'
+          },
           pointers: {
             statePath: 'movement.pointers',
             observer: 'observePointers'
-          },
-          directionJoystick: {
-            statePath: 'movement.directionJoystick'
           },
           circles: {
             statePath: 'movement.circles'
           },
           coords: {
             statePath: 'coords'
+          },
+          directionJoystick: {
+            statePath: 'movement.directionJoystick'
+          },
+          turnJoystick: {
+            statePath: 'movement.turnJoystick'
           },
           gaits: {
             statePath: 'gaits'
