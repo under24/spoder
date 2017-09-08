@@ -298,31 +298,22 @@
         
         this.sequenceInterval = setInterval(() => {
           
+          // apply movement.turnJoystick values
           if (this.turnJoystick.x) {
             let stepAngle = this.turnJoystick.x / this.sequence.metaData.amountOfTicks;
-            let result = {};
             
             for (let legId = 1; legId <= 6; legId++) {
-              let side = GU.getSideFromLegId(legId);  
-              let x = this.coords[legId].transverseBaseX;
-              let y = this.coords[legId].transverseBaseY;
-              let rotatedCoords;
-
-              rotatedCoords = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(stepAngle), this.coords[legId]);
+              let { transverseBaseX: x, transverseBaseY: y } = this.coords[legId];
               
-              result[legId] = {
-                x: x - rotatedCoords.x,
-                y: y - rotatedCoords.y
-              }
-            }
-            
-            // merge values
-            for (let legId = 1; legId <= 6; legId++) {
-              this.sequence.timeline[tick].payload[legId].transverseBaseX += result[legId].x;
-              this.sequence.timeline[tick].payload[legId].transverseBaseY += result[legId].y;
+              let rotatedCoords = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(stepAngle), this.coords[legId]);
+              
+              let shiftX = x - rotatedCoords.x,
+                  shiftY = y - rotatedCoords.y;
+              
+              this.sequence.timeline[tick].payload[legId].transverseBaseX += shiftX;
+              this.sequence.timeline[tick].payload[legId].transverseBaseY += shiftY;
             }
           }
-          
           
           store.dispatch({
             type: "SEQUENCE_SHIFTED_XY_BATCHED",
