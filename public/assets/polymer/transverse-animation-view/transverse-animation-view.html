@@ -27,6 +27,13 @@
         position: absolute;
         transform: translate(-50%,-50%);
       }
+      .baseCenterCoords .baseDirection {
+        border-left: 1px solid;
+        height: 100px;
+        position: absolute;
+        bottom: 0px;
+        transform-origin: bottom;
+      }
       .base {
         height: 20px;
         width: 20px;
@@ -162,7 +169,9 @@
           <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '6')]]"></div>
         </div>
         
-        <div class="baseCenterCoords" style$="left: [[baseCenterCoords.x]]px; top: [[baseCenterCoords.y]]px;"></div>
+        <div class="baseCenterCoords" style$="left: [[baseCenterCoords.x]]px; top: [[baseCenterCoords.y]]px;">
+          <div class="baseDirection" style$="transform: translateX(-50%) rotate([[baseDirection]]deg)"></div>
+        </div>
       </div>
     </div>
   </template>
@@ -200,6 +209,9 @@
           },
           useOffsets: {
             value: false
+          },
+          baseDirection: {
+            statePath: 'base.direction'
           }
         };
       }
