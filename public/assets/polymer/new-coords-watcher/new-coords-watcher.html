@@ -132,16 +132,21 @@
         let movementCircleDiameter = PU.getMovementCircleDiameter(transverseReachRadius, this.metaData),
             movementCircleRadius = movementCircleDiameter / 2;
             
-                
-            
-            
-            
-            
         let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
-            finalCoords,
             angle,
-            turnedCoords;
+            // x, y for rotation around
+            tbx = coords.transverseBaseX,
+            tby = coords.transverseBaseY;
             
+        // turn base coords
+        if (this.turnJoystick.x) {
+          let turnedBase = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId]);
+          // override base x/y with turned coords
+          tbx = turnedBase.x;
+          tby = turnedBase.y;
+        }
+        
+        // sum up baseCoxaAttachmentAngle + movement.directionJoystick + movement.turnJoystick
         switch (GU.getSideFromLegId(legId)) {
           case 'left':
             angle = this.baseCoxaAttachmentAngle[legId] + baseDirection - this.turnJoystick.x; break;
@@ -149,23 +154,13 @@
             angle = MU.flipNumber(this.baseCoxaAttachmentAngle[legId]) - baseDirection + this.turnJoystick.x; break;
         }
         
-        
-        if (this.turnJoystick.x) {
-          turnedCoords = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId]);
-        }
-        
-        
-        let x = turnedCoords && turnedCoords.x || coords.transverseBaseX;
-        let y = turnedCoords && turnedCoords.y || coords.transverseBaseY;
-        
-        let movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(x, y, angle, distance);
-            
-            
-            
+        let movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
         
         return {
           x: movementCircleCenterCoords.x,
           y: movementCircleCenterCoords.y,
+          turnedTBXGuidePoint: tbx || movementCircleCenterCoords.x,
+          turnedTBYGuidePoint: tby || movementCircleCenterCoords.y,
           radius: movementCircleRadius,
           diameter: movementCircleDiameter
         }
