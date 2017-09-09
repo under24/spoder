@@ -136,14 +136,16 @@
             angle,
             // x, y for rotation around
             tbx = coords.transverseBaseX,
-            tby = coords.transverseBaseY;
+            tby = coords.transverseBaseY,
+            turnedTBXGuidePoint,
+            turnedTBYGuidePoint;
             
         // turn base coords
         if (this.turnJoystick.x) {
           let turnedBase = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId]);
           // override base x/y with turned coords
-          tbx = turnedBase.x;
-          tby = turnedBase.y;
+          turnedTBXGuidePoint = tbx = turnedBase.x;
+          turnedTBYGuidePoint = tby = turnedBase.y;
         }
         
         // sum up baseCoxaAttachmentAngle + movement.directionJoystick + movement.turnJoystick
@@ -159,8 +161,10 @@
         return {
           x: movementCircleCenterCoords.x,
           y: movementCircleCenterCoords.y,
-          turnedTBXGuidePoint: tbx,
-          turnedTBYGuidePoint: tby,
+          unturnedCircleX: 1,
+          unturnedCircleY: 1,
+          turnedTBXGuidePoint,
+          turnedTBYGuidePoint,
           radius: movementCircleRadius,
           diameter: movementCircleDiameter
         }
