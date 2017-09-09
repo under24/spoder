@@ -111,6 +111,20 @@
         transform: translate(-50%, -50%);
         border-radius: 100%;
       }
+      .turnedBaseGuidePoint {
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+        background-color: rgba(0, 0, 255, 0.05);
+        position: absolute;
+        border-radius: 100%;
+      }
+      .turnedBaseGuidePoint.left {
+        transform: translate(-50%,-50%);
+      }
+      .turnedBaseGuidePoint.right {
+        transform: translate(50%,-50%);
+      }
     </style>
     
     <label style="position:absolute;"><input type="checkbox" checked="{{useOffsets::change}}" /> Use offsets</label>
@@ -134,6 +148,25 @@
         </div>
         <div class="base leg6 right" style$="[[computeBase(coords, offsets, '6')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '6', misc)]]"></div>
+        </div>
+        
+        <div class="turnedBaseGuidePoint leg1 left" 
+             style$="left: [[movementCircles.1.turnedTBXGuidePoint]]px; top: [[movementCircles.1.turnedTBYGuidePoint]]px;">
+        </div>
+        <div class="turnedBaseGuidePoint leg2 right"
+             style$="right: [[movementCircles.2.turnedTBXGuidePoint]]px; top: [[movementCircles.2.turnedTBYGuidePoint]]px;">
+        </div>
+        <div class="turnedBaseGuidePoint leg3 left"
+             style$="left: [[movementCircles.3.turnedTBXGuidePoint]]px; top: [[movementCircles.3.turnedTBYGuidePoint]]px;">
+        </div>
+        <div class="turnedBaseGuidePoint leg4 right"
+             style$="right: [[movementCircles.4.turnedTBXGuidePoint]]px; top: [[movementCircles.4.turnedTBYGuidePoint]]px;">
+        </div>
+        <div class="turnedBaseGuidePoint leg5 left"
+             style$="left: [[movementCircles.5.turnedTBXGuidePoint]]px; top: [[movementCircles.5.turnedTBYGuidePoint]]px;">
+        </div>
+        <div class="turnedBaseGuidePoint leg6 right"
+             style$="right: [[movementCircles.6.turnedTBXGuidePoint]]px; top: [[movementCircles.6.turnedTBYGuidePoint]]px;">
         </div>
         
         <div class="cursor leg1 left" style$="[[computeCursor(coords, offsets, '1')]]"></div>
