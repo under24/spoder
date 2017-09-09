@@ -125,6 +125,9 @@
       .turnedBaseGuidePoint.right {
         transform: translate(50%,-50%);
       }
+      .turnedBaseGuidePoint[hidden] {
+        display: none;
+      }
     </style>
     
     <label style="position:absolute;"><input type="checkbox" checked="{{useOffsets::change}}" /> Use offsets</label>
@@ -151,22 +154,28 @@
         </div>
         
         <div class="turnedBaseGuidePoint leg1 left" 
-             style$="left: [[movementCircles.1.turnedTBXGuidePoint]]px; top: [[movementCircles.1.turnedTBYGuidePoint]]px;">
+             style$="left: [[movementCircles.1.turnedTBXGuidePoint]]px; top: [[movementCircles.1.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.1.turnedTBXGuidePoint]]">
         </div>
         <div class="turnedBaseGuidePoint leg2 right"
-             style$="right: [[movementCircles.2.turnedTBXGuidePoint]]px; top: [[movementCircles.2.turnedTBYGuidePoint]]px;">
+             style$="right: [[movementCircles.2.turnedTBXGuidePoint]]px; top: [[movementCircles.2.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.2.turnedTBXGuidePoint]]">
         </div>
         <div class="turnedBaseGuidePoint leg3 left"
-             style$="left: [[movementCircles.3.turnedTBXGuidePoint]]px; top: [[movementCircles.3.turnedTBYGuidePoint]]px;">
+             style$="left: [[movementCircles.3.turnedTBXGuidePoint]]px; top: [[movementCircles.3.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.3.turnedTBXGuidePoint]]">
         </div>
         <div class="turnedBaseGuidePoint leg4 right"
-             style$="right: [[movementCircles.4.turnedTBXGuidePoint]]px; top: [[movementCircles.4.turnedTBYGuidePoint]]px;">
+             style$="right: [[movementCircles.4.turnedTBXGuidePoint]]px; top: [[movementCircles.4.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.4.turnedTBXGuidePoint]]">
         </div>
         <div class="turnedBaseGuidePoint leg5 left"
-             style$="left: [[movementCircles.5.turnedTBXGuidePoint]]px; top: [[movementCircles.5.turnedTBYGuidePoint]]px;">
+             style$="left: [[movementCircles.5.turnedTBXGuidePoint]]px; top: [[movementCircles.5.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.5.turnedTBXGuidePoint]]">
         </div>
         <div class="turnedBaseGuidePoint leg6 right"
-             style$="right: [[movementCircles.6.turnedTBXGuidePoint]]px; top: [[movementCircles.6.turnedTBYGuidePoint]]px;">
+             style$="right: [[movementCircles.6.turnedTBXGuidePoint]]px; top: [[movementCircles.6.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.6.turnedTBXGuidePoint]]">
         </div>
         
         <div class="cursor leg1 left" style$="[[computeCursor(coords, offsets, '1')]]"></div>
