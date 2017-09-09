@@ -134,11 +134,11 @@
             
         let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
             angle,
+            turnedTBXGuidePoint,
+            turnedTBYGuidePoint,
             // x, y for rotation around
             tbx = coords.transverseBaseX,
-            tby = coords.transverseBaseY,
-            turnedTBXGuidePoint,
-            turnedTBYGuidePoint;
+            tby = coords.transverseBaseY;
             
         // turn base coords
         if (this.turnJoystick.x) {
