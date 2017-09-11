@@ -304,9 +304,9 @@
             let stepAngle = this.turnJoystick.x / this.sequence.metaData.amountOfTicks;
             
             for (let legId = 1; legId <= 6; legId++) {
-              // get base coords
+              // cache base coords
               let { transverseBaseX: x, transverseBaseY: y } = this.coords[legId];
-              // rotate them
+              // find rotated base coords
               let rotatedCoords = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(stepAngle), this.coords[legId]);
               // get shift values from actual coords
               let shiftX = x - rotatedCoords.x,
