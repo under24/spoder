@@ -111,7 +111,7 @@
         transform: translate(-50%, -50%);
         border-radius: 100%;
       }
-      .turnedBaseGuidePoint {
+      .turnedTBXGuidePoint {
         height: 20px;
         width: 20px;
         display: inline-block;
@@ -119,13 +119,13 @@
         position: absolute;
         border-radius: 100%;
       }
-      .turnedBaseGuidePoint.left {
+      .turnedTBXGuidePoint.left {
         transform: translate(-50%,-50%);
       }
-      .turnedBaseGuidePoint.right {
+      .turnedTBXGuidePoint.right {
         transform: translate(50%,-50%);
       }
-      .turnedBaseGuidePoint[hidden] {
+      .turnedTBXGuidePoint[hidden] {
         display: none;
       }
     </style>
@@ -153,29 +153,29 @@
           <div class="coxa" style$="[[computeCoxa(angles, '6', misc)]]"></div>
         </div>
         
-        <div class="turnedBaseGuidePoint leg1 left" 
-             style$="left: [[movementCircles.1.turnedBaseGuidePoint]]px; top: [[movementCircles.1.turnedTBYGuidePoint]]px;"
-             hidden="[[!movementCircles.1.turnedBaseGuidePoint]]">
+        <div class="turnedTBXGuidePoint leg1 left" 
+             style$="left: [[movementCircles.1.turnedTBXGuidePoint]]px; top: [[movementCircles.1.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.1.turnedTBXGuidePoint]]">
         </div>
-        <div class="turnedBaseGuidePoint leg2 right"
-             style$="right: [[movementCircles.2.turnedBaseGuidePoint]]px; top: [[movementCircles.2.turnedTBYGuidePoint]]px;"
-             hidden="[[!movementCircles.2.turnedBaseGuidePoint]]">
+        <div class="turnedTBXGuidePoint leg2 right"
+             style$="right: [[movementCircles.2.turnedTBXGuidePoint]]px; top: [[movementCircles.2.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.2.turnedTBXGuidePoint]]">
         </div>
-        <div class="turnedBaseGuidePoint leg3 left"
-             style$="left: [[movementCircles.3.turnedBaseGuidePoint]]px; top: [[movementCircles.3.turnedTBYGuidePoint]]px;"
-             hidden="[[!movementCircles.3.turnedBaseGuidePoint]]">
+        <div class="turnedTBXGuidePoint leg3 left"
+             style$="left: [[movementCircles.3.turnedTBXGuidePoint]]px; top: [[movementCircles.3.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.3.turnedTBXGuidePoint]]">
         </div>
-        <div class="turnedBaseGuidePoint leg4 right"
-             style$="right: [[movementCircles.4.turnedBaseGuidePoint]]px; top: [[movementCircles.4.turnedTBYGuidePoint]]px;"
-             hidden="[[!movementCircles.4.turnedBaseGuidePoint]]">
+        <div class="turnedTBXGuidePoint leg4 right"
+             style$="right: [[movementCircles.4.turnedTBXGuidePoint]]px; top: [[movementCircles.4.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.4.turnedTBXGuidePoint]]">
         </div>
-        <div class="turnedBaseGuidePoint leg5 left"
-             style$="left: [[movementCircles.5.turnedBaseGuidePoint]]px; top: [[movementCircles.5.turnedTBYGuidePoint]]px;"
-             hidden="[[!movementCircles.5.turnedBaseGuidePoint]]">
+        <div class="turnedTBXGuidePoint leg5 left"
+             style$="left: [[movementCircles.5.turnedTBXGuidePoint]]px; top: [[movementCircles.5.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.5.turnedTBXGuidePoint]]">
         </div>
-        <div class="turnedBaseGuidePoint leg6 right"
-             style$="right: [[movementCircles.6.turnedBaseGuidePoint]]px; top: [[movementCircles.6.turnedTBYGuidePoint]]px;"
-             hidden="[[!movementCircles.6.turnedBaseGuidePoint]]">
+        <div class="turnedTBXGuidePoint leg6 right"
+             style$="right: [[movementCircles.6.turnedTBXGuidePoint]]px; top: [[movementCircles.6.turnedTBYGuidePoint]]px;"
+             hidden="[[!movementCircles.6.turnedTBXGuidePoint]]">
         </div>
         
         <div class="cursor leg1 left" style$="[[computeCursor(coords, offsets, '1')]]"></div>

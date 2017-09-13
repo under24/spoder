@@ -134,7 +134,7 @@
             
         let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
             angle,
-            turnedBaseGuidePoint,
+            turnedTBXGuidePoint,
             turnedTBYGuidePoint,
             // x, y for rotation around
             tbx = coords.transverseBaseX,
@@ -144,7 +144,7 @@
         if (this.turnJoystick.x) {
           let turnedBase = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId]);
           // override base x/y with turned coords
-          turnedBaseGuidePoint = tbx = turnedBase.x;
+          turnedTBXGuidePoint = tbx = turnedBase.x;
           turnedTBYGuidePoint = tby = turnedBase.y;
         }
         
@@ -163,7 +163,7 @@
           y: movementCircleCenterCoords.y,
           // unturnedCircleX: undefined,
           // unturnedCircleY: undefined,
-          turnedBaseGuidePoint,
+          turnedTBXGuidePoint,
           turnedTBYGuidePoint,
           radius: movementCircleRadius,
           diameter: movementCircleDiameter
