@@ -44,6 +44,8 @@ let GU = {
     else if (angle > 360) angle -= 360;
     else if (angle < 0) angle += 360;
     
+    if (angle > 360 || angle < 0) angle = this.correctAngle(angle);
+    
     return angle;
   }
 }
