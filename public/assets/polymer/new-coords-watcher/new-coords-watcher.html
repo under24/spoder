@@ -61,9 +61,8 @@
       }
 
       getAngleFromDistance(legId, view) {
-        let screen = MU.getAngle(this.getDY(legId, view), this.getDX(legId, view));
-        
-        let servo = (screen - 270 < 0) ? screen + 90 : screen - 270;
+        let screen = MU.getAngle(this.getDY(legId, view), this.getDX(legId, view)),
+            servo = GU.correctAngle(screen + 90);
         
         return { screen, servo: +servo.toFixed(0) };
       }
