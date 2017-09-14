@@ -133,21 +133,18 @@
             movementCircleRadius = movementCircleDiameter / 2;
             
         let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
-            angle,
-            turnedTBXGuidePoint,
-            turnedTBYGuidePoint,
-            // x, y for rotation around
             tbx = coords.transverseBaseX,
-            tby = coords.transverseBaseY;
+            tby = coords.transverseBaseY,
+            angle,
+            // guide point
+            turnedTBX,
+            turnedTBY,
+            // unturned movement circle coords
+            unturnedX,
+            unturnedY,
+            // movement circle x/y coords
+            movementCircleCenterCoords;
             
-        // turn base coords
-        if (this.turnJoystick.x) {
-          let turnedBase = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId]);
-          // override base x/y with turned coords
-          turnedTBXGuidePoint = tbx = turnedBase.x;
-          turnedTBYGuidePoint = tby = turnedBase.y;
-        }
-        
         // sum up baseCoxaAttachmentAngle + movement.directionJoystick + movement.turnJoystick
         switch (GU.getSideFromLegId(legId)) {
           case 'left':
@@ -156,15 +153,27 @@
             angle = MU.flipNumber(this.baseCoxaAttachmentAngle[legId]) - baseDirection + this.turnJoystick.x; break;
         }
         
-        let movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
+        // turn base coords if turnJoystick.x !== 0
+        if (this.turnJoystick.x) {
+          // turn base coords
+          ({ x: turnedTBX, y: turnedTBY } = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId]));
+          // find movement circle coords
+          movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
+          
+          // also find unturned movement circle coords
+          ({ x: unturnedX, y: unturnedY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance));
+        }
+        else {
+          movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
+        }
         
         return {
           x: movementCircleCenterCoords.x,
           y: movementCircleCenterCoords.y,
-          // unturnedCircleX: undefined,
-          // unturnedCircleY: undefined,
-          turnedTBXGuidePoint,
-          turnedTBYGuidePoint,
+          unturnedX,
+          unturnedY,
+          turnedTBXGuidePoint: turnedTBX,
+          turnedTBYGuidePoint: turnedTBY,
           radius: movementCircleRadius,
           diameter: movementCircleDiameter
         }
