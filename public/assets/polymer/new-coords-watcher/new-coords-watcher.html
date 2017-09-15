@@ -134,6 +134,7 @@
         let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
             tbx = coords.transverseBaseX,
             tby = coords.transverseBaseY,
+            coxaAttachment = this.baseCoxaAttachmentAngle[legId],
             angle,
             // guide point
             turnedTBX,
@@ -142,14 +143,15 @@
             unturnedX,
             unturnedY,
             // movement circle x/y coords
-            movementCircleCenterCoords;
+            movementCircleCenterCoords,
+            angleForUnturnedXY;
             
         // sum up baseCoxaAttachmentAngle + movement.directionJoystick + movement.turnJoystick
         switch (GU.getSideFromLegId(legId)) {
           case 'left':
-            angle = this.baseCoxaAttachmentAngle[legId] + baseDirection - this.turnJoystick.x; break;
+            angle = coxaAttachment + baseDirection - this.turnJoystick.x; break;
           case 'right':
-            angle = MU.flipNumber(this.baseCoxaAttachmentAngle[legId]) - baseDirection + this.turnJoystick.x; break;
+            angle = MU.flipNumber(coxaAttachment) - baseDirection + this.turnJoystick.x; break;
         }
         
         // turn base coords if turnJoystick.x !== 0
@@ -160,8 +162,15 @@
           movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
           
           // also find unturned movement circle coords
-          ({ x: unturnedX, y: unturnedY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance));
+          switch (GU.getSideFromLegId(legId)) {
+            case 'left':
+              angleForUnturnedXY = coxaAttachment + baseDirection; break;
+            case 'right':
+              angleForUnturnedXY = MU.flipNumber(coxaAttachment) - baseDirection; break;
+          }
+          ({ x: unturnedX, y: unturnedY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, angleForUnturnedXY, distance));
         }
+        // turnJoystick.x === 0
         else {
           movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
         }
