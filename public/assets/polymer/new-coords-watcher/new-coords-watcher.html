@@ -149,9 +149,9 @@
         // sum up baseCoxaAttachmentAngle + movement.directionJoystick + movement.turnJoystick
         switch (GU.getSideFromLegId(legId)) {
           case 'left':
-            angle = coxaAttachment + baseDirection - this.turnJoystick.x; break;
+            angle = (coxaAttachment + baseDirection) - this.turnJoystick.x; break;
           case 'right':
-            angle = MU.flipNumber(coxaAttachment) - baseDirection + this.turnJoystick.x; break;
+            angle = MU.flipNumber(coxaAttachment + baseDirection) + this.turnJoystick.x; break;
         }
         
         // turn base coords if turnJoystick.x !== 0
@@ -166,7 +166,7 @@
             case 'left':
               angleForUnturnedXY = coxaAttachment + baseDirection; break;
             case 'right':
-              angleForUnturnedXY = MU.flipNumber(coxaAttachment) - baseDirection; break;
+              angleForUnturnedXY = MU.flipNumber(coxaAttachment + baseDirection); break;
           }
           ({ x: unturnedX, y: unturnedY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, angleForUnturnedXY, distance));
         }
