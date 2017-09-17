@@ -48,7 +48,7 @@
           currentPointer.y = this.circles[legId].y - this.circles[legId].radius * (this.directionJoystick.y / 100);
           
           // apply baseDirection + turnJoystick
-          currentPointer = this.applyDirectionAndTurnRotation(currentPointer, this.circles[legId], this.baseDirection, this.turnJoystick.x, legId);
+          currentPointer = this.applyDirectionAndTurn(currentPointer, this.circles[legId], this.baseDirection, this.turnJoystick.x, legId);
           
           // check for the same values before dispatching
           this.validateAndGatherPayload(currentPointer, this.pointers, legId, payload);
@@ -59,14 +59,14 @@
         this.dispatchMovementPointers(payload);
       }
       
-      applyDirectionAndTurnRotation(pointer, circle, baseDirection, turn, legId) {
+      applyDirectionAndTurn(pointer, circle, baseDirection, turn, legId) {
         let dx = pointer.x - circle.x,
             dy = pointer.y - circle.y,
             distance = MU.getDistance(dx, dy),
             circleToPointerAngle = MU.getAngle(dy, dx);
         
         // angle correction
-        if (circleToPointerAngle === 360) circleToPointerAngle = 0;
+        circleToPointerAngle = GU.correctAngle(circleToPointerAngle);
             
         switch (GU.getSideFromLegId(legId)) {
           case 'left':
