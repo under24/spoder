@@ -88,14 +88,13 @@
         transform: translate(50%,-50%);
       }
       .movementCircleCenter,
-      .unturnedCircle {
+      .unturnedCircleCenter {
         position: absolute;
         height: 0px;
         width: 0px;
-        pointer-events: none;
       }
       .movementCircleCenter::after,
-      .unturnedCircle::after {
+      .unturnedCircleCenter::after {
         content: '';
         display: inline-block;
         width: 8px;
@@ -108,6 +107,14 @@
         position: absolute;
       }
       .movementCircle {
+        display: inline-block;
+        background-color: rgba(255, 0, 0, 0.03);
+        transform: translate(-50%, -50%);
+        border-radius: 100%;
+        border: 1px solid rgba(255, 0, 0, 0.25);
+        box-sizing: border-box;
+      }
+      .unturnedMovementCircle {
         display: inline-block;
         background-color: rgba(255, 0, 0, 0.1);
         transform: translate(-50%, -50%);
@@ -155,29 +162,35 @@
           <div class="coxa" style$="[[computeCoxa(angles, '6', misc)]]"></div>
         </div>
         
-        <div class="unturnedCircle circle1 left"
+        <div class="unturnedCircleCenter circle1 left"
              style$="left: [[movementCircles.1.unturnedX]]px; top: [[movementCircles.1.unturnedY]]px;"
              hidden="[[!movementCircles.1.unturnedX]]">
+             <div class="unturnedMovementCircle circle1" style$="width: [[movementCircles.1.diameter]]px; height: [[movementCircles.1.diameter]]px;"></div>
         </div>
-        <div class="unturnedCircle circle2 right"
+        <div class="unturnedCircleCenter circle2 right"
              style$="right: [[movementCircles.2.unturnedX]]px; top: [[movementCircles.2.unturnedY]]px;"
              hidden="[[!movementCircles.2.unturnedX]]">
+             <div class="unturnedMovementCircle circle1" style$="width: [[movementCircles.2.diameter]]px; height: [[movementCircles.2.diameter]]px;"></div>
         </div>
-        <div class="unturnedCircle circle3 left"
+        <div class="unturnedCircleCenter circle3 left"
              style$="left: [[movementCircles.3.unturnedX]]px; top: [[movementCircles.3.unturnedY]]px;"
              hidden="[[!movementCircles.3.unturnedX]]">
+             <div class="unturnedMovementCircle circle1" style$="width: [[movementCircles.3.diameter]]px; height: [[movementCircles.3.diameter]]px;"></div>
         </div>
-        <div class="unturnedCircle circle4 right"
+        <div class="unturnedCircleCenter circle4 right"
              style$="right: [[movementCircles.4.unturnedX]]px; top: [[movementCircles.4.unturnedY]]px;"
              hidden="[[!movementCircles.4.unturnedX]]">
+             <div class="unturnedMovementCircle circle1" style$="width: [[movementCircles.4.diameter]]px; height: [[movementCircles.4.diameter]]px;"></div>
         </div>
-        <div class="unturnedCircle circle5 left"
+        <div class="unturnedCircleCenter circle5 left"
              style$="left: [[movementCircles.5.unturnedX]]px; top: [[movementCircles.5.unturnedY]]px;"
              hidden="[[!movementCircles.5.unturnedX]]">
+             <div class="unturnedMovementCircle circle1" style$="width: [[movementCircles.5.diameter]]px; height: [[movementCircles.5.diameter]]px;"></div>
         </div>
-        <div class="unturnedCircle circle6 right"
+        <div class="unturnedCircleCenter circle6 right"
              style$="right: [[movementCircles.6.unturnedX]]px; top: [[movementCircles.6.unturnedY]]px;"
              hidden="[[!movementCircles.6.unturnedX]]">
+             <div class="unturnedMovementCircle circle1" style$="width: [[movementCircles.6.diameter]]px; height: [[movementCircles.6.diameter]]px;"></div>
         </div>
         
         <div class="turnedTBXGuidePoint leg1 left" 
