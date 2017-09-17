@@ -1,0 +1,273 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="movement-generator">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      #sequenceTimeline {
+        width: 95%;
+        border: 1px dotted;
+        margin: auto;
+        box-sizing: border-box;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      #sequenceTimeline .leg-sequence {
+        font-size: 17px;
+        display: flex;
+        border-top: 1px dotted;
+      }
+      #sequenceTimeline .leg-sequence:first-child {
+        border-top: none;
+      }
+      #sequenceTimeline .sequence-header {
+        display: inline-block;
+        border-right: 1px dotted;
+        padding: 4px 0px 4px 8px;
+        width: 48px;
+        font-size: 16px;
+      }
+      #sequenceTimeline #cursor {
+        width: 1px;
+        background: black;
+        position: absolute;
+        display: inline-block;
+        top: 0px;
+        bottom: 0px;
+      }
+      #cursorKnob {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(128, 128, 128, 0.2);
+        padding: 4px 8px 2px;
+      }
+      .sequence-content {
+        flex: 1;
+        position: relative;
+      }
+      .sequence-content .payload {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.1);
+        top: 0px;
+        bottom: 0px;
+        text-align: center;
+        line-height: 26px;
+      }
+      .cursor-wrapper {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 57px;
+        right: 0px;
+      }
+      fieldset {
+        width: 95%;
+        box-sizing: border-box;
+        margin: 0px auto 10px auto;
+        border-width: 1px;
+      }
+    </style>
+    
+    <!-- <label>
+      <input type="checkbox" checked={{loop::click}} />
+      Loop sequence
+    </label> -->    
+
+    <br /><br /><br />
+    
+    <div id="sequenceTimeline">
+      <!-- <div class="leg-sequence" id="leg1">
+        <div class="sequence-header">Base</div>
+        <div class="sequence-content">
+          <div class="payload">25</div>
+          <div class="payload">25</div>
+          <div class="payload">25</div>
+          <div class="payload">25</div>
+        </div>
+      </div>
+      <hr /> -->
+      <div class="leg-sequence" id="leg1">
+        <div class="sequence-header">L1 (1)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'1')]]">[[computeCursorMovementData('1', sequenceMovementData)]]</div>
+        </div>
+      </div>
+      <div class="leg-sequence" id="leg2">
+        <div class="sequence-header">R1 (2)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'2')]]">[[computeCursorMovementData('2', sequenceMovementData)]]</div>
+        </div>
+      </div>
+      <div class="leg-sequence" id="leg3">
+        <div class="sequence-header">L2 (3)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'3')]]">[[computeCursorMovementData('3', sequenceMovementData)]]</div>
+        </div>
+      </div>
+      <div class="leg-sequence" id="leg4">
+        <div class="sequence-header">R2 (4)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'4')]]">[[computeCursorMovementData('4', sequenceMovementData)]]</div>
+        </div>
+      </div>
+      <div class="leg-sequence" id="leg5">
+        <div class="sequence-header">L3 (5)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'5')]]">[[computeCursorMovementData('5', sequenceMovementData)]]</div>
+        </div>
+      </div>
+      <div class="leg-sequence" id="leg6">
+        <div class="sequence-header">R3 (6)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'6')]]">[[computeCursorMovementData('6', sequenceMovementData)]]</div>
+        </div>
+      </div>
+      
+      <div class="cursor-wrapper">
+        <div id="cursor" style$="left: [[sequenceProgress.pct]]%">
+          <div id="cursorKnob">[[sequenceProgress.pct]]</div>
+        </div>
+      </div>
+
+    </div>
+    
+    <br /><br />
+    
+    <fieldset>
+      <legend>Movement settings:</legend>
+      <p>
+        <label>
+          <input type="checkbox" checked={{loop::click}} />
+          Loop generator
+        </label>
+      </p>
+      <p>TPS: [[tps]]</p>
+      <p>Sequence Duration: [[sequenceDuration]]</p>
+    </fieldset>
+
+  </template>
+
+  <script>
+    class movementGenerator extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'movement-generator'; }
+      static get properties() {
+        return {
+          // baseCenterCoords: {
+          //   statePath: 'base.centerCoords'
+          // },
+          pointers: {
+            statePath: 'movement.pointers'
+          },
+          circles: {
+            statePath: 'movement.circles'
+          },
+          coords: {
+            statePath: 'coords'
+          },
+          // directionJoystick: {
+          //   statePath: 'movement.directionJoystick'
+          // },
+          // turnJoystick: {
+          //   statePath: 'movement.turnJoystick'
+          // },
+          // gaits: {
+          //   statePath: 'gaits'
+          // },
+          // sequenceProgress: {
+          //   statePath: 'movement.sequenceProgress'
+          // },
+          loop: {
+            value: true,
+            // statePath: 'movement.sequenceMetaData.loop'
+          },
+          tps: {
+            value: 60
+          },
+          sequenceDuration: {
+            value: 750
+          },
+          sequenceMovementData: {
+            
+          }
+        };
+      }
+      
+      prepareSequenceObj() {
+        this.sequenceMovementData = this.getSequenceMovementData();
+        
+        let amountOfTicks = this.getAmountOfTicks();
+        
+      }
+      
+      getSequenceMovementData() {
+        if (this.circles == undefined || this.pointers === undefined || this.coords === undefined ) throw new Error('no sufficient data');
+        
+        let result = {};
+        
+        for (let legId = 1; legId <= 6; legId++) {
+          result[legId] = {};
+          
+          // base x/y movement
+          result[legId].baseX = this.circles[legId].x - this.pointers[legId].x,
+          result[legId].baseY = this.circles[legId].y - this.pointers[legId].y;
+          
+          // cursor x/y movement
+          result[legId].cursorX = this.coords[legId].transverseCursorX - this.pointers[legId].x,
+          result[legId].cursorY = this.coords[legId].transverseCursorY - this.pointers[legId].y;
+        }
+        
+        return result;
+      }
+      
+      getAmountOfTicks() {
+        return this.sequenceDuration / (1000 / this.tps);
+      }
+      
+      getBaseTickValue() {
+        
+      }
+      
+      getCursorTickValue() {
+        
+      }
+      
+      getAmountOfTicksBetween(startTick, endTick) {
+        return (endTick - startTick) + 1;
+      }
+      
+      // getTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
+      //   return pixelsToMove / amountOfTicks;
+      // }
+      
+      getCurrentTickPct(amountOfTicks, currentTick) {
+        return MU.roundNumber(100 / amountOfTicks * currentTick, 1);
+      }
+      
+      // UI
+      
+      computeCursorMovementData(legId, sequenceMovementData) {
+        let cursorX = sequenceMovementData[legId].cursorX,
+            cursorY = sequenceMovementData[legId].cursorY,
+            dist = MU.getDistance(cursorX, cursorY).toFixed(2);
+        
+        return dist;
+      }
+      
+      // TEMP
+      
+      getPctsFromGait() {
+        
+      }
+
+    }
+    window.customElements.define(movementGenerator.is, movementGenerator);
+  </script>
+</dom-module>

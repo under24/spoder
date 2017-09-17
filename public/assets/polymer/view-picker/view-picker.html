@@ -11,6 +11,7 @@
 <link rel="import" href="../sagittal-view/sagittal-view.html">
 <link rel="import" href="../transverse-view/transverse-view.html">
 <link rel="import" href="../sequencer-view/sequencer-view.html">
+<link rel="import" href="../movement-generator/movement-generator.html">
 
 <dom-module id="view-picker">
   <template>
@@ -64,7 +65,7 @@
     <template is="dom-if" if="[[computeView('none', view)]]" restamp>
       <section class="selection-section">
         <div class="selection-text">Choose view to load...</div>
-        <select value="{{view::change}}" multiple size="13">
+        <select value="{{view::change}}" multiple size="14">
           <option value="none">None</option>
           <option value="digital-joystick">Joystick Demo</option>
           <option value="level-modifier-view">Level Modifier View</option>
@@ -78,6 +79,7 @@
           <option value="sagittal-view">Sagittal View</option>
           <option value="transverse-view">Transverse View</option>
           <option value="sequencer-view">Sequencer View</option>
+          <option value="movement-generator">Movement Generator</option>
         </select>
       </section>
     </template>
@@ -144,6 +146,11 @@
     <!-- sequencer view -->
     <template is="dom-if" if="[[computeView('sequencer-view', view)]]" restamp>
       <sequencer-view></sequencer-view>
+    </template>
+    
+    <!-- movement generator -->
+    <template is="dom-if" if="[[computeView('movement-generator', view)]]" restamp>
+      <movement-generator></movement-generator>
     </template>
     
   </template>
