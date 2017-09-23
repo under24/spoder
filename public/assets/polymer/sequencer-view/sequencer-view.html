@@ -304,13 +304,11 @@
             let stepAngle = this.turnJoystick.x / this.sequence.metaData.amountOfTicks;
             
             for (let legId = 1; legId <= 6; legId++) {
-              // cache base coords
-              let { transverseBaseX: x, transverseBaseY: y } = this.coords[legId];
               // find rotated base coords
               let rotatedCoords = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(stepAngle), this.coords[legId]);
               // get shift values from actual coords
-              let shiftX = x - rotatedCoords.x,
-                  shiftY = y - rotatedCoords.y;
+              let shiftX = this.coords[legId].transverseBaseX - rotatedCoords.x,
+                  shiftY = this.coords[legId].transverseBaseY - rotatedCoords.y;
               // add turn values to the payload
               this.sequence.timeline[tick].payload[legId].transverseBaseX += shiftX;
               this.sequence.timeline[tick].payload[legId].transverseBaseY += shiftY;
