@@ -17,7 +17,7 @@ const movementReducer = combineReducers({
   // status: movementStatusReducer,
   // sequence: sequenceReducer,
   sequenceProgress: sequenceProgressReducer,
-  // sequenceMetaData: sequenceMetaDataReducer
+  sequenceMetaData: sequenceMetaDataReducer
 });
 
 const baseReducer = combineReducers({
