@@ -14,6 +14,10 @@
           baseDirection: {
             statePath: 'base.direction'
           },
+          // flag which allows rotation when moving in one direction
+          applyDirectionAndTurnAngles: {
+            statePath: 'movement.sequenceMetaData.applyDirectionAndTurnAngles'
+          },
           directionJoystick: {
             statePath: 'movement.directionJoystick'
           },
@@ -26,9 +30,9 @@
         }
       }
       
-      // calc pointers whenever directionJoystick || this.circles || this.turnJoystick changes
+      // calc pointers whenever directionJoystick || this.circles || this.turnJoystick || applyDirectionAndTurnAngles changes
       static get observers() {
-        return [ 'calcMovementPointers(directionJoystick, circles, turnJoystick)' ];
+        return [ 'calcMovementPointers(directionJoystick, circles, turnJoystick, applyDirectionAndTurnAngles)' ];
       }
       
       calcMovementPointers() {
@@ -47,8 +51,9 @@
           }
           currentPointer.y = this.circles[legId].y - this.circles[legId].radius * (this.directionJoystick.y / 100);
           
-          // apply baseDirection + turnJoystick
-          currentPointer = this.applyDirectionAndTurn(currentPointer, this.circles[legId], this.baseDirection, this.turnJoystick.x, legId);
+          if (this.applyDirectionAndTurnAngles)
+            // apply baseDirection + turnJoystick
+            currentPointer = this.applyDirectionAndTurn(currentPointer, this.circles[legId], this.baseDirection, this.turnJoystick.x, legId);
           
           // check for the same values before dispatching
           this.validateAndGatherPayload(currentPointer, this.pointers, legId, payload);
