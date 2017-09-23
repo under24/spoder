@@ -64,10 +64,10 @@
             dy = pointer.y - circle.y,
             distance = MU.getDistance(dx, dy),
             circleToPointerAngle = MU.getAngle(dy, dx);
-        
+            
         // angle correction
         circleToPointerAngle = GU.correctAngle(circleToPointerAngle);
-            
+        
         switch (GU.getSideFromLegId(legId)) {
           case 'left':
             return MU.getCoordsFromDistanceAndAngle(circle.x, circle.y, circleToPointerAngle + baseDirection - turn, distance);
