@@ -6,7 +6,7 @@ let movementSettingsReducerInitState = {
   movementGeneratorEnabled: false,
   tps: 60,
   iterationDuration: 750,
-  amountOfTicks: null // automaticcaly calculated from tps + iterationDuration
+  amountOfTicks: null // will be calculated from tps + iterationDuration
 }
 
 // init tps + iterationDuration into amountOfTicks
