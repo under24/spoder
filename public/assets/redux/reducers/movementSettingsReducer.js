@@ -1,12 +1,12 @@
 'use strict';
 
-let sequenceMetaDataReducerInitState = {
+let movementSettingsReducerInitState = {
   loop: true,
   applyDirectionAndTurnAngles: true,
   movementGeneratorEnabled: false
 }
 
-const sequenceMetaDataReducer = (state = sequenceMetaDataReducerInitState, action) => {
+const movementSettingsReducer = (state = movementSettingsReducerInitState, action) => {
   switch (action.type) {
     case "MOVEMENT_META_DATA_CHANGED":
       {
