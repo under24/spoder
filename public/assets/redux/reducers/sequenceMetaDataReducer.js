@@ -2,7 +2,8 @@
 
 let sequenceMetaDataReducerInitState = {
   loop: true,
-  applyDirectionAndTurnAngles: true
+  applyDirectionAndTurnAngles: true,
+  movementGeneratorEnabled: false
 }
 
 const sequenceMetaDataReducer = (state = sequenceMetaDataReducerInitState, action) => {
