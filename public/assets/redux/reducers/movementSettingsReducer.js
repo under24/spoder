@@ -8,7 +8,7 @@ let movementSettingsReducerInitState = {
 
 const movementSettingsReducer = (state = movementSettingsReducerInitState, action) => {
   switch (action.type) {
-    case "MOVEMENT_META_DATA_CHANGED":
+    case "MOVEMENT_SETTINGS_CHANGED":
       {
         return Object.assign({}, state, action.payload);
       }

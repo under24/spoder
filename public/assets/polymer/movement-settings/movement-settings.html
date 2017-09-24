@@ -39,7 +39,7 @@
       
       handleCheckboxChange(e) {
         store.dispatch({
-          type: "MOVEMENT_META_DATA_CHANGED",
+          type: "MOVEMENT_SETTINGS_CHANGED",
           payload: { [e.target.value]: e.target.checked }
         });
       }
