@@ -1,0 +1,50 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="movement-settings">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      p {
+        margin-left: 1em;
+        margin-right: 1em;
+      }
+    </style>
+    
+    <p>
+      <label><input type="checkbox" checked="[[settings.movementGeneratorEnabled]]" value="movementGeneratorEnabled" on-click="handleCheckboxChange" /> Movement generator enabled</label>
+    </p>
+    <p>
+      <label><input type="checkbox" checked="[[settings.loop]]" value="loop" on-click="handleCheckboxChange" /> Loop sequencer</label>
+    </p>
+    <p>
+      <label><input type="checkbox" checked="[[settings.applyDirectionAndTurnAngles]]" value="applyDirectionAndTurnAngles" on-click="handleCheckboxChange" /> Apply direction and turn angles</label>
+    </p>
+  </template>
+
+  <script>
+    class movementSettings extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'movement-settings'; }
+      static get properties() {
+        return {
+          settings: {
+            statePath: 'movement.sequenceMetaData'
+          }
+        };
+      }
+      
+      handleCheckboxChange(e) {
+        store.dispatch({
+          type: "MOVEMENT_META_DATA_CHANGED",
+          payload: { [e.target.value]: e.target.checked }
+        });
+      }
+
+    }
+    window.customElements.define(movementSettings.is, movementSettings);
+  </script>
+</dom-module>
