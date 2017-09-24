@@ -8,22 +8,47 @@
         width: 100%;
         height: 100%;
         position: relative;
+        padding: 15px;
+        box-sizing: border-box;
       }
       p {
         margin-left: 1em;
         margin-right: 1em;
       }
+      fieldset {
+        width: 95%;
+        box-sizing: border-box;
+        margin: 10px auto;
+        border-width: 0px;
+        border-style: hidden;
+      }
     </style>
     
-    <p>
-      <label><input type="checkbox" checked="[[settings.movementGeneratorEnabled]]" value="movementGeneratorEnabled" on-click="handleCheckboxChange" /> Movement generator enabled</label>
-    </p>
-    <p>
-      <label><input type="checkbox" checked="[[settings.loop]]" value="loop" on-click="handleCheckboxChange" /> Loop sequencer</label>
-    </p>
-    <p>
-      <label><input type="checkbox" checked="[[settings.applyDirectionAndTurnAngles]]" value="applyDirectionAndTurnAngles" on-click="handleCheckboxChange" /> Apply direction and turn angles</label>
-    </p>
+    <fieldset>
+      <legend>Generator settings:</legend>
+      <p>
+        <label><input type="checkbox" checked="[[settings.movementGeneratorEnabled]]" value="movementGeneratorEnabled" on-click="handleCheckboxChange" /> Movement generator enabled</label>
+      </p>
+      <p>
+        <label><input type="checkbox" checked="[[settings.loop]]" value="loop" on-click="handleCheckboxChange" /> Loop sequencer</label>
+      </p>
+      <p>
+        <label><input type="checkbox" checked="[[settings.applyDirectionAndTurnAngles]]" value="applyDirectionAndTurnAngles" on-click="handleCheckboxChange" /> Apply direction and turn angles</label>
+      </p>
+    </fieldset>
+    <fieldset>
+      <legend>Iteration settings:</legend>
+      <p>
+        Ticks per second (tps): <input type="text" value="[[settings.tps]]" />
+      </p>
+      <p>
+        Iteration duration: <input type="text" value="[[settings.iterationDuration]]" />
+      </p>
+      <p>
+        Amount of ticks in iteration: <input type="text" value="[[settings.amountOfTicks]]" />
+      </p>
+    </fieldset>
+
   </template>
 
   <script>
