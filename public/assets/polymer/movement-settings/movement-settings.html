@@ -35,6 +35,13 @@
       <p>
         <label><input type="checkbox" checked="[[settings.applyDirectionAndTurnAngles]]" value="applyDirectionAndTurnAngles" on-click="handleCheckboxChange" /> Apply direction and turn angles</label>
       </p>
+      <p>
+        Gait:
+        <select on-change="handleSelectChanged" value="[[settings.gait]]">
+          <option value="ripple">Ripple</option>
+          <option value="rippleReversed">Ripple reversed</option>
+        </select>
+      </p>
     </fieldset>
     <fieldset>
       <legend>Iteration settings:</legend>
@@ -70,6 +77,17 @@
           type: "MOVEMENT_SETTINGS_CHANGED",
           payload: { [e.target.value]: e.target.checked }
         });
+      }
+      
+      handleSelectChanged(e) {
+        // if not the same we already have
+        if (this.settings.gait !== e.target.value) {
+          // then dispatch it
+          store.dispatch({
+            type: "MOVEMENT_SETTINGS_CHANGED",
+            payload: { gait: e.target.value }
+          });
+        }
       }
 
     }
