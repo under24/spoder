@@ -9,8 +9,8 @@ let BU = {
     return pctgs;
   },
   getGaitIndexFromLegId(legId, gaits, type) {
-    for (let i = 0; i < gaits[type].length; i++) {
-      let result = gaits[type][i].indexOf(legId);
+    for (let i = 0; i < gaits[type].sequence.length; i++) {
+      let result = gaits[type].sequence[i].indexOf(legId);
       if (result !== -1) 
         return i;
     }
