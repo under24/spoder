@@ -74,12 +74,7 @@
         margin: 0px auto 10px auto;
         border-width: 1px;
       }
-    </style>
-    
-    <!-- <label>
-      <input type="checkbox" checked={{loop::click}} />
-      Loop sequence
-    </label> -->    
+    </style> 
 
     <br /><br /><br />
     
@@ -97,43 +92,43 @@
       <div class="leg-sequence" id="leg1">
         <div class="sequence-header">L1 (1)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'1')]]">[[computeCursorMovementData('1', sequenceMovementData)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('1', iteration.gait)]]">[[computeCursorMovementData('1', predictedIterationMovementData)]]</div>
         </div>
       </div>
       <div class="leg-sequence" id="leg2">
         <div class="sequence-header">R1 (2)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'2')]]">[[computeCursorMovementData('2', sequenceMovementData)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('2', iteration.gait)]]">[[computeCursorMovementData('2', predictedIterationMovementData)]]</div>
         </div>
       </div>
       <div class="leg-sequence" id="leg3">
         <div class="sequence-header">L2 (3)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'3')]]">[[computeCursorMovementData('3', sequenceMovementData)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('3', iteration.gait)]]">[[computeCursorMovementData('3', predictedIterationMovementData)]]</div>
         </div>
       </div>
       <div class="leg-sequence" id="leg4">
         <div class="sequence-header">R2 (4)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'4')]]">[[computeCursorMovementData('4', sequenceMovementData)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('4', iteration.gait)]]">[[computeCursorMovementData('4', predictedIterationMovementData)]]</div>
         </div>
       </div>
       <div class="leg-sequence" id="leg5">
         <div class="sequence-header">L3 (5)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'5')]]">[[computeCursorMovementData('5', sequenceMovementData)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('5', iteration.gait)]]">[[computeCursorMovementData('5', predictedIterationMovementData)]]</div>
         </div>
       </div>
       <div class="leg-sequence" id="leg6">
         <div class="sequence-header">R3 (6)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeBlueprintMetaData(blueprintMetaData,'6')]]">[[computeCursorMovementData('6', sequenceMovementData)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('6', iteration.gait)]]">[[computeCursorMovementData('6', predictedIterationMovementData)]]</div>
         </div>
       </div>
       
       <div class="cursor-wrapper">
-        <div id="cursor" style$="left: [[sequenceProgress.pct]]%">
-          <div id="cursorKnob">[[sequenceProgress.pct]]</div>
+        <div id="cursor" style$="left: [[iteration.currentTickPct]]%">
+          <div id="cursorKnob">[[iteration.currentTickPct]]</div>
         </div>
       </div>
 
@@ -149,8 +144,8 @@
           Loop generator
         </label>
       </p>
-      <p>TPS: [[tps]]</p>
-      <p>Sequence Duration: [[sequenceDuration]]</p>
+      <p>TPS: [[iteration.tps]]</p>
+      <p>Iteration Duration: [[iteration.duration]]</p>
     </fieldset>
 
   </template>
@@ -163,9 +158,6 @@
           // baseCenterCoords: {
           //   statePath: 'base.centerCoords'
           // },
-          pointers: {
-            statePath: 'movement.pointers'
-          },
           circles: {
             statePath: 'movement.circles'
           },
@@ -178,93 +170,133 @@
           // turnJoystick: {
           //   statePath: 'movement.turnJoystick'
           // },
-          // gaits: {
-          //   statePath: 'gaits'
-          // },
+          gaits: {
+            statePath: 'gaits'
+          },
           // sequenceProgress: {
           //   statePath: 'movement.sequenceProgress'
           // },
+          iteration: {
+            statePath: 'movement.iteration'
+          },
           loop: {
-            value: true,
-            // statePath: 'movement.settings.loop'
+            statePath: 'movement.settings.loop'
           },
-          tps: {
-            value: 60
-          },
-          sequenceDuration: {
-            value: 750
-          },
-          sequenceMovementData: {
+          predictedIterationMovementData: {
             
+          },
+          pointers: {
+            statePath: 'movement.pointers'
           }
         };
       }
       
-      prepareSequenceObj() {
-        this.sequenceMovementData = this.getSequenceMovementData();
-        
-        let amountOfTicks = this.getAmountOfTicks();
-        
+      static get observers() {
+        return [ 'getNextTickValues(pointers)' ];
       }
       
-      getSequenceMovementData() {
-        if (this.circles == undefined || this.pointers === undefined || this.coords === undefined ) throw new Error('no sufficient data');
+      getNextTickValues() {
+        let amountOfTicks = this.iteration.amountOfTicks,
+            // full iteration movement data
+            predictedIterationMovementData = this.getIterationMovementData(),
+            // iteration next tick values (step values)
+            stepValues = this.getIterationStepValues(amountOfTicks, predictedIterationMovementData);
+            
+        debugger;
         
+        // performance: ui after calculations
+        this.predictedIterationMovementData = predictedIterationMovementData;
+      }
+      
+      getIterationMovementData() {
         let result = {};
         
         for (let legId = 1; legId <= 6; legId++) {
           result[legId] = {};
           
-          // base x/y movement
-          result[legId].baseX = this.circles[legId].x - this.pointers[legId].x,
-          result[legId].baseY = this.circles[legId].y - this.pointers[legId].y;
+          // transverseBaseXY
+          result[legId].transverseBaseX = this.circles[legId].x - this.pointers[legId].x,
+          result[legId].transverseBaseY = this.circles[legId].y - this.pointers[legId].y;
           
-          // cursor x/y movement
-          result[legId].cursorX = this.coords[legId].transverseCursorX - this.pointers[legId].x,
-          result[legId].cursorY = this.coords[legId].transverseCursorY - this.pointers[legId].y;
+          // transverseCursorXY
+          result[legId].transverseCursorX = this.coords[legId].transverseCursorX - this.pointers[legId].x,
+          result[legId].transverseCursorY = this.coords[legId].transverseCursorY - this.pointers[legId].y;
         }
-        
         return result;
       }
       
-      getAmountOfTicks() {
-        return this.sequenceDuration / (1000 / this.tps);
+      getIterationStepValues(amountOfTicks, predictedIterationMovementData) {
+        let result = {};
+        
+        // tick movement data (step value)
+        for (let legId = 1; legId <= 6; legId++) {
+          result[legId] = {};
+          
+          let baseStroke = { startPct: 0, endPct: 100 };
+          // base
+          result[legId].transverseBaseX = this.getTickValue(amountOfTicks, predictedIterationMovementData[legId].transverseBaseX, baseStroke);
+          result[legId].transverseBaseY = this.getTickValue(amountOfTicks, predictedIterationMovementData[legId].transverseBaseY, baseStroke);
+          
+          // cache stroke data
+          let stroke = this.gaits[this.iteration.gait].strokes[legId];
+          // cursor
+          result[legId].transverseCursorX = this.getTickValue(amountOfTicks, predictedIterationMovementData[legId].transverseCursorX, stroke);
+          result[legId].transverseCursorY = this.getTickValue(amountOfTicks, predictedIterationMovementData[legId].transverseCursorY, stroke);
+        }
+        return result;
       }
       
-      getBaseTickValue() {
-        
-      }
-      
-      getCursorTickValue() {
-        
+      getTickValue(amountOfTicks, pixelsToMove, stroke) {
+        let startTick = this.getClosestTick(stroke.startPct, amountOfTicks) + 1, // because it starts from the next tick
+            endTick = this.getClosestTick(stroke.endPct, amountOfTicks),
+            ticksBetweenStartAndEnd = this.getAmountOfTicksBetween(startTick, endTick),
+            tickValue = this.getTickValueBasedOnPxlsToMove(ticksBetweenStartAndEnd, pixelsToMove);
+            
+        return tickValue;
       }
       
       getAmountOfTicksBetween(startTick, endTick) {
         return (endTick - startTick) + 1;
       }
       
-      // getTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
-      //   return pixelsToMove / amountOfTicks;
-      // }
+      getTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
+        return pixelsToMove / amountOfTicks;
+      }
       
-      getCurrentTickPct(amountOfTicks, currentTick) {
-        return MU.roundNumber(100 / amountOfTicks * currentTick, 1);
+      getTickPct(tick, amountOfTicks) {
+        return MU.roundNumber(100 / amountOfTicks * tick, 1);
+      }
+      
+      getClosestTick(pct, amountOfTicks) {
+        let currentNumber = 0;
+        
+        let diff = pct;
+        for (let tick = 1; tick <= amountOfTicks; tick++) {
+          let tickPct = this.getTickPct(tick, amountOfTicks);
+          
+          let newDiff = Math.abs(pct - tickPct);
+          if (newDiff < diff) {
+            diff = newDiff;
+            currentNumber = tick;
+          }
+        }
+        return +currentNumber;
       }
       
       // UI
       
-      computeCursorMovementData(legId, sequenceMovementData) {
-        let cursorX = sequenceMovementData[legId].cursorX,
-            cursorY = sequenceMovementData[legId].cursorY,
+      computeCursorMovementData(legId, predictedIterationMovementData) {
+        let cursorX = predictedIterationMovementData[legId].transverseCursorX,
+            cursorY = predictedIterationMovementData[legId].transverseCursorY,
             dist = MU.getDistance(cursorX, cursorY).toFixed(2);
         
         return dist;
       }
       
-      // TEMP
-      
-      getPctsFromGait() {
+      computeStrokeTiming(legId, iterationGait) {
+        let stroke = this.gaits[iterationGait].strokes[legId];
         
+        return `left: ${stroke.startPct}%; width: ${stroke.endPct - stroke.startPct}%;`;
       }
 
     }
