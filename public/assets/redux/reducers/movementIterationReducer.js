@@ -16,12 +16,17 @@ const movementInterationReducer = (state = movementInterationReducerInitState, a
   switch (action.type) {
     case "MOVEMENT_ITERATION_VALUES_CHANGED":
       {
-        let tps = action.payload.tps || state.tps,
-            duration = action.payload.duration || state.duration;
-            
-        let amountOfTicks = +(duration / (1000 / tps)).toFixed(0);
-        
-        return Object.assign({}, state, action.payload, { amountOfTicks })
+        if (action.payload.tps || action.payload.duration) {
+          let tps = action.payload.tps || state.tps,
+              duration = action.payload.duration || state.duration;
+              
+          let amountOfTicks = +(duration / (1000 / tps)).toFixed(0);
+          
+          return Object.assign({}, state, action.payload, { amountOfTicks });
+        }
+        else {
+          return Object.assign({}, state, action.payload);
+        }
       }
   }
   return state;
