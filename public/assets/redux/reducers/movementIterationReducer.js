@@ -3,7 +3,10 @@
 let movementInterationReducerInitState = {
   tps: 60,
   duration: 750,
-  amountOfTicks: null // will be calculated from tps + duration
+  amountOfTicks: null, // will be calculated from tps + duration
+  gait: 'ripple',
+  currentTick: 0,
+  currentTickPct: 0
 }
 
 // init tps + duration into amountOfTicks
