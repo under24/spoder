@@ -277,10 +277,12 @@
       observePointers() {
         if (this.directionJoystick !== undefined && this.prevDirectionJoystick !== this.directionJoystick) {
           this.prevDirectionJoystick = this.directionJoystick;
+          this.prevTurnJoystick = this.turnJoystick;
           this.loadSequence();
         }
         else if (this.turnJoystick !== undefined && this.prevTurnJoystick !== this.turnJoystick) {
           this.prevTurnJoystick = this.turnJoystick;
+          this.prevDirectionJoystick = this.directionJoystick;
           this.loadSequence();
         }
       }
