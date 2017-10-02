@@ -2,8 +2,14 @@
 
 let gaitReducerInitState = {
   ripple: {
-    sequence: [ [2,5], [3], [1,6], [4] ],
-    strokes: {
+    strokes: [ [2,5], [3], [1,6], [4] ],
+    strokeTimings: [
+      { startPct: 0, endPct: 25 },
+      { startPct: 25, endPct: 50 },
+      { startPct: 50, endPct: 75 },
+      { startPct: 75, endPct: 100 }
+    ],
+    strokeTimingsByLegId: {
       1: { startPct: 50, endPct: 75 },
       2: { startPct: 0, endPct: 25 },
       3: { startPct: 25, endPct: 50 },
@@ -13,8 +19,14 @@ let gaitReducerInitState = {
     }
   },
   rippleReversed: {
-    sequence: [ [4], [1,6], [3], [2,5] ],
-    strokes: {
+    strokes: [ [4], [1,6], [3], [2,5] ],
+    strokeTimings: [
+      { startPct: 0, endPct: 25 },
+      { startPct: 25, endPct: 50 },
+      { startPct: 50, endPct: 75 },
+      { startPct: 75, endPct: 100 }
+    ],
+    strokeTimingsByLegId: {
       1: { startPct: 25, endPct: 50 },
       2: { startPct: 75, endPct: 100 },
       3: { startPct: 50, endPct: 75 },
