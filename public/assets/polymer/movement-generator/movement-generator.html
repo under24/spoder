@@ -208,7 +208,10 @@
           stepValues[legId] = this.getIterationStepValues(legId, legsUsedInCurrentStroke, amountOfTicks, iterationMovementData);
         }
         
-        return stepValues;
+        return {
+          tickValues: stepValues, 
+          currentTickPct 
+        };
         
         // performance: ui after calculations
         this.iterationMovementData = iterationMovementData;
@@ -220,7 +223,7 @@
           transverseBaseY: this.circles[legId].y - this.pointers[legId].y,
           transverseCursorX: this.coords[legId].transverseCursorX - this.pointers[legId].x,
           transverseCursorY: this.coords[legId].transverseCursorY - this.pointers[legId].y
-        }
+        };
       }
       
       getIterationStepValues(legId, legsUsedInCurrentStroke, amountOfTicks, iterationMovementData) {
@@ -326,8 +329,8 @@
           // and if loop === true start new iteration
           if (tick >= this.iteration.amountOfTicks) {
             this.clearGeneratorInterval();
-
-            // reset progress to 0%
+            
+            // reset progress to 0% when the iteration is complete
             store.dispatch({
               type: "SEQUENCE_PROGRESS_PCT_CHANGED",
               currentTickPct: 0,
