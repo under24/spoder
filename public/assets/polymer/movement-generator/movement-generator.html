@@ -290,11 +290,12 @@
         
         // we begin from > 0 and end at 100 pct
         for (let i = 0; i < strokeTimings.length; i++) {
-          if (currentTickPct > strokeTimings[i].startPct && currentTickPct <= strokeTimings[i].endPct)
+          if (currentTickPct > strokeTimings[i].startPct &&
+              currentTickPct <= strokeTimings[i].endPct)
             return strokes[i];
         }
         
-        // not found. when currentTickPct === 0
+        // not found. when currentTickPct === 0 or error
         return null;
       }
       
@@ -333,8 +334,6 @@
               currentTick: 0
             });
             
-            // TODO refactor so that it doesnt recur
-            // start iterating over again
             if (this.loop) this.runGenerator();
           }
           
