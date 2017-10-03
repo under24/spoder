@@ -309,6 +309,11 @@
           return;
         }
         
+        if (tick > this.iteration.amountOfTicks) {
+          console.warn('Specified tick is bigger that the amount in the iteration');
+          return;
+        }
+        
         // iteration starts after N amount of time with tick 1
         this.generatorInterval = setInterval(() => {
           debugger;
@@ -327,7 +332,7 @@
           
           // check if that was the last tick
           // and if loop === true start new iteration
-          if (tick >= this.iteration.amountOfTicks) {
+          if (tick === this.iteration.amountOfTicks) {
             this.clearGeneratorInterval();
             
             // reset progress to 0% when the iteration is complete
