@@ -326,8 +326,10 @@
           store.dispatch({
             type: "SEQUENCE_SHIFTED_XY_BATCHED",
             payload: payload.tickValues,
-            currentTickPct: payload.currentTickPct,
-            currentTick: tick
+            // currentTickPct: payload.currentTickPct,
+            // currentTick: tick
+            pct: payload.currentTickPct,
+            tick: tick
           });
           
           // check if that was the last tick
@@ -338,8 +340,10 @@
             // reset progress to 0% when the iteration is complete
             store.dispatch({
               type: "SEQUENCE_PROGRESS_PCT_CHANGED",
-              currentTickPct: 0,
-              currentTick: 0
+              // currentTickPct: 0,
+              // currentTick: 0
+              pct: 0,
+              tick: 0
             });
             
             if (this.loop) this.runGenerator();
