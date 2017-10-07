@@ -49,7 +49,7 @@
         return {
           // downcoming props
           legId: {
-            statePath: 'views.transverseViewLegId'
+            statePath: 'viewSettings.transverseView.legId'
           },
           metaData: {
             statePath: 'metaData',
@@ -130,7 +130,7 @@
       observeSelectorOutput(newValue) {
         store.dispatch({
           type: "TRANSVERSE_VIEW_LEG_ID_CHANGED",
-          payload: newValue.value
+          payload: { legId: newValue.value }
         });
       }
       

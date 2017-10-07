@@ -27,11 +27,16 @@ const baseReducer = combineReducers({
   coxaAttachmentAngle: baseCoxaAttachmentAngleReducer
 });
 
+const viewSettingsReducer = combineReducers({
+  sagittalView: viewSettingsSagittalReducer,
+  transverseView: viewSettingsTransverseReducer
+});
+
 const reducers = combineReducers({
   legs: legReducer,
   angles: angleReducer,
   metaData: metaDataReducer,
-  views: viewReducer,
+  viewSettings: viewSettingsReducer,
   modifiers: modifierReducer,
   coords: coordsReducer,
   misc: miscReducer,
