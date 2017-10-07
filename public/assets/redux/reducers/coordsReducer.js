@@ -316,7 +316,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
           let finalValue,
               row = GU.getRowFromLegId(legId);
           
-          switch(GU.getSideFromLegId(legId)) {
+          switch (GU.getSideFromLegId(legId)) {
             case 'right':
               if (row === 'front') finalValue = action.payload.leftTiltModifier * distPct + action.payload.frontTiltModifier;
               if (row === 'middle') finalValue = action.payload.leftTiltModifier;
