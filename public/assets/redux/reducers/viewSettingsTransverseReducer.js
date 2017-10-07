@@ -6,7 +6,7 @@ let viewSettingsTransverseReducerInitState = {
 
 const viewSettingsTransverseReducer = (state = viewSettingsTransverseReducerInitState, action) => {
   switch (action.type) {
-    case "TRANSVERSE_VIEW_LEG_ID_CHANGED":
+    case "TRANSVERSE_VIEW_SETTINGS_CHANGED":
       {
         return Object.assign({}, state, action.payload);
       }

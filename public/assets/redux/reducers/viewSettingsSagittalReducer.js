@@ -6,7 +6,7 @@ let viewSettingsSagittalReducerInitState = {
 
 const viewSettingsSagittalReducer = (state = viewSettingsSagittalReducerInitState, action) => {
   switch (action.type) {
-    case "SAGITTAL_VIEW_LEG_ID_CHANGED":
+    case "SAGITTAL_VIEW_SETTINGS_CHANGED":
       {
         return Object.assign({}, state, action.payload);
       }
