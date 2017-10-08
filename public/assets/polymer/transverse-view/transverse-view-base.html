@@ -266,8 +266,6 @@
       }
       
       redrawMovementCircle(coords) {
-        if (!this.side) return;
-        
         switch (this.side) {
           case 'left':
             this.$.movementCircleCenter.style.left = `${coords.x}px`; break;

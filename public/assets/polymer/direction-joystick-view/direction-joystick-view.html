@@ -39,8 +39,7 @@
       }
       
       observeJoystickOutput(newValue) {
-        if (this.directionJoystick &&
-            newValue.xShift === this.directionJoystick.x &&
+        if (newValue.xShift === this.directionJoystick.x &&
             newValue.yShift === this.directionJoystick.y) return;
         
         store.dispatch({

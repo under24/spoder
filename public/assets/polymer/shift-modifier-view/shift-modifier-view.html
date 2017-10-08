@@ -39,8 +39,7 @@
       }
       
       observeJoystickOutput(newValue) {
-        if (this.shiftModifier &&
-            newValue.xShift === this.shiftModifier.x &&
+        if (newValue.xShift === this.shiftModifier.x &&
             newValue.yShift === this.shiftModifier.y) return;
         
         store.dispatch({

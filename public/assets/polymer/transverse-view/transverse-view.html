@@ -135,8 +135,6 @@
       }
       
       computeMovementCenterCoords(movementCircle, viewOffsets) {
-        if (movementCircle === undefined || viewOffsets === undefined) return;
-        
         return {
           x: movementCircle.x + viewOffsets.transverseViewOffsetX,
           y: movementCircle.y + viewOffsets.transverseViewOffsetY,
@@ -144,14 +142,10 @@
       }
       
       computeXY(coord, offset) {
-        if (coord === undefined || offset === undefined) return;
-
         return coord + offset;
       }
       
       computeCursorXY(x, offsetX, y, offsetY) {
-        if (x === undefined || offsetX === undefined || y === undefined || offsetY === undefined) return;
-        
         return {
           x: x + offsetX,
           y: y + offsetY
@@ -159,7 +153,7 @@
       }
       
       computeMovementPointer(movementPointer, viewOffsets) {
-        if (movementPointer == undefined || viewOffsets === undefined) return;
+        if (movementPointer === null) return;
         
         return {
           x: movementPointer.x + viewOffsets.transverseViewOffsetX,
@@ -168,8 +162,6 @@
       }
       
       computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle) {
-        if (baseDirection === undefined || baseCoxaAttachmentAngle === undefined) return;
-        
         return baseDirection + baseCoxaAttachmentAngle;
       }
 

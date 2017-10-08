@@ -40,8 +40,7 @@
       }
       
       observeJoystickOutput(joystickOutput) {
-        if (this.turnJoystick &&
-            joystickOutput.xShift === this.turnJoystick.x) return;
+        if (joystickOutput.xShift === this.turnJoystick.x) return;
         
         store.dispatch({
           type: "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED",

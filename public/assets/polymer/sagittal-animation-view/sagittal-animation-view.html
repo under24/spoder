@@ -159,8 +159,6 @@
       }
       
       computeCoords(coords, angles, legId) {
-        if (coords === undefined || angles === undefined || this.baseCoxaAttachmentAngle === undefined) return;
-        
         let side;
         if (GU.getSideFromLegId(legId) === 'left') side = 'right';
         if (GU.getSideFromLegId(legId) === 'right') side = 'left';

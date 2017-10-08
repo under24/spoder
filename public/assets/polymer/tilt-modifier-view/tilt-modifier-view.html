@@ -40,8 +40,7 @@
       }
       
       observeJoystickOutput(newValue) {
-        if (this.tiltModifier &&
-            newValue.bottom === this.tiltModifier.backTiltModifier &&
+        if (newValue.bottom === this.tiltModifier.backTiltModifier &&
             newValue.top === this.tiltModifier.frontTiltModifier &&
             newValue.left === this.tiltModifier.leftTiltModifier &&
             newValue.right === this.tiltModifier.rightTiltModifier) return;

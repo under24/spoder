@@ -299,8 +299,6 @@
       }
       
       computeBase(coords, offsets, legId) {
-        if (coords === undefined || offsets === undefined) return;
-        
         let x, y;
         if (this.useOffsets) {
           x = `${GU.getSideFromLegId(legId)}: ${coords[legId].transverseBaseX + offsets[legId].transverseAnimationViewOffsetX}px;`;
@@ -313,9 +311,7 @@
         return x + y;
       }
       
-      computeCursor(coords, offsets, legId) {
-        if (coords === undefined || offsets === undefined) return;
-        
+      computeCursor(coords, offsets, legId) {        
         let x, y;
         if (this.useOffsets) {
           x = `${GU.getSideFromLegId(legId)}: ${coords[legId].transverseCursorX + offsets[legId].transverseAnimationViewOffsetX}px;`;
@@ -329,8 +325,6 @@
       }
       
       computeCoxa(angles, legId, misc) {
-        if (angles === undefined || misc === undefined) return;
-
         let x, y, z;
         if (GU.getSideFromLegId(legId) === 'left') {
           y = 'transform-origin: left;';
@@ -351,7 +345,7 @@
       }
       
       computeMovementPointer(movementPointers, offsets, legId) {
-        if (movementPointers === undefined || movementPointers[legId] === null || offsets === undefined) return;
+        if (movementPointers[legId] === null) return;
         
         let x, y;
         if (this.useOffsets) {
@@ -376,8 +370,6 @@
       }
       
       computeCircleCenter(movementCircles, offsets, legId) {
-        if (movementCircles === undefined || offsets === undefined) return;
-        
         let x, y;
         if (this.useOffsets) {
           switch (GU.getSideFromLegId(legId)) {
