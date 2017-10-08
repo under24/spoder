@@ -274,7 +274,9 @@
         this.runSequence(this.sequenceProgress.tick + 1);
       }
       
-      observePointers() {
+      observePointers(newValue, oldValue) {
+        if (newValue[1] === null) return;
+        
         if (this.prevDirectionJoystick !== this.directionJoystick) {
           this.prevDirectionJoystick = this.directionJoystick;
           this.prevTurnJoystick = this.turnJoystick;
