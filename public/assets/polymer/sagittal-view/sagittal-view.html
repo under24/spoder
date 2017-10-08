@@ -119,12 +119,13 @@
       }
       
       computeDistanceLine(misc) {
-        return { distance: misc.sagittalDistance, angle: misc.sagittalAngle };
+        return {
+          distance: misc.sagittalDistance,
+          angle: misc.sagittalAngle 
+        };
       }
       
       computeBoundaryBall(misc, viewOffsets) {
-        if (misc === undefined || viewOffsets === undefined) return;
-        
         return {
           x: misc.sagittalBoundaryBallCoords.x + viewOffsets.sagittalViewOffsetX,
           y: misc.sagittalBoundaryBallCoords.y + viewOffsets.sagittalViewOffsetY
@@ -132,8 +133,6 @@
       }
       
       computeTransverseReachPoints(misc, viewOffsets) {
-        if (misc === undefined || viewOffsets === undefined) return;
-        
         return {
           endX: misc.transverseReachCoords.endX + viewOffsets.sagittalViewOffsetX,
           endY: misc.transverseReachCoords.endY + viewOffsets.sagittalViewOffsetY,
@@ -146,14 +145,10 @@
       }
       
       computeXY(coord, offset) {
-        if (coord === undefined || offset === undefined) return;
-        
         return coord + offset;
       }
       
       computeCursorXY(x, offsetX, y, offsetY) {
-        if (x === undefined || offsetX === undefined || y === undefined || offsetY === undefined) return;
-        
         return {
           x: x + offsetX,
           y: y + offsetY
