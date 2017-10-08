@@ -278,16 +278,16 @@
         if (this.directionJoystick !== undefined && this.prevDirectionJoystick !== this.directionJoystick) {
           this.prevDirectionJoystick = this.directionJoystick;
           this.prevTurnJoystick = this.turnJoystick;
-          this.loadSequence();
+          this.processNewIterationData();
         }
         else if (this.turnJoystick !== undefined && this.prevTurnJoystick !== this.turnJoystick) {
           this.prevTurnJoystick = this.turnJoystick;
           this.prevDirectionJoystick = this.directionJoystick;
-          this.loadSequence();
+          this.processNewIterationData();
         }
       }
       
-      loadSequence() {
+      processNewIterationData() {
         this.onGenerateBlueprintButtonClicked();
         this.onGenerateSequenceButtonClicked();
       }
@@ -338,7 +338,7 @@
             
             // if loop === true, create a new sequence and run it
             if (this.loop) {
-              this.loadSequence();
+              this.processNewIterationData();
               this.runSequence();
             }
           }
