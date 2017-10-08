@@ -275,6 +275,7 @@
       }
       
       observePointers(newValue, oldValue) {
+        // if init (values are nulls) then quit and wait for the next update
         if (newValue[1] === null) return;
         
         if (this.prevDirectionJoystick !== this.directionJoystick) {
