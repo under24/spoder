@@ -200,46 +200,54 @@
       
       generateSequenceBlueprint() {
         let blueprint = {},
-            metaData = {};
+            metaData = {},
+            iterationMovementData = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          let pointerToCursorX = this.coords[legId].transverseCursorX - this.pointers[legId].x,
-              pointerToCursorY = this.coords[legId].transverseCursorY - this.pointers[legId].y,
-
-              pointerToCircleCenterX = this.circles[legId].x - this.pointers[legId].x,
-              pointerToCircleCenterY = this.circles[legId].y - this.pointers[legId].y;
-
-          metaData[legId] = BU.getStartAndEndPctBasedOnLegId(legId, this.gaits, 'ripple');
-
-          blueprint[legId] = [
-            {
-              "coordType": "transverseBaseX",
-              "startPct": 0,
-              "endPct": 100,
-              "pxlsToMove": pointerToCircleCenterX
-            },
-            {
-              "coordType": "transverseBaseY",
-              "startPct": 0,
-              "endPct": 100,
-              "pxlsToMove": pointerToCircleCenterY
-            },
-            {
-              "coordType": "transverseCursorX",
-              "startPct": metaData[legId].startPct,
-              "endPct": metaData[legId].endPct,
-              "pxlsToMove": pointerToCursorX
-            },
-            {
-              "coordType": "transverseCursorY",
-              "startPct": metaData[legId].startPct,
-              "endPct": metaData[legId].endPct,
-              "pxlsToMove": pointerToCursorY
-            }
-          ];
+          iterationMovementData[legId] = this.getIterationMovementData(legId);
+          metaData[legId] = this.gaits[this.iteration.gait].strokeTimingsByLegId[legId];
+          blueprint[legId] = this.prepareBlueprint(legId, metaData, iterationMovementData);
         }
         
         return { blueprint, metaData };
+      }
+      
+      getIterationMovementData(legId) {
+        return {
+          transverseBaseX: this.circles[legId].x - this.pointers[legId].x,
+          transverseBaseY: this.circles[legId].y - this.pointers[legId].y,
+          transverseCursorX: this.coords[legId].transverseCursorX - this.pointers[legId].x,
+          transverseCursorY: this.coords[legId].transverseCursorY - this.pointers[legId].y
+        };
+      }
+      
+      prepareBlueprint(legId, metaData, iterationMovementData) {
+        return [
+          {
+            "coordType": "transverseBaseX",
+            "startPct": 0,
+            "endPct": 100,
+            "pxlsToMove": iterationMovementData[legId].transverseBaseX
+          },
+          {
+            "coordType": "transverseBaseY",
+            "startPct": 0,
+            "endPct": 100,
+            "pxlsToMove": iterationMovementData[legId].transverseBaseY
+          },
+          {
+            "coordType": "transverseCursorX",
+            "startPct": metaData[legId].startPct,
+            "endPct": metaData[legId].endPct,
+            "pxlsToMove": iterationMovementData[legId].transverseCursorX
+          },
+          {
+            "coordType": "transverseCursorY",
+            "startPct": metaData[legId].startPct,
+            "endPct": metaData[legId].endPct,
+            "pxlsToMove": iterationMovementData[legId].transverseCursorY
+          }
+        ];
       }
       
       computeBlueprintMetaData(blueprintMetaData ,legId) {
