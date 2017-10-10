@@ -366,7 +366,11 @@
       // UI
       
       computeStrokeTiming(legId, iterationGait) {
-        let stroke = this.gaits[iterationGait].legTimings[legId];
+        let legStroke = this.gaits[iterationGait].legTimings[legId];
+        
+        return `left: ${legStroke.startPct}%;
+                width: ${legStroke.endPct - legStroke.startPct}%;`;
+      }
         
         return `left: ${stroke.startPct}%;
                 width: ${stroke.endPct - stroke.startPct}%;`;
