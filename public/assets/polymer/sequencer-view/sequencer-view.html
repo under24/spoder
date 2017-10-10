@@ -205,11 +205,13 @@
         
         for (let legId = 1; legId <= 6; legId++) {
           iterationMovementData[legId] = this.getIterationMovementData(legId);
-          legTimings[legId] = this.gaits[this.iteration.gait].legTimings[legId];
+          // save leg timings for constructing the blueprint
+          legTimings = this.gaits[this.iteration.gait].legTimings[legId];
+          // make a blueprint
           blueprint[legId] = this.fillInBlueprintData(legId, legTimings, iterationMovementData);
         }
         
-        return { blueprint, legTimings };
+        return blueprint;
       }
       
       getIterationMovementData(legId) {
@@ -237,27 +239,25 @@
           },
           {
             "coordType": "transverseCursorX",
-            "startPct": legTimings[legId].startPct,
-            "endPct": legTimings[legId].endPct,
+            "startPct": legTimings.startPct,
+            "endPct": legTimings.endPct,
             "pxlsToMove": iterationMovementData[legId].transverseCursorX
           },
           {
             "coordType": "transverseCursorY",
-            "startPct": legTimings[legId].startPct,
-            "endPct": legTimings[legId].endPct,
+            "startPct": legTimings.startPct,
+            "endPct": legTimings.endPct,
             "pxlsToMove": iterationMovementData[legId].transverseCursorY
           }
         ];
       }
       
       onGenerateBlueprintButtonClicked() {
-        let result = this.generateSequenceBlueprint();
-        this.blueprint = result.blueprint;
-        this.blueprintMetaData = result.metaData;
+        this.blueprint = this.generateSequenceBlueprint();
       }
       
       onGenerateSequenceButtonClicked() {
-        this.sequence = SU.generateSequenceTimeline(this.blueprint, 60, 750);
+        this.sequence = SU.generateSequenceTimeline(this.blueprint, this.iteration.tps, this.iteration.duration);
       }
       
       pauseSequence() {
@@ -360,7 +360,8 @@
                 width: ${legStroke.endPct - legStroke.startPct}%;`;
       }
       
-      computeStrokeDistance(legId) {
+      // TODO
+      computeStrokeDistance(legId, blueprint) {
         let dx = this.coords[legId].transverseCursorX - this.pointers[legId].x,
             dy = this.coords[legId].transverseCursorY - this.pointers[legId].y,
             dist = MU.getDistance(dx, dy).toFixed(2);
