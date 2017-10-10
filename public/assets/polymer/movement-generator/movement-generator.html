@@ -237,7 +237,7 @@
         // then add cursor data to the return object
         if (~legsUsedInCurrentStroke.indexOf(legId)) {
           // cursors
-          let stroke = this.gaits[this.iteration.gait].strokeTimingsByLegId[legId];
+          let stroke = this.gaits[this.iteration.gait].legTimings[legId];
           
           result.transverseCursorX = this.getTickValue(amountOfTicks, iterationMovementData[legId].transverseCursorX, stroke);
           result.transverseCursorY = this.getTickValue(amountOfTicks, iterationMovementData[legId].transverseCursorY, stroke);
@@ -284,14 +284,14 @@
       }
       
       getLegsUsedInCurrentStroke(currentTickPct) {
-        let strokeTimings = this.gaits[this.iteration.gait].strokeTimings,
-            strokes = this.gaits[this.iteration.gait].strokes;
+        let sequenceTimings = this.gaits[this.iteration.gait].sequenceTimings,
+            sequence = this.gaits[this.iteration.gait].sequence;
         
         // we begin from > 0 and end at 100 pct
-        for (let i = 0; i < strokeTimings.length; i++) {
-          if (currentTickPct > strokeTimings[i].startPct &&
-              currentTickPct <= strokeTimings[i].endPct)
-            return strokes[i];
+        for (let i = 0; i < sequenceTimings.length; i++) {
+          if (currentTickPct > sequenceTimings[i].startPct &&
+              currentTickPct <= sequenceTimings[i].endPct)
+            return sequence[i];
         }
         
         // not found. when currentTickPct === 0 or error
@@ -375,7 +375,7 @@
       }
       
       computeStrokeTiming(legId, iterationGait) {
-        let stroke = this.gaits[iterationGait].strokeTimingsByLegId[legId];
+        let stroke = this.gaits[iterationGait].legTimings[legId];
         
         return `left: ${stroke.startPct}%;
                 width: ${stroke.endPct - stroke.startPct}%;`;
