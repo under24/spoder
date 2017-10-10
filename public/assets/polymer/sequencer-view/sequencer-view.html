@@ -206,7 +206,7 @@
         for (let legId = 1; legId <= 6; legId++) {
           iterationMovementData[legId] = this.getIterationMovementData(legId);
           metaData[legId] = this.gaits[this.iteration.gait].legTimings[legId];
-          blueprint[legId] = this.prepareBlueprint(legId, metaData, iterationMovementData);
+          blueprint[legId] = this.fillInBlueprintData(legId, metaData, iterationMovementData);
         }
         
         return { blueprint, metaData };
@@ -221,7 +221,7 @@
         };
       }
       
-      prepareBlueprint(legId, metaData, iterationMovementData) {
+      fillInBlueprintData(legId, metaData, iterationMovementData) {
         return [
           {
             "coordType": "transverseBaseX",
