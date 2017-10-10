@@ -200,16 +200,16 @@
       
       generateSequenceBlueprint() {
         let blueprint = {},
-            metaData = {},
+            legTimings = {},
             iterationMovementData = {};
         
         for (let legId = 1; legId <= 6; legId++) {
           iterationMovementData[legId] = this.getIterationMovementData(legId);
-          metaData[legId] = this.gaits[this.iteration.gait].legTimings[legId];
-          blueprint[legId] = this.fillInBlueprintData(legId, metaData, iterationMovementData);
+          legTimings[legId] = this.gaits[this.iteration.gait].legTimings[legId];
+          blueprint[legId] = this.fillInBlueprintData(legId, legTimings, iterationMovementData);
         }
         
-        return { blueprint, metaData };
+        return { blueprint, legTimings };
       }
       
       getIterationMovementData(legId) {
@@ -221,7 +221,7 @@
         };
       }
       
-      fillInBlueprintData(legId, metaData, iterationMovementData) {
+      fillInBlueprintData(legId, legTimings, iterationMovementData) {
         return [
           {
             "coordType": "transverseBaseX",
@@ -237,14 +237,14 @@
           },
           {
             "coordType": "transverseCursorX",
-            "startPct": metaData[legId].startPct,
-            "endPct": metaData[legId].endPct,
+            "startPct": legTimings[legId].startPct,
+            "endPct": legTimings[legId].endPct,
             "pxlsToMove": iterationMovementData[legId].transverseCursorX
           },
           {
             "coordType": "transverseCursorY",
-            "startPct": metaData[legId].startPct,
-            "endPct": metaData[legId].endPct,
+            "startPct": legTimings[legId].startPct,
+            "endPct": legTimings[legId].endPct,
             "pxlsToMove": iterationMovementData[legId].transverseCursorY
           }
         ];
