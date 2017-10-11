@@ -133,8 +133,8 @@
       </div>
       
       <div class="cursor-wrapper">
-        <div id="cursor" style$="left: [[sequenceProgress.pct]]%">
-          <div id="cursorKnob">[[sequenceProgress.pct]]</div>
+        <div id="cursor" style$="left: [[iteration.currentTickPct]]%">
+          <div id="cursorKnob">[[iteration.currentTickPct]]</div>
         </div>
       </div>
 
@@ -184,9 +184,6 @@
           },
           gaits: {
             statePath: 'gaits'
-          },
-          sequenceProgress: {
-            statePath: 'movement.sequenceProgress'
           },
           iteration: {
             statePath: 'movement.iteration'
@@ -269,7 +266,7 @@
       }
       
       playOrResumeSequence() {
-        this.runSequence(this.sequenceProgress.tick + 1);
+        this.runSequence(this.iteration.currentTick + 1);
       }
       
       observePointers(newValue, oldValue) {
@@ -322,19 +319,18 @@
           store.dispatch({
             type: "SEQUENCE_SHIFTED_XY_BATCHED",
             payload: this.sequence.timeline[tick].payload,
-            pct: this.sequence.timeline[tick].pct,
-            tick
+            currentTick: tick,
+            currentTickPct: this.sequence.timeline[tick].pct
           });
           
           // sequence complete
           if (tick >= this.sequence.metaData.amountOfTicks) {
             this.clearSequenceInterval();
 
-            // reset sequenceProgress to 0
+            // reset iteration tick and tickPct to 0
             store.dispatch({
-              type: "SEQUENCE_PROGRESS_PCT_CHANGED",
-              pct: 0,
-              tick: 0
+              type: "MOVEMENT_ITERATION_VALUES_CHANGED",
+              payload: { currentTick: 0, currentTickPct: 0 }
             });
             
             // if loop === true, create a new sequence and run it

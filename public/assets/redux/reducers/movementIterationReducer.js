@@ -28,6 +28,10 @@ const movementInterationReducer = (state = movementInterationReducerInitState, a
         else
           return Object.assign({}, state, action.payload);
       }
+    case "SEQUENCE_SHIFTED_XY_BATCHED":
+      {
+        return Object.assign({}, state, { currentTick: action.currentTick, currentTickPct: action.currentTickPct });
+      }
   }
   return state;
 };
