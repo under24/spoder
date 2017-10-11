@@ -200,13 +200,12 @@
       
       generateSequenceBlueprint() {
         let blueprint = {},
-            legTimings = {},
             iterationMovementData = {};
         
         for (let legId = 1; legId <= 6; legId++) {
           iterationMovementData[legId] = this.getIterationMovementData(legId);
           // save leg timings for constructing the blueprint
-          legTimings = this.gaits[this.iteration.gait].legTimings[legId];
+          let legTimings = this.gaits[this.iteration.gait].legTimings[legId];
           // make a blueprint
           blueprint[legId] = this.fillInBlueprintData(legId, legTimings, iterationMovementData);
         }
