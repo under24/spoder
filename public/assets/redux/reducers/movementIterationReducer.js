@@ -24,9 +24,8 @@ const movementInterationReducer = (state = movementInterationReducerInitState, a
           
           return Object.assign({}, state, action.payload, { amountOfTicks });
         }
-        else {
+        else
           return Object.assign({}, state, action.payload);
-        }
       }
   }
   return state;
