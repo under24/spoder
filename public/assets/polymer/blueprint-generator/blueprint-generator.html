@@ -1,0 +1,83 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="blueprint-generator">
+  <script>
+    class blueprintGenerator extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'blueprint-generator'; }
+      static get properties() {
+        return {
+          circles: {
+            statePath: 'movement.circles'
+          },
+          pointers: {
+            statePath: 'movement.pointers'
+          },
+          iteration: {
+            statePath: 'movement.iteration'
+          },
+          coords: {
+            statePath: 'coords'
+          },
+          gaits: {
+            statePath: 'gaits'
+          }
+        };
+      }
+      
+      generateBlueprint() {
+        let blueprint = {},
+            iterationMovementData = {}; 
+        
+        for (let legId = 1; legId <= 6; legId++) {
+          iterationMovementData[legId] = this.getIterationMovementData(legId);
+          // save leg timings for constructing the blueprint
+          let legTimings = this.gaits[this.iteration.gait].legTimings[legId];
+          // make a blueprint
+          blueprint[legId] = this.fillInBlueprintData(legId, legTimings, iterationMovementData);
+        }
+        
+        return blueprint;
+      }
+      
+      getIterationMovementData(legId) {
+        return {
+          transverseBaseX: this.circles[legId].x - this.pointers[legId].x,
+          transverseBaseY: this.circles[legId].y - this.pointers[legId].y,
+          transverseCursorX: this.coords[legId].transverseCursorX - this.pointers[legId].x,
+          transverseCursorY: this.coords[legId].transverseCursorY - this.pointers[legId].y
+        };
+      }
+      
+      fillInBlueprintData(legId, legTimings, iterationMovementData) {
+        return [
+          {
+            "coordType": "transverseBaseX",
+            "startPct": 0,
+            "endPct": 100,
+            "pxlsToMove": iterationMovementData[legId].transverseBaseX
+          },
+          {
+            "coordType": "transverseBaseY",
+            "startPct": 0,
+            "endPct": 100,
+            "pxlsToMove": iterationMovementData[legId].transverseBaseY
+          },
+          {
+            "coordType": "transverseCursorX",
+            "startPct": legTimings.startPct,
+            "endPct": legTimings.endPct,
+            "pxlsToMove": iterationMovementData[legId].transverseCursorX
+          },
+          {
+            "coordType": "transverseCursorY",
+            "startPct": legTimings.startPct,
+            "endPct": legTimings.endPct,
+            "pxlsToMove": iterationMovementData[legId].transverseCursorY
+          }
+        ];
+      }
+
+    }
+    window.customElements.define(blueprintGenerator.is, blueprintGenerator);
+  </script>
+</dom-module>
