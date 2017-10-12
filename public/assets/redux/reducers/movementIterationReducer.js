@@ -7,7 +7,8 @@ let movementInterationReducerInitState = {
   gait: 'ripple',
   currentTick: 0,
   currentTickPct: 0,
-  blueprint: null
+  blueprint: null,
+  blueprintDataSource: null
 }
 
 // init tps + duration into amountOfTicks
