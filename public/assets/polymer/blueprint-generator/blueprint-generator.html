@@ -9,17 +9,28 @@
           circles: {
             statePath: 'movement.circles'
           },
-          pointers: {
-            statePath: 'movement.pointers'
-          },
           iteration: {
             statePath: 'movement.iteration'
+          },
+          iterationTick: {
+            statePath: 'movement.iteration.currentTick',
+            observer: 'observeIterationTick'
+          },
+          pointers: {
+            statePath: 'movement.pointers',
+            observer: 'observePointers'
           },
           coords: {
             statePath: 'coords'
           },
           gaits: {
             statePath: 'gaits'
+          },
+          directionJoystick: {
+            statePath: 'movement.directionJoystick'
+          },
+          turnJoystick: {
+            statePath: 'movement.turnJoystick'
           }
         };
       }
@@ -36,7 +47,14 @@
           blueprint[legId] = this.fillInBlueprintData(legId, legTimings, iterationMovementData);
         }
         
-        return blueprint;
+        let blueprintDataSource = {
+          directionX: this.directionJoystick.x,
+          directionY: this.directionJoystick.y,
+          turnX: this.turnJoystick.x,
+          gait: this.iteration.gait
+        }
+        
+        this.dispatchBlueprint(blueprint, blueprintDataSource);
       }
       
       getIterationMovementData(legId) {
@@ -75,6 +93,33 @@
             "pxlsToMove": iterationMovementData[legId].transverseCursorY
           }
         ];
+      }
+      
+      dispatchBlueprint(blueprint, blueprintDataSource) {
+        store.dispatch({
+          type: "MOVEMENT_ITERATION_VALUES_CHANGED",
+          payload: { blueprint, blueprintDataSource }
+        });
+      }
+      
+      observePointers(newValue) {
+        // if init (values are nulls) then quit and wait for the next update
+        if (newValue[1] === null) return;
+        
+        let initialized = !(this.iteration.blueprintDataSource === null);
+        if (!initialized) {
+          this.generateBlueprint();
+          return;
+        }
+        
+        let sameValues = (this.turnJoystick.x === this.iteration.blueprintDataSource.turnX &&
+                     this.directionJoystick.x === this.iteration.blueprintDataSource.directionX &&
+                     this.directionJoystick.y === this.iteration.blueprintDataSource.directionY);
+        if (!sameValues) this.generateBlueprint();
+      }
+      
+      observeIterationTick(currentTick) {
+        if (currentTick === 0) this.generateBlueprint();
       }
 
     }
