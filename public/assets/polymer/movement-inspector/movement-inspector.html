@@ -1,0 +1,140 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="movement-inspector">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      #sequenceTimeline {
+        width: 95%;
+        border: 1px dotted;
+        margin: auto;
+        box-sizing: border-box;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      #sequenceTimeline .leg-sequence {
+        font-size: 17px;
+        display: flex;
+        border-top: 1px dotted;
+      }
+      #sequenceTimeline .leg-sequence:first-child {
+        border-top: none;
+      }
+      #sequenceTimeline .sequence-header {
+        display: inline-block;
+        border-right: 1px dotted;
+        padding: 4px 0px 4px 8px;
+        width: 48px;
+        font-size: 16px;
+      }
+      #sequenceTimeline #cursor {
+        width: 1px;
+        background: black;
+        position: absolute;
+        display: inline-block;
+        top: 0px;
+        bottom: 0px;
+      }
+      #cursorKnob {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(128, 128, 128, 0.2);
+        padding: 4px 8px 2px;
+      }
+      .sequence-content {
+        flex: 1;
+        position: relative;
+      }
+      .sequence-content .payload {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.1);
+        top: 0px;
+        bottom: 0px;
+        text-align: center;
+        line-height: 26px;
+      }
+      .cursor-wrapper {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 57px;
+        right: 0px;
+      }
+      fieldset {
+        width: 95%;
+        box-sizing: border-box;
+        margin: 10px auto;
+        border-width: 0px;
+        border-style: hidden;
+      }
+    </style>
+    <br /><br /><br />
+    <div id="sequenceTimeline">
+      <div class="leg-sequence" id="leg1">
+        <div class="sequence-header">L1 (1)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeStrokeTiming('1', iteration.gait)]]">[[computeStrokeDistance('1', blueprint)]]</div>
+        </div>
+      </div>
+      <div class="leg-sequence" id="leg2">
+        <div class="sequence-header">R1 (2)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeStrokeTiming('2', iteration.gait)]]">[[computeStrokeDistance('2', blueprint)]]</div>
+        </div>
+      </div>
+      <div class="leg-sequence" id="leg3">
+        <div class="sequence-header">L2 (3)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeStrokeTiming('3', iteration.gait)]]">[[computeStrokeDistance('3', blueprint)]]</div>
+        </div>
+      </div>
+      <div class="leg-sequence" id="leg4">
+        <div class="sequence-header">R2 (4)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeStrokeTiming('4', iteration.gait)]]">[[computeStrokeDistance('4', blueprint)]]</div>
+        </div>
+      </div>
+      <div class="leg-sequence" id="leg5">
+        <div class="sequence-header">L3 (5)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeStrokeTiming('5', iteration.gait)]]">[[computeStrokeDistance('5', blueprint)]]</div>
+        </div>
+      </div>
+      <div class="leg-sequence" id="leg6">
+        <div class="sequence-header">R3 (6)</div>
+        <div class="sequence-content">
+          <div class="payload" style$="[[computeStrokeTiming('6', iteration.gait)]]">[[computeStrokeDistance('6', blueprint)]]</div>
+        </div>
+      </div>
+      
+      <div class="cursor-wrapper">
+        <div id="cursor" style$="left: [[iteration.currentTickPct]]%">
+          <div id="cursorKnob">[[iteration.currentTickPct]]</div>
+        </div>
+      </div>
+
+    </div>
+  </template>
+  <script>
+    class movementInspector extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'movement-inspector'; }
+      static get properties() {
+        return {
+          
+        };
+      }
+      
+      
+
+    }
+    window.customElements.define(movementInspector.is, movementInspector);
+  </script>
+</dom-module>
