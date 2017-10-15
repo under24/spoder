@@ -128,11 +128,44 @@
       static get is() { return 'movement-inspector'; }
       static get properties() {
         return {
-          
+          iteration: {
+            statePath: 'movement.iteration'
+          },
+          gaits: {
+            statePath: 'gaits'
+          },
+          blueprint: {
+            statePath: 'movement.iteration.blueprint'
+          }
         };
       }
       
+      // UI
       
+      computeStrokeTiming(legId, iterationGait) {
+        if (iterationGait === null) return;
+        
+        let stroke = this.gaits[iterationGait].legTimings[legId];
+        
+        return `left: ${stroke.startPct}%;
+                width: ${stroke.endPct - stroke.startPct}%;`;
+      }
+      
+      computeStrokeDistance(legId, blueprint) {
+        // transverseCursorX, transverseCursorY
+        let tcx,
+            tcy;
+        
+        // extract necessary data from blueprint
+        blueprint[legId].forEach((dataItem) => {
+          if (dataItem.coordType === 'transverseCursorX')
+            tcx = dataItem.pxlsToMove;
+          else if (dataItem.coordType === 'transverseCursorY')
+            tcy = dataItem.pxlsToMove;
+        });
+        
+        return MU.getDistance(tcx, tcy).toFixed(2);
+      }
 
     }
     window.customElements.define(movementInspector.is, movementInspector);
