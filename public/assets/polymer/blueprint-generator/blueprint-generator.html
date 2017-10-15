@@ -118,6 +118,7 @@
         if (!sameValues) this.generateBlueprint();
       }
       
+      // this function also pick up new gait when the current iteration is complete
       observeIterationTick(currentTick) {
         if (currentTick === 0) this.generateBlueprint();
       }
