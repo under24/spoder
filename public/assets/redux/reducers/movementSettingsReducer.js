@@ -4,7 +4,9 @@ let movementSettingsReducerInitState = {
   loop: true,
   applyDirectionAndTurnAngles: true,
   movementEnabled: false,
-  gait: 'ripple'
+  gait: 'ripple',
+  tps: 60,
+  duration: 750
 };
 
 const movementSettingsReducer = (state = movementSettingsReducerInitState, action) => {
