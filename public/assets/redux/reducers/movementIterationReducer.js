@@ -1,14 +1,14 @@
 'use strict';
 
 let movementInterationReducerInitState = {
-  tps: 60,
-  duration: 750,
-  amountOfTicks: null, // will be calculated from tps + duration
-  gait: 'ripple',
-  currentTick: 0,
-  currentTickPct: 0,
+  tps: null,
+  duration: null,
+  amountOfTicks: null,
+  gait: null,
   blueprint: null,
-  blueprintDataSource: null
+  blueprintDataSource: null,
+  currentTick: 0,
+  currentTickPct: 0
 }
 
 const movementInterationReducer = (state = movementInterationReducerInitState, action) => {
