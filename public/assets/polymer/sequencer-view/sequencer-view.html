@@ -253,7 +253,7 @@
       }
       
       onGenerateSequenceButtonClicked() {
-        this.sequence = SU.generateSequenceTimeline(this.blueprint, this.iteration.tps, this.iteration.duration);
+        this.sequence = SU.generateSequenceTimeline(this.blueprint, this.iteration.tps || 60, this.iteration.duration || 650);
       }
       
       pauseSequence() {
