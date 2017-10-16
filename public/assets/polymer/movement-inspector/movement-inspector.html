@@ -81,37 +81,37 @@
       <div class="leg-sequence" id="leg1">
         <div class="sequence-header">L1 (1)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('1', iteration.gait)]]">[[computeStrokeDistance('1', blueprint)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('1', iteration.gait)]]">[[computeStrokeDistance('1', iteration.blueprint)]]</div>
         </div>
       </div>
       <div class="leg-sequence" id="leg2">
         <div class="sequence-header">R1 (2)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('2', iteration.gait)]]">[[computeStrokeDistance('2', blueprint)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('2', iteration.gait)]]">[[computeStrokeDistance('2', iteration.blueprint)]]</div>
         </div>
       </div>
       <div class="leg-sequence" id="leg3">
         <div class="sequence-header">L2 (3)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('3', iteration.gait)]]">[[computeStrokeDistance('3', blueprint)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('3', iteration.gait)]]">[[computeStrokeDistance('3', iteration.blueprint)]]</div>
         </div>
       </div>
       <div class="leg-sequence" id="leg4">
         <div class="sequence-header">R2 (4)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('4', iteration.gait)]]">[[computeStrokeDistance('4', blueprint)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('4', iteration.gait)]]">[[computeStrokeDistance('4', iteration.blueprint)]]</div>
         </div>
       </div>
       <div class="leg-sequence" id="leg5">
         <div class="sequence-header">L3 (5)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('5', iteration.gait)]]">[[computeStrokeDistance('5', blueprint)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('5', iteration.gait)]]">[[computeStrokeDistance('5', iteration.blueprint)]]</div>
         </div>
       </div>
       <div class="leg-sequence" id="leg6">
         <div class="sequence-header">R3 (6)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('6', iteration.gait)]]">[[computeStrokeDistance('6', blueprint)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('6', iteration.gait)]]">[[computeStrokeDistance('6', iteration.blueprint)]]</div>
         </div>
       </div>
       
@@ -133,9 +133,6 @@
           },
           gaits: {
             statePath: 'gaits'
-          },
-          blueprint: {
-            statePath: 'movement.iteration.blueprint'
           }
         };
       }
