@@ -105,7 +105,7 @@
         // when the iteration is complete or has not been started
         if (this.iterationTick === 0) {
           // try to pick up new properties (if there are) from movement.settings
-          payload = this.joinSettingsWithIteration(payload);
+          this.joinSettingsWithIteration(payload);
             
           store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
         }
@@ -128,8 +128,6 @@
           
         if (this.iteration.amountOfTicks === null || this.iteration.amountOfTicks !== amountOfTicks)
           payload.amountOfTicks = amountOfTicks;
-        
-        return payload;
       }
       
       observePointers(newValue, oldValue) {
@@ -164,7 +162,8 @@
           this.generateBlueprint();
         // if there is no need to generate blueprint then pick up new data and dispatch without blueprint
         else if (this.iterationTick === 0 && newSettings.tps !== oldSettings.tps || newSettings.duration !== oldSettings.duration) {
-          let payload = this.joinSettingsWithIteration({});
+          let payload = {};
+          this.joinSettingsWithIteration(payload);
           
           store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
         }
