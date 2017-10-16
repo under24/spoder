@@ -147,8 +147,8 @@
       }
       
       // this function also pick up new settings when the current iteration is complete
-      observeIterationTick(currentTick) {
-        if (currentTick === 0) this.generateBlueprint();
+      observeIterationTick(newCurrentTick) {
+        if (newCurrentTick === 0) this.generateBlueprint();
       }
       
       // if you change the settings and the currentTick is 0
