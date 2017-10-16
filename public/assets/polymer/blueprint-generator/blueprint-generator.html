@@ -16,6 +16,10 @@
             statePath: 'movement.iteration.currentTick',
             observer: 'observeIterationTick'
           },
+          settings: {
+            statePath: 'movement.settings',
+            observer: 'observeSettings'
+          },
           pointers: {
             statePath: 'movement.pointers',
             observer: 'observePointers'
@@ -37,12 +41,13 @@
       
       generateBlueprint() {
         let blueprint = {},
-            iterationMovementData = {}; 
+            iterationMovementData = {},
+            selectedGait = this.iteration.currentTick === 0 ? this.settings.gait : this.iteration.gait || this.settings.gait;
         
         for (let legId = 1; legId <= 6; legId++) {
           iterationMovementData[legId] = this.getIterationMovementData(legId);
           // save leg timings for constructing the blueprint
-          let legTimings = this.gaits[this.iteration.gait].legTimings[legId];
+          let legTimings = this.gaits[selectedGait].legTimings[legId];
           // make a blueprint
           blueprint[legId] = this.fillInBlueprintData(legId, legTimings, iterationMovementData);
         }
@@ -50,11 +55,10 @@
         let blueprintDataSource = {
           directionX: this.directionJoystick.x,
           directionY: this.directionJoystick.y,
-          turnX: this.turnJoystick.x,
-          gait: this.iteration.gait
+          turnX: this.turnJoystick.x
         }
         
-        this.dispatchBlueprint(blueprint, blueprintDataSource);
+        this.dispatchIterationData(blueprint, blueprintDataSource);
       }
       
       getIterationMovementData(legId) {
@@ -95,16 +99,42 @@
         ];
       }
       
-      dispatchBlueprint(blueprint, blueprintDataSource) {
-        store.dispatch({
-          type: "MOVEMENT_ITERATION_VALUES_CHANGED",
-          payload: { blueprint, blueprintDataSource }
-        });
+      dispatchIterationData(blueprint, blueprintDataSource) {
+        let payload = { blueprint, blueprintDataSource };
+        
+        // when the iteration is complete or has not been started
+        if (this.iterationTick === 0) {
+          // try to pick up new properties (if there are) from movement.settings
+          payload = this.joinSettingsWithIteration(payload);
+            
+          store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
+        }
+        // new settings can't be applied in mid iteration
+        else
+          store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
       }
       
-      observePointers(newValue) {
-        // if init (values are nulls) then quit and wait for the next update
-        if (newValue[1] === null) return;
+      joinSettingsWithIteration(payload) {
+        let amountOfTicks = +(this.settings.duration / (1000 / this.settings.tps)).toFixed(0);
+        
+        if (this.iteration.tps === null || this.iteration.tps !== this.settings.tps)
+          payload.tps = this.settings.tps;
+          
+        if (this.iteration.duration === null || this.iteration.duration !== this.settings.duration)
+          payload.duration = this.settings.duration;
+          
+        if (this.iteration.gait === null || this.iteration.gait !== this.settings.gait)
+          payload.gait = this.settings.gait;
+          
+        if (this.iteration.amountOfTicks === null || this.iteration.amountOfTicks !== amountOfTicks)
+          payload.amountOfTicks = amountOfTicks;
+        
+        return payload;
+      }
+      
+      observePointers(newValue, oldValue) {
+        // if init data then quit and wait for the next update
+        if (oldValue === undefined) return;
         
         let initialized = !(this.iteration.blueprintDataSource === null);
         if (!initialized) {
@@ -118,9 +148,26 @@
         if (!sameValues) this.generateBlueprint();
       }
       
-      // this function also pick up new gait when the current iteration is complete
+      // this function also pick up new settings when the current iteration is complete
       observeIterationTick(currentTick) {
         if (currentTick === 0) this.generateBlueprint();
+      }
+      
+      // if you change the settings and the currentTick is 0
+      // then re-render blueprint + update the ui
+      observeSettings(newSettings, oldSettings) {
+        // skip init. the blueprint is going to be generated anyway
+        if (oldSettings === undefined) return;
+        
+        // only settings.gait can influence the data of the blueprint
+        if (this.iterationTick === 0 && newSettings.gait !== oldSettings.gait)
+          this.generateBlueprint();
+        // if there is no need to generate blueprint then pick up new data and dispatch without blueprint
+        else if (this.iterationTick === 0 && newSettings.tps !== oldSettings.tps || newSettings.duration !== oldSettings.duration) {
+          let payload = this.joinSettingsWithIteration({});
+          
+          store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
+        }
       }
 
     }
