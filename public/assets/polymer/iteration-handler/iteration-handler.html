@@ -1,9 +1,9 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 
-<dom-module id="blueprint-generator">
+<dom-module id="iteration-handler">
   <script>
-    class blueprintGenerator extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'blueprint-generator'; }
+    class iterationHandler extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'iteration-handler'; }
       static get properties() {
         return {
           circles: {
@@ -170,6 +170,6 @@
       }
 
     }
-    window.customElements.define(blueprintGenerator.is, blueprintGenerator);
+    window.customElements.define(iterationHandler.is, iterationHandler);
   </script>
 </dom-module>
