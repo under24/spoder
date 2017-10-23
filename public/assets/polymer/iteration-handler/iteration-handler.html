@@ -117,6 +117,9 @@
       joinSettingsWithIteration(payload) {
         let amountOfTicks = +(this.settings.duration / (1000 / this.settings.tps)).toFixed(0);
         
+        if (this.iteration.amountOfTicks === null || this.iteration.amountOfTicks !== amountOfTicks)
+          payload.amountOfTicks = amountOfTicks;
+          
         if (this.iteration.tps === null || this.iteration.tps !== this.settings.tps)
           payload.tps = this.settings.tps;
           
@@ -125,9 +128,6 @@
           
         if (this.iteration.gait === null || this.iteration.gait !== this.settings.gait)
           payload.gait = this.settings.gait;
-          
-        if (this.iteration.amountOfTicks === null || this.iteration.amountOfTicks !== amountOfTicks)
-          payload.amountOfTicks = amountOfTicks;
       }
       
       observePointers(newValue, oldValue) {
