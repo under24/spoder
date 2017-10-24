@@ -27,9 +27,6 @@
           coords: {
             statePath: 'coords'
           },
-          gaits: {
-            statePath: 'gaits'
-          },
           directionJoystick: {
             statePath: 'movement.directionJoystick'
           },
@@ -40,16 +37,10 @@
       }
       
       generateBlueprint() {
-        let blueprint = {},
-            iterationMovementData = {},
-            selectedGait = this.iteration.currentTick === 0 ? this.settings.gait : this.iteration.gait || this.settings.gait;
+        let blueprint = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          iterationMovementData[legId] = this.getIterationMovementData(legId);
-          // save leg timings for constructing the blueprint
-          let legTimings = this.gaits[selectedGait].legTimings[legId];
-          // make a blueprint
-          blueprint[legId] = this.fillInBlueprintData(legId, legTimings, iterationMovementData);
+          blueprint[legId] = this.getIterationMovementData(legId);
         }
         
         let blueprintDataSource = {
@@ -58,7 +49,7 @@
           turnX: this.turnJoystick.x
         }
         
-        this.dispatchIterationData(blueprint, blueprintDataSource);
+        this.dispatchBlueprint(blueprint, blueprintDataSource);
       }
       
       getIterationMovementData(legId) {
@@ -70,36 +61,7 @@
         };
       }
       
-      fillInBlueprintData(legId, legTimings, iterationMovementData) {
-        return [
-          {
-            "coordType": "transverseBaseX",
-            "startPct": 0,
-            "endPct": 100,
-            "pxlsToMove": iterationMovementData[legId].transverseBaseX
-          },
-          {
-            "coordType": "transverseBaseY",
-            "startPct": 0,
-            "endPct": 100,
-            "pxlsToMove": iterationMovementData[legId].transverseBaseY
-          },
-          {
-            "coordType": "transverseCursorX",
-            "startPct": legTimings.startPct,
-            "endPct": legTimings.endPct,
-            "pxlsToMove": iterationMovementData[legId].transverseCursorX
-          },
-          {
-            "coordType": "transverseCursorY",
-            "startPct": legTimings.startPct,
-            "endPct": legTimings.endPct,
-            "pxlsToMove": iterationMovementData[legId].transverseCursorY
-          }
-        ];
-      }
-      
-      dispatchIterationData(blueprint, blueprintDataSource) {
+      dispatchBlueprint(blueprint, blueprintDataSource) {
         let payload = { blueprint, blueprintDataSource };
         
         // when the iteration is complete or has not been started
