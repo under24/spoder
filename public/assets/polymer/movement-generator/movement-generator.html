@@ -301,7 +301,7 @@
           return;
         }
         
-        // iteration starts after N amount of time with tick 1
+        // iteration starts after (1000 / this.iteration.tps) amount of time with tick 1
         this.generatorInterval = setInterval(() => {
           debugger;
           
