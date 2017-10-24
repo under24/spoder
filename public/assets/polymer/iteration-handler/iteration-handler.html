@@ -71,7 +71,7 @@
             
           store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
         }
-        // new settings can't be applied in mid iteration
+        // new settings cannnot be applied in mid iteration
         else
           store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
       }
@@ -119,11 +119,11 @@
         // skip init. the blueprint is going to be generated anyway
         if (oldSettings === undefined) return;
         
-        // only settings.gait can influence the data of the blueprint
-        if (this.iterationTick === 0 && newSettings.gait !== oldSettings.gait)
-          this.generateBlueprint();
+        // do not update iteration data if movement is in process. wait for tick === 0
+        if (this.iterationTick !== 0) return;
+        
         // if there is no need to generate blueprint then pick up new data and dispatch without blueprint
-        else if (this.iterationTick === 0 && newSettings.tps !== oldSettings.tps || newSettings.duration !== oldSettings.duration) {
+        if (newSettings.tps !== oldSettings.tps || newSettings.duration !== oldSettings.duration || newSettings.gait !== oldSettings.gait) {
           let payload = {};
           this.joinSettingsWithIteration(payload);
           
