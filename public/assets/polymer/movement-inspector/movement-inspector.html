@@ -150,18 +150,9 @@
       }
       
       computeStrokeDistance(legId, blueprint) {
-        // transverseCursorX, transverseCursorY
-        let tcx,
-            tcy;
-        
-        // extract necessary data from blueprint
-        blueprint[legId].forEach((dataItem) => {
-          if (dataItem.coordType === 'transverseCursorX')
-            tcx = dataItem.pxlsToMove;
-          else if (dataItem.coordType === 'transverseCursorY')
-            tcy = dataItem.pxlsToMove;
-        });
-        
+        let tcx = blueprint[legId].transverseCursorX,
+            tcy = blueprint[legId].transverseCursorY;
+            
         return MU.getDistance(tcx, tcy).toFixed(2);
       }
 
