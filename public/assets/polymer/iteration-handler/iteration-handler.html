@@ -131,7 +131,7 @@
       }
       
       observePointers(newValue, oldValue) {
-        // if init data then quit and wait for the next update
+        // if init'ion then quit and wait for the next update
         if (oldValue === undefined) return;
         
         let initialized = !(this.iteration.blueprintDataSource === null);
@@ -146,13 +146,12 @@
         if (!sameValues) this.generateBlueprint();
       }
       
-      // this function also pick up new settings when the current iteration is complete
+      // this function also picks up new settings when the current iteration is complete
       observeIterationTick(newCurrentTick) {
         if (newCurrentTick === 0) this.generateBlueprint();
       }
       
-      // if you change the settings and the currentTick is 0
-      // then re-render blueprint + update the ui
+      // watch state.movement.settings and update iteration obj if the iteration has not started
       observeSettings(newSettings, oldSettings) {
         // skip init. the blueprint is going to be generated anyway
         if (oldSettings === undefined) return;
@@ -160,7 +159,7 @@
         // do not update iteration data if movement is in process. wait for tick === 0
         if (this.iterationTick !== 0) return;
         
-        // if there is no need to generate blueprint then pick up new data and dispatch without blueprint
+        // if one of the important settings properties changed then update the state iteration data
         if (newSettings.tps !== oldSettings.tps || newSettings.duration !== oldSettings.duration || newSettings.gait !== oldSettings.gait) {
           let payload = {};
           this.mergeSettingsWithIteration(payload);
