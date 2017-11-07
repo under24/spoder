@@ -33,17 +33,17 @@
     <fieldset>
       <legend>Generator settings:</legend>
       <p>
-        <label><input type="checkbox" checked="[[settings.generatorEnabled]]" value="generatorEnabled" on-click="handleCheckboxChange" /> Movement Enabled</label>
+        <label><input type="checkbox" checked="[[generatorEnabled]]" value="generatorEnabled" on-click="handleCheckboxChange" /> Movement Enabled</label>
       </p>
       <p>
-        <label><input type="checkbox" checked="[[settings.loop]]" value="loop" on-click="handleCheckboxChange" /> Loop generator</label>
+        <label><input type="checkbox" checked="[[loop]]" value="loop" on-click="handleCheckboxChange" /> Loop generator</label>
       </p>
       <p>
-        <label><input type="checkbox" checked="[[settings.applyDirectionAndTurnAngles]]" value="applyDirectionAndTurnAngles" on-click="handleCheckboxChange" /> Apply direction and turn angles</label>
+        <label><input type="checkbox" checked="[[applyDirectionAndTurnAngles]]" value="applyDirectionAndTurnAngles" on-click="handleCheckboxChange" /> Apply direction and turn angles</label>
       </p>
       <p>
         Gait:
-        <select size="2" on-change="handleSelectChanged" value="[[settings.gait]]">
+        <select size="2" on-change="handleSelectChanged" value="[[gait]]">
           <option value="ripple">Ripple</option>
           <option value="rippleReversed">Ripple reversed</option>
         </select>
@@ -52,13 +52,13 @@
     <fieldset>
       <legend>Iteration settings:</legend>
       <p>
-        <input type="text" data-value="tps" value="[[iteration.tps]]" size="8" on-change="handleInputChanged" /> Ticks per second (tps): 
+        <input type="text" data-state-key="tps" value="[[tps]]" size="8" on-change="handleInputChanged" /> Ticks per second (tps): 
       </p>
       <p>
-        <input type="text" data-value="duration" value="[[iteration.duration]]" size="8" on-change="handleInputChanged" /> Iteration duration (ms): 
+        <input type="text" data-state-key="duration" value="[[duration]]" size="8" on-change="handleInputChanged" /> Iteration duration (ms): 
       </p>
       <p>
-        <input type="text" value="[[iteration.amountOfTicks]]" disabled size="8" /> Amount of ticks in iteration: 
+        <input type="text" value="[[amountOfTicks]]" disabled size="8" /> Amount of ticks in iteration: 
       </p>
     </fieldset>
 
@@ -69,11 +69,26 @@
       static get is() { return 'movement-settings'; }
       static get properties() {
         return {
-          settings: {
-            statePath: 'movement.settings'
+          generatorEnabled: {
+            statePath: 'movement.settings.generatorEnabled'
           },
-          iteration: {
-            statePath: 'movement.iteration'
+          loop: {
+            statePath: 'movement.settings.loop'
+          },
+          applyDirectionAndTurnAngles: {
+            statePath: 'movement.settings.applyDirectionAndTurnAngles'
+          },
+          gait: {
+            statePath: 'movement.settings.gait'
+          },
+          tps: {
+            statePath: 'movement.iteration.tps'
+          },
+          duration: {
+            statePath: 'movement.iteration.duration'
+          },
+          amountOfTicks: {
+            statePath: 'movement.iteration.amountOfTicks'
           }
         };
       }
@@ -87,7 +102,7 @@
       
       handleSelectChanged(e) {
         // if not the same we already have
-        if (this.settings.gait !== e.target.value) {
+        if (this.gait !== e.target.value) {
           // then dispatch it
           store.dispatch({
             type: "MOVEMENT_SETTINGS_CHANGED",
@@ -108,7 +123,7 @@
         
         store.dispatch({
           type: "MOVEMENT_SETTINGS_CHANGED",
-          payload: { [e.target.dataset.value]: value }
+          payload: { [e.target.dataset.stateKey]: value }
         });
       }
 
