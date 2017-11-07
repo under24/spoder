@@ -7,6 +7,7 @@ let movementInterationReducerInitState = {
   gait: null,
   blueprint: null,
   blueprintDataSource: null,
+  strokeTickMap: null,
   currentTick: 0,
   currentTickPct: 0
 }
