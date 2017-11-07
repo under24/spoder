@@ -134,21 +134,11 @@
         // if init'ion then quit and wait for the next update
         if (oldValue === undefined) return;
         
-        let initialized = !(this.iteration.blueprintDataSource === null);
-        if (!initialized) {
-          this.generateBlueprint();
-          return;
-        }
-        
-        let sameValues = (this.turnJoystick.x === this.iteration.blueprintDataSource.turnX &&
-          this.directionJoystick.x === this.iteration.blueprintDataSource.directionX &&
-          this.directionJoystick.y === this.iteration.blueprintDataSource.directionY);
-        if (!sameValues) this.generateBlueprint();
-      }
-      
-      // this function also picks up new settings when the current iteration is complete
-      observeIterationTick(newCurrentTick) {
-        if (newCurrentTick === 0) this.generateBlueprint();
+        // if not same values
+        if (this.turnJoystick.x !== this.iteration.blueprintDataSource.turnX ||
+            this.directionJoystick.x !== this.iteration.blueprintDataSource.directionX ||
+            this.directionJoystick.y !== this.iteration.blueprintDataSource.directionY
+        ) this.generateBlueprint();
       }
       
       // watch state.movement.settings and update iteration obj if the iteration has not started
