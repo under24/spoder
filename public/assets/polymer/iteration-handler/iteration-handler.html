@@ -67,7 +67,7 @@
         // when the iteration is complete or has not been started
         if (this.iterationTick === 0) {
           // try to pick up new properties (if there are) from movement.settings
-          this.joinSettingsWithIteration(payload);
+          this.mergeSettingsWithIteration(payload);
             
           store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
         }
@@ -76,7 +76,7 @@
           store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
       }
       
-      joinSettingsWithIteration(payload) {
+      mergeSettingsWithIteration(payload) {
         let amountOfTicks = +(this.settings.duration / (1000 / this.settings.tps)).toFixed(0);
         
         if (this.iteration.amountOfTicks === null || this.iteration.amountOfTicks !== amountOfTicks)
@@ -125,7 +125,7 @@
         // if there is no need to generate blueprint then pick up new data and dispatch without blueprint
         if (newSettings.tps !== oldSettings.tps || newSettings.duration !== oldSettings.duration || newSettings.gait !== oldSettings.gait) {
           let payload = {};
-          this.joinSettingsWithIteration(payload);
+          this.mergeSettingsWithIteration(payload);
           
           store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
         }
