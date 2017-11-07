@@ -22,6 +22,12 @@
         border-width: 0px;
         border-style: hidden;
       }
+      select {
+        overflow: hidden;
+        padding: 5px 0px;
+        text-align: center;
+        vertical-align: middle;
+      }
     </style>
     
     <fieldset>
@@ -37,7 +43,7 @@
       </p>
       <p>
         Gait:
-        <select on-change="handleSelectChanged" value="[[settings.gait]]">
+        <select size="2" on-change="handleSelectChanged" value="[[settings.gait]]">
           <option value="ripple">Ripple</option>
           <option value="rippleReversed">Ripple reversed</option>
         </select>
@@ -46,10 +52,10 @@
     <fieldset>
       <legend>Iteration settings:</legend>
       <p>
-        <input type="text" value="[[iteration.tps]]" size="8" /> Ticks per second (tps): 
+        <input type="text" data-value="tps" value="[[iteration.tps]]" size="8" on-change="handleInputChanged" /> Ticks per second (tps): 
       </p>
       <p>
-        <input type="text" value="[[iteration.duration]]" size="8" /> Iteration duration (ms): 
+        <input type="text" data-value="duration" value="[[iteration.duration]]" size="8" on-change="handleInputChanged" /> Iteration duration (ms): 
       </p>
       <p>
         <input type="text" value="[[iteration.amountOfTicks]]" disabled size="8" /> Amount of ticks in iteration: 
@@ -88,6 +94,21 @@
             payload: { gait: e.target.value }
           });
         }
+      }
+      
+      handleInputChanged(e) {
+        let value = +e.target.value;
+        
+        // if NaN
+        if (value !== value) {
+          console.warn('Incorrect input value');
+          return;
+        }
+        
+        store.dispatch({
+          type: "MOVEMENT_SETTINGS_CHANGED",
+          payload: { [e.target.dataset.value]: value }
+        });
       }
 
     }
