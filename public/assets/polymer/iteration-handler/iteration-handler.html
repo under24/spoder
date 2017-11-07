@@ -16,13 +16,13 @@
             statePath: 'movement.iteration.currentTick',
             observer: 'observeIterationTick'
           },
-          settings: {
-            statePath: 'movement.settings',
-            observer: 'observeSettings'
-          },
           pointers: {
             statePath: 'movement.pointers',
             observer: 'observePointers'
+          },
+          settings: {
+            statePath: 'movement.settings',
+            observer: 'observeSettings'
           },
           coords: {
             statePath: 'coords'
@@ -128,6 +128,11 @@
       
       calcTickPct(tick, amountOfTicks) {
         return MU.roundNumber(100 / amountOfTicks * tick, 1);
+      }
+      
+      // this function also picks up new settings when the current iteration is complete
+      observeIterationTick(newCurrentTick) {
+        if (newCurrentTick === 0) this.generateBlueprint();
       }
       
       observePointers(newValue, oldValue) {
