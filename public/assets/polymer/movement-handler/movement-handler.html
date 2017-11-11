@@ -43,9 +43,9 @@
           // dispatch tick data
           store.dispatch({
             type: "SEQUENCE_SHIFTED_XY_BATCHED",
-            payload: payload.stepValues,
+            payload: payload,
             currentTick: tick,
-            currentTickPct: payload.currentTickPct
+            currentTickPct: this.calcTickPct(tick, this.iteration.amountOfTicks)
           });
           
           // check if that was the last tick
@@ -92,20 +92,18 @@
       
       generateTickPayload(tick) {
         let amountOfTicks = this.iteration.amountOfTicks,
-            // this tick's pct of the current iteration
-            currentTickPct = this.calcTickPct(tick, amountOfTicks),
             // legs which are used in the current stroke of the iteration
             legsUsedInCurrentStroke = this.getLegsUsedInCurrentStroke(tick),
             // full iteration movement data
             iterationMovementData = this.iteration.blueprint,
             // payload values (current tick/step values for dispatching)
-            stepValues = {};
+            payload = {};
             
         for (let legId = 1; legId <= 6; legId++) {
-          stepValues[legId] = this.calcIterationStepValues(legId, legsUsedInCurrentStroke, amountOfTicks, iterationMovementData);
+          payload[legId] = this.calcIterationStepValues(legId, legsUsedInCurrentStroke, amountOfTicks, iterationMovementData);
         }
         
-        return { stepValues, currentTickPct };
+        return payload;
       }
       
       calcTickPct(tick, amountOfTicks) {
