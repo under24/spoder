@@ -356,7 +356,7 @@
 
         // dispatch
         if (Object.keys(anglesPayload).length !== 0) {
-          // this.sendServoAngleToSpoder(anglesPayload);
+          this.sendServoAngleToSpoder(anglesPayload);
           this.dispatchAngles(anglesPayload);
         } 
         this.validateAndDispatchBaseDirection(baseDirection);
@@ -425,10 +425,42 @@
         if (Object.keys(movementCirclesPayload).length !== 0) this.dispatchMovementCircles(movementCirclesPayload);
       }
       
-      // sendServoAngleToSpoder(servoAngles) {
-      //   if (servoAngles[1].femurServoAngle)
-      //     socket.emit('femur-servo-angle-changed', { value: servoAngles[1].femurServoAngle });
-      // }
+      sendServoAngleToSpoder(angles) {
+        // obj for storing filtered out servo angles
+        let servoAngles = {};
+        
+        // loop through the payload obj and filter out servo angles
+        for (let key in angles) {
+          // check if coxa servo angle is present
+          if ('coxaServoAngle' in angles[key]) {
+            // check if the obj is created
+            servoAngles[key] = servoAngles[key] || {};
+            // assign a value
+            servoAngles[key].coxaServoAngle = angles[key].coxaServoAngle;
+          }
+          // check if femur servo angle is present
+          if ('femurServoAngle' in angles[key]) {
+            // check if the obj is created
+            servoAngles[key] = servoAngles[key] || {};
+            // assign a value
+            servoAngles[key].femurServoAngle = angles[key].femurServoAngle;
+          }
+          // check if tibia servo angle is present
+          if ('tibiaServoAngle' in angles[key]) {
+            // check if the obj is created
+            servoAngles[key] = servoAngles[key] || {};
+            // assign a value
+            servoAngles[key].tibiaServoAngle = angles[key].tibiaServoAngle;
+          }
+        }
+        
+        // if there are some servo angles then send to the back end
+        if (Object.keys(servoAngles).length !== 0)
+          socket.emit('servo-angles-changed', servoAngles);
+        
+        // if (angles[1].femurServoAngle)
+          // socket.emit('femur-servo-angle-changed', { value: angles[1].femurServoAngle });
+      }
       
       // END PROPERTY OBSERVERS
 
