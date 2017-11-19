@@ -1,9 +1,9 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 
-<dom-module id="new-coords-watcher">
+<dom-module id="coords-watcher">
   <script>
-    class newCoordsWatcher extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'new-coords-watcher'; }
+    class coordsWatcher extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'coords-watcher'; }
       static get properties() {
         return {
           metaData: {
@@ -433,6 +433,6 @@
       // END PROPERTY OBSERVERS
 
     }
-    window.customElements.define(newCoordsWatcher.is, newCoordsWatcher);
+    window.customElements.define(coordsWatcher.is, coordsWatcher);
   </script>
 </dom-module>
