@@ -115,6 +115,7 @@
           payload[legId] = this.calcStepValues(legId, legsUsedInCurrentStroke, amountOfTicks, iterationMovementData);
         }
         
+        // dispatch values
         return payload;
       }
       
@@ -181,7 +182,7 @@
           let shiftX = this.coords[legId].transverseBaseX - rotatedCoords.x,
               shiftY = this.coords[legId].transverseBaseY - rotatedCoords.y;
               
-          // add turn values to the payload
+          // add turn values to the result object
           result.transverseBaseX += shiftX;
           result.transverseBaseY += shiftY;
         }
