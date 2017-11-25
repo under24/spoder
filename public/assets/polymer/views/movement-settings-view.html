@@ -1,6 +1,6 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 
-<dom-module id="movement-settings">
+<dom-module id="movement-settings-view">
   <template>
     <style>
       :host {
@@ -65,8 +65,8 @@
   </template>
 
   <script>
-    class movementSettings extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'movement-settings'; }
+    class movementSettingsView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'movement-settings-view'; }
       static get properties() {
         return {
           generatorEnabled: {
@@ -128,6 +128,6 @@
       }
 
     }
-    window.customElements.define(movementSettings.is, movementSettings);
+    window.customElements.define(movementSettingsView.is, movementSettingsView);
   </script>
 </dom-module>

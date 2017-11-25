@@ -12,7 +12,7 @@
 <link rel="import" href="../views/transverse-view.html">
 <link rel="import" href="../views/sequencer-view.html">
 <link rel="import" href="../movement-generator/movement-generator.html">
-<link rel="import" href="../movement-settings/movement-settings.html">
+<link rel="import" href="../views/movement-settings-view.html">
 <link rel="import" href="../movement-inspector/movement-inspector.html">
 
 <dom-module id="view-picker">
@@ -82,7 +82,7 @@
           <option value="transverse-view">Transverse View</option>
           <option value="sequencer-view">Sequencer View</option>
           <option value="movement-generator">Movement Generator</option>
-          <option value="movement-settings">Movement Settings</option>
+          <option value="movement-settings-view">Movement Settings View</option>
           <option value="movement-inspector">Movement Inspector</option>
         </select>
       </section>
@@ -158,8 +158,8 @@
     </template>
     
     <!-- movement settings -->
-    <template is="dom-if" if="[[computeView('movement-settings', view)]]" restamp>
-      <movement-settings></movement-settings>
+    <template is="dom-if" if="[[computeView('movement-settings-view', view)]]" restamp>
+      <movement-settings-view></movement-settings-view>
     </template>
     
     <!-- movement inspector -->
