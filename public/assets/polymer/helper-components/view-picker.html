@@ -11,7 +11,7 @@
 <link rel="import" href="../views/sagittal-view.html">
 <link rel="import" href="../views/transverse-view.html">
 <link rel="import" href="../views/sequencer-view.html">
-<link rel="import" href="../views/movement-settings-view.html">
+<link rel="import" href="../views/movement-controller-view.html">
 <link rel="import" href="../views/movement-inspector-view.html">
 
 <dom-module id="view-picker">
@@ -80,7 +80,7 @@
           <option value="sagittal-view">Sagittal View</option>
           <option value="transverse-view">Transverse View</option>
           <option value="sequencer-view">Sequencer View</option>
-          <option value="movement-settings-view">Movement Settings View</option>
+          <option value="movement-controller-view">Movement Controller View</option>
           <option value="movement-inspector-view">Movement Inspector View</option>
         </select>
       </section>
@@ -151,8 +151,8 @@
     </template>
     
     <!-- movement settings -->
-    <template is="dom-if" if="[[computeView('movement-settings-view', view)]]" restamp>
-      <movement-settings-view></movement-settings-view>
+    <template is="dom-if" if="[[computeView('movement-controller-view', view)]]" restamp>
+      <movement-controller-view></movement-controller-view>
     </template>
     
     <!-- movement inspector -->
