@@ -13,7 +13,7 @@
 <link rel="import" href="../views/sequencer-view.html">
 <link rel="import" href="../movement-generator/movement-generator.html">
 <link rel="import" href="../views/movement-settings-view.html">
-<link rel="import" href="../movement-inspector/movement-inspector.html">
+<link rel="import" href="../views/movement-inspector-view.html">
 
 <dom-module id="view-picker">
   <template>
@@ -83,7 +83,7 @@
           <option value="sequencer-view">Sequencer View</option>
           <option value="movement-generator">Movement Generator</option>
           <option value="movement-settings-view">Movement Settings View</option>
-          <option value="movement-inspector">Movement Inspector</option>
+          <option value="movement-inspector-view">Movement Inspector View</option>
         </select>
       </section>
     </template>
@@ -163,8 +163,8 @@
     </template>
     
     <!-- movement inspector -->
-    <template is="dom-if" if="[[computeView('movement-inspector', view)]]" restamp>
-      <movement-inspector></movement-inspector>
+    <template is="dom-if" if="[[computeView('movement-inspector-view', view)]]" restamp>
+      <movement-inspector-view></movement-inspector-view>
     </template>
     
   </template>
