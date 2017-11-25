@@ -121,8 +121,8 @@
         
         // find current legs based on the stroke tick map (for the current iteration)
         for (let i = 0; i < strokeTickMap.length; i++) {
-          if (currentTick >= strokeTickMap[i].startTick &&
-              currentTick <= strokeTickMap[i].endTick)
+          // start tick <= current tick <= end tick
+          if (strokeTickMap[i].startTick <= currentTick && currentTick <= strokeTickMap[i].endTick) 
             return sequence[i];
         }
         
