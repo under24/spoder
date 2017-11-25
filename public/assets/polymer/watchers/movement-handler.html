@@ -156,20 +156,20 @@
         return tickValue;
       }
       
-      getClosestTick(pct, amountOfTicks) {
-        let currentNumber = 0;
+      getClosestTick(targetPct, amountOfTicks) {
+        let closestTick = 0;
         
-        let diff = pct;
+        let diff = targetPct;
         for (let tick = 1; tick <= amountOfTicks; tick++) {
-          let tickPct = this.calcTickPct(tick, amountOfTicks);
+          let iteratedTickPct = this.calcTickPct(tick, amountOfTicks);
           
-          let newDiff = Math.abs(pct - tickPct);
+          let newDiff = Math.abs(targetPct - iteratedTickPct);
           if (newDiff < diff) {
             diff = newDiff;
-            currentNumber = tick;
+            closestTick = tick;
           }
         }
-        return +currentNumber;
+        return +closestTick;
       }
       
       getAmountOfTicksBetween(startTick, endTick) {
