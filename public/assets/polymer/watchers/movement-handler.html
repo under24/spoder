@@ -137,25 +137,38 @@
         return null;
       }
       
-      calcStepValues(legId, legsUsedInCurrentStroke, amountOfTicks, iterationMovementData) {
+      calcStepValues(legId, usedLegs, amountOfTicks, iterationMovementData) {
+        let result = {};
+        
+        // calc direction values
+        this.calcDirectionStepValues(result, amountOfTicks, legId, iterationMovementData, usedLegs);
+        
+        // calc turn calcStepValues
+        this.calcTurnStepValues(result, amountOfTicks, legId);
+
+        return result;
+      }
+      
+      calcDirectionStepValues(result, amountOfTicks, legId, iterationMovementData, usedLegs) {
         // base stroke pct
         let baseStrokePcts = { startPct: 0, endPct: 100 };
         
-        // create a return object and assign baseXY values
-        let result = {
-          transverseBaseX: this.calcTickValue(amountOfTicks, iterationMovementData[legId].transverseBaseX, baseStrokePcts),
-          transverseBaseY: this.calcTickValue(amountOfTicks, iterationMovementData[legId].transverseBaseY, baseStrokePcts),
-        };
+        // calc transverseBaseX/Y values
+        result.transverseBaseX = this.calcTickValue(amountOfTicks, iterationMovementData[legId].transverseBaseX, baseStrokePcts);
+        result.transverseBaseY = this.calcTickValue(amountOfTicks, iterationMovementData[legId].transverseBaseY, baseStrokePcts);
         
         // if legId is one of the currently used legs then add cursor data to the return object
-        if (~legsUsedInCurrentStroke.indexOf(legId)) {
+        if (~usedLegs.indexOf(legId)) {
           // cursor stroke pct
           let cursorStrokePcts = this.gaits[this.iteration.gait].legTimings[legId];
           
+          // calc transverseCursorX/Y values
           result.transverseCursorX = this.calcTickValue(amountOfTicks, iterationMovementData[legId].transverseCursorX, cursorStrokePcts);
           result.transverseCursorY = this.calcTickValue(amountOfTicks, iterationMovementData[legId].transverseCursorY, cursorStrokePcts);
         };
-        
+      }
+      
+      calcTurnStepValues(result, amountOfTicks, legId) {
         // apply movement.turnJoystick values (min-in turn values to the direction ones)
         if (this.turnJoystick.x) {
           // angle / amount of ticks = angle for each tick
@@ -172,8 +185,6 @@
           result.transverseBaseX += shiftX;
           result.transverseBaseY += shiftY;
         }
-        
-        return result;
       }
       
       calcTickValue(amountOfTicks, pixelsToMove, strokePcts) {
