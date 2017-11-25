@@ -18,6 +18,18 @@
           },
           iteration: {
             statePath: 'movement.iteration'
+          },
+          // for calc of turn values
+          turnJoystick: {
+            statePath: 'movement.turnJoystick'
+          },
+          // for calc of turn values
+          baseCenterCoords: {
+            statePath: 'base.centerCoords'
+          },
+          // for calc of turn values
+          coords: {
+            statePath: 'coords'
           }
         };
       }
@@ -125,7 +137,7 @@
         return null;
       }
       
-      calcIterationStepValues(legId, legsUsedInCurrentStroke, amountOfTicks, iterationMovementData) {
+      calcStepValues(legId, legsUsedInCurrentStroke, amountOfTicks, iterationMovementData) {
         // base stroke pct
         let baseStrokePcts = { startPct: 0, endPct: 100 };
         
@@ -143,6 +155,23 @@
           result.transverseCursorX = this.calcTickValue(amountOfTicks, iterationMovementData[legId].transverseCursorX, cursorStrokePcts);
           result.transverseCursorY = this.calcTickValue(amountOfTicks, iterationMovementData[legId].transverseCursorY, cursorStrokePcts);
         };
+        
+        // apply movement.turnJoystick values (min-in turn values to the direction ones)
+        if (this.turnJoystick.x) {
+          // angle / amount of ticks = angle for each tick
+          let stepAngle = MU.flipNumber(this.turnJoystick.x) / amountOfTicks;
+          
+          // find rotated base coords
+          let rotatedCoords = RU.getRotatedCoords(this.baseCenterCoords, stepAngle, this.coords[legId]);
+          
+          // get turn shift values
+          let shiftX = this.coords[legId].transverseBaseX - rotatedCoords.x,
+              shiftY = this.coords[legId].transverseBaseY - rotatedCoords.y;
+              
+          // add turn values to the payload
+          result.transverseBaseX += shiftX;
+          result.transverseBaseY += shiftY;
+        }
         
         return result;
       }
