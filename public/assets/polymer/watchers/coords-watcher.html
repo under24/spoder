@@ -194,8 +194,10 @@
       }
       
       processSagittalCoordsIntoFemurAndTibiaAngles(legId) {
+        // within reach
         if (this.targetWithinReach(legId, 'sagittal'))
           var femuAndTibiaAngles = this.calcForWithinReachMode(legId, 'sagittal');
+        // out of reach
         else
           var femuAndTibiaAngles = this.calcForOutOfReachMode(legId, 'sagittal');
         
