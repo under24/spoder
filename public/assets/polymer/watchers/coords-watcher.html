@@ -97,12 +97,18 @@
         
         // sagittal boundary ball xy
         let sbx = this.coords[legId].sagittalBaseX,
-            sby = this.coords[legId].sagittalBaseY,
-            sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
-        
+            sby = this.coords[legId].sagittalBaseY;
+            
+        // sagittal boundary ball xy
+        let sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
+            
         // transverse misc data
-        let transverseReachCoords = PU.getTransverseReachCoords(this.coords[legId], this.metaData),
-            transverseReachRadius = PU.getTransverseReachRadius(transverseReachCoords),
+        if (!sagittalWithinReach)
+          var transverseReachCoords = PU.getTransverseReachCoords(this.coords[legId], this.metaData, sagittalBoundaryBallCoords.y);
+        else
+          var transverseReachCoords = PU.getTransverseReachCoords(this.coords[legId], this.metaData);
+        
+        let transverseReachRadius = PU.getTransverseReachRadius(transverseReachCoords),
             transverseLegLength = PU.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords);
 
         return {

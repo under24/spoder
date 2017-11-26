@@ -2,8 +2,8 @@
 
 // PU == PositioningUtils
 let PU = {
-  getTransverseReachCoords(coords, metaData) {
-    let scy = coords.sagittalCursorY,
+  getTransverseReachCoords(coords, metaData, customScy) {
+    let scy = customScy || coords.sagittalCursorY,
         radius = metaData.combinedLegsLength,
         sbx = coords.sagittalBaseX,
         sby = coords.sagittalBaseY,
