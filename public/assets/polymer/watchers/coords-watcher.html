@@ -89,9 +89,6 @@
         let dx = this.getDX(legId, 'sagittal'),
             dy = this.getDY(legId, 'sagittal');
         
-        // sagittal distance from sagittal cursor x/y to sagittal base x/y
-        let distance = MU.getDistance(dx, dy);
-        
         // sagittal straight angle from base to cursor
         let angle = MU.getAngle(dy, dx);
         
@@ -102,23 +99,20 @@
         // sagittal boundary ball xy
         let sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
             
-        // transverse misc data
         if (!sagittalWithinReach)
           var transverseReachCoords = PU.getTransverseReachCoords(this.coords[legId], this.metaData, sagittalBoundaryBallCoords.y);
         else
           var transverseReachCoords = PU.getTransverseReachCoords(this.coords[legId], this.metaData);
-        
-        let transverseReachRadius = PU.getTransverseReachRadius(transverseReachCoords),
-            transverseLegLength = PU.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords);
 
         return {
           sagittalDiff: { dx, dy },
-          sagittalDistance: distance,
+          // sagittal distance from sagittal cursor x/y to sagittal base x/y
+          sagittalDistance: MU.getDistance(dx, dy),
           sagittalAngle: angle,
           sagittalBoundaryBallCoords,
           transverseReachCoords,
-          transverseReachRadius,
-          transverseLegLength
+          transverseReachRadius: PU.getTransverseReachRadius(transverseReachCoords),
+          transverseLegLength: PU.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords)
         };
       }
       
