@@ -1,8 +1,8 @@
 'use strict';
 
 let baseCenterCoordsReducerInitState = {
-  x: 0,
-  y: 0
+  x: null,
+  y: null
 };
 
 const baseCenterCoordsReducer = (state = baseCenterCoordsReducerInitState, action) => {

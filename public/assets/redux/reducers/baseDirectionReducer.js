@@ -1,6 +1,6 @@
 'use strict';
 
-let baseDirectionReducerInitState = 0;
+let baseDirectionReducerInitState = null;
 
 const baseDirectionReducer = (state = baseDirectionReducerInitState, action) => {
   switch (action.type) {

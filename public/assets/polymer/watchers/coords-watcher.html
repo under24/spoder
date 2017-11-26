@@ -401,8 +401,8 @@
       }
       
       validateAndDispatchBaseDirection(payload) {
-        // dispatch not needed
-        if (this.baseDirection !== undefined && payload === this.baseDirection) return;
+        // same values in the state. bail
+        if (payload === this.baseDirection) return;
         
         store.dispatch({
           type: "BASE_DIRECTION_CHANGED",
@@ -411,8 +411,8 @@
       }
       
       validateAndDispatchBaseCenterCoords(payload) {
-        // dispatch not needed
-        if (this.baseCenterCoords && payload.x === this.baseCenterCoords.x && payload.y === this.baseCenterCoords.y) return;
+        // same values in the state. bail
+        if (payload.x === this.baseCenterCoords.x && payload.y === this.baseCenterCoords.y) return;
         
         store.dispatch({
           type: "BASE_CENTER_COORDS_CHANGED",
