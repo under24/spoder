@@ -134,47 +134,37 @@
         let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
             tbx = coords.transverseBaseX,
             tby = coords.transverseBaseY,
-            coxaAttachment = this.baseCoxaAttachmentAngle[legId],
-            angle,
-            // guide point
-            turnedTBX,
-            turnedTBY,
-            // unturned movement circle coords
-            unturnedX,
-            unturnedY,
-            // movement circle x/y coords
-            movementCircleCenterCoords,
-            angleForUnturnedXY;
+            coxaAttachment = this.baseCoxaAttachmentAngle[legId];
             
         // sum up baseCoxaAttachmentAngle + movement.directionJoystick + movement.turnJoystick
         switch (GU.getSideFromLegId(legId)) {
           case 'left':
-            angle = (coxaAttachment + baseDirection) - this.turnJoystick.x; break;
+            var angle = (coxaAttachment + baseDirection) - this.turnJoystick.x; break;
           case 'right':
-            angle = MU.flipNumber(coxaAttachment + baseDirection) + this.turnJoystick.x; break;
+            var angle = MU.flipNumber(coxaAttachment + baseDirection) + this.turnJoystick.x; break;
         }
         
         // turn base coords if turnJoystick.x !== 0
         if (this.turnJoystick.x) {
           // turn base coords
-          ({ x: turnedTBX, y: turnedTBY } = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId]));
+          var { x: turnedTBX, y: turnedTBY } = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId]);
           // find movement circle coords
-          movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
+          var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
           
           // also find unturned movement circle coords
           switch (GU.getSideFromLegId(legId)) {
             case 'left':
-              angleForUnturnedXY = coxaAttachment + baseDirection; break;
+              var angleForUnturnedXY = coxaAttachment + baseDirection; break;
             case 'right':
-              angleForUnturnedXY = MU.flipNumber(coxaAttachment + baseDirection); break;
+              var angleForUnturnedXY = MU.flipNumber(coxaAttachment + baseDirection); break;
           }
-          ({ x: unturnedX, y: unturnedY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, angleForUnturnedXY, distance));
+          // unturned movement circle coords
+          var { x: unturnedX, y: unturnedY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, angleForUnturnedXY, distance);
         }
         // turnJoystick.x === 0
-        else {
-          movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
-        }
-        
+        else
+          var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
+          
         return {
           x: movementCircleCenterCoords.x,
           y: movementCircleCenterCoords.y,
