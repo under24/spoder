@@ -397,7 +397,7 @@
         store.dispatch({
           type: "MOVEMENT_CIRCLES_CHANGED_BATCHED",
           payload
-        })
+        });
       }
       
       validateAndDispatchBaseDirection(payload) {
@@ -417,7 +417,7 @@
         store.dispatch({
           type: "BASE_CENTER_COORDS_CHANGED",
           payload
-        })
+        });
       }
       
       getBaseDirection(newCoords, baseCenterCoords) {
