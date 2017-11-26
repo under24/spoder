@@ -128,8 +128,7 @@
       }
       
       getMovementCircleData(legId, transverseReachRadius, coords, baseDirection) {
-        let movementCircleDiameter = PU.getMovementCircleDiameter(transverseReachRadius, this.metaData),
-            movementCircleRadius = movementCircleDiameter / 2;
+        let movementCircleDiameter = PU.getMovementCircleDiameter(transverseReachRadius, this.metaData);
             
         let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
             tbx = coords.transverseBaseX,
@@ -172,7 +171,7 @@
           unturnedY,
           turnedTBXGuidePoint: turnedTBX,
           turnedTBYGuidePoint: turnedTBY,
-          fluentRadius: movementCircleRadius,
+          fluentRadius: movementCircleDiameter / 2,
           fluentDiameter: movementCircleDiameter,
           radius: 80,
           diameter: 160
