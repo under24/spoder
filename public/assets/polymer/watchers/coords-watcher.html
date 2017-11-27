@@ -375,8 +375,8 @@
         } 
         this.validateAndDispatchBaseDirection(baseDirection);
         this.validateAndDispatchBaseCenterCoords(baseCenterCoords);
-        if (Object.keys(miscPayload).length !== 0) this.dispatchMisc(miscPayload);
-        if (Object.keys(movementCirclesPayload).length !== 0) this.dispatchMovementCircles(movementCirclesPayload);
+        this.validateAndDispatchMisc(miscPayload);
+        this.validateAndDispatchMovementCircles(movementCirclesPayload);
       }
       
       dispatchAngles(payload) {
@@ -386,14 +386,20 @@
         });
       }
       
-      dispatchMisc(payload) {
+      validateAndDispatchMisc(payload) {
+        // empty payload object
+        if (Object.keys(payload).length === 0) return;
+        
         store.dispatch({
           type: "MISC_CHANGED_BATCHED",
           payload
         });
       }
       
-      dispatchMovementCircles(payload) {
+      validateAndDispatchMovementCircles(payload) {
+        // empty payload object
+        if (Object.keys(payload).length === 0) return;
+        
         store.dispatch({
           type: "MOVEMENT_CIRCLES_CHANGED_BATCHED",
           payload
@@ -436,7 +442,7 @@
           this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
         }
         
-        if (Object.keys(movementCirclesPayload).length !== 0) this.dispatchMovementCircles(movementCirclesPayload);
+        this.validateAndDispatchMovementCircles(movementCirclesPayload);
       }
       
       sendServoAngleToSpoder(angles) {
