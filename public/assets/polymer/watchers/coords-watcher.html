@@ -380,51 +380,36 @@
       }
       
       dispatchAngles(payload) {
-        store.dispatch({
-          type: "ANGLES_CHANGED_BATCHED",
-          payload
-        });
         // dispatch is safe because the values were filtered out in this.prepareFemurAndTibiaPayload
+        store.dispatch({ type: "ANGLES_CHANGED_BATCHED", payload });
       }
       
       validateAndDispatchMisc(payload) {
         // empty payload object
         if (Object.keys(payload).length === 0) return;
         
-        store.dispatch({
-          type: "MISC_CHANGED_BATCHED",
-          payload
-        });
+        store.dispatch({ type: "MISC_CHANGED_BATCHED", payload });
       }
       
       validateAndDispatchMovementCircles(payload) {
         // empty payload object
         if (Object.keys(payload).length === 0) return;
         
-        store.dispatch({
-          type: "MOVEMENT_CIRCLES_CHANGED_BATCHED",
-          payload
-        });
+        store.dispatch({ type: "MOVEMENT_CIRCLES_CHANGED_BATCHED", payload });
       }
       
       validateAndDispatchBaseDirection(payload) {
         // same values in the state. bail
         if (payload === this.baseDirection) return;
         
-        store.dispatch({
-          type: "BASE_DIRECTION_CHANGED",
-          payload
-        });
+        store.dispatch({ type: "BASE_DIRECTION_CHANGED", payload });
       }
       
       validateAndDispatchBaseCenterCoords(payload) {
         // same values in the state. bail
         if (payload.x === this.baseCenterCoords.x && payload.y === this.baseCenterCoords.y) return;
         
-        store.dispatch({
-          type: "BASE_CENTER_COORDS_CHANGED",
-          payload
-        });
+        store.dispatch({ type: "BASE_CENTER_COORDS_CHANGED", payload });
       }
       
       getBaseDirection(newCoords, baseCenterCoords) {
