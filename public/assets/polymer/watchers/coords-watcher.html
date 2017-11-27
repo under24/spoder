@@ -384,6 +384,7 @@
           type: "ANGLES_CHANGED_BATCHED",
           payload
         });
+        // dispatch is safe because the values were filtered out in this.prepareFemurAndTibiaPayload
       }
       
       validateAndDispatchMisc(payload) {
