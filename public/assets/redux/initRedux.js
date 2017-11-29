@@ -2,47 +2,45 @@
 
 const { combineReducers, createStore } = Redux;
 
+const baseReducer = combineReducers({
+  centerCoords: baseCenterCoordsReducer,
+  coxaAttachmentAngle: baseCoxaAttachmentAngleReducer,
+  direction: baseDirectionReducer
+});
+
 const modifierReducer = combineReducers({
   level: levelReducer,
-  tilt: tiltReducer,
+  rotation: rotationReducer,
   shift: shiftReducer,
-  rotation: rotationReducer
+  tilt: tiltReducer
 });
 
 const movementReducer = combineReducers({
-  directionJoystick: movementDirectionJoystickReducer,
-  turnJoystick: movementTurnJoystickReducer,
-  pointers: movementPointerReducer,
   circles: movementCircleReducer,
-  // status: movementStatusReducer,
-  // sequence: sequenceReducer,
+  directionJoystick: movementDirectionJoystickReducer,
+  iteration: movementInterationReducer,
+  pointers: movementPointerReducer,
   settings: movementSettingsReducer,
-  iteration: movementInterationReducer
-});
-
-const baseReducer = combineReducers({
-  direction: baseDirectionReducer,
-  centerCoords: baseCenterCoordsReducer,
-  coxaAttachmentAngle: baseCoxaAttachmentAngleReducer
+  turnJoystick: movementTurnJoystickReducer
 });
 
 const viewSettingsReducer = combineReducers({
-  sagittalView: viewSettingsSagittalReducer,
-  transverseView: viewSettingsTransverseReducer
+  transverseView: viewSettingsTransverseReducer,
+  sagittalView: viewSettingsSagittalReducer
 });
 
 const reducers = combineReducers({
-  legs: legReducer,
   angles: angleReducer,
-  metaData: metaDataReducer,
-  viewSettings: viewSettingsReducer,
-  modifiers: modifierReducer,
+  base: baseReducer,
   coords: coordsReducer,
-  misc: miscReducer,
-  viewOffsets: viewOffsetsReducer,
-  movement: movementReducer,
   gaits: gaitReducer,
-  base: baseReducer
+  legs: legReducer,
+  metaData: metaDataReducer,
+  misc: miscReducer,
+  modifiers: modifierReducer,
+  movement: movementReducer,
+  viewOffsets: viewOffsetsReducer,
+  viewSettings: viewSettingsReducer
 });
 
 const store = createStore(
