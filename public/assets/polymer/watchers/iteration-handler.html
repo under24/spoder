@@ -43,19 +43,19 @@
         let blueprint = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          blueprint[legId] = this.getIterationMovementData(legId);
+          blueprint[legId] = this.gatherIterationMovementData(legId);
         }
         
-        let blueprintDataSource = {
+        let blueprintSourceData = {
           directionX: this.directionJoystick.x,
           directionY: this.directionJoystick.y,
           turnX: this.turnJoystick.x
         }
         
-        this.dispatchBlueprint(blueprint, blueprintDataSource);
+        this.dispatchBlueprint({ blueprint, blueprintSourceData });
       }
       
-      getIterationMovementData(legId) {
+      gatherIterationMovementData(legId) {
         return {
           transverseBaseX: this.circles[legId].x - this.pointers[legId].x,
           transverseBaseY: this.circles[legId].y - this.pointers[legId].y,
@@ -64,9 +64,7 @@
         };
       }
       
-      dispatchBlueprint(blueprint, blueprintDataSource) {
-        let payload = { blueprint, blueprintDataSource };
-        
+      dispatchBlueprint(payload) {        
         // when the iteration is complete or has not been started
         if (this.iterationTick === 0) {
           // try to pick up new properties (if there are) from movement.settings
@@ -140,9 +138,9 @@
         if (oldValue === undefined) return;
         
         // if not same values
-        if (this.turnJoystick.x !== this.iteration.blueprintDataSource.turnX ||
-            this.directionJoystick.x !== this.iteration.blueprintDataSource.directionX ||
-            this.directionJoystick.y !== this.iteration.blueprintDataSource.directionY
+        if (this.turnJoystick.x !== this.iteration.blueprintSourceData.turnX ||
+            this.directionJoystick.x !== this.iteration.blueprintSourceData.directionX ||
+            this.directionJoystick.y !== this.iteration.blueprintSourceData.directionY
         ) this.generateBlueprint();
       }
       
