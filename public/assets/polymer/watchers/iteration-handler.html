@@ -144,7 +144,7 @@
         ) this.generateBlueprint();
       }
       
-      // watch state.movement.settings and update iteration obj if the iteration has not started
+      // watch state.movement.settings and update iteration obj if the iteration has not been started
       observeSettings(newValue, oldValue) {
         // skip init. the blueprint is going to be generated anyway
         if (oldValue === undefined) return;
