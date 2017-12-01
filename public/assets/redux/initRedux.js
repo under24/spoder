@@ -33,6 +33,7 @@ const reducers = combineReducers({
   angles: angleReducer,
   base: baseReducer,
   coords: coordsReducer,
+  customBlueprints: customBlueprintReducer,
   gaits: gaitReducer,
   legs: legReducer,
   metaData: metaDataReducer,
