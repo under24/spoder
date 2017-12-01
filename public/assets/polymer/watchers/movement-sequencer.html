@@ -1,0 +1,22 @@
+<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="movement-sequencer">
+  <script>
+    class movementSequencer extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'movement-sequencer'; }
+      static get properties() {
+        return {
+          pointers: {
+            statePath: 'movement.pointers'
+          }
+        }
+      }
+      
+      method() {
+        
+      }
+
+    }
+    window.customElements.define(movementSequencer.is, movementSequencer);
+  </script>
+</dom-module>
