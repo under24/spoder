@@ -6,9 +6,9 @@
       static get is() { return 'movement-sequencer'; }
       static get properties() {
         return {
-          iterationBlueprint: {
-            statePath: 'movement.iteration.blueprint',
-            observer: 'observeIterationBlueprint'
+          transitionShift: {
+            statePath: 'movement.iteration.transitionShift',
+            observer: 'observeTransitionShift'
           },
           iterationGait: {
             statePath: 'movement.iteration.gait'
@@ -19,8 +19,8 @@
         }
       }
       
-      // make a new blueprint every time iteration movement data changes
-      observeIterationBlueprint(newValue, oldValue) {
+      // make a new transition shift obj every time iteration movement data changes
+      observeTransitionShift(newValue, oldValue) {
         this.blueprint = this.generateBlueprint();
       }
       
@@ -28,7 +28,7 @@
         let blueprint = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          blueprint[legId] = this.fillInBlueprintData(this.gaits[this.iterationGait].legTimings[legId], this.iterationBlueprint[legId]);
+          blueprint[legId] = this.fillInBlueprintData(this.gaits[this.iterationGait].legTimings[legId], this.transitionShift[legId]);
         }
         
         return blueprint;

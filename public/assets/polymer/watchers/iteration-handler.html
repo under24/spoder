@@ -39,11 +39,11 @@
         };
       }
       
-      generateBlueprint() {
-        let blueprint = {};
+      generateTransitionShift() {
+        let transitionShift = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          blueprint[legId] = this.gatherIterationMovementData(legId);
+          transitionShift[legId] = this.gatherIterationMovementData(legId);
         }
         
         let transitionShiftSource = {
@@ -52,7 +52,7 @@
           turnX: this.turnJoystick.x
         }
         
-        this.dispatchBlueprint({ blueprint, transitionShiftSource });
+        this.dispatchTransitionShift({ transitionShift, transitionShiftSource });
       }
       
       gatherIterationMovementData(legId) {
@@ -64,7 +64,7 @@
         };
       }
       
-      dispatchBlueprint(payload) {
+      dispatchTransitionShift(payload) {
         // when the iteration is complete or has not been started
         if (this.iterationTick === 0) {
           // try to pick up new properties (if there are) from movement.settings
@@ -130,7 +130,7 @@
       
       // this function also picks up new settings when the current iteration is complete
       observeIterationTick(newValue) {
-        if (newValue === 0) this.generateBlueprint();
+        if (newValue === 0) this.generateTransitionShift();
       }
       
       observePointers(newValue, oldValue) {
@@ -141,12 +141,12 @@
         if (this.turnJoystick.x !== this.iteration.transitionShiftSource.turnX ||
             this.directionJoystick.x !== this.iteration.transitionShiftSource.directionX ||
             this.directionJoystick.y !== this.iteration.transitionShiftSource.directionY
-        ) this.generateBlueprint();
+        ) this.generateTransitionShift();
       }
       
       // watch state.movement.settings and update iteration obj if the iteration has not been started
       observeSettings(newValue, oldValue) {
-        // skip init. the blueprint is going to be generated anyway
+        // skip init. the transition shift obj is going to be generated anyway
         if (oldValue === undefined) return;
         
         // do not update iteration data if movement is in process. wait for tick === 0
