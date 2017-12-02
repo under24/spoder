@@ -57,8 +57,6 @@
           this.validateAndGatherPayload(currentPointer, this.pointers, legId, payload);
         }
         
-        // prevent false dispatching
-        if (Object.keys(payload).length === 0) return;
         this.dispatchMovementPointers(payload);
       }
       
@@ -98,6 +96,9 @@
       }
       
       dispatchMovementPointers(payload) {
+        // prevent dispatching an empty payload object
+        if (Object.keys(payload).length === 0) return;
+        
         store.dispatch({
           type: "MOVEMENT_POINTERS_CHANGED_BATCHED",
           payload
