@@ -46,13 +46,13 @@
           blueprint[legId] = this.gatherIterationMovementData(legId);
         }
         
-        let blueprintSourceData = {
+        let transitionShiftSource = {
           directionX: this.directionJoystick.x,
           directionY: this.directionJoystick.y,
           turnX: this.turnJoystick.x
         }
         
-        this.dispatchBlueprint({ blueprint, blueprintSourceData });
+        this.dispatchBlueprint({ blueprint, transitionShiftSource });
       }
       
       gatherIterationMovementData(legId) {
@@ -138,9 +138,9 @@
         if (oldValue === undefined) return;
         
         // if not same values
-        if (this.turnJoystick.x !== this.iteration.blueprintSourceData.turnX ||
-            this.directionJoystick.x !== this.iteration.blueprintSourceData.directionX ||
-            this.directionJoystick.y !== this.iteration.blueprintSourceData.directionY
+        if (this.turnJoystick.x !== this.iteration.transitionShiftSource.turnX ||
+            this.directionJoystick.x !== this.iteration.transitionShiftSource.directionX ||
+            this.directionJoystick.y !== this.iteration.transitionShiftSource.directionY
         ) this.generateBlueprint();
       }
       
