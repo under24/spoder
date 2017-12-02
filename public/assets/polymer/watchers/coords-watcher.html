@@ -372,17 +372,20 @@
         }
 
         // dispatch
-        if (Object.keys(anglesPayload).length !== 0) {
-          this.sendServoAngleToSpoder(anglesPayload);
-          this.dispatchAngles(anglesPayload);
-        } 
+        this.validateAndDispatchAngle(anglesPayload);
         this.validateAndDispatchBaseDirection(baseDirection);
         this.validateAndDispatchBaseCenterCoords(baseCenterCoords);
         this.validateAndDispatchMisc(miscPayload);
         this.validateAndDispatchMovementCircles(movementCirclesPayload);
       }
       
-      dispatchAngles(payload) {
+      validateAndDispatchAngle(payload) {
+        // empty payload object
+        if (Object.keys(payload).length === 0) return;
+
+        // send the angles to the back end
+        this.sendServoAngleToSpoder(payload);
+        
         // dispatch is safe because the values were filtered out in this.prepareFemurAndTibiaPayload
         store.dispatch({ type: "ANGLES_CHANGED_BATCHED", payload });
       }
