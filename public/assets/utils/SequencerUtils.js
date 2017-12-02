@@ -2,8 +2,8 @@
 
 // SU == SequencerUtils
 let SU = {
-  generateSequenceTimeline(blueprint, tps = 10, timelineDuration = 1000) {
     let amountOfTicks = this.getAmountOfTicks(tps, timelineDuration),
+  generateSequenceTimeline(blueprint, tps, timelineDuration) {
         timeline = this.createTimeline(amountOfTicks);
     
     for (let legId in blueprint) {
