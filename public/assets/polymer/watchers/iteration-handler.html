@@ -134,7 +134,7 @@
       }
       
       observePointers(newValue, oldValue) {
-        // if init'ion then quit and wait for the next update
+        // if initialization then quit and wait for the next call
         if (oldValue === undefined) return;
         
         // if not same values
@@ -144,7 +144,7 @@
         ) this.generateTransitionShift();
       }
       
-      // watch state.movement.settings and update iteration obj if the iteration has not been started
+      // watch state.movement.settings and update state.movement.iteration with the new value from seetings if the iteration has not been started
       observeSettings(newValue, oldValue) {
         // skip init. the transition shift obj is going to be generated anyway
         if (oldValue === undefined) return;
