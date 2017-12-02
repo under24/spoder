@@ -106,13 +106,11 @@
         let amountOfTicks = this.iteration.amountOfTicks,
             // legs which are used in the current stroke of the iteration
             legsUsedInCurrentStroke = this.getLegsUsedInCurrentStroke(tick),
-            // full iteration movement data
-            iterationMovementData = this.iteration.transitionShift,
             // payload values (current tick/step values for dispatching)
             payload = {};
             
         for (let legId = 1; legId <= 6; legId++) {
-          payload[legId] = this.calcStepValues(legId, legsUsedInCurrentStroke, amountOfTicks, iterationMovementData);
+          payload[legId] = this.calcStepValues(legId, legsUsedInCurrentStroke, amountOfTicks, this.iteration.transitionShift);
         }
         
         // dispatch values
