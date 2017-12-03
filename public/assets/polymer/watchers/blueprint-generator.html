@@ -7,8 +7,7 @@
       static get properties() {
         return {
           transitionShift: {
-            statePath: 'movement.iteration.transitionShift',
-            observer: 'observeTransitionShift'
+            statePath: 'movement.iteration.transitionShift'
           },
           iterationGait: {
             statePath: 'movement.iteration.gait'
@@ -19,8 +18,12 @@
         }
       }
       
-      // generate a new blueprint every time iteration movement data changes
-      observeTransitionShift(newValue, oldValue) {
+      // generate a new blueprint whenever this.transitionShift || this.iterationGait changes
+      static get observers() {
+        return [ 'dispatchBlueprint(transitionShift, iterationGait)' ];
+      }
+      
+      dispatchBlueprint(transitionShift, iterationGait) {
         let blueprint = this.generateBlueprint();
         
         store.dispatch({ type: "MOVEMENT_SEQUENCE_BLUEPRINT_CHANGED", payload: blueprint });
