@@ -442,27 +442,27 @@
         let servoAngles = {};
         
         // loop through the payload obj and filter out servo angles
-        for (let key in angles) {
+        for (let legId in angles) {
           // check if coxa servo angle is present
-          if ('coxaServoAngle' in angles[key]) {
+          if ('coxaServoAngle' in angles[legId]) {
             // check if the obj is created
-            servoAngles[key] = servoAngles[key] || {};
+            servoAngles[legId] = servoAngles[legId] || {};
             // assign a value
-            servoAngles[key].coxaServoAngle = angles[key].coxaServoAngle;
+            servoAngles[legId].coxaServoAngle = angles[legId].coxaServoAngle;
           }
           // check if femur servo angle is present
-          if ('femurServoAngle' in angles[key]) {
+          if ('femurServoAngle' in angles[legId]) {
             // check if the obj is created
-            servoAngles[key] = servoAngles[key] || {};
+            servoAngles[legId] = servoAngles[legId] || {};
             // assign a value
-            servoAngles[key].femurServoAngle = angles[key].femurServoAngle;
+            servoAngles[legId].femurServoAngle = angles[legId].femurServoAngle;
           }
           // check if tibia servo angle is present
-          if ('tibiaServoAngle' in angles[key]) {
+          if ('tibiaServoAngle' in angles[legId]) {
             // check if the obj is created
-            servoAngles[key] = servoAngles[key] || {};
+            servoAngles[legId] = servoAngles[legId] || {};
             // assign a value
-            servoAngles[key].tibiaServoAngle = angles[key].tibiaServoAngle;
+            servoAngles[legId].tibiaServoAngle = angles[legId].tibiaServoAngle;
           }
         }
         
@@ -470,8 +470,9 @@
         if (Object.keys(servoAngles).length !== 0)
           socket.emit('servo-angles-changed', servoAngles);
         
-        // if (angles[1].femurServoAngle)
-          // socket.emit('femur-servo-angle-changed', { value: angles[1].femurServoAngle });
+        // TODO temp. for debugging purposes
+        if (angles[1] && angles[1].femurServoAngle)
+          socket.emit('femur-servo-angle-changed', { value: angles[1].femurServoAngle });
       }
       
       // END PROPERTY OBSERVERS
