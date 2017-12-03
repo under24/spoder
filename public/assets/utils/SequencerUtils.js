@@ -71,7 +71,7 @@ let SU = {
         return this.cache[amountOfTicks][targetPct];
     }
     
-    // set initial value
+    // set initial value of the closest tick
     let closestTick = 0,
         // target
         targetDiff = targetPct;
@@ -82,7 +82,7 @@ let SU = {
       let currDiff = Math.abs(targetPct - timeline[currTick].pct);
       // if current diff is better than what we already have then replace it and save the referrence to the tick #
       if (currDiff < targetDiff) {
-        // save update best diff
+        // save best diff
         targetDiff = currDiff;
         // save the referrence to the tick # with the best diff
         closestTick = +currTick;
