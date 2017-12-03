@@ -1,0 +1,85 @@
+<!-- <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html"> -->
+
+<dom-module id="blueprint-generator">
+  <script>
+    class blueprintGenerator extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'blueprint-generator'; }
+      static get properties() {
+        return {
+          transitionShift: {
+            statePath: 'movement.iteration.transitionShift',
+            observer: 'observeTransitionShift'
+          },
+          iterationGait: {
+            statePath: 'movement.iteration.gait'
+          },
+          gaits: {
+            statePath: 'gaits'
+          }
+        }
+      }
+      
+      // generate a new blueprint every time iteration movement data changes
+      observeTransitionShift(newValue, oldValue) {
+        let blueprint = this.generateBlueprint();
+        
+        store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload: { blueprint } });
+      }
+      
+      generateBlueprint() {
+        let blueprint = {};
+        
+        for (let legId = 1; legId <= 6; legId++) {
+          blueprint[legId] = this.fillInBlueprintData(this.gaits[this.iterationGait].legTimings[legId], this.transitionShift[legId]);
+        }
+        
+        return blueprint;
+      }
+      
+      fillInBlueprintData(legTimings, movementData) {
+        // TODO REFACTOR
+        
+        return [
+          {
+            coordType: "transverseBaseX",
+            startPct: 0,
+            endPct: 100,
+            pxlsToMove: movementData.transverseBaseX
+          },
+          {
+            coordType: "transverseBaseY",
+            startPct: 0,
+            endPct: 100,
+            pxlsToMove: movementData.transverseBaseY
+          },
+          {
+            coordType: "transverseCursorX",
+            startPct: legTimings.startPct,
+            endPct: legTimings.endPct,
+            pxlsToMove: movementData.transverseCursorX
+          },
+          {
+            coordType: "transverseCursorY",
+            startPct: legTimings.startPct,
+            endPct: legTimings.endPct,
+            pxlsToMove: movementData.transverseCursorY
+          },
+          {
+            coordType: "sagittalCursorY",
+            startPct: legTimings.startPct,
+            endPct: legTimings.startPct + ((legTimings.endPct - legTimings.startPct) / 2),
+            pxlsToMove: 20
+          },
+          {
+            coordType: "sagittalCursorY",
+            startPct: legTimings.endPct - ((legTimings.endPct - legTimings.startPct) / 2),
+            endPct: legTimings.endPct,
+            pxlsToMove: -20
+          }
+        ];
+      }
+
+    }
+    window.customElements.define(blueprintGenerator.is, blueprintGenerator);
+  </script>
+</dom-module>
