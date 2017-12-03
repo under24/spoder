@@ -30,12 +30,12 @@
         }
       }
       
-      // calc pointers whenever directionJoystick || this.circles || this.turnJoystick || applyDirectionAndTurnAngles changes
+      // calc pointers whenever this.circles || directionJoystick || this.turnJoystick || applyDirectionAndTurnAngles changes
       static get observers() {
-        return [ 'calcMovementPointers(directionJoystick, circles, turnJoystick, applyDirectionAndTurnAngles)' ];
+        return [ 'calcMovementPointers(circles, directionJoystick, turnJoystick, applyDirectionAndTurnAngles)' ];
       }
       
-      calcMovementPointers() {
+      calcMovementPointers(circles, directionJoystick, turnJoystick, applyDirectionAndTurnAngles) {
         let payload = {};
         
         for (let legId = 1; legId <= 6; legId++) {
@@ -43,15 +43,15 @@
           
           switch (GU.getSideFromLegId(legId)) {
             case 'left':
-              currentPointer.x = this.circles[legId].x - this.circles[legId].radius * (this.directionJoystick.x / 100); break;
+              currentPointer.x = circles[legId].x - circles[legId].radius * (directionJoystick.x / 100); break;
             case 'right':
-              currentPointer.x = this.circles[legId].x + this.circles[legId].radius * (this.directionJoystick.x / 100); break;
+              currentPointer.x = circles[legId].x + circles[legId].radius * (directionJoystick.x / 100); break;
           }
-          currentPointer.y = this.circles[legId].y - this.circles[legId].radius * (this.directionJoystick.y / 100);
+          currentPointer.y = circles[legId].y - circles[legId].radius * (directionJoystick.y / 100);
           
-          if (this.applyDirectionAndTurnAngles)
+          if (applyDirectionAndTurnAngles)
             // apply baseDirection + turnJoystick
-            currentPointer = this.applyDirectionAndTurn(currentPointer, this.circles[legId], this.baseDirection, this.turnJoystick.x, legId);
+            currentPointer = this.applyDirectionAndTurn(currentPointer, circles[legId], this.baseDirection, turnJoystick.x, legId);
           
           // check for the same values before dispatching
           this.validateAndGatherPayload(currentPointer, this.pointers, legId, payload);
