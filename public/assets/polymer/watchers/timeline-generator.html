@@ -1,0 +1,38 @@
+<!-- <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html"> -->
+
+<dom-module id="timeline-generator">
+  <script>
+    class timelineGenerator extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'timeline-generator'; }
+      static get properties() {
+        return {
+          blueprint: {
+            statePath: 'movement.sequence.blueprint'
+          },
+          tps: {
+            statePath: 'movement.iteration.tps'
+          },
+          duration: {
+            statePath: 'movement.iteration.duration'
+          },
+          amountOfTicks: {
+            statePath: 'movement.iteration.amountOfTicks'
+          }
+        }
+      }
+      
+      // generate a new timeline whenever this.blueprint || this.tps || this.duration changes
+      static get observers() {
+        return [ 'dispatchTimeline(blueprint, tps, duration)' ];
+      }
+      
+      dispatchTimeline(blueprint, tps, duration, amountOfTicks = this.amountOfTicks) {
+        var timeline = SU.generateSequenceTimeline(blueprint, tps, duration, amountOfTicks).timeline;
+        
+        store.dispatch({ type: "MOVEMENT_SEQUENCE_TIMELINE_CHANGED", payload: timeline });
+      }
+
+    }
+    window.customElements.define(timelineGenerator.is, timelineGenerator);
+  </script>
+</dom-module>
