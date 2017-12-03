@@ -23,7 +23,7 @@
         return [ 'dispatchBlueprint(transitionShift, iterationGait)' ];
       }
       
-      dispatchBlueprint(transitionShift, iterationGait) {
+      dispatchBlueprint() {
         let blueprint = this.generateBlueprint();
         
         store.dispatch({ type: "MOVEMENT_SEQUENCE_BLUEPRINT_CHANGED", payload: blueprint });
