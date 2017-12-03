@@ -99,10 +99,7 @@
         // prevent dispatching an empty payload object
         if (Object.keys(payload).length === 0) return;
         
-        store.dispatch({
-          type: "MOVEMENT_POINTERS_CHANGED_BATCHED",
-          payload
-        });      
+        store.dispatch({ type: "MOVEMENT_POINTERS_CHANGED_BATCHED", payload });      
       }
 
     }
