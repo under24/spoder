@@ -2,10 +2,9 @@
 
 // SU == SequencerUtils
 let SU = {
-  generateSequenceTimeline(blueprint, tps, timelineDuration) {
+  generateSequenceTimeline(blueprint, tps, duration, amountOfTicks) {
     // create a timeline object
-    let amountOfTicks = this.calcAmountOfTicks(tps, timelineDuration),
-        timeline = this.createTimeline(amountOfTicks);
+    let timeline = this.createTimeline(amountOfTicks);
     
     // populate timeline with blueprint data
     for (let legId in blueprint) {
@@ -18,16 +17,10 @@ let SU = {
       timeline,
       metaData: {
         tps,
-        timelineDuration,
+        duration,
         amountOfTicks
       }
     }
-  },
-  // calc amount of ticks from timeline dureation and amount of ticks per second
-  calcAmountOfTicks(tps, timelineDuration) {
-    let amountOfTicks = timelineDuration / (1000 / tps);
-    
-    return MU.roundNumber(amountOfTicks, 0);
   },
   createTimeline(amountOfTicks) {
     // create a timeline object
