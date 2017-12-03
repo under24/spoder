@@ -1,9 +1,9 @@
 <link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
 
-<dom-module id="movement-watcher">
+<dom-module id="pointer-generator">
   <script>
-    class movementWatcher extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'movement-watcher'; }
+    class pointerGenerator extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'pointer-generator'; }
       static get properties() {
         return {
           // validate with the current pointers before dispatching
@@ -103,6 +103,6 @@
       }
 
     }
-    window.customElements.define(movementWatcher.is, movementWatcher);
+    window.customElements.define(pointerGenerator.is, pointerGenerator);
   </script>
 </dom-module>
