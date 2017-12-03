@@ -15,11 +15,17 @@ const modifierReducer = combineReducers({
   tilt: tiltReducer
 });
 
+const sequenceReducer = combineReducers({
+  blueprint: blueprintReducer,
+  // timeline: timelineReducer
+});
+
 const movementReducer = combineReducers({
   circles: movementCircleReducer,
   directionJoystick: movementDirectionJoystickReducer,
   iteration: movementInterationReducer,
   pointers: movementPointerReducer,
+  sequence: sequenceReducer,
   settings: movementSettingsReducer,
   turnJoystick: movementTurnJoystickReducer
 });

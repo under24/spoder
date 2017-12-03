@@ -23,7 +23,7 @@
       observeTransitionShift(newValue, oldValue) {
         let blueprint = this.generateBlueprint();
         
-        store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload: { blueprint } });
+        store.dispatch({ type: "MOVEMENT_SEQUENCE_BLUEPRINT_CHANGED", payload: blueprint });
       }
       
       generateBlueprint() {
