@@ -36,7 +36,7 @@ let SU = {
     for (let currTick = 1; currTick <= amountOfTicks; currTick++) {
       timeline[currTick] = {
         pct: this.calcTickPct(currTick, amountOfTicks),
-        payload: {}
+        payload: null
       }
     }
     
@@ -51,10 +51,13 @@ let SU = {
         ticksBetweenStartAndEnd = this.calcAmountOfTicksBetween(startTick, endTick),
         tickValue = this.calcTickValueBasedOnPxlsToMove(ticksBetweenStartAndEnd, dataItem.pxlsToMove);
 
-    for (let i = startTick; i <= endTick; i++) {
-      timeline[i].payload[legId] = timeline[i].payload[legId] || {};
+    for (let currTick = startTick; currTick <= endTick; currTick++) {
+      // payload is null
+      if (!timeline[currTick].payload) timeline[currTick].payload = {};
+      // no legId in payload
+      if (!timeline[currTick].payload[legId]) timeline[currTick].payload[legId] = {};
       
-      timeline[i].payload[legId][dataItem.coordType] = tickValue;
+      timeline[currTick].payload[legId][dataItem.coordType] = tickValue;
     }
   },
   getClosestTick(targetPct, timeline, amountOfTicks) {
