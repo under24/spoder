@@ -59,11 +59,6 @@ let SU = {
   },
   getClosestTick(targetPct, timeline, amountOfTicks) {
     // memoization. try to retrieve
-    // this.cache = {
-    //   [amountOfTicks]: {
-    //     [targetPct]: closestTick
-    //   }
-    // }
     // check if there is a timeline with the same amount of ticks in cache
     if (amountOfTicks in this.cache) {
       // check if the same targetPct has been calculated
@@ -112,5 +107,11 @@ let SU = {
     return MU.roundNumber(100 / amountOfTicks * tick, 1);
   },
   // memoization for this.getClosestTick
+  // structure of cache:
+  // cache = {
+  //   [amountOfTicks]: {
+  //     [targetPct]: closestTick
+  //   }
+  // }
   cache: {}
 }
