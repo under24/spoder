@@ -86,14 +86,14 @@
           
         // state.movement.iteration.strokeTickMap
         // map stroke start / end pcts to the current iteration tick indices (startPct: 0 -> startTick: 1)
-        payload.strokeTickMap = this.gaits[this.settings.gait].sequenceTimings.map((stroke) => {
-          let result = {
-            startTick: this.calcClosestTick(stroke.startPct, amountOfTicks) + 1, // because it starts from the next tick
-            endTick: this.calcClosestTick(stroke.endPct, amountOfTicks)
-          }
-          
-          return result;
-        });
+        // payload.strokeTickMap = this.gaits[this.settings.gait].sequenceTimings.map((stroke) => {
+        //   let result = {
+        //     startTick: this.calcClosestTick(stroke.startPct, amountOfTicks) + 1, // because it starts from the next tick
+        //     endTick: this.calcClosestTick(stroke.endPct, amountOfTicks)
+        //   }
+        // 
+        //   return result;
+        // });
         
         // state.movement.iteration.tps
         if (this.iteration.tps === null || this.iteration.tps !== this.settings.tps)
