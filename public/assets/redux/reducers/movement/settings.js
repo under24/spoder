@@ -6,7 +6,8 @@ let movementSettingsReducerInitState = {
   generatorEnabled: false,
   gait: 'ripple',
   tps: 60,
-  duration: 750
+  duration: 750,
+  sequencerMode: 'movement' // possible values: 'movement', 'custom'
 };
 
 const movementSettingsReducer = (state = movementSettingsReducerInitState, action) => {
