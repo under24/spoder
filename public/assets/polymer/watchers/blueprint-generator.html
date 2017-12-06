@@ -24,13 +24,13 @@
       }
       
       dispatchBlueprint() {
-        let blueprint = this.generateBlueprint();
+        var blueprint = this.generateBlueprint();
         
         store.dispatch({ type: "MOVEMENT_SEQUENCE_BLUEPRINT_CHANGED", payload: blueprint });
       }
       
       generateBlueprint() {
-        let blueprint = {};
+        var blueprint = {};
         
         for (let legId = 1; legId <= 6; legId++) {
           blueprint[legId] = this.fillInBlueprintData(this.gaits[this.iterationGait].legTimings[legId], this.transitionShift[legId]);
