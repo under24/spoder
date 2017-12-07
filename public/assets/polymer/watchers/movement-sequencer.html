@@ -6,14 +6,92 @@
       static get is() { return 'movement-sequencer'; }
       static get properties() {
         return {
-          tps: {
-            state: 'movement.iteration.tps'
+          enabled: {
+            statePath: 'movement.settings.generatorEnabled',
+            observer: 'observeEnabled'
+          },
+          iteration: {
+            statePath: 'movement.iteration'
+          },
+          timeline: {
+            statePath: 'movement.sequence.timeline'
+          },
+          loop: {
+            statePath: 'movement.settings.loop'
           }
         }
       }
       
-      temp(newValue, oldValue) {
-
+      runGenerator(tick = 1) {
+        // prevent multiple invocation
+        if (this.generatorInterval) {
+          console.warn('Movement generator is already in progress');
+          return;
+        }
+        
+        // validation
+        if (tick > this.iteration.amountOfTicks) {
+          console.warn('Specified tick is bigger that the amount in the iteration');
+          return;
+        }
+        
+        // iteration starts after (1000 / this.iteration.tps) amount of time with tick 1
+        this.generatorInterval = setInterval(() => {
+          
+          // dispatch tick data
+          store.dispatch({
+            type: "SEQUENCE_SHIFTED_XY_BATCHED",
+            payload: this.timeline[tick].payload,
+            currentTick: tick,
+            currentTickPct: this.timeline[tick].pct
+          });
+          
+          // check if that was the last tick
+          if (tick === this.iteration.amountOfTicks) {
+            // finish current iteration
+            this.pauseOrStopGenerator();
+            
+            // reset progress when the iteration is complete
+            store.dispatch({
+              type: "MOVEMENT_ITERATION_VALUES_CHANGED",
+              payload: { currentTick: 0, currentTickPct: 0 }
+            });
+            
+            // start iterating over again
+            if (this.loop)
+              this.runGenerator();
+            // set generatorEnabled to false (disable movement generator)
+            else
+              store.dispatch({
+                type: "MOVEMENT_SETTINGS_CHANGED",
+                payload: { generatorEnabled: false }
+              });
+          }
+          
+          // update tick value for the next tick interval
+          tick++;
+          
+        }, 1000 / this.iteration.tps);
+        
+      }
+      
+      // clear generator interval
+      pauseOrStopGenerator() {
+        clearInterval(this.generatorInterval);
+        this.generatorInterval = undefined;
+      }
+      
+      runOrResumeGenerator() {
+        this.runGenerator(this.iteration.currentTick + 1);
+      }
+      
+      observeEnabled(newValue, oldValue) {
+        // movement enabled
+        if (newValue === true)
+          this.runOrResumeGenerator();
+        // movement disabled
+        else
+          this.pauseOrStopGenerator();
       }
 
     }
