@@ -22,10 +22,10 @@
         }
       }
       
-      runGenerator(tick = 1) {
+      runSequencer(tick = 1) {
         // prevent multiple invocation
-        if (this.generatorInterval) {
-          console.warn('Movement generator is already in progress');
+        if (this.sequencerInterval) {
+          console.warn('Movement sequencer is already in progress');
           return;
         }
         
@@ -36,7 +36,7 @@
         }
         
         // iteration starts after (1000 / this.iteration.tps) amount of time with tick 1
-        this.generatorInterval = setInterval(() => {
+        this.sequencerInterval = setInterval(() => {
           
           // dispatch tick data
           store.dispatch({
@@ -49,7 +49,7 @@
           // check if that was the last tick
           if (tick === this.iteration.amountOfTicks) {
             // finish current iteration
-            this.pauseOrStopGenerator();
+            this.pauseOrStopSequencer();
             
             // reset progress when the iteration is complete
             store.dispatch({
@@ -59,8 +59,8 @@
             
             // start iterating over again
             if (this.loop)
-              this.runGenerator();
-            // set generatorEnabled to false (disable movement generator)
+              this.runSequencer();
+            // set generatorEnabled to false (disable movement sequencer)
             else
               store.dispatch({
                 type: "MOVEMENT_SETTINGS_CHANGED",
@@ -75,23 +75,23 @@
         
       }
       
-      // clear generator interval
-      pauseOrStopGenerator() {
-        clearInterval(this.generatorInterval);
-        this.generatorInterval = undefined;
+      // clear sequencer interval
+      pauseOrStopSequencer() {
+        clearInterval(this.sequencerInterval);
+        this.sequencerInterval = undefined;
       }
       
-      runOrResumeGenerator() {
-        this.runGenerator(this.iteration.currentTick + 1);
+      runOrResumeSequencer() {
+        this.runSequencer(this.iteration.currentTick + 1);
       }
       
       observeEnabled(newValue, oldValue) {
         // movement enabled
         if (newValue === true)
-          this.runOrResumeGenerator();
+          this.runOrResumeSequencer();
         // movement disabled
         else
-          this.pauseOrStopGenerator();
+          this.pauseOrStopSequencer();
       }
 
     }
