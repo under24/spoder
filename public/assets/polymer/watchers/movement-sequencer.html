@@ -24,26 +24,17 @@
         }
       }
       
-      runSequencer(tick = 1) {
-        // prevent multiple invocation
-        if (this.sequencerInterval) {
-          console.warn('Movement sequencer is already in progress');
-          return;
-        }
-        
-        // validation
-        if (tick > this.iteration.amountOfTicks) {
-          console.warn('Specified tick is greater that the amount of ticks in the iteration');
-          return;
-        }
+      runSequencer(currentTick = 1) {
+        // validation: no second invocation, no invalid tick
+        if (!this.validConditions(currentTick)) return;
         
         // iteration starts after (1000 / this.iteration.tps) amount of time with tick 1
         this.sequencerInterval = setInterval(() => {
-
-          this.dispatchTickPayload(tick);          
+          // dispatch timeline[currentTick] data
+          this.dispatchTickPayload(currentTick);          
           
-          // check if that was the last tick
-          if (tick === this.iteration.amountOfTicks) {
+          // check if that was the last tick of the iteration
+          if (currentTick === this.iteration.amountOfTicks) {
             // finish current iteration
             this.pauseSequencer();
             // reset progress when the iteration is complete
@@ -58,28 +49,41 @@
           }
           
           // update tick value for the next tick interval
-          tick++;
-          
+          currentTick++;
         }, 1000 / this.iteration.tps);
-        
       }
       
-      dispatchTickPayload(tick) {
+      validConditions(currentTick) {
+        if (this.sequencerInterval) {
+          console.warn('Movement sequencer is already in progress');
+          return false;
+        }
+        
+        if (currentTick > this.iteration.amountOfTicks) {
+          console.warn('Current tick is greater that the amount of ticks in the iteration');
+          return false;
+        }
+        
+        // valid conditions
+        return true;
+      }
+      
+      dispatchTickPayload(currentTick) {
         // payload is not empty
-        if (this.timeline[tick].payload)
+        if (this.timeline[currentTick].payload)
           store.dispatch({
             type: "SEQUENCE_SHIFTED_XY_BATCHED",
-            payload: this.timeline[tick].payload,
-            currentTick: tick,
-            currentTickPct: this.timeline[tick].pct
+            payload: this.timeline[currentTick].payload,
+            currentTick,
+            currentTickPct: this.timeline[currentTick].pct
           });
         // payload is empty, dispatch only currentTick and currentTickPct
         else
           store.dispatch({
             type: "MOVEMENT_ITERATION_VALUES_CHANGED",
             payload: {
-              currentTick: tick,
-              currentTickPct: this.timeline[tick].pct 
+              currentTick,
+              currentTickPct: this.timeline[currentTick].pct 
             }
           });
       }
