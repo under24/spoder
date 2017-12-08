@@ -39,35 +39,22 @@
         
         // iteration starts after (1000 / this.iteration.tps) amount of time with tick 1
         this.sequencerInterval = setInterval(() => {
-          
-          // dispatch tick data
-          store.dispatch({
-            type: "SEQUENCE_SHIFTED_XY_BATCHED",
-            payload: this.timeline[tick].payload,
-            currentTick: tick,
-            currentTickPct: this.timeline[tick].pct
-          });
+
+          this.dispatchTickPayload(tick);          
           
           // check if that was the last tick
           if (tick === this.iteration.amountOfTicks) {
             // finish current iteration
-            this.pauseOrStopSequencer();
-            
+            this.pauseSequencer();
             // reset progress when the iteration is complete
-            store.dispatch({
-              type: "MOVEMENT_ITERATION_VALUES_CHANGED",
-              payload: { currentTick: 0, currentTickPct: 0 }
-            });
+            this.resetTickData();
             
             // start iterating over again
             if (this.loop)
               this.runSequencer();
             // set generatorEnabled to false (disable movement sequencer)
             else
-              store.dispatch({
-                type: "MOVEMENT_SETTINGS_CHANGED",
-                payload: { generatorEnabled: false }
-              });
+              this.disableSequencer();
           }
           
           // update tick value for the next tick interval
@@ -77,23 +64,53 @@
         
       }
       
+      dispatchTickPayload(tick) {
+        // payload is not empty
+        if (this.timeline[tick].payload)
+          store.dispatch({
+            type: "SEQUENCE_SHIFTED_XY_BATCHED",
+            payload: this.timeline[tick].payload,
+            currentTick: tick,
+            currentTickPct: this.timeline[tick].pct
+          });
+        // payload is empty, dispatch only currentTick and currentTickPct
+        else
+          store.dispatch({
+            type: "MOVEMENT_ITERATION_VALUES_CHANGED",
+            payload: {
+              currentTick: tick,
+              currentTickPct: this.timeline[tick].pct 
+            }
+          });
+      }
+      
+      resetTickData() {
+        store.dispatch({
+          type: "MOVEMENT_ITERATION_VALUES_CHANGED",
+          payload: { currentTick: 0, currentTickPct: 0 }
+        });
+      }
+      
+      disableSequencer() {
+        store.dispatch({
+          type: "MOVEMENT_SETTINGS_CHANGED",
+          payload: { generatorEnabled: false }
+        });
+      }
+      
       // clear sequencer interval
-      pauseOrStopSequencer() {
+      pauseSequencer() {
         clearInterval(this.sequencerInterval);
         this.sequencerInterval = undefined;
       }
       
-      runOrResumeSequencer() {
-        this.runSequencer(this.iteration.currentTick + 1);
-      }
-      
       observeEnabled(newValue, oldValue) {
-        // movement enabled
+        // start sequencer
         if (newValue === true)
-          this.runOrResumeSequencer();
-        // movement disabled
+          this.runSequencer(this.iteration.currentTick + 1);
+        // pause sequencer
         else
-          this.pauseOrStopSequencer();
+          this.pauseSequencer();
       }
 
     }
