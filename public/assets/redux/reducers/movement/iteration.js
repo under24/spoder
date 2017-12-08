@@ -8,6 +8,7 @@ let movementInterationReducerInitState = {
   transitionShift: null,
   transitionShiftSource: null,
   strokeTickMap: null,
+  blueprint: null,
   currentTick: 0,
   currentTickPct: 0
 }
