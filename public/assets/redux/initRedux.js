@@ -16,8 +16,7 @@ const modifierReducer = combineReducers({
 });
 
 const sequenceReducer = combineReducers({
-  blueprint: blueprintReducer,
-  timeline: timelineReducer
+  blueprint: blueprintReducer
 });
 
 const movementReducer = combineReducers({

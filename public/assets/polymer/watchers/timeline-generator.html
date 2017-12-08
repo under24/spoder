@@ -17,19 +17,21 @@
           },
           amountOfTicks: {
             statePath: 'movement.iteration.amountOfTicks'
+          },
+          // output to the upper component
+          timeline: {
+            notify: true
           }
         }
       }
       
-      // generate a new timeline whenever this.blueprint || this.tps || this.duration changes
+      // generate a new timeline whenever this.blueprint || this.amountOfTicks
       static get observers() {
-        return [ 'dispatchTimeline(blueprint, tps, duration)' ];
+        return [ 'generateTimeline(blueprint, amountOfTicks)' ];
       }
       
-      dispatchTimeline(blueprint, tps, duration, amountOfTicks = this.amountOfTicks) {
-        var timeline = SU.generateSequenceTimeline(blueprint, tps, duration, amountOfTicks).timeline;
-        
-        store.dispatch({ type: "MOVEMENT_SEQUENCE_TIMELINE_CHANGED", payload: timeline });
+      generateTimeline(blueprint, amountOfTicks) {
+        this.timeline = SU.generateSequenceTimeline(blueprint, this.tps, this.duration, amountOfTicks).timeline;
       }
 
     }
