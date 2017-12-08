@@ -102,8 +102,8 @@ let SU = {
     return (endTick - startTick) + 1;
   },
   // calc step value for every tick based of the amount of ticks and the movement distance
-  calcTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
-    return pixelsToMove / amountOfTicks;
+  calcTickValueBasedOnPxlsToMove(amountOfTicks, pxlsToMove) {
+    return pxlsToMove / amountOfTicks;
   },
   // get tick from amount of ticks and the current tick #
   calcTickPct(tick, amountOfTicks) {

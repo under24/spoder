@@ -186,11 +186,11 @@
         }
       }
       
-      calcTickValue(amountOfTicks, pixelsToMove, strokePcts) {
+      calcTickValue(amountOfTicks, pxlsToMove, strokePcts) {
         let startTick = this.getClosestTick(strokePcts.startPct, amountOfTicks) + 1, // because it starts from the next tick
             endTick = this.getClosestTick(strokePcts.endPct, amountOfTicks),
             ticksBetweenStartAndEnd = this.getAmountOfTicksBetween(startTick, endTick),
-            tickValue = this.calcTickValueBasedOnPxlsToMove(ticksBetweenStartAndEnd, pixelsToMove);
+            tickValue = this.calcTickValueBasedOnPxlsToMove(ticksBetweenStartAndEnd, pxlsToMove);
             
         return tickValue;
       }
@@ -215,8 +215,8 @@
         return (endTick - startTick) + 1;
       }
       
-      calcTickValueBasedOnPxlsToMove(amountOfTicks, pixelsToMove) {
-        return pixelsToMove / amountOfTicks;
+      calcTickValueBasedOnPxlsToMove(amountOfTicks, pxlsToMove) {
+        return pxlsToMove / amountOfTicks;
       }
       
       observeEnabled(newValue, oldValue) {
