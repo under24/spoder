@@ -63,6 +63,7 @@ let SU = {
     if (amountOfTicks in this.cache) {
       // check if the same targetPct has been calculated
       if (targetPct in this.cache[amountOfTicks])
+        // return the value from cache
         return this.cache[amountOfTicks][targetPct];
     }
     
