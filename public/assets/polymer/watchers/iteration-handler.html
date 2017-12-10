@@ -33,9 +33,9 @@
           turnJoystick: {
             statePath: 'movement.turnJoystick'
           },
-          gaits: {
-            statePath: 'gaits'
-          }
+          // gaits: {
+          //   statePath: 'gaits'
+          // }
         };
       }
       
@@ -108,21 +108,21 @@
           payload.gait = this.settings.gait;
       }
       
-      calcClosestTick(pct, amountOfTicks) {
-        let currentNumber = 0;
-        
-        let diff = pct;
-        for (let tick = 1; tick <= amountOfTicks; tick++) {
-          let tickPct = this.calcTickPct(tick, amountOfTicks);
-          
-          let newDiff = Math.abs(pct - tickPct);
-          if (newDiff < diff) {
-            diff = newDiff;
-            currentNumber = tick;
-          }
-        }
-        return +currentNumber;
-      }
+      // calcClosestTick(pct, amountOfTicks) {
+      //   let currentNumber = 0;
+      // 
+      //   let diff = pct;
+      //   for (let tick = 1; tick <= amountOfTicks; tick++) {
+      //     let tickPct = this.calcTickPct(tick, amountOfTicks);
+      // 
+      //     let newDiff = Math.abs(pct - tickPct);
+      //     if (newDiff < diff) {
+      //       diff = newDiff;
+      //       currentNumber = tick;
+      //     }
+      //   }
+      //   return +currentNumber;
+      // }
       
       calcTickPct(tick, amountOfTicks) {
         return MU.roundNumber(100 / amountOfTicks * tick, 1);
