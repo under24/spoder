@@ -41,11 +41,9 @@
             this.resetTickData();
             
             // start iterating over again
-            if (this.loop)
-              this.runSequencer();
+            if (this.loop) this.runSequencer();
             // set generatorEnabled to false (disable movement sequencer)
-            else
-              this.disableSequencer();
+            else this.disableSequencer();
           }
           
           // update tick value for the next tick interval
@@ -54,11 +52,13 @@
       }
       
       validConditions(currentTick) {
+        // double invocation
         if (this.sequencerInterval) {
           console.warn('Movement sequencer is already in progress');
           return false;
         }
         
+        // wrong input tick
         if (currentTick > this.iteration.amountOfTicks) {
           console.warn('Current tick is greater that the amount of ticks in the iteration');
           return false;
@@ -78,6 +78,7 @@
             currentTickPct: this.timeline[currentTick].pct
           });
         // payload is empty, dispatch only currentTick and currentTickPct
+        // payload can be empty when the current leg/stroke does not have any pexels to move
         else
           store.dispatch({
             type: "MOVEMENT_ITERATION_VALUES_CHANGED",
