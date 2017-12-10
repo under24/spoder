@@ -44,7 +44,7 @@ let SU = {
   },
   populateTimeline(dataItem, legId, timeline, amountOfTicks) {
     // skip dataItem with no coords to move
-    // if (dataItem.pxlsToMove === 0) return;
+    // if (dataItem.pxlsToMove < 0.01 && dataItem.pxlsToMove > -0.01) return;
     
     let startTick = this.getClosestTick(dataItem.startPct, timeline, amountOfTicks) + 1,
         endTick = this.getClosestTick(dataItem.endPct, timeline, amountOfTicks),
