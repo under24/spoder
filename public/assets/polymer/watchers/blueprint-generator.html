@@ -40,44 +40,115 @@
       fillInBlueprintData(legTimings, movementData) {
         // TODO REFACTOR
         
-        return [
-          {
-            coordType: "transverseBaseX",
+        var result = [];
+        
+        // transverseBaseX
+        if (!this.empty(movementData['transverseBaseX'])) {
+          result.push({
+            coordType: 'transverseBaseX',
             startPct: 0,
             endPct: 100,
             pxlsToMove: movementData.transverseBaseX
-          },
-          {
-            coordType: "transverseBaseY",
+          });
+        }
+        
+        // transverseBaseY
+        if (!this.empty(movementData['transverseBaseY'])) {
+          result.push({
+            coordType: 'transverseBaseY',
             startPct: 0,
             endPct: 100,
             pxlsToMove: movementData.transverseBaseY
-          },
-          {
-            coordType: "transverseCursorX",
+          });
+        }
+        
+        // transverseCursorX
+        if (!this.empty(movementData['transverseCursorX'])) {
+          result.push({
+            coordType: 'transverseCursorX',
             startPct: legTimings.startPct,
             endPct: legTimings.endPct,
             pxlsToMove: movementData.transverseCursorX
-          },
-          {
-            coordType: "transverseCursorY",
+          });
+        }
+        
+        // transverseCursorY
+        if (!this.empty(movementData['transverseCursorY'])) {
+          result.push({
+            coordType: 'transverseCursorY',
             startPct: legTimings.startPct,
             endPct: legTimings.endPct,
             pxlsToMove: movementData.transverseCursorY
-          },
-          {
-            coordType: "sagittalCursorY",
+          });
+        }
+        
+        var half = legTimings.startPct + (legTimings.endPct - legTimings.startPct) / 2;
+        
+        // sagittalCursorY
+        if (!this.empty(movementData['transverseCursorX']) || !this.empty(movementData['transverseCursorY'])) {
+          result.push({
+            coordType: 'sagittalCursorY',
             startPct: legTimings.startPct,
-            endPct: legTimings.startPct + ((legTimings.endPct - legTimings.startPct) / 2),
+            endPct: half,
             pxlsToMove: 20
-          },
-          {
-            coordType: "sagittalCursorY",
-            startPct: legTimings.endPct - ((legTimings.endPct - legTimings.startPct) / 2),
+          });
+        }
+        
+        // sagittalCursorY
+        if (!this.empty(movementData['transverseCursorX']) || !this.empty(movementData['transverseCursorY'])) {
+          result.push({
+            coordType: 'sagittalCursorY',
+            startPct: half,
             endPct: legTimings.endPct,
             pxlsToMove: -20
-          }
-        ];
+          });
+        }
+        
+        return result;
+        
+        // return [
+        //   {
+        //     coordType: "transverseBaseX",
+        //     startPct: 0,
+        //     endPct: 100,
+        //     pxlsToMove: movementData.transverseBaseX
+        //   },
+        //   {
+        //     coordType: "transverseBaseY",
+        //     startPct: 0,
+        //     endPct: 100,
+        //     pxlsToMove: movementData.transverseBaseY
+        //   },
+        //   {
+        //     coordType: "transverseCursorX",
+        //     startPct: legTimings.startPct,
+        //     endPct: legTimings.endPct,
+        //     pxlsToMove: movementData.transverseCursorX
+        //   },
+        //   {
+        //     coordType: "transverseCursorY",
+        //     startPct: legTimings.startPct,
+        //     endPct: legTimings.endPct,
+        //     pxlsToMove: movementData.transverseCursorY
+        //   },
+        //   {
+        //     coordType: "sagittalCursorY",
+        //     startPct: legTimings.startPct,
+        //     endPct: legTimings.startPct + ((legTimings.endPct - legTimings.startPct) / 2),
+        //     pxlsToMove: 20
+        //   },
+        //   {
+        //     coordType: "sagittalCursorY",
+        //     startPct: legTimings.endPct - ((legTimings.endPct - legTimings.startPct) / 2),
+        //     endPct: legTimings.endPct,
+        //     pxlsToMove: -20
+        //   }
+        // ];
+      }
+      
+      // checks if the value is close to 0
+      empty(pxlsToMove) {
+        return pxlsToMove < 0.01 && pxlsToMove > -0.01;
       }
 
     }
