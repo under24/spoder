@@ -16,15 +16,16 @@
         }
       }
       
-      // generate a new blueprint whenever this.transitionShift || this.iterationGait changes
+      // generate a new blueprint whenever this.transitionShift || this.iterationGait changes and dispatch it
       static get observers() {
-        return [ 'dispatchBlueprint(transitionShift, iterationGait)' ];
+        return [ 'processNewBlueprint(transitionShift, iterationGait)' ];
       }
       
-      dispatchBlueprint() {
+      processNewBlueprint() {
+        // create a new blueprint
         var blueprint = this.generateBlueprint();
-        
-        store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload: { blueprint } });
+        // dispatch it
+        this.dispatchBlueprint(blueprint);
       }
       
       generateBlueprint() {
@@ -149,6 +150,10 @@
       // checks if the value is close to 0
       empty(pxlsToMove) {
         return pxlsToMove < 0.01 && pxlsToMove > -0.01;
+      }
+      
+      dispatchBlueprint(blueprint) {        
+        store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload: { blueprint } });
       }
 
     }
