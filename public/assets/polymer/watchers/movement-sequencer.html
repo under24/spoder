@@ -28,7 +28,7 @@
       }
       
       runSequencer(currentTick = 1) {
-        // validation: no second invocation, no invalid tick
+        // validation: no second invocation, no invalid tick, no empty blueprint
         if (!this.validConditions(currentTick)) return;
         
         // iteration starts after (1000 / this.iteration.tps) amount of time with tick 1
@@ -83,8 +83,8 @@
       blueprintEmpty() {
         // iterate blueprint legs and check if every leg is empty
         for (let key in this.iteration.blueprint) {
-          // if a leg has some pixels to move then blueprint is not empty
-          if (this.iteration.blueprint[key].length === 0) return false;
+          // if a leg has some data then the blueprint is not empty
+          if (this.iteration.blueprint[key].length !== 0) return false;
         }
         
         // every blueprint leg is empty
