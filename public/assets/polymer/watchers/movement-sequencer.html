@@ -84,7 +84,7 @@
         // iterate blueprint legs and check if every leg is empty
         for (let key in this.iteration.blueprint) {
           // if a leg has some pixels to move then blueprint is not empty
-          if (this.iteration.blueprint[key].length) return false;
+          if (this.iteration.blueprint[key].length === 0) return false;
         }
         
         // every blueprint leg is empty
