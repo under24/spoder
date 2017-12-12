@@ -33,13 +33,19 @@
         }
       }
       
-      // generate a new timeline whenever this.blueprint || this.amountOfTicks
+      // generate a new timeline whenever this.blueprint || this.amountOfTicks and export to to the upper component
       static get observers() {
-        return [ 'generateTimeline(blueprint, amountOfTicks)' ];
+        return [ 'processNewTimeline(blueprint, amountOfTicks)' ];
       }
       
-      generateTimeline(blueprint, amountOfTicks) {        
-        // create a timeline object
+      processNewTimeline(blueprint, amountOfTicks) {
+        // create a new timeline
+        var timeline = this.generateTimeline(blueprint, amountOfTicks);
+        // export the new timeline to the upper component
+        this.timeline = timeline;
+      }
+      
+      generateTimeline(blueprint, amountOfTicks) {
         let timeline = this.createTimeline(amountOfTicks);
         
         // populate timeline with blueprint data
@@ -49,7 +55,7 @@
           });
         }
         
-        this.timeline = timeline;
+        return timeline;
       }
       
       createTimeline(amountOfTicks) {
@@ -61,7 +67,7 @@
           timeline[currTick] = {
             pct: this.calcTickPct(currTick, amountOfTicks),
             payload: null
-          }
+          };
         }
         
         return timeline;
