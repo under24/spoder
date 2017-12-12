@@ -25,7 +25,7 @@
         // create a new blueprint
         var blueprint = this.generateBlueprint();
         // dispatch it
-        this.dispatchBlueprint(blueprint);
+        store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload: { blueprint } });
       }
       
       generateBlueprint() {
@@ -150,10 +150,6 @@
       // checks if the value is close to 0
       empty(pxlsToMove) {
         return pxlsToMove < 0.01 && pxlsToMove > -0.01;
-      }
-      
-      dispatchBlueprint(blueprint) {        
-        store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload: { blueprint } });
       }
 
     }
