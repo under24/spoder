@@ -33,6 +33,14 @@ let MU = {
       y: Math.sin(angle * Math.PI / 180) * distance + y
     };
   },
+  // returns true if the value is close to 0
+  empty(num) {
+    return -0.01 < num && num < 0.01;
+  },
+  // return true if the value is not close to 0
+  notEmpty(num) {
+    return !this.empty(num);
+  },
   rotationMatrix(x, y, angle) {
     angle = Math.PI * angle / 180;
 
