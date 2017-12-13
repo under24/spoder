@@ -64,15 +64,12 @@
       
       dispatchTransitionShift(payload) {
         // when the iteration is complete or has not been started
-        if (this.iterationTick === 0) {
+        if (this.iterationTick === 0)
           // try to pick up new properties (if there are) from movement.settings
+          // new settings cannnot be applied in mid iteration
           this.mergeSettingsWithIteration(payload);
-            
-          store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
-        }
-        // new settings cannnot be applied in mid iteration
-        else
-          store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
+          
+        store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
       }
       
       mergeSettingsWithIteration(payload) {
