@@ -80,7 +80,7 @@
       
       populateTimeline(dataItem, legId, timeline, amountOfTicks) {
         // skip dataItem with no coords to move
-        if (-0.01 < dataItem.pxlsToMove && dataItem.pxlsToMove < 0.01) return;
+        if (MU.empty(dataItem.pxlsToMove)) return;
         
         let startTick = this.getClosestTick(dataItem.startPct, timeline, amountOfTicks) + 1,
             endTick = this.getClosestTick(dataItem.endPct, timeline, amountOfTicks),
