@@ -58,6 +58,7 @@
         // double invocation
         if (this.sequencerInterval) {
           console.warn('Movement sequencer is already in progress');
+          // fail condition
           return false;
         }
         
@@ -70,6 +71,7 @@
         // sequencer is idle
         if (this.blueprintEmpty()) {
           if (!this.sequencerIdle) this.sequencerIdle = true;
+          // fail condition
           return false;
         }
         
