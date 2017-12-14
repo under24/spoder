@@ -49,7 +49,7 @@
         // if the blueprint is idle (null) then the timeline should also be idle (null)
         if (blueprint === null) return null;
         
-        let timeline = this.createTimeline(amountOfTicks);
+        var timeline = this.createTimeline(amountOfTicks);
         
         // populate timeline with blueprint data
         for (let legId in blueprint) {
@@ -63,7 +63,7 @@
       
       createTimeline(amountOfTicks) {
         // create a timeline object
-        let timeline = {};
+        var timeline = {};
         
         // fill in timeline object with ticks
         for (let currTick = 1; currTick <= amountOfTicks; currTick++) {
@@ -85,7 +85,7 @@
         // skip dataItem with no coords to move
         if (MU.empty(dataItem.pxlsToMove)) return;
         
-        let startTick = this.getClosestTick(dataItem.startPct, timeline, amountOfTicks) + 1,
+        var startTick = this.getClosestTick(dataItem.startPct, timeline, amountOfTicks) + 1,
             endTick = this.getClosestTick(dataItem.endPct, timeline, amountOfTicks),
             ticksBetweenStartAndEnd = this.calcAmountOfTicksBetween(startTick, endTick),
             tickValue = this.calcTickValueBasedOnPxlsToMove(ticksBetweenStartAndEnd, dataItem.pxlsToMove);
@@ -111,7 +111,7 @@
         }
         
         // set initial value of the closest tick
-        let closestTick = 0,
+        var closestTick = 0,
             // target
             targetDiff = targetPct;
         
