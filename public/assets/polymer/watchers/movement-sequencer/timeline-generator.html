@@ -46,7 +46,7 @@
       }
       
       generateTimeline(blueprint, amountOfTicks) {
-        // if blueprint is idle (null) then timeline is also idle (null)
+        // if the blueprint is idle (null) then the timeline should also be idle (null)
         if (blueprint === null) return null;
         
         let timeline = this.createTimeline(amountOfTicks);
