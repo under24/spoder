@@ -57,9 +57,11 @@
             this.resetTickData();
             
             // start iterating over again
-            if (this.loop) this.runSequencer();
+            if (this.loop)
+              this.runSequencer();
             // set generatorEnabled to false (disable movement sequencer)
-            else this.disableSequencer();
+            else
+              this.disableSequencer();
           }
           
           // update tick value for the next tick interval
