@@ -136,12 +136,7 @@
       dispatchTickPayload(payload, currentTick, currentTickPct) {
         // payload is not empty
         if (payload)
-          store.dispatch({
-            type: "SEQUENCE_SHIFTED_XY_BATCHED",
-            payload,
-            currentTick,
-            currentTickPct
-          });
+          store.dispatch({ type: "SEQUENCE_SHIFTED_XY_BATCHED", payload, currentTick, currentTickPct });
         // payload is empty, dispatch only currentTick and currentTickPct
         // payload can be empty when the current leg/stroke does not have any pexels to move
         else
