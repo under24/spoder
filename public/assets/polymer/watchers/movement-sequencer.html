@@ -45,7 +45,7 @@
         // iteration starts after (1000 / this.iteration.tps) amount of time with tick 1
         this.sequencerInterval = setInterval(() => {
           // prepare payload data
-          // let payload = this.gatherPayload(this.timeline[currentTick].payload);
+          // let payload = this.addTurningValues(this.timeline[currentTick].payload);
           // dispatch current tick data
           this.dispatchTickPayload(this.timeline[currentTick].payload, currentTick, this.timeline[currentTick].pct);
           
@@ -92,7 +92,7 @@
         return true;
       }
       
-      gatherPayload(payload) {
+      addTurningValues(payload) {
         debugger;
         
         // add turn values to the payload (if turnJoystick.x !== 0)
@@ -143,24 +143,15 @@
         // payload is empty, dispatch only currentTick and currentTickPct
         // payload can be empty when the current leg/stroke does not have any pexels to move
         else
-          store.dispatch({
-            type: "MOVEMENT_ITERATION_VALUES_CHANGED",
-            payload: { currentTick, currentTickPct }
-          });
+          store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload: { currentTick, currentTickPct } });
       }
       
       resetTickData() {
-        store.dispatch({
-          type: "MOVEMENT_ITERATION_VALUES_CHANGED",
-          payload: { currentTick: 0, currentTickPct: 0 }
-        });
+        store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload: { currentTick: 0, currentTickPct: 0 } });
       }
       
       disableSequencer() {
-        store.dispatch({
-          type: "MOVEMENT_SETTINGS_CHANGED",
-          payload: { generatorEnabled: false }
-        });
+        store.dispatch({ type: "MOVEMENT_SETTINGS_CHANGED", payload: { generatorEnabled: false } });
       }
       
       // clear sequencer interval
