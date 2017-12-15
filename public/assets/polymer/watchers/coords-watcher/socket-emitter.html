@@ -31,7 +31,7 @@
             servoAngles[legId].tibiaServoAngle = angles[legId].tibiaServoAngle;
           }
         }
-        debugger;
+        
         // if there are some servo angles then send to the back end
         if (Object.keys(servoAngles).length !== 0)
           socket.emit('servo-angles-changed', servoAngles);
