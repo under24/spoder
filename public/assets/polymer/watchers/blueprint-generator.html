@@ -31,19 +31,19 @@
       generateBlueprint() {
         var blueprint = {};
         
-        // blueprint has to data to move (=== idle)
-        if (this.idleBlueprint()) blueprint = null;
+        // if there is no data to move then the blueprint is idle (null)
+        if (this.idleTransitionShift()) blueprint = null;
         // blueprint will have some data to move thus need to raise every leg
         else {
           for (let legId = 1; legId <= 6; legId++) {
-            blueprint[legId] = this.fillInLegData(this.gaits[this.iterationGait].legTimings[legId], this.transitionShift[legId]);
+            blueprint[legId] = this.generateLegData(this.gaits[this.iterationGait].legTimings[legId], this.transitionShift[legId]);
           }
         }
         
         return blueprint;
       }
       
-      fillInLegData(legTimings, transitionShift) {
+      generateLegData(legTimings, transitionShift) {
         // current leg blueprint data
         var result = [];
         
@@ -55,45 +55,6 @@
         this.addSagittalCursorY(result, legTimings, transitionShift);
         
         return result;
-        
-        // return [
-        //   {
-        //     coordType: "transverseBaseX",
-        //     startPct: 0,
-        //     endPct: 100,
-        //     pxlsToMove: transitionShift.transverseBaseX
-        //   },
-        //   {
-        //     coordType: "transverseBaseY",
-        //     startPct: 0,
-        //     endPct: 100,
-        //     pxlsToMove: transitionShift.transverseBaseY
-        //   },
-        //   {
-        //     coordType: "transverseCursorX",
-        //     startPct: legTimings.startPct,
-        //     endPct: legTimings.endPct,
-        //     pxlsToMove: transitionShift.transverseCursorX
-        //   },
-        //   {
-        //     coordType: "transverseCursorY",
-        //     startPct: legTimings.startPct,
-        //     endPct: legTimings.endPct,
-        //     pxlsToMove: transitionShift.transverseCursorY
-        //   },
-        //   {
-        //     coordType: "sagittalCursorY",
-        //     startPct: legTimings.startPct,
-        //     endPct: legTimings.startPct + ((legTimings.endPct - legTimings.startPct) / 2),
-        //     pxlsToMove: 20
-        //   },
-        //   {
-        //     coordType: "sagittalCursorY",
-        //     startPct: legTimings.endPct - ((legTimings.endPct - legTimings.startPct) / 2),
-        //     endPct: legTimings.endPct,
-        //     pxlsToMove: -20
-        //   }
-        // ];
       }
       
       addTransverseBaseXY(result, transitionShift) {
@@ -135,7 +96,7 @@
         return { coordType, startPct, endPct, pxlsToMove };
       }
       
-      idleBlueprint() {
+      idleTransitionShift() {
         // iterate leg IDs
         for (let legId in this.transitionShift) {
           // iterate coords with shift data
