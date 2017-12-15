@@ -1,0 +1,34 @@
+<dom-module id="analog-joystick-gateway">
+  <script>
+    class analogJoystickGateway extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'analog-joystick-gateway'; }
+      static get properties() {
+        return {
+          lol: {
+            value: 'lol'
+          }
+        }
+      }
+      
+      connectedCallback() {
+        socket.on('right-analog-stick-moved', (data) => {
+          
+          store.dispatch({
+            type: "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED",
+            payload: {
+              x: data.x,
+              y: data.y
+            }
+          });
+          
+        });
+      }
+      
+      temp() {
+        
+      }
+
+    }
+    window.customElements.define(analogJoystickGateway.is, analogJoystickGateway);
+  </script>
+</dom-module>
