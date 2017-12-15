@@ -45,9 +45,9 @@
         // iteration starts after (1000 / this.iteration.tps) amount of time with tick 1
         this.sequencerInterval = setInterval(() => {
           // prepare payload data
-          // let payload = this.addTurningValues(this.timeline[currentTick].payload);
+          var payload = this.addTurningValues(this.timeline[currentTick].payload);
           // dispatch current tick data
-          this.dispatchTickPayload(this.timeline[currentTick].payload, currentTick, this.timeline[currentTick].pct);
+          this.dispatchTickPayload(payload, currentTick, this.timeline[currentTick].pct);
           
           // check if that was the last tick of the iteration
           if (currentTick === this.iteration.amountOfTicks) {
@@ -95,41 +95,38 @@
       }
       
       addTurningValues(payload) {
-        debugger;
+        // no turn values. return back the payload unchanged
+        if (this.turnJoystick.x === 0) return payload;
         
-        // add turn values to the payload (if turnJoystick.x !== 0)
-        if (this.turnJoystick.x) {
-          for (let legId = 1; legId <= 6; legId++) {
-            
-            
-            debugger;
-            
-            if (!(legId in payload)) payload[legId] = {};
-            if (!('transverseBaseX' in payload[legId])) payload[legId].transverseBaseX = 0;
-            if (!('transverseBaseY' in payload[legId])) payload[legId].transverseBaseY = 0;
-            
-            
-            
-            
-            
-            // angle / amount of ticks = angle for each tick
-            let stepAngle = MU.flipNumber(this.turnJoystick.x) / this.iteration.amountOfTicks;
+        // calc turn values and add them to the payload
+        for (let legId = 1; legId <= 6; legId++) {
           
-            // find rotated base coords
-            let rotatedCoords = RU.getRotatedCoords(this.baseCenterCoords, stepAngle, this.coords[legId]);
+          // angle / amount of ticks = angle for each tick
+          let stepAngle = MU.flipNumber(this.turnJoystick.x) / this.iteration.amountOfTicks;
+        
+          // find rotated base coords
+          let rotatedCoords = RU.getRotatedCoords(this.baseCenterCoords, stepAngle, this.coords[legId]);
+        
+          // get turn shift values
+          let shiftX = this.coords[legId].transverseBaseX - rotatedCoords.x,
+              shiftY = this.coords[legId].transverseBaseY - rotatedCoords.y;
           
-            // get turn shift values
-            let shiftX = this.coords[legId].transverseBaseX - rotatedCoords.x,
-                shiftY = this.coords[legId].transverseBaseY - rotatedCoords.y;
-                
-
-              
-              
-            debugger;
-          }
+          
+          // payload object
+          payload = payload || {};
+          // payloa[legId]
+          payload[legId] = payload[legId] || {};
+          
+          if (payload[legId].transverseBaseX)
+            payload[legId].transverseBaseX += shiftX;
+          else
+            payload[legId].transverseBaseX = shiftX;
+          
+          if (payload[legId].transverseBaseY)
+            payload[legId].transverseBaseY += shiftY;
+          else
+            payload[legId].transverseBaseY = shiftY;
         }
-        
-        
         return payload;
       }
       
