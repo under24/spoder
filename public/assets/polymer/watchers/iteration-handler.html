@@ -78,17 +78,6 @@
         
         if (this.iteration.amountOfTicks === null || this.iteration.amountOfTicks !== amountOfTicks)
           payload.amountOfTicks = amountOfTicks;
-          
-        // state.movement.iteration.strokeTickMap
-        // map stroke start / end pcts to the current iteration tick indices (startPct: 0 -> startTick: 1)
-        // payload.strokeTickMap = this.gaits[this.settings.gait].sequenceTimings.map((stroke) => {
-        //   let result = {
-        //     startTick: this.calcClosestTick(stroke.startPct, amountOfTicks) + 1, // because it starts from the next tick
-        //     endTick: this.calcClosestTick(stroke.endPct, amountOfTicks)
-        //   }
-        // 
-        //   return result;
-        // });
         
         // state.movement.iteration.tps
         if (this.iteration.tps === null || this.iteration.tps !== this.settings.tps)
@@ -102,26 +91,6 @@
         if (this.iteration.gait === null || this.iteration.gait !== this.settings.gait)
           payload.gait = this.settings.gait;
       }
-      
-      // calcClosestTick(pct, amountOfTicks) {
-      //   let currentNumber = 0;
-      // 
-      //   let diff = pct;
-      //   for (let tick = 1; tick <= amountOfTicks; tick++) {
-      //     let tickPct = this.calcTickPct(tick, amountOfTicks);
-      // 
-      //     let newDiff = Math.abs(pct - tickPct);
-      //     if (newDiff < diff) {
-      //       diff = newDiff;
-      //       currentNumber = tick;
-      //     }
-      //   }
-      //   return +currentNumber;
-      // }
-      
-      // calcTickPct(tick, amountOfTicks) {
-      //   return MU.roundNumber(100 / amountOfTicks * tick, 1);
-      // }
       
       // this function also picks up new settings when the current iteration is complete
       observeIterationTick(newValue) {
