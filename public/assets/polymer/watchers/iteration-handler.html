@@ -70,21 +70,22 @@
       }
       
       mergeSettingsWithIteration(payload) {
+        
         // state.movement.iteration.amountOfTicks
         let amountOfTicks = +(this.settings.duration / (1000 / this.settings.tps)).toFixed(0);
-        
+        // if init state or settings changed
         if (!this.iteration.amountOfTicks || this.iteration.amountOfTicks !== amountOfTicks)
           payload.amountOfTicks = amountOfTicks;
         
-        // state.movement.iteration.tps
+        // if init state or settings changed. state.movement.iteration.tps
         if (!this.iteration.tps || this.iteration.tps !== this.settings.tps)
           payload.tps = this.settings.tps;
         
-        // state.movement.iteration.duration
+        // if init state or settings changed. state.movement.iteration.duration
         if (!this.iteration.duration || this.iteration.duration !== this.settings.duration)
           payload.duration = this.settings.duration;
         
-        // state.movement.iteration.gait
+        // if init state or settings changed. state.movement.iteration.gait
         if (!this.iteration.gait || this.iteration.gait !== this.settings.gait)
           payload.gait = this.settings.gait;
       }
