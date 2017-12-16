@@ -41,7 +41,7 @@
         let transitionShift = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          transitionShift[legId] = this.gatherIterationMovementData(legId);
+          transitionShift[legId] = this.generateLegData(legId);
         }
         
         let transitionShiftSource = {
@@ -53,7 +53,7 @@
         this.dispatchTransitionShift({ transitionShift, transitionShiftSource });
       }
       
-      gatherIterationMovementData(legId) {
+      generateLegData(legId) {
         return {
           transverseBaseX: this.circles[legId].x - this.pointers[legId].x,
           transverseBaseY: this.circles[legId].y - this.pointers[legId].y,
