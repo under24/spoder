@@ -73,19 +73,19 @@
         // state.movement.iteration.amountOfTicks
         let amountOfTicks = +(this.settings.duration / (1000 / this.settings.tps)).toFixed(0);
         
-        if (this.iteration.amountOfTicks === null || this.iteration.amountOfTicks !== amountOfTicks)
+        if (!this.iteration.amountOfTicks || this.iteration.amountOfTicks !== amountOfTicks)
           payload.amountOfTicks = amountOfTicks;
         
         // state.movement.iteration.tps
-        if (this.iteration.tps === null || this.iteration.tps !== this.settings.tps)
+        if (!this.iteration.tps || this.iteration.tps !== this.settings.tps)
           payload.tps = this.settings.tps;
         
         // state.movement.iteration.duration
-        if (this.iteration.duration === null || this.iteration.duration !== this.settings.duration)
+        if (!this.iteration.duration || this.iteration.duration !== this.settings.duration)
           payload.duration = this.settings.duration;
         
         // state.movement.iteration.gait
-        if (this.iteration.gait === null || this.iteration.gait !== this.settings.gait)
+        if (!this.iteration.gait || this.iteration.gait !== this.settings.gait)
           payload.gait = this.settings.gait;
       }
       
