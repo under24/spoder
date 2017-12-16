@@ -145,8 +145,45 @@
           this.dispatchIterationValues(payload);
         }
       }
+      
+      // watch state.movement.settings and update state.movement.iteration with the new value from seetings if the iteration has not been started
+      processNewIterationValues(newSettings, oldSettings) {
+        // validation: skip initialization, wait for tick 0, only observable setting property changed
+        if (this.invalidSettings(newSettings, oldSettings)) return;
+        
+        // prepare payload object for dispatching
+        var payload = {};
+        // fill in payload with new settings
+        this.mergeSettingsWithIteration(payload);
+        // dispatch iteration values
+        this.dispatchIterationValues(payload);
+      }
+      
+      invalidSettings(newSettings, oldSettings) {        
+        // skip init. the transition shift obj is going to be generated anyway
+        if (oldSettings === undefined)
+          // invalid condition
+          return true;
+          
+        // do not update iteration data if movement is in process. wait for tick === 0
+        if (this.iterationTick !== 0)
+          // invalid condition
+          return true;
+          
+        // if one of the observable settings changed then update the state iteration data
+        if (newSettings.tps === oldSettings.tps &&
+            newSettings.duration === oldSettings.duration &&
+            newSettings.gait === oldSettings.gait &&
+            newSettings.sequencerMode === oldSettings.sequencerMode)
+          // invalid condition
+          return true;
+        
+        // valid conditions
+        return false;
+      }
 
     }
+    iterationHandler.prototype.observeSettings = iterationHandler.prototype.processNewIterationValues;
     window.customElements.define(iterationHandler.is, iterationHandler);
   </script>
 </dom-module>
