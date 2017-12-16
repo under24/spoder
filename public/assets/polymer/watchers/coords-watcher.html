@@ -1,8 +1,10 @@
 <link rel="import" href="coords-watcher/socket-emitter.html">
+<link rel="import" href="coords-watcher/base-generator.html">
 
 <dom-module id="coords-watcher">
   <template>
     <socket-emitter id="emitter"></socket-emitter>
+    <base-generator id="baseGenerator"></base-generator>
   </template>
   <script>
     class coordsWatcher extends ReduxMixin(Polymer.Element) {
@@ -341,8 +343,8 @@
             miscPayload = {}, 
             movementCirclesPayload = {};
             
-        let baseCenterCoords = RU.getBaseCenter(newCoords),
-            baseDirection = this.getBaseDirection(newCoords, baseCenterCoords);
+        let baseCenterCoords = this.$.baseGenerator.calcBaseCenterCoords(newCoords),
+            baseDirection = this.$.baseGenerator.calcBaseDirection(newCoords, baseCenterCoords);
             
         for (let legId = 1; legId <= 6; legId++) {
           // transverse coords => coxa angles
@@ -376,8 +378,8 @@
 
         // dispatch
         this.validateAndDispatchAngle(anglesPayload);
-        this.validateAndDispatchBaseDirection(baseDirection);
-        this.validateAndDispatchBaseCenterCoords(baseCenterCoords);
+        this.$.baseGenerator.validateAndDispatchBaseDirection(baseDirection);
+        this.$.baseGenerator.validateAndDispatchBaseCenterCoords(baseCenterCoords);
         this.validateAndDispatchMisc(miscPayload);
         this.validateAndDispatchMovementCircles(movementCirclesPayload);
       }
@@ -405,26 +407,6 @@
         if (Object.keys(payload).length === 0) return;
         
         store.dispatch({ type: "MOVEMENT_CIRCLES_CHANGED_BATCHED", payload });
-      }
-      
-      validateAndDispatchBaseDirection(payload) {
-        // same values in the state. bail
-        if (payload === this.baseDirection) return;
-        
-        store.dispatch({ type: "BASE_DIRECTION_CHANGED", payload });
-      }
-      
-      validateAndDispatchBaseCenterCoords(payload) {
-        // same values in the state. bail
-        if (payload.x === this.baseCenterCoords.x && payload.y === this.baseCenterCoords.y) return;
-        
-        store.dispatch({ type: "BASE_CENTER_COORDS_CHANGED", payload });
-      }
-      
-      getBaseDirection(newCoords, baseCenterCoords) {
-        let baseDirection = MU.getAngle(newCoords[3].transverseBaseY - baseCenterCoords.y, newCoords[3].transverseBaseX - baseCenterCoords.x);
-        
-        return GU.correctAngle(baseDirection);
       }
       
       observeTurnJoystick(newValue, oldValue) {
