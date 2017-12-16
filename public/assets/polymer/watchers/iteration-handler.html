@@ -125,28 +125,6 @@
       }
       
       // watch state.movement.settings and update state.movement.iteration with the new value from seetings if the iteration has not been started
-      observeSettings(newValue, oldValue) {
-        // skip init. the transition shift obj is going to be generated anyway
-        if (oldValue === undefined) return;
-        
-        // do not update iteration data if movement is in process. wait for tick === 0
-        if (this.iterationTick !== 0) return;
-        
-        // if one of the important settings changed then update the state iteration data
-        if (newValue.tps !== oldValue.tps ||
-            newValue.duration !== oldValue.duration ||
-            newValue.gait !== oldValue.gait ||
-            newValue.sequencerMode !== oldValue.sequencerMode)
-        {
-          let payload = {};
-          // try to pick up new settings
-          this.mergeSettingsWithIteration(payload);
-          
-          this.dispatchIterationValues(payload);
-        }
-      }
-      
-      // watch state.movement.settings and update state.movement.iteration with the new value from seetings if the iteration has not been started
       processNewIterationValues(newSettings, oldSettings) {
         // validation: skip initialization, wait for tick 0, only observable setting property changed
         if (this.invalidSettings(newSettings, oldSettings)) return;
