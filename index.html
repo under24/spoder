@@ -51,7 +51,7 @@
     <link rel="import" href="assets/polymer/watchers/coords-watcher.html">
     <link rel="import" href="assets/polymer/watchers/modifier-watcher.html">
     <link rel="import" href="assets/polymer/watchers/pointer-generator.html">
-    <link rel="import" href="assets/polymer/watchers/iteration-handler.html">
+    <link rel="import" href="assets/polymer/watchers/iteration-generator.html">
     <link rel="import" href="assets/polymer/watchers/blueprint-generator.html">
     <link rel="import" href="assets/polymer/watchers/movement-sequencer.html">
     <link rel="import" href="assets/polymer/watchers/analog-joystick-gateway.html">
@@ -65,13 +65,15 @@
     <coords-watcher></coords-watcher>
     <!-- watches modifier values -->
     <modifier-watcher></modifier-watcher>
-    <!-- calc movement pointers -->
+    <!-- generate movement pointers -->
     <pointer-generator></pointer-generator>
+    <!-- generate TransitionShift + pick up observable settings -->
+    <iteration-generator></iteration-generator>
     <!-- prepare blueprint -->
-    <iteration-handler></iteration-handler>
-    <!-- handle movement -->
     <blueprint-generator></blueprint-generator>
+    <!-- handle movement -->
     <movement-sequencer></movement-sequencer>
+    <!-- joystick gateway -->
     <analog-joystick-gateway></analog-joystick-gateway>
     
     <div class="flex-container">
