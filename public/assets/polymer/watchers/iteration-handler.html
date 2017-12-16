@@ -1,7 +1,7 @@
-<dom-module id="iteration-handler">
+<dom-module id="iteration-generator">
   <script>
-    class iterationHandler extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'iteration-handler'; }
+    class iterationGenerator extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'iteration-generator'; }
       static get properties() {
         return {
           circles: {
@@ -161,7 +161,7 @@
       }
 
     }
-    iterationHandler.prototype.observeSettings = iterationHandler.prototype.processNewIterationValues;
-    window.customElements.define(iterationHandler.is, iterationHandler);
+    iterationGenerator.prototype.observeSettings = iterationGenerator.prototype.processNewIterationValues;
+    window.customElements.define(iterationGenerator.is, iterationGenerator);
   </script>
 </dom-module>
