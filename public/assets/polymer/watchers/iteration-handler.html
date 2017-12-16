@@ -117,8 +117,12 @@
         // do not update iteration data if movement is in process. wait for tick === 0
         if (this.iterationTick !== 0) return;
         
-        // if one of the important settings properties changed then update the state iteration data
-        if (newValue.tps !== oldValue.tps || newValue.duration !== oldValue.duration || newValue.gait !== oldValue.gait) {
+        // if one of the important settings changed then update the state iteration data
+        if (newValue.tps !== oldValue.tps ||
+            newValue.duration !== oldValue.duration ||
+            newValue.gait !== oldValue.gait ||
+            newValue.sequencerMode !== oldValue.sequencerMode)
+        {
           let payload = {};
           this.mergeSettingsWithIteration(payload);
           
