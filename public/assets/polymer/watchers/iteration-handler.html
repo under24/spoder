@@ -87,6 +87,10 @@
         // if init state or settings changed. state.movement.iteration.gait
         if (!this.iteration.gait || this.iteration.gait !== this.settings.gait)
           payload.gait = this.settings.gait;
+          
+        // if init state or settings changed. state.movement.iteration.sequencerMode
+        if (!this.iteration.sequencerMode || this.iteration.sequencerMode !== this.settings.sequencerMode)
+          payload.sequencerMode = this.settings.sequencerMode;
       }
       
       // this function also picks up new settings when the current iteration is complete

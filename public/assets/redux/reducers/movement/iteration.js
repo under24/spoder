@@ -8,6 +8,7 @@ let movementInterationReducerInitState = {
   transitionShift: null,
   transitionShiftSource: null,
   blueprint: null,
+  sequencerMode: null,
   currentTick: 0,
   currentTickPct: 0
 }
