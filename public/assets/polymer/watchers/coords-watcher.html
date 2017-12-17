@@ -1,9 +1,9 @@
-<link rel="import" href="coords-watcher/socket-emitter.html">
+<link rel="import" href="coords-watcher/servo-angle-gateway.html">
 <link rel="import" href="coords-watcher/base-generator.html">
 
 <dom-module id="coords-watcher">
   <template>
-    <socket-emitter id="emitter"></socket-emitter>
+    <servo-angle-gateway id="servoGateway"></servo-angle-gateway>
     <base-generator id="baseGenerator"></base-generator>
   </template>
   <script>
@@ -391,7 +391,7 @@
         if (Object.keys(payload).length === 0) return;
 
         // send the angles to the back end
-        this.$.emitter.emitAngles(payload);
+        this.$.servoGateway.emitAngles(payload);
         
         // dispatch is safe because the values were filtered out in this.prepareFemurAndTibiaPayload and this.prepareCoxaPayload
         store.dispatch({ type: "ANGLES_CHANGED_BATCHED", payload });
