@@ -121,17 +121,6 @@
         };
       }
       
-      getTransverseMiscData(legId) {
-        // let dx = this.getDX(legId, 'transverse');
-        // let dy = this.getDY(legId, 'transverse');
-        // let distance = MU.getDistance(dx, dy);
-        
-        return {
-          // transverseDiff: { dx, dy },
-          // transverseDistance: distance
-        };
-      }
-      
       getMovementCircleData(legId, transverseReachRadius, coords, baseDirection) {
         let movementCircleDiameter = PU.getMovementCircleDiameter(transverseReachRadius, this.metaData);
             
@@ -356,8 +345,6 @@
             this.validateCoxaServoRange(coxaAngles);
             // prepare payload obj by filtering out state diplicate values before dispatching
             this.prepareCoxaPayload(legId, coxaAngles, anglesPayload);
-            
-            // let miscValue = this.getTransverseMiscData(legId);
           }
           
           // sagittal coords => femur + tibia angles
