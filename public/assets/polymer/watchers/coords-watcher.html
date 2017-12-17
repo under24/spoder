@@ -159,7 +159,7 @@
           var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
           
         return {
-          // for when the leg is raised. the circle should not get closer to the base
+          // for when the leg is raised. the circle should have solid position so it does not move when the leg is raised
           // x: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).x,
           // y: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).y,
           x: movementCircleCenterCoords.x,
