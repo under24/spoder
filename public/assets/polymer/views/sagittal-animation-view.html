@@ -172,7 +172,7 @@
         // let z = 'transform: rotateY(' + temp + 'deg);';
         
         let a;
-        switch (coords[legId].legId) {
+        switch (+legId) {
           case 1:
             a = (180 - angles[legId].coxaServoAngle) + this.baseCoxaAttachmentAngle[legId];
             break;
