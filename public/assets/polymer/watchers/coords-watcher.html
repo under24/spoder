@@ -192,7 +192,7 @@
       
       // BEGIN POSITIONING LOGIC
       
-      processTransverseCoordsIntoCoxaAngles(legId) {
+      processNewCoxaAngles(legId) {
         let coxaAngles = this.getAngleFromDistance(legId, 'transverse');
         
         // correct the coxa servo angle
@@ -201,7 +201,7 @@
         return coxaAngles;
       }
       
-      processSagittalCoordsIntoFemurAndTibiaAngles(legId) {
+      processNewFemurAndTibiaAngles(legId) {
         // within reach
         if (this.targetWithinReach(legId, 'sagittal'))
           var femuAndTibiaAngles = this.calcForWithinReachMode(legId, 'sagittal');
@@ -350,7 +350,8 @@
           // transverse coords => coxa angles
           if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'transverse', legId)) {
             
-            let coxaAngles = this.processTransverseCoordsIntoCoxaAngles(legId);
+            // transverse coords -> coxa angles
+            let coxaAngles = this.processNewCoxaAngles(legId);
             // correct coxa servo angles if outside possible servo boundaries (0-180deg)
             this.validateCoxaServoRange(coxaAngles);
             // prepare payload obj by filtering out state diplicate values before dispatching
@@ -362,7 +363,8 @@
           // sagittal coords => femur + tibia angles
           if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'sagittal', legId)) {
             
-            let femurAndTibiaAngles = this.processSagittalCoordsIntoFemurAndTibiaAngles(legId);
+            // sagittal coords -> femur + tibia angles
+            let femurAndTibiaAngles = this.processNewFemurAndTibiaAngles(legId);
             // correct femur and tibia servo angles if outside possible servo boundaries (0-180deg)
             this.validateFemurAndTibiaServoRange(femurAndTibiaAngles);
             // prepare payload obj by filtering out state diplicate values before dispatching
