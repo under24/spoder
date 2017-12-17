@@ -1,7 +1,7 @@
-<dom-module id="socket-emitter">
+<dom-module id="servo-angle-gateway">
   <script>
-    class socketEmitter extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'socket-emitter'; }
+    class servoAngleGateway extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'servo-angle-gateway'; }
       
       emitAngles(angles) {
         // obj for storing filtered out servo angles
@@ -42,6 +42,6 @@
       }
 
     }
-    window.customElements.define(socketEmitter.is, socketEmitter);
+    window.customElements.define(servoAngleGateway.is, servoAngleGateway);
   </script>
 </dom-module>
