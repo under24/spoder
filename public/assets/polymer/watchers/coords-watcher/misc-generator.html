@@ -1,0 +1,47 @@
+<dom-module id="misc-generator">
+  <script>
+    class miscGenerator extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'misc-generator'; }
+      static get properties() {
+        return {
+          
+        };
+      }
+      
+      processNewMisc(that, legId) {
+        // leg in sagittal view is in its range
+        var sagittalWithinReach = that.targetWithinReach(legId, 'sagittal');
+        
+        // sagittal diff x/y
+        var dx = that.getDX(legId, 'sagittal'),
+            dy = that.getDY(legId, 'sagittal');
+            
+        // sagittal straight angle from base to cursor
+        var angle = MU.getAngle(dy, dx),
+            sbx = that.coords[legId].sagittalBaseX,
+            sby = that.coords[legId].sagittalBaseY;
+            
+        // sagittal boundary ball xy
+        var sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, that.metaData.combinedLegsLength);
+        
+        if (!sagittalWithinReach)
+          var transverseReachCoords = PU.getTransverseReachCoords(that.coords[legId], that.metaData, sagittalBoundaryBallCoords.y);
+        else
+          var transverseReachCoords = PU.getTransverseReachCoords(that.coords[legId], that.metaData);
+
+        return {
+          sagittalDiff: { dx, dy },
+          // sagittal distance from sagittal cursor x/y to sagittal base x/y
+          sagittalDistance: MU.getDistance(dx, dy),
+          sagittalAngle: angle,
+          sagittalBoundaryBallCoords,
+          transverseReachCoords,
+          transverseReachRadius: PU.getTransverseReachRadius(transverseReachCoords),
+          transverseLegLength: PU.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords)
+        };
+      }
+
+    }
+    window.customElements.define(miscGenerator.is, miscGenerator);
+  </script>
+</dom-module>

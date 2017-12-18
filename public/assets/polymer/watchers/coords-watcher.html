@@ -1,10 +1,12 @@
 <link rel="import" href="coords-watcher/servo-angle-gateway.html">
 <link rel="import" href="coords-watcher/base-generator.html">
+<link rel="import" href="coords-watcher/misc-generator.html">
 
 <dom-module id="coords-watcher">
   <template>
     <servo-angle-gateway id="servoGateway"></servo-angle-gateway>
     <base-generator id="baseGenerator"></base-generator>
+    <misc-generator id="miscGenerator"></misc-generator>
   </template>
   <script>
     class coordsWatcher extends ReduxMixin(Polymer.Element) {
@@ -87,39 +89,6 @@
       
       // BEGIN MISC GATHERING
       
-      processNewMisc(legId) {
-        // leg in sagittal view is in its range
-        var sagittalWithinReach = this.targetWithinReach(legId, 'sagittal');
-        
-        // sagittal diff x/y
-        var dx = this.getDX(legId, 'sagittal'),
-            dy = this.getDY(legId, 'sagittal');
-            
-        // sagittal straight angle from base to cursor
-        var angle = MU.getAngle(dy, dx),
-            sbx = this.coords[legId].sagittalBaseX,
-            sby = this.coords[legId].sagittalBaseY;
-            
-        // sagittal boundary ball xy
-        var sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
-        
-        if (!sagittalWithinReach)
-          var transverseReachCoords = PU.getTransverseReachCoords(this.coords[legId], this.metaData, sagittalBoundaryBallCoords.y);
-        else
-          var transverseReachCoords = PU.getTransverseReachCoords(this.coords[legId], this.metaData);
-
-        return {
-          sagittalDiff: { dx, dy },
-          // sagittal distance from sagittal cursor x/y to sagittal base x/y
-          sagittalDistance: MU.getDistance(dx, dy),
-          sagittalAngle: angle,
-          sagittalBoundaryBallCoords,
-          transverseReachCoords,
-          transverseReachRadius: PU.getTransverseReachRadius(transverseReachCoords),
-          transverseLegLength: PU.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords)
-        };
-      }
-      
       processNewCircles(legId, transverseReachRadius, coords, baseDirection) {
         let movementCircleDiameter = PU.getMovementCircleDiameter(transverseReachRadius, this.metaData);
             
@@ -163,14 +132,16 @@
           // y: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).y,
           x: movementCircleCenterCoords.x,
           y: movementCircleCenterCoords.y,
+          // fluentX: movementCircleCenterCoords.x,
+          // fluentY: movementCircleCenterCoords.y,
           unturnedX,
           unturnedY,
           turnedTBXGuidePoint: turnedTBX,
           turnedTBYGuidePoint: turnedTBY,
-          fluentRadius: movementCircleDiameter / 2,
-          fluentDiameter: movementCircleDiameter,
-          radius: 80,
-          diameter: 160
+          radius: movementCircleDiameter / 2,
+          diameter: movementCircleDiameter,
+          // radius: 80,
+          // diameter: 160
         }
       }
       
@@ -354,10 +325,8 @@
             // prepare payload obj by filtering out state diplicate values before dispatching
             this.prepareFemurAndTibiaPayload(legId, femurAndTibiaAngles, anglesPayload);
             
-            // misc
-            let miscValue = this.processNewMisc(legId);
+            let miscValue = this.$.miscGenerator.processNewMisc(this, legId);
             this.gatherMiscValues(legId, miscValue, miscPayload);
-            this.$.miscGenerator.temp(this);
             
             let movementCircleValue = this.processNewCircles(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection);
             this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
