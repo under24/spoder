@@ -334,7 +334,7 @@
         this.validateAndDispatchAngle(anglesPayload);
         this.$.baseGenerator.validateAndDispatchBaseDirection(baseDirection);
         this.$.baseGenerator.validateAndDispatchBaseCenterCoords(baseCenterCoords);
-        this.validateAndDispatchMisc(miscPayload);
+        this.$.miscGenerator.validateAndDispatchMisc(miscPayload);
         this.validateAndDispatchMovementCircles(movementCirclesPayload);
       }
       
@@ -347,13 +347,6 @@
         
         // dispatch is safe because the values were filtered out in this.prepareFemurAndTibiaPayload and this.prepareCoxaPayload
         store.dispatch({ type: "ANGLES_CHANGED_BATCHED", payload });
-      }
-      
-      validateAndDispatchMisc(payload) {
-        // empty payload object
-        if (Object.keys(payload).length === 0) return;
-        
-        store.dispatch({ type: "MISC_CHANGED_BATCHED", payload });
       }
       
       validateAndDispatchMovementCircles(payload) {

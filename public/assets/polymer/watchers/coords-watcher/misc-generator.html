@@ -63,6 +63,13 @@
           possibleY: scy
         }
       }
+      
+      validateAndDispatchMisc(payload) {
+        // empty payload object
+        if (Object.keys(payload).length === 0) return;
+        
+        store.dispatch({ type: "MISC_CHANGED_BATCHED", payload });
+      }
 
     }
     window.customElements.define(miscGenerator.is, miscGenerator);
