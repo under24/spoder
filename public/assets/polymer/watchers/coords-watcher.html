@@ -88,8 +88,9 @@
       // -------------------------------------------------
       
       processNewCircles(legId, transverseReachRadius, coords, baseDirection) {
-        let movementCircleDiameter = PU.getMovementCircleDiameter(transverseReachRadius, this.metaData);
-            
+        let movementCircleDiameter = transverseReachRadius - this.metaData.impossibleRange;
+        
+        // distance to the center of the circle + offset from impossible range
         let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
             tbx = coords.transverseBaseX,
             tby = coords.transverseBaseY,
