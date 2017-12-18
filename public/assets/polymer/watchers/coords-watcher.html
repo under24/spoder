@@ -130,7 +130,7 @@
             coxaAttachment = this.baseCoxaAttachmentAngle[legId];
             
         // sum up baseCoxaAttachmentAngle + movement.directionJoystick + movement.turnJoystick
-        switch (GU.getSideFromLegId(legId)) {
+        switch (GU.getLegSide(legId)) {
           case 'left':
             var angle = (coxaAttachment + baseDirection) - this.turnJoystick.x; break;
           case 'right':
@@ -145,7 +145,7 @@
           var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
           
           // also find unturned movement circle coords
-          switch (GU.getSideFromLegId(legId)) {
+          switch (GU.getLegSide(legId)) {
             case 'left':
               var angleForUnturnedXY = coxaAttachment + baseDirection; break;
             case 'right':

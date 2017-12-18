@@ -301,10 +301,10 @@
       computeBase(coords, offsets, legId) {
         let x, y;
         if (this.useOffsets) {
-          x = `${GU.getSideFromLegId(legId)}: ${coords[legId].transverseBaseX + offsets[legId].transverseAnimationViewOffsetX}px;`;
+          x = `${GU.getLegSide(legId)}: ${coords[legId].transverseBaseX + offsets[legId].transverseAnimationViewOffsetX}px;`;
           y = `top: ${coords[legId].transverseBaseY + offsets[legId].transverseAnimationViewOffsetY}px;`;
         } else {
-          x = `${GU.getSideFromLegId(legId)}: ${coords[legId].transverseBaseX}px;`;
+          x = `${GU.getLegSide(legId)}: ${coords[legId].transverseBaseX}px;`;
           y = `top: ${coords[legId].transverseBaseY}px;`;
         }
         
@@ -314,10 +314,10 @@
       computeCursor(coords, offsets, legId) {        
         let x, y;
         if (this.useOffsets) {
-          x = `${GU.getSideFromLegId(legId)}: ${coords[legId].transverseCursorX + offsets[legId].transverseAnimationViewOffsetX}px;`;
+          x = `${GU.getLegSide(legId)}: ${coords[legId].transverseCursorX + offsets[legId].transverseAnimationViewOffsetX}px;`;
           y = `top: ${coords[legId].transverseCursorY + offsets[legId].transverseAnimationViewOffsetY}px;`;
         } else {
-          x = `${GU.getSideFromLegId(legId)}: ${coords[legId].transverseCursorX}px;`;
+          x = `${GU.getLegSide(legId)}: ${coords[legId].transverseCursorX}px;`;
           y = `top: ${coords[legId].transverseCursorY}px;`;
         }
         
@@ -326,12 +326,12 @@
       
       computeCoxa(angles, legId, misc) {
         let x, y, z;
-        if (GU.getSideFromLegId(legId) === 'left') {
+        if (GU.getLegSide(legId) === 'left') {
           y = 'transform-origin: left;';
           z = 'left: 50%;';
           x = `transform: rotate(${angles[legId].coxaScreenAngle}deg);`;
         } 
-        if (GU.getSideFromLegId(legId) === 'right') {
+        if (GU.getLegSide(legId) === 'right') {
           y = 'transform-origin: right;';
           z = 'right: 50%;';
           let temp = angles[legId].coxaScreenAngle * -1;
@@ -349,7 +349,7 @@
         
         let x, y;
         if (this.useOffsets) {
-          switch (GU.getSideFromLegId(legId)) {
+          switch (GU.getLegSide(legId)) {
             case 'left':
               x = `left: ${movementPointers[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
             case 'right':
@@ -357,7 +357,7 @@
           }
           y = `top: ${movementPointers[legId].y + offsets[legId].transverseAnimationViewOffsetY}px;`;
         } else {
-          switch (GU.getSideFromLegId(legId)) {
+          switch (GU.getLegSide(legId)) {
             case 'left':
               x = `left: ${movementPointers[legId].x}px;`; break;
             case 'right':
@@ -372,7 +372,7 @@
       computeCircleCenter(movementCircles, offsets, legId) {
         let x, y;
         if (this.useOffsets) {
-          switch (GU.getSideFromLegId(legId)) {
+          switch (GU.getLegSide(legId)) {
             case 'left':
               x = `left: ${movementCircles[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
             case 'right':
@@ -380,7 +380,7 @@
           }
           y = `top: ${movementCircles[legId].y + offsets[legId].transverseAnimationViewOffsetY}px;`;
         } else {
-          switch (GU.getSideFromLegId(legId)) {
+          switch (GU.getLegSide(legId)) {
             case 'left':
               x = `left: ${movementCircles[legId].x}px;`; break;
             case 'right':

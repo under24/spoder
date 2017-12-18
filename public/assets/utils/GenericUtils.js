@@ -2,7 +2,7 @@
 
 // GU == GenericUtils
 let GU = {
-  getSideFromLegId(legId) {
+  getLegSide(legId) {
     switch (legId) {
       case 1:
       case '1':

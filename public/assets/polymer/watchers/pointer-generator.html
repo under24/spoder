@@ -48,7 +48,7 @@
         for (let legId = 1; legId <= 6; legId++) {
           let currentPointer = {};
           
-          switch (GU.getSideFromLegId(legId)) {
+          switch (GU.getLegSide(legId)) {
             case 'left':
               currentPointer.x = circles[legId].x - circles[legId].radius * (directionJoystick.x / 100); break;
             case 'right':
@@ -76,7 +76,7 @@
         // angle correction
         circleToPointerAngle = GU.correctAngle(circleToPointerAngle);
         
-        switch (GU.getSideFromLegId(legId)) {
+        switch (GU.getLegSide(legId)) {
           case 'left':
             return MU.getCoordsFromDistanceAndAngle(circle.x, circle.y, circleToPointerAngle + baseDirection - turn, distance);
           case 'right':
