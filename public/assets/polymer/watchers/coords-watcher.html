@@ -87,7 +87,7 @@
       
       // BEGIN MISC GATHERING
       
-      getSagittalMiscData(legId) {
+      processNewMisc(legId) {
         let sagittalWithinReach = this.targetWithinReach(legId, 'sagittal');
         
         // sagittal diff x/y
@@ -121,7 +121,7 @@
         };
       }
       
-      getMovementCircleData(legId, transverseReachRadius, coords, baseDirection) {
+      processNewCircles(legId, transverseReachRadius, coords, baseDirection) {
         let movementCircleDiameter = PU.getMovementCircleDiameter(transverseReachRadius, this.metaData);
             
         let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
@@ -355,10 +355,12 @@
             // prepare payload obj by filtering out state diplicate values before dispatching
             this.prepareFemurAndTibiaPayload(legId, femurAndTibiaAngles, anglesPayload);
             
-            let miscValue = this.getSagittalMiscData(legId);
+            // misc
+            let miscValue = this.processNewMisc(legId);
             this.gatherMiscValues(legId, miscValue, miscPayload);
+            this.$.miscGenerator.temp(this);
             
-            let movementCircleValue = this.getMovementCircleData(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection);
+            let movementCircleValue = this.processNewCircles(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection);
             this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
           }
         }
@@ -402,7 +404,7 @@
         let movementCirclesPayload = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          let movementCircleValue = this.getMovementCircleData(legId, this.misc[legId].transverseReachRadius, this.coords[legId], this.baseDirection);
+          let movementCircleValue = this.processNewCircles(legId, this.misc[legId].transverseReachRadius, this.coords[legId], this.baseDirection);
           this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
         }
         
