@@ -2,31 +2,6 @@
 
 // PU == PositioningUtils
 let PU = {
-  getTransverseReachCoords(coords, metaData, customScy) {
-    let scy = customScy || coords.sagittalCursorY,
-        radius = metaData.combinedLegsLength,
-        sbx = coords.sagittalBaseX,
-        sby = coords.sagittalBaseY,
-        endX = sbx + Math.sqrt(radius * radius - (scy - sby) * (scy - sby));
-    
-    return {
-      endX: endX,
-      endY: scy,
-      beginningX: coords.sagittalBaseX,
-      beginningY: scy,
-      possibleX: coords.sagittalBaseX + metaData.impossibleRange,
-      possibleY: scy
-    }
-  },
-  getTransverseLegLength(withinReach, dx, sbx, boundaryCoords) {
-    if (withinReach) 
-      return dx;
-    else 
-      return boundaryCoords.x - sbx;
-  },
-  getTransverseReachRadius(transverseReachCoords) {
-    return transverseReachCoords.endX - transverseReachCoords.beginningX;
-  },
   getMovementCircleDiameter(transverseReachRadius, metaData) {
     return transverseReachRadius - metaData.impossibleRange;
   },

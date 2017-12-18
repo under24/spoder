@@ -2,11 +2,6 @@
   <script>
     class miscGenerator extends ReduxMixin(Polymer.Element) {
       static get is() { return 'misc-generator'; }
-      static get properties() {
-        return {
-          
-        };
-      }
       
       processNewMisc(that, legId) {
         // leg in sagittal view is in its range
@@ -25,9 +20,9 @@
         var sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, that.metaData.combinedLegsLength);
         
         if (!sagittalWithinReach)
-          var transverseReachCoords = PU.getTransverseReachCoords(that.coords[legId], that.metaData, sagittalBoundaryBallCoords.y);
+          var transverseReachCoords = this.getTransverseReachCoords(that.coords[legId], that.metaData, sagittalBoundaryBallCoords.y);
         else
-          var transverseReachCoords = PU.getTransverseReachCoords(that.coords[legId], that.metaData);
+          var transverseReachCoords = this.getTransverseReachCoords(that.coords[legId], that.metaData);
 
         return {
           sagittalDiff: { dx, dy },
@@ -36,9 +31,37 @@
           sagittalAngle: angle,
           sagittalBoundaryBallCoords,
           transverseReachCoords,
-          transverseReachRadius: PU.getTransverseReachRadius(transverseReachCoords),
-          transverseLegLength: PU.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords)
+          transverseReachRadius: this.getTransverseReachRadius(transverseReachCoords),
+          transverseLegLength: this.getTransverseLegLength(sagittalWithinReach, dx, sbx, sagittalBoundaryBallCoords)
         };
+      }
+      
+      getTransverseReachRadius(transverseReachCoords) {
+        return transverseReachCoords.endX - transverseReachCoords.beginningX;
+      }
+      
+      getTransverseLegLength(withinReach, dx, sbx, boundaryCoords) {
+        if (withinReach) 
+          return dx;
+        else 
+          return boundaryCoords.x - sbx;
+      }
+      
+      getTransverseReachCoords(coords, metaData, customScy) {
+        let scy = customScy || coords.sagittalCursorY,
+            radius = metaData.combinedLegsLength,
+            sbx = coords.sagittalBaseX,
+            sby = coords.sagittalBaseY,
+            endX = sbx + Math.sqrt(radius * radius - (scy - sby) * (scy - sby));
+        
+        return {
+          endX: endX,
+          endY: scy,
+          beginningX: coords.sagittalBaseX,
+          beginningY: scy,
+          possibleX: coords.sagittalBaseX + metaData.impossibleRange,
+          possibleY: scy
+        }
       }
 
     }
