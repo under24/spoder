@@ -20,7 +20,7 @@ let GU = {
         return "right";
     }
   },
-  getRowFromLegId(legId) {
+  getLegRow(legId) {
     switch (legId) {
       case 1:
       case '1':

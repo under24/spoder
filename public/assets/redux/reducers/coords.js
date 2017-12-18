@@ -314,7 +314,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         
         for (let legId = 1; legId <= 6; legId++) {
           let finalValue,
-              row = GU.getRowFromLegId(legId);
+              row = GU.getLegRow(legId);
           
           switch (GU.getSideFromLegId(legId)) {
             case 'right':
