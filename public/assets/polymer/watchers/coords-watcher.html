@@ -244,10 +244,6 @@
         if (angles.tibiaServoAngle > 180) angles.tibiaServoAngle = 180;
       }
       
-      gatherMiscValues(legId, misc, payload) {
-        payload[legId] = misc;
-      }
-      
       gatherMovementCircleValues(legId, movementCircle, payload) {
         payload[legId] = movementCircle;
       }
@@ -323,7 +319,7 @@
             this.prepareFemurAndTibiaPayload(legId, femurAndTibiaAngles, anglesPayload);
             
             let miscValue = this.$.miscGenerator.processNewMisc(this, legId);
-            this.gatherMiscValues(legId, miscValue, miscPayload);
+            this.$.miscGenerator.gatherMiscValues(legId, miscValue, miscPayload);
             
             let movementCircleValue = this.processNewCircles(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection);
             this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);

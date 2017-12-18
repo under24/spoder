@@ -64,6 +64,10 @@
         }
       }
       
+      gatherMiscValues(legId, misc, payload) {
+        payload[legId] = misc;
+      }
+      
       validateAndDispatchMisc(payload) {
         // empty payload object
         if (Object.keys(payload).length === 0) return;
