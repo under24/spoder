@@ -9,8 +9,7 @@ let coordsReducerInitState = {
     transverseCursorX: 200,
     transverseCursorY: -250,
     transverseBaseX: 100,
-    transverseBaseY: -150,
-    side: 'left'
+    transverseBaseY: -150
   },
   2: {
     // sagittalCursorX: 250,
@@ -20,8 +19,7 @@ let coordsReducerInitState = {
     transverseCursorX: 200,
     transverseCursorY: -250,
     transverseBaseX: 100,
-    transverseBaseY: -150,
-    side: 'right'
+    transverseBaseY: -150
   },
   3: {
     // sagittalCursorX: 250,
@@ -31,8 +29,7 @@ let coordsReducerInitState = {
     transverseCursorX: 300,
     transverseCursorY: 0,
     transverseBaseX: 150,
-    transverseBaseY: 0,
-    side: 'left'
+    transverseBaseY: 0
   },
   4: {
     // sagittalCursorX: 250,
@@ -42,8 +39,7 @@ let coordsReducerInitState = {
     transverseCursorX: 300,
     transverseCursorY: 0,
     transverseBaseX: 150,
-    transverseBaseY: 0,
-    side: 'right'
+    transverseBaseY: 0
   },
   5: {
     // sagittalCursorX: 250,
@@ -53,8 +49,7 @@ let coordsReducerInitState = {
     transverseCursorX: 200,
     transverseCursorY: 250,
     transverseBaseX: 100,
-    transverseBaseY: 150,
-    side: 'left'
+    transverseBaseY: 150
   },
   6: {
     // sagittalCursorX: 250,
@@ -64,8 +59,7 @@ let coordsReducerInitState = {
     transverseCursorX: 200,
     transverseCursorY: 250,
     transverseBaseX: 100,
-    transverseBaseY: 150,
-    side: 'right'
+    transverseBaseY: 150
   }
 };
 

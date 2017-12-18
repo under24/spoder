@@ -17,7 +17,7 @@
     <sagittal-view-base
       x="[[computeXY(coords.sagittalBaseX, viewOffsets.sagittalViewOffsetX)]]"
       y="[[computeXY(coords.sagittalBaseY, viewOffsets.sagittalViewOffsetY)]]"
-      side="[[coords.side]]"
+      side="[[computeSide(legId)]]"
       femur-length="[[metaData.femurLength]]"
       tibia-length="[[metaData.tibiaLength]]"
       reach-radius="[[metaData.combinedLegsLength]]"
@@ -32,7 +32,7 @@
     </sagittal-view-base>
     
     <view-cursor
-      side="[[coords.side]]"
+      side="[[computeSide(legId)]]"
       xy="[[computeCursorXY(coords.sagittalCursorX, viewOffsets.sagittalViewOffsetX, coords.sagittalCursorY, viewOffsets.sagittalViewOffsetY)]]"
       output={{cursorOutput}}>
     </view-cursor>
@@ -153,6 +153,10 @@
           x: x + offsetX,
           y: y + offsetY
         }
+      }
+      
+      computeSide(legId) {
+        return GU.getLegSide(legId);
       }
  
     }
