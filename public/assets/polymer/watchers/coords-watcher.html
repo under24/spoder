@@ -1,12 +1,14 @@
 <link rel="import" href="coords-watcher/servo-angle-gateway.html">
 <link rel="import" href="coords-watcher/base-generator.html">
 <link rel="import" href="coords-watcher/misc-generator.html">
+<link rel="import" href="coords-watcher/circle-generator.html">
 
 <dom-module id="coords-watcher">
   <template>
     <servo-angle-gateway id="servoGateway"></servo-angle-gateway>
     <base-generator id="baseGenerator"></base-generator>
     <misc-generator id="miscGenerator"></misc-generator>
+    <circle-generator id="circleGenerator"></circle-generator>
   </template>
   <script>
     class coordsWatcher extends ReduxMixin(Polymer.Element) {
