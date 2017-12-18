@@ -89,20 +89,20 @@
       
       processNewMisc(legId) {
         // leg in sagittal view is in its range
-        let sagittalWithinReach = this.targetWithinReach(legId, 'sagittal');
+        var sagittalWithinReach = this.targetWithinReach(legId, 'sagittal');
         
         // sagittal diff x/y
-        let dx = this.getDX(legId, 'sagittal'),
+        var dx = this.getDX(legId, 'sagittal'),
             dy = this.getDY(legId, 'sagittal');
-        
+            
         // sagittal straight angle from base to cursor
-        let angle = MU.getAngle(dy, dx),
+        var angle = MU.getAngle(dy, dx),
             sbx = this.coords[legId].sagittalBaseX,
             sby = this.coords[legId].sagittalBaseY;
             
         // sagittal boundary ball xy
-        let sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
-            
+        var sagittalBoundaryBallCoords = MU.getCoordsFromDistanceAndAngle(sbx, sby, angle, this.metaData.combinedLegsLength);
+        
         if (!sagittalWithinReach)
           var transverseReachCoords = PU.getTransverseReachCoords(this.coords[legId], this.metaData, sagittalBoundaryBallCoords.y);
         else
