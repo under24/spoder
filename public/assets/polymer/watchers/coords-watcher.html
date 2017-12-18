@@ -109,7 +109,7 @@
         // turn base coords if turnJoystick.x !== 0
         if (this.turnJoystick.x) {
           // turn base coords
-          var { x: turnedTBX, y: turnedTBY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId], GU.getLegSide(legId));
+          var { x: turnedTBX, y: turnedTBY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.x), coords, GU.getLegSide(legId));
           // find movement circle coords
           var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
           
