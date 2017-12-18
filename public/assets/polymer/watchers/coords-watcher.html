@@ -318,9 +318,11 @@
             // prepare payload obj by filtering out state diplicate values before dispatching
             this.prepareFemurAndTibiaPayload(legId, femurAndTibiaAngles, anglesPayload);
             
+            // misc
             let miscValue = this.$.miscGenerator.processNewMisc(this, legId);
             this.$.miscGenerator.gatherMiscValues(legId, miscValue, miscPayload);
             
+            // movement circles
             let movementCircleValue = this.processNewCircles(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection);
             this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
           }
