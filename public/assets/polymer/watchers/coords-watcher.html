@@ -338,7 +338,6 @@
         for (let legId = 1; legId <= 6; legId++) {
           // transverse coords => coxa angles
           if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'transverse', legId)) {
-            
             // transverse coords -> coxa angles
             let coxaAngles = this.processNewCoxaAngles(legId);
             // correct coxa servo angles if outside possible servo boundaries (0-180deg)
@@ -349,7 +348,6 @@
           
           // sagittal coords => femur + tibia angles
           if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'sagittal', legId)) {
-            
             // sagittal coords -> femur + tibia angles
             let femurAndTibiaAngles = this.processNewFemurAndTibiaAngles(legId);
             // correct femur and tibia servo angles if outside possible servo boundaries (0-180deg)
