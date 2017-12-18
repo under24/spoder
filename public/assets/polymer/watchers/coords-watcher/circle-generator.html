@@ -3,6 +3,10 @@
     class circleGenerator extends ReduxMixin(Polymer.Element) {
       static get is() { return 'circle-generator'; }
       
+      gatherMovementCircleValues(legId, movementCircle, payload) {
+        payload[legId] = movementCircle;
+      }
+      
       validateAndDispatchMovementCircles(payload) {
         // empty payload object
         if (Object.keys(payload).length === 0) return;

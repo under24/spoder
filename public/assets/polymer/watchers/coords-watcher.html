@@ -246,10 +246,6 @@
         if (angles.tibiaServoAngle > 180) angles.tibiaServoAngle = 180;
       }
       
-      gatherMovementCircleValues(legId, movementCircle, payload) {
-        payload[legId] = movementCircle;
-      }
-      
       getFemurAngle(legId, view) {
         let D1 = Math.atan2(this.getDY(legId, view), this.getDX(legId, view)),
             D2 = MU.lawOfCos(this.getDistanceFromBaseToCursor(legId, view), this.metaData.femurLength, this.metaData.tibiaLength);
@@ -327,7 +323,7 @@
             
             // movement circles
             let movementCircleValue = this.processNewCircles(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection);
-            this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
+            this.$.circleGenerator.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
           }
         }
 
@@ -357,7 +353,7 @@
         
         for (let legId = 1; legId <= 6; legId++) {
           let movementCircleValue = this.processNewCircles(legId, this.misc[legId].transverseReachRadius, this.coords[legId], this.baseDirection);
-          this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
+          this.$.circleGenerator.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
         }
         
         this.$.circleGenerator.validateAndDispatchMovementCircles(movementCirclesPayload);
