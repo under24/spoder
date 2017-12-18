@@ -88,6 +88,7 @@
       // BEGIN MISC GATHERING
       
       processNewMisc(legId) {
+        // leg in sagittal view is in its range
         let sagittalWithinReach = this.targetWithinReach(legId, 'sagittal');
         
         // sagittal diff x/y
@@ -95,10 +96,8 @@
             dy = this.getDY(legId, 'sagittal');
         
         // sagittal straight angle from base to cursor
-        let angle = MU.getAngle(dy, dx);
-        
-        // sagittal boundary ball xy
-        let sbx = this.coords[legId].sagittalBaseX,
+        let angle = MU.getAngle(dy, dx),
+            sbx = this.coords[legId].sagittalBaseX,
             sby = this.coords[legId].sagittalBaseY;
             
         // sagittal boundary ball xy
