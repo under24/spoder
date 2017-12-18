@@ -2,7 +2,6 @@
 
 let angleReducerInitState = {
   1: {
-    legId: 1,
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
@@ -11,7 +10,6 @@ let angleReducerInitState = {
     tibiaServoAngle: null
   },
   2: {
-    legId: 2,
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
@@ -20,7 +18,6 @@ let angleReducerInitState = {
     tibiaServoAngle: null
   },
   3: {
-    legId: 3,
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
@@ -29,7 +26,6 @@ let angleReducerInitState = {
     tibiaServoAngle: null
   },
   4: {
-    legId: 4,
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
@@ -38,7 +34,6 @@ let angleReducerInitState = {
     tibiaServoAngle: null
   },
   5: {
-    legId: 5,
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
@@ -47,7 +42,6 @@ let angleReducerInitState = {
     tibiaServoAngle: null
   },
   6: {
-    legId: 6,
     coxaScreenAngle: null,
     coxaServoAngle: null,
     femurScreenAngle: null,
