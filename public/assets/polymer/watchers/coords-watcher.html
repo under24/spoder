@@ -336,7 +336,7 @@
         this.$.baseGenerator.validateAndDispatchBaseDirection(baseDirection);
         this.$.baseGenerator.validateAndDispatchBaseCenterCoords(baseCenterCoords);
         this.$.miscGenerator.validateAndDispatchMisc(miscPayload);
-        this.validateAndDispatchMovementCircles(movementCirclesPayload);
+        this.$.circleGenerator.validateAndDispatchMovementCircles(movementCirclesPayload);
       }
       
       validateAndDispatchAngle(payload) {
@@ -350,13 +350,6 @@
         store.dispatch({ type: "ANGLES_CHANGED_BATCHED", payload });
       }
       
-      validateAndDispatchMovementCircles(payload) {
-        // empty payload object
-        if (Object.keys(payload).length === 0) return;
-        
-        store.dispatch({ type: "MOVEMENT_CIRCLES_CHANGED_BATCHED", payload });
-      }
-      
       observeTurnJoystick(newValue, oldValue) {
         if (oldValue === undefined) return;
         
@@ -367,7 +360,7 @@
           this.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
         }
         
-        this.validateAndDispatchMovementCircles(movementCirclesPayload);
+        this.$.circleGenerator.validateAndDispatchMovementCircles(movementCirclesPayload);
       }
       
       // END PROPERTY OBSERVERS
