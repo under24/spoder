@@ -89,7 +89,7 @@
       
       // -------------------------------------------------
       
-      processNewCircles(legId, transverseReachRadius, coords, baseDirection) {
+      processNewCircles(legId, transverseReachRadius, coords, baseDirection, baseCenterCoords) {
         let movementCircleDiameter = transverseReachRadius - this.metaData.impossibleRange;
         
         // distance to the center of the circle + offset from impossible range
@@ -109,7 +109,7 @@
         // turn base coords if turnJoystick.x !== 0
         if (this.turnJoystick.x) {
           // turn base coords
-          var { x: turnedTBX, y: turnedTBY } = RU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId], GU.getLegSide(legId));
+          var { x: turnedTBX, y: turnedTBY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.x), this.coords[legId], GU.getLegSide(legId));
           // find movement circle coords
           var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
           
@@ -322,7 +322,7 @@
             this.$.miscGenerator.gatherMiscValues(legId, miscValue, miscPayload);
             
             // movement circles
-            let movementCircleValue = this.processNewCircles(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection);
+            let movementCircleValue = this.processNewCircles(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection, baseCenterCoords);
             this.$.circleGenerator.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
           }
         }
@@ -352,7 +352,7 @@
         let movementCirclesPayload = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          let movementCircleValue = this.processNewCircles(legId, this.misc[legId].transverseReachRadius, this.coords[legId], this.baseDirection);
+          let movementCircleValue = this.processNewCircles(legId, this.misc[legId].transverseReachRadius, this.coords[legId], this.baseDirection, this.baseCenterCoords);
           this.$.circleGenerator.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
         }
         
