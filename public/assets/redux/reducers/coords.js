@@ -2,7 +2,6 @@
 
 let coordsReducerInitState = {
   1: {
-    legId: 1,
     // sagittalCursorX: 250,
     sagittalCursorY: 0,
     // sagittalBaseX: 100,
@@ -14,7 +13,6 @@ let coordsReducerInitState = {
     side: 'left'
   },
   2: {
-    legId: 2,
     // sagittalCursorX: 250,
     sagittalCursorY: 0,
     // sagittalBaseX: 100,
@@ -26,7 +24,6 @@ let coordsReducerInitState = {
     side: 'right'
   },
   3: {
-    legId: 3,
     // sagittalCursorX: 250,
     sagittalCursorY: 0,
     // sagittalBaseX: 100,
@@ -38,7 +35,6 @@ let coordsReducerInitState = {
     side: 'left'
   },
   4: {
-    legId: 4,
     // sagittalCursorX: 250,
     sagittalCursorY: 0,
     // sagittalBaseX: 100,
@@ -50,7 +46,6 @@ let coordsReducerInitState = {
     side: 'right'
   },
   5: {
-    legId: 5,
     // sagittalCursorX: 250,
     sagittalCursorY: 0,
     // sagittalBaseX: 100,
@@ -62,7 +57,6 @@ let coordsReducerInitState = {
     side: 'left'
   },
   6: {
-    legId: 6,
     // sagittalCursorX: 250,
     sagittalCursorY: 0,
     // sagittalBaseX: 100,
@@ -338,7 +332,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
             baseCenterCoords = RU.getBaseCenter(state);
         
         for (let legId = 1; legId <= 6; legId++) {
-          let rotatedCoords = RU.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[legId]);
+          let rotatedCoords = RU.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[legId], GU.getLegSide(legId));
           
           let finalCoords = {
             transverseBaseX: rotatedCoords.x,
