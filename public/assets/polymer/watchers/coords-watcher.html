@@ -299,7 +299,8 @@
             baseDirection = this.$.baseGenerator.calcBaseDirection(newCoords, baseCenterCoords);
             
         for (let legId = 1; legId <= 6; legId++) {
-          // transverse coords => coxa angles
+          
+          // transverse coords
           if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'transverse', legId)) {
             // transverse coords -> coxa angles
             let coxaAngles = this.processNewCoxaAngles(legId);
@@ -309,7 +310,7 @@
             this.prepareCoxaPayload(legId, coxaAngles, anglesPayload);
           }
           
-          // sagittal coords => femur + tibia angles
+          // sagittal coords
           if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'sagittal', legId)) {
             // sagittal coords -> femur + tibia angles
             let femurAndTibiaAngles = this.processNewFemurAndTibiaAngles(legId);
