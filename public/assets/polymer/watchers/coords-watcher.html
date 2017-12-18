@@ -347,6 +347,7 @@
       }
       
       observeTurnJoystick(newValue, oldValue) {
+        // skip init because circles will be generated in the observeCoords function
         if (oldValue === undefined) return;
         
         let movementCirclesPayload = {};
