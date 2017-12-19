@@ -1,26 +1,21 @@
 {
-  "name": "arduino-rgb-sockets",
+  "name": "Vitya the Spoder",
   "version": "1.0.0",
-  "description": "Control a RGB LED using Websockets and johnny-five",
-  "main": "app.js",
+  "description": "Awesome Hexapod Spoder",
+  "main": "server.js",
   "dependencies": {
     "express": "^4.13.4",
     "johnny-five": "^0.9.56",
     "socket.io": "^1.4.6"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "arduino",
-    "rgb",
-    "johnny",
-    "five",
-    "led",
+    "raspberry",
+    "johnny-five",
+    "spider",
+    "spoder",
     "websockets",
-    "hardware"
+    "hexapod"
   ],
-  "author": "Ricardo Magalhaes <magalhini@gmail.com> (http://ricardofilipe.com)",
-  "license": "ISC"
+  "author": "Stadnichuk Konstantin <50499405qaz@gmail.com>"
 }

@@ -1,7 +1,8 @@
 {
-  "name": "jumper-el",
-  "description": "jumper-el",
-  "main": "jumper-el.html",
+  "name": "Vitya the Spoder",
+  "description": "Awesome Hexapod Spoder",
+  "author": "Stadnichuk Konstantin <50499405qaz@gmail.com>",
+  "main": "server.js",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0-rc.2"
   },
