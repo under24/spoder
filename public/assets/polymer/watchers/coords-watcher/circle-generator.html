@@ -14,14 +14,8 @@
           coords: {
             statePath: 'coords'
           },
-          baseDirection: {
-            statePath: 'base.direction'
-          },
-          baseCenterCoords: {
-            statePath: 'base.centerCoords'
-          },
-          baseCoxaAttachmentAngle: {
-            statePath: 'base.coxaAttachmentAngle'
+          base: {
+            statePath: 'base'
           },
           metaData: {
             statePath: 'metaData'
@@ -32,16 +26,16 @@
         };
       }
       
-      processNewCircles(legId, transverseReachRadius, coords, baseDirection = this.baseDirection, baseCenterCoords = this.baseCenterCoords) {
+      processNewCircles(legId, transverseReachRadius, coords, baseDirection = this.base.direction, baseCenterCoords = this.base.centerCoords) {
         let movementCircleDiameter = transverseReachRadius - this.metaData.impossibleRange;
         
         // distance to the center of the circle + offset from impossible range
         let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
             tbx = coords.transverseBaseX,
             tby = coords.transverseBaseY,
-            coxaAttachment = this.baseCoxaAttachmentAngle[legId];
+            coxaAttachment = this.base.coxaAttachmentAngle[legId];
             
-        // sum up baseCoxaAttachmentAngle + baseDirection + turnJoystick
+        // sum up coxaAttachment + baseDirection - turnJoystick
         switch (GU.getLegSide(legId)) {
           case 'left':
             var angle = coxaAttachment + baseDirection - this.turnJoystick.x; break;
