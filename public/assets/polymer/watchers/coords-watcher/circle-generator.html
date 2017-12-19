@@ -2,9 +2,95 @@
   <script>
     class circleGenerator extends ReduxMixin(Polymer.Element) {
       static get is() { return 'circle-generator'; }
+      static get properties() {
+        return {
+          turnJoystick: {
+            statePath: 'movement.turnJoystick',
+            observer: 'observeTurnJoystick'
+          },
+          misc: {
+            statePath: 'misc'
+          },
+          coords: {
+            statePath: 'coords'
+          },
+          baseDirection: {
+            statePath: 'base.direction'
+          },
+          baseCenterCoords: {
+            statePath: 'base.centerCoords'
+          },
+          baseCoxaAttachmentAngle: {
+            statePath: 'base.coxaAttachmentAngle'
+          },
+          metaData: {
+            statePath: 'metaData'
+          },
+          circles: {
+            statePath: 'movement.circles'
+          }
+        };
+      }
       
-      gatherMovementCircleValues(legId, movementCircle, payload) {
-        payload[legId] = movementCircle;
+      processNewCircles(legId, transverseReachRadius, coords, baseDirection = this.baseDirection, baseCenterCoords = this.baseCenterCoords) {
+        let movementCircleDiameter = transverseReachRadius - this.metaData.impossibleRange;
+        
+        // distance to the center of the circle + offset from impossible range
+        let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
+            tbx = coords.transverseBaseX,
+            tby = coords.transverseBaseY,
+            coxaAttachment = this.baseCoxaAttachmentAngle[legId];
+            
+        // sum up baseCoxaAttachmentAngle + baseDirection + turnJoystick
+        switch (GU.getLegSide(legId)) {
+          case 'left':
+            var angle = coxaAttachment + baseDirection - this.turnJoystick.x; break;
+          case 'right':
+            var angle = MU.flipNumber(coxaAttachment + baseDirection - this.turnJoystick.x); break;
+        }
+        
+        // turn base coords if turnJoystick.x !== 0
+        if (this.turnJoystick.x) {
+          // turn base coords
+          var { x: turnedTBX, y: turnedTBY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.x), coords, GU.getLegSide(legId));
+          // find movement circle coords
+          var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
+          
+          // also find unturned movement circle coords
+          switch (GU.getLegSide(legId)) {
+            case 'left':
+              var angleForUnturnedXY = coxaAttachment + baseDirection; break;
+            case 'right':
+              var angleForUnturnedXY = MU.flipNumber(coxaAttachment + baseDirection); break;
+          }
+          // unturned movement circle coords
+          var { x: unturnedX, y: unturnedY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, angleForUnturnedXY, distance);
+        }
+        // turnJoystick.x === 0
+        else
+          var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
+          
+        return {
+          // for when the leg is raised. the circle should have solid position so it does not move when the leg is raised
+          // x: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).x,
+          // y: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).y,
+          x: movementCircleCenterCoords.x,
+          y: movementCircleCenterCoords.y,
+          // fluentX: movementCircleCenterCoords.x,
+          // fluentY: movementCircleCenterCoords.y,
+          unturnedX,
+          unturnedY,
+          turnedTBXGuidePoint: turnedTBX,
+          turnedTBYGuidePoint: turnedTBY,
+          radius: movementCircleDiameter / 2,
+          diameter: movementCircleDiameter,
+          // radius: 80,
+          // diameter: 160
+        }
+      }
+      
+      gatherCircles(legId, circle, payload) {
+        payload[legId] = circle;
       }
       
       validateAndDispatchMovementCircles(payload) {
@@ -12,6 +98,20 @@
         if (Object.keys(payload).length === 0) return;
         
         store.dispatch({ type: "MOVEMENT_CIRCLES_CHANGED_BATCHED", payload });
+      }
+      
+      observeTurnJoystick(newValue, oldValue) {
+        // skip init because circles will be generated in the observeCoords function
+        if (oldValue === undefined) return;
+        
+        let circlesPayload = {};
+        
+        for (let legId = 1; legId <= 6; legId++) {
+          let circle = this.processNewCircles(legId, this.misc[legId].transverseReachRadius, this.coords[legId]);
+          this.gatherCircles(legId, circle, circlesPayload);
+        }
+        
+        this.validateAndDispatchMovementCircles(circlesPayload);
       }
 
     }

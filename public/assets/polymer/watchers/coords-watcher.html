@@ -21,33 +21,12 @@
           angles: {
             statePath: 'angles'
           },
-          // used for comparison before dispatching
-          baseDirection: {
-            statePath: 'base.direction'
-          },
-          // used for comparison before dispatching
-          baseCenterCoords: {
-            statePath: 'base.centerCoords'
-          },
-          // used for supplying values to movement circles
-          misc: {
-            statePath: 'misc'
-          },
-          baseCoxaAttachmentAngle: {
-            statePath: 'base.coxaAttachmentAngle'
-          },
-          turnJoystick: {
-            statePath: 'movement.turnJoystick',
-            observer: 'observeTurnJoystick'
-          },
           coords: {
             statePath: 'coords',
             observer: 'observeCoords'
           }
         };
       }
-      
-      // BEGIN HELPER FUNCTIONS
       
       getDistanceFromBaseToCursor(legId, view) {
         return MU.getDistance(this.getDX(legId, view), this.getDY(legId, view));
@@ -84,71 +63,6 @@
             
         return true;
       }
-      
-      // END HELPER FUNCTIONS
-      
-      // -------------------------------------------------
-      
-      processNewCircles(legId, transverseReachRadius, coords, baseDirection, baseCenterCoords) {
-        let movementCircleDiameter = transverseReachRadius - this.metaData.impossibleRange;
-        
-        // distance to the center of the circle + offset from impossible range
-        let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
-            tbx = coords.transverseBaseX,
-            tby = coords.transverseBaseY,
-            coxaAttachment = this.baseCoxaAttachmentAngle[legId];
-            
-        // sum up baseCoxaAttachmentAngle + movement.directionJoystick + movement.turnJoystick
-        switch (GU.getLegSide(legId)) {
-          case 'left':
-            var angle = (coxaAttachment + baseDirection) - this.turnJoystick.x; break;
-          case 'right':
-            var angle = MU.flipNumber(coxaAttachment + baseDirection) + this.turnJoystick.x; break;
-        }
-        
-        // turn base coords if turnJoystick.x !== 0
-        if (this.turnJoystick.x) {
-          // turn base coords
-          var { x: turnedTBX, y: turnedTBY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.x), coords, GU.getLegSide(legId));
-          // find movement circle coords
-          var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
-          
-          // also find unturned movement circle coords
-          switch (GU.getLegSide(legId)) {
-            case 'left':
-              var angleForUnturnedXY = coxaAttachment + baseDirection; break;
-            case 'right':
-              var angleForUnturnedXY = MU.flipNumber(coxaAttachment + baseDirection); break;
-          }
-          // unturned movement circle coords
-          var { x: unturnedX, y: unturnedY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, angleForUnturnedXY, distance);
-        }
-        // turnJoystick.x === 0
-        else
-          var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
-          
-        return {
-          // for when the leg is raised. the circle should have solid position so it does not move when the leg is raised
-          // x: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).x,
-          // y: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).y,
-          x: movementCircleCenterCoords.x,
-          y: movementCircleCenterCoords.y,
-          // fluentX: movementCircleCenterCoords.x,
-          // fluentY: movementCircleCenterCoords.y,
-          unturnedX,
-          unturnedY,
-          turnedTBXGuidePoint: turnedTBX,
-          turnedTBYGuidePoint: turnedTBY,
-          radius: movementCircleDiameter / 2,
-          diameter: movementCircleDiameter,
-          // radius: 80,
-          // diameter: 160
-        }
-      }
-      
-      // -------------------------------------------------
-      
-      // BEGIN POSITIONING LOGIC
       
       processNewCoxaAngles(legId) {
         let coxaAngles = this.getAngleFromDistance(legId, 'transverse');
@@ -282,16 +196,10 @@
         coxaAngles.servo = GU.correctAngle(coxaAngles.servo);
       }
       
-      // END POSITIONING LOGIC
-      
-      // -------------------------------------------------
-      
-      // BEGIN PROPERTY OBSERVERS
-      
       observeCoords(newCoords, oldCoords) {
         let anglesPayload = {},
             miscPayload = {}, 
-            movementCirclesPayload = {};
+            circlesPayload = {};
             
         let baseCenterCoords = this.$.baseGenerator.calcBaseCenterCoords(newCoords),
             baseDirection = this.$.baseGenerator.calcBaseDirection(newCoords, baseCenterCoords);
@@ -319,11 +227,11 @@
             
             // misc
             let miscValue = this.$.miscGenerator.processNewMisc(this, legId);
-            this.$.miscGenerator.gatherMiscValues(legId, miscValue, miscPayload);
+            this.$.miscGenerator.gatherMisc(legId, miscValue, miscPayload);
             
             // movement circles
-            let movementCircleValue = this.processNewCircles(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection, baseCenterCoords);
-            this.$.circleGenerator.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
+            let circle = this.$.circleGenerator.processNewCircles(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection, baseCenterCoords);
+            this.$.circleGenerator.gatherCircles(legId, circle, circlesPayload);
           }
         }
 
@@ -332,7 +240,7 @@
         this.$.baseGenerator.validateAndDispatchBaseDirection(baseDirection);
         this.$.baseGenerator.validateAndDispatchBaseCenterCoords(baseCenterCoords);
         this.$.miscGenerator.validateAndDispatchMisc(miscPayload);
-        this.$.circleGenerator.validateAndDispatchMovementCircles(movementCirclesPayload);
+        this.$.circleGenerator.validateAndDispatchMovementCircles(circlesPayload);
       }
       
       validateAndDispatchAngle(payload) {
@@ -345,22 +253,6 @@
         // dispatch is safe because the values were filtered out in this.prepareFemurAndTibiaPayload and this.prepareCoxaPayload
         store.dispatch({ type: "ANGLES_CHANGED_BATCHED", payload });
       }
-      
-      observeTurnJoystick(newValue, oldValue) {
-        // skip init because circles will be generated in the observeCoords function
-        if (oldValue === undefined) return;
-        
-        let movementCirclesPayload = {};
-        
-        for (let legId = 1; legId <= 6; legId++) {
-          let movementCircleValue = this.processNewCircles(legId, this.misc[legId].transverseReachRadius, this.coords[legId], this.baseDirection, this.baseCenterCoords);
-          this.$.circleGenerator.gatherMovementCircleValues(legId, movementCircleValue, movementCirclesPayload);
-        }
-        
-        this.$.circleGenerator.validateAndDispatchMovementCircles(movementCirclesPayload);
-      }
-      
-      // END PROPERTY OBSERVERS
 
     }
     window.customElements.define(coordsWatcher.is, coordsWatcher);
