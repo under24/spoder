@@ -84,10 +84,10 @@
         }
       }
       
-      sieveOutAndGatherUp(currentPointer, statePointers, legId, result) {
+      sieveOutAndGatherUp(currentPointer, statePointers, legId, payload) {
         // init state
         if (statePointers[legId] === null) {
-          result[legId] = currentPointer;
+          payload[legId] = currentPointer;
           return;
         }
         
@@ -95,11 +95,11 @@
         if (currentPointer.x === statePointers[legId].x &&
             currentPointer.y === statePointers[legId].y) return;
 
-        // if not then add them to the result obj
-        result[legId] = result[legId] || {};
+        // if not then add them to the payload obj
+        payload[legId] = payload[legId] || {};
         
-        if (statePointers[legId].x !== currentPointer.x) result[legId].x = currentPointer.x;
-        if (statePointers[legId].y !== currentPointer.y) result[legId].y = currentPointer.y;
+        if (statePointers[legId].x !== currentPointer.x) payload[legId].x = currentPointer.x;
+        if (statePointers[legId].y !== currentPointer.y) payload[legId].y = currentPointer.y;
       }
       
       dispatchPointers(payload) {
