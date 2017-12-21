@@ -58,7 +58,7 @@
               var angleForUnturnedXY = MU.flipNumber(coxaAttachment + baseDirection); break;
           }
           // unturned movement circle coords
-          var { x: unturnedX, y: unturnedY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, angleForUnturnedXY, distance);
+          var { x: solidX, y: solidY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, angleForUnturnedXY, distance);
         }
         // turnJoystick.x === 0
         else
@@ -72,12 +72,12 @@
           y: movementCircleCenterCoords.y,
           // fluentX: movementCircleCenterCoords.x,
           // fluentY: movementCircleCenterCoords.y,
-          unturnedX,
-          unturnedY,
           turnedTBXGuidePoint: turnedTBX,
           turnedTBYGuidePoint: turnedTBY,
           radius: movementCircleDiameter / 2,
           diameter: movementCircleDiameter,
+          solidX,
+          solidY,
           // radius: 80,
           // diameter: 160
         }
