@@ -68,18 +68,16 @@
           // for when the leg is raised. the circle should have solid position so it does not move when the leg is raised
           // x: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).x,
           // y: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).y,
-          x: movementCircleCenterCoords.x,
-          y: movementCircleCenterCoords.y,
-          // fluentX: movementCircleCenterCoords.x,
-          // fluentY: movementCircleCenterCoords.y,
-          turnedTBXGuidePoint: turnedTBX,
-          turnedTBYGuidePoint: turnedTBY,
-          radius: movementCircleDiameter / 2,
-          diameter: movementCircleDiameter,
+          x: movementCircleCenterCoords.x, // fluentX
+          y: movementCircleCenterCoords.y, // fluentY
           solidX,
           solidY,
-          // radius: 80,
-          // diameter: 160
+          fluentTransverseBaseX: turnedTBX,
+          fluentTransverseBaseY: turnedTBY,
+          fluentRadius: movementCircleDiameter / 2,
+          fluentDiameter: movementCircleDiameter,
+          radius: movementCircleDiameter / 2, // 80
+          diameter: movementCircleDiameter // 160
         }
       }
       
