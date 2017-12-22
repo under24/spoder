@@ -230,7 +230,7 @@
             this.$.miscGenerator.gatherMisc(legId, miscValue, miscPayload);
             
             // movement circles
-            let circle = this.$.circleGenerator.processNewCircles(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection, baseCenterCoords);
+            let circle = this.$.circleGenerator.processNewCircle(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection, baseCenterCoords);
             this.$.circleGenerator.gatherCircles(legId, circle, circlesPayload);
           }
         }
