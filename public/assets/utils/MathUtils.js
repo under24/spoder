@@ -40,6 +40,12 @@ let MU = {
   // return true if the value is not close to 0
   notEmpty(num) {
     return !this.empty(num);
+  },
+  scaleUpOutput(pct, num) {
+    return num * 100 / 60;
+  },
+  scaleDownInput(pct, num) {
+    return num / 100 * 60;
   }
   // interceptOnCircleOrig(p1, p2, c, r) {
   //   //p1 is the first line point
