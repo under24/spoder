@@ -25,8 +25,10 @@ const movementReducer = combineReducers({
 });
 
 const viewSettingsReducer = combineReducers({
-  transverseView: viewSettingsTransverseReducer,
-  sagittalView: viewSettingsSagittalReducer
+  sagittalAnimationView: viewSettingsSagittalAnimationReducer,
+  sagittalView: viewSettingsSagittalReducer,
+  transverseAnimationView: viewSettingsTransverseAnimationReducer,
+  transverseView: viewSettingsTransverseReducer
 });
 
 const reducers = combineReducers({
