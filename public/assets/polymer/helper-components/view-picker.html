@@ -40,10 +40,6 @@
       .close-view:hover {
         background-color: azure;
       }
-      .selection-text {
-        text-align: center;
-        margin-bottom: 10px;
-      }
       .selection-section {
         display: inline-block;
         position: absolute;
@@ -65,9 +61,7 @@
     <!-- selection -->
     <template is="dom-if" if="[[computeView('none', view)]]" restamp>
       <section class="selection-section">
-        <div class="selection-text">Choose view to load...</div>
-        <select value="{{view::change}}" multiple size="15">
-          <option value="none">None</option>
+        <select value="{{view::change}}" multiple size="14">
           <option value="digital-joystick">Joystick Demo</option>
           <option value="level-modifier-view">Level Modifier View</option>
           <option value="rotation-modifier-view">Rotation Modifier View</option>
