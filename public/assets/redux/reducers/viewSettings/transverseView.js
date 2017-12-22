@@ -1,7 +1,8 @@
 'use strict';
 
 let viewSettingsTransverseReducerInitState = {
-  legId: 1
+  legId: 1,
+  scaling: null
 };
 
 const viewSettingsTransverseReducer = (state = viewSettingsTransverseReducerInitState, action) => {

@@ -1,7 +1,8 @@
 'use strict';
 
 let viewSettingsSagittalReducerInitState = {
-  legId: 1
+  legId: 1,
+  scaling: null
 };
 
 const viewSettingsSagittalReducer = (state = viewSettingsSagittalReducerInitState, action) => {
