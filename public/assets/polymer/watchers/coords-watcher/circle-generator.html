@@ -48,7 +48,7 @@
           // turn base coords
           var { x: turnedTBX, y: turnedTBY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.x), coords, GU.getLegSide(legId));
           // find movement circle coords
-          var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
+          var circleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
           
           // also find unturned movement circle coords
           switch (GU.getLegSide(legId)) {
@@ -62,14 +62,14 @@
         }
         // turn joystick is centered (x: 0)
         else
-          var movementCircleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
+          var circleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
           
         return {
           // for when the leg is raised. the circle should have solid position so it does not move when the leg is raised
           // x: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).x,
           // y: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).y,
-          x: movementCircleCenterCoords.x, // fluentX
-          y: movementCircleCenterCoords.y, // fluentY
+          x: circleCenterCoords.x, // fluentX
+          y: circleCenterCoords.y, // fluentY
           solidX,
           solidY,
           fluentTransverseBaseX: turnedTBX,
