@@ -9,7 +9,7 @@
         height: 100%;
         position: relative;
       }
-      .centerPoint, .baseCenterCoords {
+      .viewCenterPoint, .baseCenterPoint {
         display: inline-block;
         position: absolute;
         top: 50%;
@@ -17,7 +17,7 @@
         width: 0px;
         height: 0px
       }
-      .centerPoint::after, .baseCenterCoords::after {
+      .viewCenterPoint::after, .baseCenterPoint::after {
         content: '';
         display: inline-block;
         border-radius: 100%;
@@ -27,7 +27,7 @@
         position: absolute;
         transform: translate(-50%,-50%);
       }
-      .baseCenterCoords .baseDirection {
+      .baseCenterPoint .baseDirection {
         border-left: 1px dotted;
         height: 100px;
         position: absolute;
@@ -142,7 +142,7 @@
     <label style="position:absolute;"><input type="checkbox" checked="{{useOffsets::change}}" /> Use offsets</label>
     
     <div id="spoder">
-      <div class="centerPoint">
+      <div class="viewCenterPoint">
         <div class="base leg1 left" style$="[[computeBase(coords, offsets, '1')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '1', misc)]]"></div>
         </div>
@@ -251,7 +251,7 @@
           <div class="movementCircle circle1" style$="[[computeMovementCircle(movementCircles, '6')]]"></div>
         </div>
         
-        <div class="baseCenterCoords" style$="left: [[baseCenterCoords.x]]px; top: [[baseCenterCoords.y]]px;">
+        <div class="baseCenterPoint" style$="left: [[baseCenterCoords.x]]px; top: [[baseCenterCoords.y]]px;">
           <div class="baseDirection" style$="transform: translateX(-50%) rotate([[baseDirection]]deg)"></div>
         </div>
       </div>
