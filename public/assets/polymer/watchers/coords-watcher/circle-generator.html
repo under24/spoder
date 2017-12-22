@@ -26,8 +26,8 @@
         };
       }
       
-      processNewCircles(legId, transverseReachRadius, coords, baseDirection = this.base.direction, baseCenterCoords = this.base.centerCoords) {
-        let movementCircleDiameter = transverseReachRadius - this.metaData.impossibleRange;
+      processNewCircle(legId, transverseReachRadius, coords, baseDirection = this.base.direction, baseCenterCoords = this.base.centerCoords) {
+        let circleDiameter = transverseReachRadius - this.metaData.impossibleRange;
         
         // distance to the center of the circle + offset from impossible range
         let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
@@ -74,10 +74,10 @@
           solidY,
           fluentTransverseBaseX: turnedTBX,
           fluentTransverseBaseY: turnedTBY,
-          fluentRadius: movementCircleDiameter / 2,
-          fluentDiameter: movementCircleDiameter,
-          radius: movementCircleDiameter / 2, // 80
-          diameter: movementCircleDiameter // 160
+          fluentRadius: circleDiameter / 2,
+          fluentDiameter: circleDiameter,
+          radius: circleDiameter / 2, // 80
+          diameter: circleDiameter // 160
         }
       }
       
@@ -99,7 +99,7 @@
         let circlesPayload = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          let circle = this.processNewCircles(legId, this.misc[legId].transverseReachRadius, this.coords[legId]);
+          let circle = this.processNewCircle(legId, this.misc[legId].transverseReachRadius, this.coords[legId]);
           this.gatherCircles(legId, circle, circlesPayload);
         }
         
