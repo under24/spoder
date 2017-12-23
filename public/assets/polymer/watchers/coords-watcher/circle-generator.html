@@ -94,16 +94,8 @@
           return;
         }
         
-        // iterate circle object and compare it with that we have in the state
-        for (let key in circle) {
-          // compare property value with the corresponding one in the state
-          if (circle[key] !== this.circles[legId][key]) {
-            // create an empty obj if it has not been created
-            payload[legId] = payload[legId] || {};
-            // add a unique value to the payload object
-            payload[legId][key] = circle[key];
-          }
-        }
+        // filter in unique values and add them to the payload[legId] object
+        GU.sieveOutAndGatherUp(circle, this.circles[legId], payload, legId);
       }
       
       validateAndDispatchMovementCircles(payload) {
