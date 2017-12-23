@@ -31,35 +31,23 @@
             tbx = coords.transverseBaseX,
             tby = coords.transverseBaseY,
             coxaAttachment = this.base.coxaAttachmentAngle[legId],
-            side = GU.getLegSide(legId);
+            side = GU.getLegSide(legId),
+            // sum up coxaAttachment + baseDirection - turnJoystick
+            angle = this.calcAngle(side, coxaAttachment, baseDirection),
+            // distance to the center of the circle + offset from impossible range
+            // distance = (transverseReachRadius + this.metaData.impossibleRange) / 2;
+            // for when the leg is raised. the circle should have solid position so it does not move when the leg is raised
+            distance = this.metaData.impossibleRange + 80;
         
-        // distance to the center of the circle + offset from impossible range
-        var distance = (transverseReachRadius + this.metaData.impossibleRange) / 2;
-            
-        // sum up coxaAttachment + baseDirection - turnJoystick
-        switch (side) {
-          case 'left':
-            var angle = coxaAttachment + baseDirection - this.turnJoystick.x; break;
-          case 'right':
-            var angle = MU.flipNumber(coxaAttachment + baseDirection - this.turnJoystick.x); break;
-        }
-        
-        // find circleCenterCoords + solidX/Y if the turn joystick is not centered (!== 0)
+        // if the turn joystick is not centered (!== 0) find circleCenterCoords + solidX/Y 
         if (this.turnJoystick.x) {
           // turn base coords
           var { x: turnedBaseX, y: turnedBaseY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.x), coords, side);
-
           // find circle center coords (fluent)
           var circleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedBaseX, turnedBaseY, angle, distance);
           
           // find solid angle (the way the leg is attached to the base)
-          switch (side) {
-            case 'left':
-              var solidAngle = coxaAttachment + baseDirection; break;
-            case 'right':
-              var solidAngle = MU.flipNumber(coxaAttachment + baseDirection); break;
-          }
-          
+          var solidAngle = this.calcSolidAngle(side, coxaAttachment, baseDirection);
           // solid (unturned) circle center coords
           var { x: solidX, y: solidY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, solidAngle, distance);
         }
@@ -68,7 +56,6 @@
           var circleCenterCoords = MU.getCoordsFromDistanceAndAngle(tbx, tby, angle, distance);
           
         return {
-          // for when the leg is raised. the circle should have solid position so it does not move when the leg is raised
           x: circleCenterCoords.x,
           y: circleCenterCoords.y,
           solidX,
@@ -79,6 +66,24 @@
           fluentDiameter: circleDiameter,
           radius: 80, // 80
           diameter: 160 // 160
+        }
+      }
+      
+      calcAngle(side, coxaAttachment, baseDirection) {
+        switch (side) {
+          case 'left':
+            return coxaAttachment + baseDirection - this.turnJoystick.x;
+          case 'right':
+            return MU.flipNumber(coxaAttachment + baseDirection - this.turnJoystick.x);
+        }
+      }
+      
+      calcSolidAngle(side, coxaAttachment, baseDirection) {
+        switch (side) {
+          case 'left':
+            return coxaAttachment + baseDirection;
+          case 'right':
+            return MU.flipNumber(coxaAttachment + baseDirection);
         }
       }
       
