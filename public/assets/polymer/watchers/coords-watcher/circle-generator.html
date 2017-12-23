@@ -27,13 +27,13 @@
       }
       
       processNewCircle(legId, transverseReachRadius, coords, baseDirection = this.base.direction, baseCenterCoords = this.base.centerCoords) {
-        let circleDiameter = transverseReachRadius - this.metaData.impossibleRange;
-        
-        // distance to the center of the circle + offset from impossible range
-        let distance = (transverseReachRadius + this.metaData.impossibleRange) / 2,
+        var circleDiameter = transverseReachRadius - this.metaData.impossibleRange,
             tbx = coords.transverseBaseX,
             tby = coords.transverseBaseY,
             coxaAttachment = this.base.coxaAttachmentAngle[legId];
+        
+        // distance to the center of the circle + offset from impossible range
+        var distance = (transverseReachRadius + this.metaData.impossibleRange) / 2;
             
         // sum up coxaAttachment + baseDirection - turnJoystick
         switch (GU.getLegSide(legId)) {
