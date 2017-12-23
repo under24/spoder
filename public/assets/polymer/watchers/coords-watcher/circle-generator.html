@@ -47,7 +47,7 @@
           var circleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedBaseX, turnedBaseY, angle, distance);
           
           // find solid angle (the way the leg is attached to the base)
-          var solidAngle = this.calcSolidAngle(side, coxaAttachment, baseDirection);
+          let solidAngle = this.calcSolidAngle(side, coxaAttachment, baseDirection);
           // solid (unturned) circle center coords
           var { x: solidX, y: solidY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, solidAngle, distance);
         }
