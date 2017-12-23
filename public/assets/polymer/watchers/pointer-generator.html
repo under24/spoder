@@ -60,8 +60,8 @@
             // apply baseDirection + turnJoystick
             pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.x, legId);
           
-          // check for the same values before dispatching
-          this.sieveOutAndGatherUp(pointer, this.pointers, legId, pointers);
+          // filter in unique value for dispatching
+          this.sieveOutAndGatherUp(legId, pointer, pointers);
         }
         
         return pointers;
@@ -84,22 +84,15 @@
         }
       }
       
-      sieveOutAndGatherUp(pointer, statePointers, legId, payload) {
+      sieveOutAndGatherUp(legId, pointer, payload) {
         // init state
-        if (statePointers[legId] === null) {
+        if (this.pointers[legId] === null) {
           payload[legId] = pointer;
           return;
         }
         
-        // check if all the values are the same
-        if (pointer.x === statePointers[legId].x &&
-            pointer.y === statePointers[legId].y) return;
-
-        // if not then add them to the payload obj
-        payload[legId] = payload[legId] || {};
-        
-        if (statePointers[legId].x !== pointer.x) payload[legId].x = pointer.x;
-        if (statePointers[legId].y !== pointer.y) payload[legId].y = pointer.y;
+        // filter in unique values and add them to the payload[legId] object
+        GU.sieveOutAndGatherUp(pointer, this.pointers[legId], payload, legId);
       }
       
       dispatchPointers(payload) {
