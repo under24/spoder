@@ -43,22 +43,24 @@
             var angle = MU.flipNumber(coxaAttachment + baseDirection - this.turnJoystick.x); break;
         }
         
-        // turn base coords if turnJoystick.x !== 0
+        // find circleCenterCoords + solidX/Y if the turn joystick is not centered (!== 0)
         if (this.turnJoystick.x) {
           // turn base coords
-          var { x: turnedTBX, y: turnedTBY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.x), coords, GU.getLegSide(legId));
-          // find movement circle coords
-          var circleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, distance);
+          var { x: turnedBaseX, y: turnedBaseY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.x), coords, GU.getLegSide(legId));
           
-          // also find unturned movement circle coords
+          // find circle center coords
+          var circleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedBaseX, turnedBaseY, angle, distance);
+          
+          // find solid angle (the way the leg is attached to the base)
           switch (GU.getLegSide(legId)) {
             case 'left':
-              var angleForUnturnedXY = coxaAttachment + baseDirection; break;
+              var solidAngle = coxaAttachment + baseDirection; break;
             case 'right':
-              var angleForUnturnedXY = MU.flipNumber(coxaAttachment + baseDirection); break;
+              var solidAngle = MU.flipNumber(coxaAttachment + baseDirection); break;
           }
-          // unturned movement circle coords
-          var { x: solidX, y: solidY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, angleForUnturnedXY, distance);
+          
+          // solid (unturned) circle center coords
+          var { x: solidX, y: solidY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, solidAngle, distance);
         }
         // turn joystick is centered (x: 0)
         else
@@ -66,18 +68,18 @@
           
         return {
           // for when the leg is raised. the circle should have solid position so it does not move when the leg is raised
-          // x: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).x,
-          // y: MU.getCoordsFromDistanceAndAngle(turnedTBX, turnedTBY, angle, this.metaData.impossibleRange + 80).y,
+          // x: MU.getCoordsFromDistanceAndAngle(turnedBaseX, turnedBaseY, angle, this.metaData.impossibleRange + 80).x,
+          // y: MU.getCoordsFromDistanceAndAngle(turnedBaseX, turnedBaseY, angle, this.metaData.impossibleRange + 80).y,
           x: circleCenterCoords.x, // fluentX
           y: circleCenterCoords.y, // fluentY
           solidX,
           solidY,
-          fluentTransverseBaseX: turnedTBX,
-          fluentTransverseBaseY: turnedTBY,
+          fluentTransverseBaseX: turnedBaseX,
+          fluentTransverseBaseY: turnedBaseY,
           fluentRadius: circleDiameter / 2,
           fluentDiameter: circleDiameter,
-          radius: circleDiameter / 2, // 80
-          diameter: circleDiameter // 160
+          radius: 80, // 80
+          diameter: 160 // 160
         }
       }
       
