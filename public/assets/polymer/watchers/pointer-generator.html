@@ -46,22 +46,22 @@
         var pointers = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          let currentPointer = {};
+          let pointer = {};
           
           switch (GU.getLegSide(legId)) {
             case 'left':
-              currentPointer.x = circles[legId].x - circles[legId].radius * (directionJoystick.x / 100); break;
+              pointer.x = circles[legId].x - circles[legId].radius * (directionJoystick.x / 100); break;
             case 'right':
-              currentPointer.x = circles[legId].x + circles[legId].radius * (directionJoystick.x / 100); break;
+              pointer.x = circles[legId].x + circles[legId].radius * (directionJoystick.x / 100); break;
           }
-          currentPointer.y = circles[legId].y - circles[legId].radius * (directionJoystick.y / 100);
+          pointer.y = circles[legId].y - circles[legId].radius * (directionJoystick.y / 100);
           
           if (applyDirectionAndTurnAngles)
             // apply baseDirection + turnJoystick
-            currentPointer = this.applyDirectionAndTurn(currentPointer, circles[legId], this.baseDirection, turnJoystick.x, legId);
+            pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.x, legId);
           
           // check for the same values before dispatching
-          this.sieveOutAndGatherUp(currentPointer, this.pointers, legId, pointers);
+          this.sieveOutAndGatherUp(pointer, this.pointers, legId, pointers);
         }
         
         return pointers;
@@ -84,22 +84,22 @@
         }
       }
       
-      sieveOutAndGatherUp(currentPointer, statePointers, legId, payload) {
+      sieveOutAndGatherUp(pointer, statePointers, legId, payload) {
         // init state
         if (statePointers[legId] === null) {
-          payload[legId] = currentPointer;
+          payload[legId] = pointer;
           return;
         }
         
         // check if all the values are the same
-        if (currentPointer.x === statePointers[legId].x &&
-            currentPointer.y === statePointers[legId].y) return;
+        if (pointer.x === statePointers[legId].x &&
+            pointer.y === statePointers[legId].y) return;
 
         // if not then add them to the payload obj
         payload[legId] = payload[legId] || {};
         
-        if (statePointers[legId].x !== currentPointer.x) payload[legId].x = currentPointer.x;
-        if (statePointers[legId].y !== currentPointer.y) payload[legId].y = currentPointer.y;
+        if (statePointers[legId].x !== pointer.x) payload[legId].x = pointer.x;
+        if (statePointers[legId].y !== pointer.y) payload[legId].y = pointer.y;
       }
       
       dispatchPointers(payload) {
