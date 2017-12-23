@@ -231,7 +231,7 @@
             
             // movement circles
             let circle = this.$.circleGenerator.processNewCircle(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection, baseCenterCoords);
-            this.$.circleGenerator.gatherCircles(legId, circle, circlesPayload);
+            this.$.circleGenerator.sieveOutAndGatherUp(legId, circle, circlesPayload);
           }
         }
 
