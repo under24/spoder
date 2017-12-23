@@ -2,6 +2,13 @@
   <script>
     class miscGenerator extends ReduxMixin(Polymer.Element) {
       static get is() { return 'misc-generator'; }
+      static get properties() {
+        return {
+          misc: {
+            statePath: 'misc'
+          }
+        };
+      }
       
       processNewMisc(that, legId) {
         // leg in sagittal view is in its range
@@ -64,8 +71,15 @@
         }
       }
       
-      gatherMisc(legId, misc, payload) {
-        payload[legId] = misc;
+      sieveOutAndGatherUp(legId, misc, payload) {
+        // init state. just dispatch misc object without comparing because state object is null
+        if (this.misc[legId] === null) {
+          payload[legId] = misc;
+          return;
+        }
+        
+        // filter in unique values and add them to the payload[legId] object
+        GU.sieveOutAndGatherUp(misc, this.misc[legId], payload, legId);
       }
       
       validateAndDispatchMisc(payload) {

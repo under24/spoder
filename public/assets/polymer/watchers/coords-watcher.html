@@ -227,7 +227,7 @@
             
             // misc
             let miscValue = this.$.miscGenerator.processNewMisc(this, legId);
-            this.$.miscGenerator.gatherMisc(legId, miscValue, miscPayload);
+            this.$.miscGenerator.sieveOutAndGatherUp(legId, miscValue, miscPayload);
             
             // movement circles
             let circle = this.$.circleGenerator.processNewCircle(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection, baseCenterCoords);
