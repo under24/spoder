@@ -30,13 +30,14 @@
         var circleDiameter = transverseReachRadius - this.metaData.impossibleRange,
             tbx = coords.transverseBaseX,
             tby = coords.transverseBaseY,
-            coxaAttachment = this.base.coxaAttachmentAngle[legId];
+            coxaAttachment = this.base.coxaAttachmentAngle[legId],
+            side = GU.getLegSide(legId);
         
         // distance to the center of the circle + offset from impossible range
         var distance = (transverseReachRadius + this.metaData.impossibleRange) / 2;
             
         // sum up coxaAttachment + baseDirection - turnJoystick
-        switch (GU.getLegSide(legId)) {
+        switch (side) {
           case 'left':
             var angle = coxaAttachment + baseDirection - this.turnJoystick.x; break;
           case 'right':
@@ -52,7 +53,7 @@
           var circleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedBaseX, turnedBaseY, angle, distance);
           
           // find solid angle (the way the leg is attached to the base)
-          switch (GU.getLegSide(legId)) {
+          switch (side) {
             case 'left':
               var solidAngle = coxaAttachment + baseDirection; break;
             case 'right':
