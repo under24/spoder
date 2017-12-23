@@ -117,14 +117,14 @@
         // skip init because circles will be generated in the observeCoords function
         if (oldValue === undefined) return;
         
-        let circlesPayload = {};
+        let payload = {};
         
         for (let legId = 1; legId <= 6; legId++) {
           let circle = this.processNewCircle(legId, this.misc[legId].transverseReachRadius, this.coords[legId]);
-          this.sieveOutAndGatherUp(legId, circle, circlesPayload);
+          this.sieveOutAndGatherUp(legId, circle, payload);
         }
         
-        this.validateAndDispatchMovementCircles(circlesPayload);
+        this.validateAndDispatchMovementCircles(payload);
       }
 
     }
