@@ -42,10 +42,10 @@ let MU = {
     return !this.empty(num);
   },
   scaleUpOutput(pct, num) {
-    return num * 100 / 60;
+    return num * 100 / pct;
   },
   scaleDownInput(pct, num) {
-    return num / 100 * 60;
+    return num / 100 * pct;
   }
   // interceptOnCircleOrig(p1, p2, c, r) {
   //   //p1 is the first line point
