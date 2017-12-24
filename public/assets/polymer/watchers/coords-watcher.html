@@ -85,7 +85,7 @@
       }
       
       calcForWithinReachMode(legId, view) {
-        let femurAngles = this.getFemurAngle(legId, view),
+        var femurAngles = this.getFemurAngle(legId, view),
             tibiaAngles = this.getTibiaAngle(legId, view);
         
         return {
@@ -97,7 +97,7 @@
       }
       
       calcForOutOfReachMode(legId, view) {
-        let femurAngles = this.getAngleFromDistance(legId, view);
+        var femurAngles = this.getAngleFromDistance(legId, view);
         
         return {
           femurScreenAngle: femurAngles.screen,
