@@ -88,12 +88,6 @@
       }
       
       sieveOutAndGatherUp(legId, circle, payload) {
-        // init state. just dispatch circle object without comparing because state object is null
-        if (this.circles[legId] === null) {
-          payload[legId] = circle;
-          return;
-        }
-        
         // filter in unique values and add them to the payload[legId] object
         GU.sieveOutAndGatherUp(circle, this.circles[legId], payload, legId);
       }

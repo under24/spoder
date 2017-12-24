@@ -1,12 +1,78 @@
 'use strict';
 
 let movementCircleReducerInitState = {
-  1: null,
-  2: null,
-  3: null,
-  4: null,
-  5: null,
-  6: null
+  1: {
+    diameter: null,
+    fluentDiameter: null,
+    fluentRadius: null,
+    fluentTransverseBaseX: null,
+    fluentTransverseBaseY: null,
+    radius: null,
+    solidX: null,
+    solidY: null,
+    x: null,
+    y: null
+  },
+  2: {
+    diameter: null,
+    fluentDiameter: null,
+    fluentRadius: null,
+    fluentTransverseBaseX: null,
+    fluentTransverseBaseY: null,
+    radius: null,
+    solidX: null,
+    solidY: null,
+    x: null,
+    y: null
+  },
+  3: {
+    diameter: null,
+    fluentDiameter: null,
+    fluentRadius: null,
+    fluentTransverseBaseX: null,
+    fluentTransverseBaseY: null,
+    radius: null,
+    solidX: null,
+    solidY: null,
+    x: null,
+    y: null
+  },
+  4: {
+    diameter: null,
+    fluentDiameter: null,
+    fluentRadius: null,
+    fluentTransverseBaseX: null,
+    fluentTransverseBaseY: null,
+    radius: null,
+    solidX: null,
+    solidY: null,
+    x: null,
+    y: null
+  },
+  5: {
+    diameter: null,
+    fluentDiameter: null,
+    fluentRadius: null,
+    fluentTransverseBaseX: null,
+    fluentTransverseBaseY: null,
+    radius: null,
+    solidX: null,
+    solidY: null,
+    x: null,
+    y: null
+  },
+  6: {
+    diameter: null,
+    fluentDiameter: null,
+    fluentRadius: null,
+    fluentTransverseBaseX: null,
+    fluentTransverseBaseY: null,
+    radius: null,
+    solidX: null,
+    solidY: null,
+    x: null,
+    y: null
+  }
 }
 
 const movementCircleReducer = (state = movementCircleReducerInitState, action) => {
