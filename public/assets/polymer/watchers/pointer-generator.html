@@ -85,12 +85,6 @@
       }
       
       sieveOutAndGatherUp(legId, pointer, payload) {
-        // init state
-        if (this.pointers[legId] === null) {
-          payload[legId] = pointer;
-          return;
-        }
-        
         // filter in unique values and add them to the payload[legId] object
         GU.sieveOutAndGatherUp(pointer, this.pointers[legId], payload, legId);
       }
