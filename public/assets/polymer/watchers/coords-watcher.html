@@ -127,28 +127,6 @@
         if (coxaAngles.servo > 180) coxaAngles.servo = 180;
       }
       
-      prepareFemurAndTibiaPayload(legId, angles, payload) {
-        // check if all the values are the same
-        if (this.angles[legId].femurScreenAngle === angles.femurScreenAngle &&
-            this.angles[legId].femurServoAngle === angles.femurServoAngle &&
-            this.angles[legId].tibiaScreenAngle === angles.tibiaScreenAngle &&
-            this.angles[legId].tibiaServoAngle === angles.tibiaServoAngle) return;
-        
-        payload[legId] = payload[legId] || {};
-        
-        if (this.angles[legId].femurScreenAngle !== angles.femurScreenAngle)
-          payload[legId].femurScreenAngle = angles.femurScreenAngle;
-          
-        if (this.angles[legId].femurServoAngle !== angles.femurServoAngle)
-          payload[legId].femurServoAngle = angles.femurServoAngle;
-          
-        if (this.angles[legId].tibiaScreenAngle !== angles.tibiaScreenAngle)
-          payload[legId].tibiaScreenAngle = angles.tibiaScreenAngle;
-          
-        if (this.angles[legId].tibiaServoAngle !== angles.tibiaServoAngle)
-          payload[legId].tibiaServoAngle = angles.tibiaServoAngle;
-      }
-      
       // correct servo angle (if outside the possible servo boundaries 0-180deg)
       validateFemurAndTibiaServoRange(angles) {
         // femur
@@ -222,8 +200,8 @@
             let femurAndTibiaAngles = this.processNewFemurAndTibiaAngles(legId);
             // correct femur and tibia servo angles if outside possible servo boundaries (0-180deg)
             this.validateFemurAndTibiaServoRange(femurAndTibiaAngles);
-            // prepare payload obj by filtering out state diplicate values before dispatching
-            this.prepareFemurAndTibiaPayload(legId, femurAndTibiaAngles, anglesPayload);
+            // prepare payload obj by filtering out state duplicate values before dispatching
+            GU.sieveOutAndGatherUp(femurAndTibiaAngles, this.angles[legId], anglesPayload, legId);
             
             // misc
             let miscValue = this.$.miscGenerator.processNewMisc(this, legId);
