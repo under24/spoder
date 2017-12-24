@@ -1,12 +1,60 @@
 'use strict';
 
 let miscReducerInitState = {
-  1: null,
-  2: null,
-  3: null,
-  4: null,
-  5: null,
-  6: null
+  1: {
+    sagittalAngle: null,
+    sagittalBoundaryBallCoords: null,
+    sagittalDiff: null,
+    sagittalDistance: null,
+    transverseLegLength: null,
+    transverseReachCoords: null,
+    transverseReachRadius: null
+  },
+  2: {
+    sagittalAngle: null,
+    sagittalBoundaryBallCoords: null,
+    sagittalDiff: null,
+    sagittalDistance: null,
+    transverseLegLength: null,
+    transverseReachCoords: null,
+    transverseReachRadius: null
+  },
+  3: {
+    sagittalAngle: null,
+    sagittalBoundaryBallCoords: null,
+    sagittalDiff: null,
+    sagittalDistance: null,
+    transverseLegLength: null,
+    transverseReachCoords: null,
+    transverseReachRadius: null
+  },
+  4: {
+    sagittalAngle: null,
+    sagittalBoundaryBallCoords: null,
+    sagittalDiff: null,
+    sagittalDistance: null,
+    transverseLegLength: null,
+    transverseReachCoords: null,
+    transverseReachRadius: null
+  },
+  5: {
+    sagittalAngle: null,
+    sagittalBoundaryBallCoords: null,
+    sagittalDiff: null,
+    sagittalDistance: null,
+    transverseLegLength: null,
+    transverseReachCoords: null,
+    transverseReachRadius: null
+  },
+  6: {
+    sagittalAngle: null,
+    sagittalBoundaryBallCoords: null,
+    sagittalDiff: null,
+    sagittalDistance: null,
+    transverseLegLength: null,
+    transverseReachCoords: null,
+    transverseReachRadius: null
+  }
 }
 
 const miscReducer = (state = miscReducerInitState, action) => {
