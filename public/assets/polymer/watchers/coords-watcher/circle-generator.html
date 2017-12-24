@@ -98,7 +98,7 @@
         GU.sieveOutAndGatherUp(circle, this.circles[legId], payload, legId);
       }
       
-      validateAndDispatchMovementCircles(payload) {
+      dispatchCirles(payload) {
         // empty payload object
         if (Object.keys(payload).length === 0) return;
         
@@ -116,7 +116,7 @@
           this.sieveOutAndGatherUp(legId, circle, payload);
         }
         
-        this.validateAndDispatchMovementCircles(payload);
+        this.dispatchCirles(payload);
       }
 
     }

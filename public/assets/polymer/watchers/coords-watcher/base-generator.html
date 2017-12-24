@@ -23,14 +23,14 @@
         return GU.correctAngle(baseDirection);
       }
       
-      validateAndDispatchBaseDirection(payload) {
+      dispatchBaseDirection(payload) {
         // same values in the state. bail
         if (payload === this.baseDirection) return;
         
         store.dispatch({ type: "BASE_DIRECTION_CHANGED", payload });
       }
       
-      validateAndDispatchBaseCenterCoords(payload) {
+      dispatchBaseCenterCoords(payload) {
         // same values in the state. bail
         if (payload.x === this.baseCenterCoords.x && payload.y === this.baseCenterCoords.y) return;
         

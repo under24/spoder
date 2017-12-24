@@ -180,10 +180,10 @@
 
         // dispatch
         this.dispatchAngles(anglesPayload);
-        this.$.baseGenerator.validateAndDispatchBaseDirection(baseDirection);
-        this.$.baseGenerator.validateAndDispatchBaseCenterCoords(baseCenterCoords);
-        this.$.miscGenerator.validateAndDispatchMisc(miscPayload);
-        this.$.circleGenerator.validateAndDispatchMovementCircles(circlesPayload);
+        this.$.baseGenerator.dispatchBaseDirection(baseDirection);
+        this.$.baseGenerator.dispatchBaseCenterCoords(baseCenterCoords);
+        this.$.miscGenerator.dispatchMisc(miscPayload);
+        this.$.circleGenerator.dispatchCirles(circlesPayload);
       }
       
       dispatchAngles(payload) {
