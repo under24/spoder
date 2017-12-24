@@ -179,14 +179,14 @@
         }
 
         // dispatch
-        this.validateAndDispatchAngle(anglesPayload);
+        this.dispatchAngles(anglesPayload);
         this.$.baseGenerator.validateAndDispatchBaseDirection(baseDirection);
         this.$.baseGenerator.validateAndDispatchBaseCenterCoords(baseCenterCoords);
         this.$.miscGenerator.validateAndDispatchMisc(miscPayload);
         this.$.circleGenerator.validateAndDispatchMovementCircles(circlesPayload);
       }
       
-      validateAndDispatchAngle(payload) {
+      dispatchAngles(payload) {
         // empty payload object
         if (Object.keys(payload).length === 0) return;
 
