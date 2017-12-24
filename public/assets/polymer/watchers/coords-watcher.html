@@ -65,12 +65,15 @@
       }
       
       processNewCoxaAngles(legId) {
-        let coxaAngles = this.getAngleFromDistance(legId, 'transverse');
+        var coxaAngles = this.getAngleFromDistance(legId, 'transverse');
         
         // correct the coxa servo angle
         this.correctCoxaOffset(legId, coxaAngles);
 
-        return coxaAngles;
+        return {
+          coxaScreenAngle: coxaAngles.screen,
+          coxaServoAngle: coxaAngles.servo
+        };
       }
       
       processNewFemurAndTibiaAngles(legId) {
@@ -105,24 +108,10 @@
         }
       }
       
-      prepareCoxaPayload(legId, coxaAngles, payload) {
-        // check if all the values are the same
-        if (this.angles[legId].coxaScreenAngle === coxaAngles.screen &&
-            this.angles[legId].coxaServoAngle === coxaAngles.servo) return;
-        
-        payload[legId] = payload[legId] || {};
-        
-        if (this.angles[legId].coxaScreenAngle !== coxaAngles.screen)
-          payload[legId].coxaScreenAngle = coxaAngles.screen;
-          
-        if (this.angles[legId].coxaServoAngle !== coxaAngles.servo)
-          payload[legId].coxaServoAngle = coxaAngles.servo;
-      }
-      
       // correct servo angle (if outside the possible servo boundaries 0-180deg)
-      validateCoxaServoRange(coxaAngles) {
-        if (coxaAngles.servo < 0) coxaAngles.servo = 0;
-        if (coxaAngles.servo > 180) coxaAngles.servo = 180;
+      validateCoxaServoRange(angles) {
+        if (angles.coxaServoAngle < 0) angles.coxaServoAngle = 0;
+        if (angles.coxaServoAngle > 180) angles.coxaServoAngle = 180;
       }
       
       // correct servo angle (if outside the possible servo boundaries 0-180deg)
@@ -188,8 +177,8 @@
             let coxaAngles = this.processNewCoxaAngles(legId);
             // correct coxa servo angles if outside possible servo boundaries (0-180deg)
             this.validateCoxaServoRange(coxaAngles);
-            // prepare payload obj by filtering out state diplicate values before dispatching
-            this.prepareCoxaPayload(legId, coxaAngles, anglesPayload);
+            // prepare payload obj by filtering out duplicate values before dispatching
+            GU.sieveOutAndGatherUp(coxaAngles, this.angles[legId], anglesPayload, legId);
           }
           
           // sagittal coords
@@ -198,7 +187,7 @@
             let femurAndTibiaAngles = this.processNewFemurAndTibiaAngles(legId);
             // correct femur and tibia servo angles if outside possible servo boundaries (0-180deg)
             this.validateFemurAndTibiaServoRange(femurAndTibiaAngles);
-            // prepare payload obj by filtering out state duplicate values before dispatching
+            // prepare payload obj by filtering out duplicate values before dispatching
             GU.sieveOutAndGatherUp(femurAndTibiaAngles, this.angles[legId], anglesPayload, legId);
             
             // misc
