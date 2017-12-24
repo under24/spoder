@@ -55,11 +55,11 @@
         return { screen, servo: +servo.toFixed(0) };
       }
       
-      sameCoords(newCoords, oldCoords, view, legId) {
-        if (newCoords[legId][`${view}CursorX`] !== oldCoords[legId][`${view}CursorX`] ||
-            newCoords[legId][`${view}CursorY`] !== oldCoords[legId][`${view}CursorY`] ||
-            newCoords[legId][`${view}BaseX`] !== oldCoords[legId][`${view}BaseX`] ||
-            newCoords[legId][`${view}BaseY`] !== oldCoords[legId][`${view}BaseY`]) return false;
+      sameCoords(newCoords, oldCoords, view) {
+        if (newCoords[`${view}CursorX`] !== oldCoords[`${view}CursorX`] ||
+            newCoords[`${view}CursorY`] !== oldCoords[`${view}CursorY`] ||
+            newCoords[`${view}BaseX`] !== oldCoords[`${view}BaseX`] ||
+            newCoords[`${view}BaseY`] !== oldCoords[`${view}BaseY`]) return false;
             
         return true;
       }
@@ -154,7 +154,7 @@
             
         for (let legId = 1; legId <= 6; legId++) {
           // transverse coords
-          if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'transverse', legId)) {
+          if (!oldCoords || !this.sameCoords(newCoords[legId], oldCoords[legId], 'transverse')) {
             // transverse coords -> coxa angles
             let coxaAngles = this.processNewCoxaAngles(legId);
             // prepare payload obj by filtering out duplicate values before dispatching
@@ -162,7 +162,7 @@
           }
           
           // sagittal coords
-          if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'sagittal', legId)) {
+          if (!oldCoords || !this.sameCoords(newCoords[legId], oldCoords[legId], 'sagittal')) {
             // sagittal coords -> femur + tibia angles
             let femurAndTibiaAngles = this.processNewFemurAndTibiaAngles(legId);
             // prepare payload obj by filtering out duplicate values before dispatching
