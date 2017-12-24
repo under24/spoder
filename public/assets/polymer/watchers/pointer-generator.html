@@ -58,7 +58,7 @@
           
           if (applyDirectionAndTurnAngles)
             // apply baseDirection + turnJoystick
-            pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.x, legId);
+            pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.x, GU.getLegSide(legId));
           
           // filter in unique value for dispatching
           GU.sieveOutAndGatherUp(pointer, this.pointers[legId], pointers, legId);
@@ -67,7 +67,7 @@
         return pointers;
       }
       
-      applyDirectionAndTurn(pointer, circle, baseDirection, turn, legId) {
+      applyDirectionAndTurn(pointer, circle, baseDirection, turn, side) {
         let dx = pointer.x - circle.x,
             dy = pointer.y - circle.y,
             distance = MU.getDistance(dx, dy),
@@ -76,7 +76,7 @@
         // angle correction
         circleToPointerAngle = GU.correctAngle(circleToPointerAngle);
         
-        switch (GU.getLegSide(legId)) {
+        switch (side) {
           case 'left':
             return MU.getCoordsFromDistanceAndAngle(circle.x, circle.y, circleToPointerAngle + baseDirection - turn, distance);
           case 'right':
