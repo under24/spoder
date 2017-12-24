@@ -164,7 +164,6 @@
             baseDirection = this.$.baseGenerator.calcBaseDirection(newCoords, baseCenterCoords);
             
         for (let legId = 1; legId <= 6; legId++) {
-          
           // transverse coords
           if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'transverse', legId)) {
             // transverse coords -> coxa angles
