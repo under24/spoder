@@ -250,7 +250,6 @@
         // send the angles to the back end
         this.$.servoGateway.emitAngles(payload);
         
-        // dispatch is safe because the values were filtered out in this.prepareFemurAndTibiaPayload and this.prepareCoxaPayload
         store.dispatch({ type: "ANGLES_CHANGED_BATCHED", payload });
       }
 
