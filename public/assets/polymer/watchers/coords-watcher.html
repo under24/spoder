@@ -109,12 +109,6 @@
       }
       
       // correct servo angle (if outside the possible servo boundaries 0-180deg)
-      validateCoxaServoRange(angles) {
-        if (angles.coxaServoAngle < 0) angles.coxaServoAngle = 0;
-        if (angles.coxaServoAngle > 180) angles.coxaServoAngle = 180;
-      }
-      
-      // correct servo angle (if outside the possible servo boundaries 0-180deg)
       validateFemurAndTibiaServoRange(angles) {
         // femur
         if (angles.femurServoAngle < 0) angles.femurServoAngle = 0;
@@ -175,8 +169,6 @@
           if (!oldCoords || !this.sameCoords(newCoords, oldCoords, 'transverse', legId)) {
             // transverse coords -> coxa angles
             let coxaAngles = this.processNewCoxaAngles(legId);
-            // correct coxa servo angles if outside possible servo boundaries (0-180deg)
-            this.validateCoxaServoRange(coxaAngles);
             // prepare payload obj by filtering out duplicate values before dispatching
             GU.sieveOutAndGatherUp(coxaAngles, this.angles[legId], anglesPayload, legId);
           }
