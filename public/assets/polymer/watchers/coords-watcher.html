@@ -170,10 +170,12 @@
             
             // misc
             let miscValue = this.$.miscGenerator.processNewMisc(this, legId);
+            // prepare payload obj by filtering out duplicate values before dispatching
             this.$.miscGenerator.sieveOutAndGatherUp(legId, miscValue, miscPayload);
             
             // movement circles
             let circle = this.$.circleGenerator.processNewCircle(legId, miscValue.transverseReachRadius, newCoords[legId], baseDirection, baseCenterCoords);
+            // prepare payload obj by filtering out duplicate values before dispatching
             this.$.circleGenerator.sieveOutAndGatherUp(legId, circle, circlesPayload);
           }
         }
