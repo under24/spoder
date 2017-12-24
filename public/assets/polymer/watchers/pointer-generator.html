@@ -61,7 +61,7 @@
             pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.x, legId);
           
           // filter in unique value for dispatching
-          this.sieveOutAndGatherUp(legId, pointer, pointers);
+          GU.sieveOutAndGatherUp(pointer, this.pointers[legId], pointers, legId);
         }
         
         return pointers;
@@ -82,11 +82,6 @@
           case 'right':
             return MU.getCoordsFromDistanceAndAngle(circle.x, circle.y, circleToPointerAngle - baseDirection + turn, distance);
         }
-      }
-      
-      sieveOutAndGatherUp(legId, pointer, payload) {
-        // filter in unique values and add them to the payload[legId] object
-        GU.sieveOutAndGatherUp(pointer, this.pointers[legId], payload, legId);
       }
       
       dispatchPointers(payload) {
