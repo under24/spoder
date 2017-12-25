@@ -169,7 +169,7 @@
           this.sequencerIdle = true;
         // state changed from idle to active. not from active to active
         else if (newValue && oldValue === null) {
-          // set the flag that the timeline has some movement data
+          // set the flag which shows that the timeline is not idle (null)
           this.sequencerIdle = false;
           // run the sequencer again if it is enabled
           if (this.generatorEnabled) this.runSequencer();
