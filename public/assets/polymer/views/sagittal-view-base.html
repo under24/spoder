@@ -1,5 +1,3 @@
-<link rel="import" href="../../../../../bower_components/polymer/polymer-element.html">
-
 <dom-module id="sagittal-view-base">
   <template>
     <style>
@@ -23,7 +21,7 @@
         transform: translate(-50%,-50%);
         border-radius: 100%;
       }
-      #femur {
+      .femur {
         position: absolute;
         top: 0px;
         height: 1px;
@@ -31,46 +29,46 @@
         z-index: 1;
         pointer-events: none;
       }
-      :host([side=left]) #femur {
+      :host([side=left]) .femur {
         transform-origin: left;
         left: 0px;
       }
-      :host([side=right]) #femur {
+      :host([side=right]) .femur {
         transform-origin: right;
         right: 0px;
       }
-      #tibia {
+      .tibia {
         height: 1px;
         background-color: black;
         position: absolute;
         top: 0px;
       }
-      :host([side=left]) #tibia {
+      :host([side=left]) .tibia {
         transform-origin: left;
         left: 100%;
       }
-      :host([side=right]) #tibia {
+      :host([side=right]) .tibia {
         transform-origin: right;
         right: 100%;
       }
-      #reachRadius {
+      .reachRadius {
         background-color: rgba(255, 0, 0, 0.04);
         display: inline-block;
         transform: translate(0%, -50%);
         position: absolute;
         pointer-events: none;
       }
-      :host([side=left]) #reachRadius {
+      :host([side=left]) .reachRadius {
         border-bottom-left-radius: initial !important;
         border-top-left-radius: initial !important;
         left: 0px;
       }
-      :host([side=right]) #reachRadius {
+      :host([side=right]) .reachRadius {
         border-bottom-right-radius: initial !important;
         border-top-right-radius: initial !important;
         right: 0px;
       }
-      #baseInvalidRange {
+      .baseInvalidRange {
         background-color: white;
         border-radius: 100%;
         position: absolute;
@@ -79,27 +77,27 @@
         pointer-events: none;
         box-sizing: border-box;
       }
-      :host([side=left]) #baseInvalidRange {
+      :host([side=left]) .baseInvalidRange {
         border-right-color: red;
         border-bottom-color: red;
       }
-      :host([side=right]) #baseInvalidRange {
+      :host([side=right]) .baseInvalidRange {
         border-left-color: red;
         border-top-color: red;
       }
-      #distanceLine {
+      .distanceLine {
         border-top: 1px dashed black;
         position: absolute;
       }
-      :host([side=left]) #distanceLine {
+      :host([side=left]) .distanceLine {
         transform-origin: left;
         left: 0px;
       }
-      :host([side=right]) #distanceLine {
+      :host([side=right]) .distanceLine {
         transform-origin: right;
         right: 0px;
       }
-      #transverseReachEnd, #transverseReachBeginning, #boundaryBall {
+      .transverseReachEnd, .transverseReachBeginning, .boundaryBall {
         background-color: black;
         height: 10px;
         width: 10px;
@@ -107,54 +105,58 @@
         position: absolute;
         border-radius: 100%;
       }
-      :host([side=left]) #transverseReachEnd,
-      :host([side=left]) #transverseReachBeginning,
-      :host([side=left]) #boundaryBall {
+      :host([side=left]) .transverseReachEnd,
+      :host([side=left]) .transverseReachBeginning,
+      :host([side=left]) .boundaryBall {
         transform: translate(-50%, -50%);
         right: initial !important;
       }
-      :host([side=right]) #transverseReachEnd,
-      :host([side=right]) #transverseReachBeginning,
-      :host([side=right]) #boundaryBall {
+      :host([side=right]) .transverseReachEnd,
+      :host([side=right]) .transverseReachBeginning,
+      :host([side=right]) .boundaryBall {
         transform: translate(50%, -50%);
         left: initial !important;
       }
-      #floor {
+      .floor {
         display: inline-block;
         border-top: 1px dashed rgba(255, 0, 0, 0.5);
         width: 100%;
         position: absolute;
       }
-      #transverseReachLine {
+      .transverseReachLine {
         border-top: 2px dotted green;
         top: 50%;
         position: absolute;
       }
-      :host([side=left]) #transverseReachLine {
+      :host([side=left]) .transverseReachLine {
         left: 50%;
       }
-      :host([side=right]) #transverseReachLine {
+      :host([side=right]) .transverseReachLine {
         right: 50%;
       }
     </style>
     
-    <div id="base">
-      <div id="femur">
-        <div id="tibia"></div>
+    <div id="base" style$="[[computeBase(x, y, side)]]">
+      <div class="femur" style$="[[computeFemur(femurLength, femurScreenAngle, side)]]">
+        <div class="tibia" style$="[[computeTibia(tibiaLength, tibiaScreenAngle, side)]]"></div>
       </div>
       
-      <div id="reachRadius"></div>
-      <div id="baseInvalidRange"></div>
+      <div class="reachRadius" style$="[[computeReachRadius(reachRadius, side)]]"></div>
+      <div class="baseInvalidRange" style$="[[computeBaseInvalidRange(impossibleRange)]]"></div>
       
-      <div id="distanceLine"></div>
+      <div class="distanceLine" style="[[computeDistanceLine(distanceLine, side)]]"></div>
     </div>
     
-    <div id="floor"></div>
-    <div id="transverseReachEnd"></div>
-    <div id="transverseReachBeginning">
-      <div id="transverseReachLine"></div>
+    <!-- floor level line -->
+    <div class="floor" style$="top: [[floorLevel]]px;"></div>
+    
+    <div class="transverseReachEnd" style$="[[computeTransverseReachEnd(transverseReachPoints, side)]]"></div>
+    <div class="transverseReachBeginning" style$="[[computeTransverseReachBeginning(transverseReachPoints, side)]]">
+      <div class="transverseReachLine" style$="width: [[transverseReachPoints.transverseReachRadius]]px;"></div>
     </div>
-    <div id="boundaryBall"></div>
+    
+    <!-- circle boundary ball -->
+    <div class="boundaryBall" style$="[[computeBoundaryBall(boundaryBall, side)]]"></div>
   </template>
 
   <script>
@@ -163,45 +165,20 @@
       static get properties() {
         return {
           side: {
-            reflectToAttribute: true,
-            observer: 'observeSide'
+            reflectToAttribute: true
           },
-          x: {
-            observer: 'observeBaseX'
-          },
-          y: {
-            observer: 'observeBaseY'
-          },
-          femurScreenAngle: {
-            observer: 'observeFemurScreenAngle'
-          },
-          tibiaScreenAngle: {
-            observer: 'observeTibiaScreenAngle'
-          },
-          femurLength: {
-            observer: 'observeFemurLength'
-          },
-          tibiaLength: {
-            observer: 'observeTibiaLength'
-          },
-          impossibleRange: {
-            observer: 'observeImpossibleRange'
-          },
-          reachRadius: {
-            observer: 'observeReachRadius'
-          },
-          distanceLine: {
-            observer: 'observeDistanceLine'
-          },
-          boundaryBall: {
-            observer: 'observerBoundaryBall'
-          },
-          transverseReachPoints: {
-            observer: 'observeTransverseReachPoints'
-          },
-          floorLevel: {
-            observer: 'observeFloorLevel'
-          },
+          x: Number,
+          y: Number,
+          femurScreenAngle: Number,
+          tibiaScreenAngle: Number,
+          femurLength: Number,
+          tibiaLength: Number,
+          impossibleRange: Number,
+          reachRadius: Number,
+          distanceLine: Object,
+          boundaryBall: Object,
+          transverseReachPoints: Object,
+          floorLevel: Number,
           output: {
             notify: true
           }
@@ -252,117 +229,123 @@
         }
       }
       
-      redrawX(x) {
+      computeBase(x, y, side) {
         switch (this.side) {
           case 'left':
-            this.$.base.style.left = `${x}px`; return;
+            var x = `left: ${x}px;`; break;
           case 'right':
-            this.$.base.style.right = `${x}px`; return;
+            var x = `right: ${x}px;`; break;
         }
-      }
-      
-      redrawY(y) {
-        this.$.base.style.top = `${y}px`;
-      }
-      
-      observeFemurScreenAngle(newAngle) {
-        switch (this.side) {
-          case 'left':
-            this.$.femur.style.transform = `rotate(${newAngle}deg)`; return;
-          case 'right':
-            this.$.femur.style.transform = `rotate(${MU.flipNumber(newAngle)}deg)`; return;
-        }
-      }
-      
-      observeTibiaScreenAngle(newAngle) {
-        switch (this.side) {
-          case 'left':
-            this.$.tibia.style.transform = `rotate(${newAngle}deg)`; return;
-          case 'right':
-            this.$.tibia.style.transform = `rotate(${MU.flipNumber(newAngle)}deg)`; return;
-        }
-      }
-      
-      redrawSide() {
-        switch (this.side) {
-          case 'left':
-            this.$.reachRadius.style.borderBottomRightRadius = `${this.reachRadius * 2}px`;
-            this.$.reachRadius.style.borderTopRightRadius = `${this.reachRadius * 2}px`;
-            this.redrawX(this.x);
-            break;
-          case 'right':
-            this.$.reachRadius.style.borderBottomLeftRadius = `${this.reachRadius * 2}px`;
-            this.$.reachRadius.style.borderTopLeftRadius = `${this.reachRadius * 2}px`;
-            this.redrawX(this.x);
-            break;
-        }
-        this.observeFemurScreenAngle(this.femurScreenAngle);
-        this.observeTibiaScreenAngle(this.tibiaScreenAngle);
-      }
-      
-      observeFemurLength(femurLength) {
-        this.$.femur.style.width = `${femurLength}px`;
-      }
-      
-      observeTibiaLength(tibiaLength) {
-        this.$.tibia.style.width = `${tibiaLength}px`;
-      }
-      
-      observeReachRadius(reachRadius) {
-        this.$.reachRadius.style.width = `${reachRadius}px`;
-        this.$.reachRadius.style.height = `${reachRadius * 2}px`;
-      }
-      
-      observeImpossibleRange(impRange) {
-        this.$.baseInvalidRange.style.width = `${impRange * 2}px`;
-        this.$.baseInvalidRange.style.height = `${impRange * 2}px`;
-      }
-      
-      observeDistanceLine(data) {
-        this.$.distanceLine.style.width = `${data.distance}px`;
         
-        switch (this.side) {
-          case 'left':
-            this.$.distanceLine.style.transform = `rotate(${data.angle}deg)`; return;
-          case 'right':
-            this.$.distanceLine.style.transform = `rotate(-${data.angle}deg)`; return;
-        }
+        var y = `top: ${y}px;`;
+        
+        return x + y;
       }
       
-      observerBoundaryBall(data) {
-        this.$.boundaryBall.style.top = `${data.y}px`;
-        switch (this.side) {
+      computeTibia(tibiaLength, tibiaScreenAngle, side) {
+        var width = `width: ${tibiaLength}px;`;
+        
+        switch (side) {
           case 'left':
-            this.$.boundaryBall.style.left = `${data.x}px`; return;
+            var transform = `transform: rotate(${tibiaScreenAngle}deg);`; break;
           case 'right':
-            this.$.boundaryBall.style.right = `${data.x}px`; return;
+            var transform = `transform: rotate(${MU.flipNumber(tibiaScreenAngle)}deg);`; break;
         }
+        
+        return width + transform;
       }
       
-      observeTransverseReachPoints(data) {
-        switch (this.side) {
+      computeReachRadius(reachRadius, side) {
+        switch (side) {
           case 'left':
-            this.$.transverseReachEnd.style.left = `${data.endX}px`; 
-            this.$.transverseReachBeginning.style.left = `${data.possibleX}px`;
+            var borderTopX = `border-top-right-radius: ${reachRadius * 2}px;`,
+                borderBottomX = `border-bottom-right-radius: ${reachRadius * 2}px;`;
             break;
           case 'right':
-            this.$.transverseReachEnd.style.right = `${data.endX}px`;
-            this.$.transverseReachBeginning.style.right = `${data.possibleX}px`;
+            var borderTopX = `border-top-left-radius: ${reachRadius * 2}px;`,
+                borderBottomX = `border-bottom-left-radius: ${reachRadius * 2}px;`;
             break;
         }
-        this.$.transverseReachEnd.style.top = `${data.endY}px`;
-        this.$.transverseReachBeginning.style.top = `${data.possibleY}px`;
-        this.$.transverseReachLine.style.width = `${data.transverseReachRadius}px`;
+        
+        var width = `width: ${reachRadius}px;`,
+            height = `height: ${reachRadius * 2}px;`;
+        
+        return width + height + borderTopX + borderBottomX;
       }
       
-      observeFloorLevel(data) {
-        this.$.floor.style.top = `${data}px`;
+      computeBaseInvalidRange(impossibleRange) {
+        var width = `width: ${impossibleRange * 2}px;`,
+            height = `height: ${impossibleRange * 2}px;`;
+        
+        return width + height;
+      }
+      
+      computeDistanceLine(distanceLine, side) {
+        var width = `width: ${distanceLine.distance}px;`;
+        
+        switch (side) {
+          case 'left':
+            var transform = `transform: rotate(${distanceLine.angle}deg);`; break;
+          case 'right':
+            var transform = `transform: rotate(-${distanceLine.angle}deg);`; break;
+        }
+        
+        return width + transform;
+      }
+      
+      computeFemur(femurLength, femurScreenAngle, side) {
+        var width = `width: ${femurLength}px;`;
+        
+        switch (side) {
+          case 'left':
+            var transform = `transform: rotate(${femurScreenAngle}deg);`; break;
+          case 'right':
+            var transform = `transform: rotate(${MU.flipNumber(femurScreenAngle)}deg);`; break;
+        }
+        
+        return width + transform;
+      }
+      
+      computeBoundaryBall(boundaryBall, side) {
+        switch (side) {
+          case 'left':
+            var x = `left: ${boundaryBall.x}px;`; break;
+          case 'right':
+            var x = `right: ${boundaryBall.x}px;`; break;
+        }
+        
+        var y = `top: ${boundaryBall.y}px;`;
+        
+        return x + y;
+      }
+      
+      computeTransverseReachBeginning(transverseReachPoints, side) {
+        switch (side) {
+          case 'left':
+            var x = `left: ${transverseReachPoints.possibleX}px;`; break;
+          case 'right':
+            var x = `right: ${transverseReachPoints.possibleX}px;`; break;
+        }
+        
+        var y = `top: ${transverseReachPoints.possibleY}px;`;
+        
+        return x + y;
+      }
+      
+      computeTransverseReachEnd(transverseReachPoints, side) {
+        switch (side) {
+          case 'left':
+            var x = `left: ${transverseReachPoints.endX}px;`; break;
+          case 'right':
+            var x = `right: ${transverseReachPoints.endX}px;`; break;
+        }
+        
+        var y = `top: ${transverseReachPoints.endY}px;`;
+        
+        return x + y;
       }
 
     }
-    sagittalViewBase.prototype.observeBaseX = sagittalViewBase.prototype.redrawX;
-    sagittalViewBase.prototype.observeBaseY = sagittalViewBase.prototype.redrawY;
-    sagittalViewBase.prototype.observeSide = sagittalViewBase.prototype.redrawSide;
     window.customElements.define(sagittalViewBase.is, sagittalViewBase);
   </script>
 </dom-module>
