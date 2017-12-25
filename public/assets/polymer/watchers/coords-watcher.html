@@ -49,7 +49,7 @@
       }
 
       getAngleFromDistance(legId, view) {
-        let screen = MU.getAngle(this.getDY(legId, view), this.getDX(legId, view)),
+        var screen = MU.getAngle(this.getDY(legId, view), this.getDX(legId, view)),
             servo = GU.correctAngle(screen + 90);
         
         return { screen, servo: +servo.toFixed(0) };
@@ -109,21 +109,21 @@
       }
       
       getFemurAngle(legId, view) {
-        let D1 = Math.atan2(this.getDY(legId, view), this.getDX(legId, view)),
+        var D1 = Math.atan2(this.getDY(legId, view), this.getDX(legId, view)),
             D2 = MU.lawOfCos(this.getDistanceFromBaseToCursor(legId, view), this.metaData.femurLength, this.metaData.tibiaLength);
 
-        let A1 = D2 - D1;
+        var A1 = D2 - D1;
         
-        let A1Screen = A1 / Math.PI * -180,
+        var A1Screen = A1 / Math.PI * -180,
             A1Servo = A1Screen + 90;
         
         return { screen: A1Screen, servo: +A1Servo.toFixed(0) };
       }
       
       getTibiaAngle(legId, view) {
-        let A2 = MU.lawOfCos(this.metaData.femurLength, this.metaData.tibiaLength, this.getDistanceFromBaseToCursor(legId, view));
+        var A2 = MU.lawOfCos(this.metaData.femurLength, this.metaData.tibiaLength, this.getDistanceFromBaseToCursor(legId, view));
         
-        let A2Screen = 180 - (A2 / Math.PI * 180),
+        var A2Screen = 180 - (A2 / Math.PI * 180),
             A2Servo = A2Screen;
         
         return { screen: A2Screen, servo: +A2Servo.toFixed(0) };

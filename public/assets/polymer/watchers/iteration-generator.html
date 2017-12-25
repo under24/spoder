@@ -102,7 +102,7 @@
       
       mergeSettingsWithIteration(payload) {
         // state.movement.iteration.amountOfTicks
-        let amountOfTicks = +(this.settings.duration / (1000 / this.settings.tps)).toFixed(0);
+        var amountOfTicks = +(this.settings.duration / (1000 / this.settings.tps)).toFixed(0);
         // if init state or settings changed
         if (!this.iteration.amountOfTicks || this.iteration.amountOfTicks !== amountOfTicks)
           payload.amountOfTicks = amountOfTicks;
