@@ -14,6 +14,12 @@ let customBlueprintReducerInitState = {
       endPct: 100,
       pxlsToMove: -50
     }]
+  },
+  engage: {
+    
+  },
+  disengage: {
+    
   }
 }
 
