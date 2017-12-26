@@ -10,7 +10,7 @@ body, html {
   flex: 1;
   display:flex;
   flex-direction:column;
-  border-left: 1px dashed;
+  border-left: 1px dotted rgba(0, 0, 0, 0.25);
 }
 .flex-column-container:first-of-type {
   border-left: none;
@@ -26,5 +26,5 @@ body, html {
   position:relative;
 }
 .flex-row-box:first-of-type {
-  border-bottom: 1px dashed;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.25);
 }
