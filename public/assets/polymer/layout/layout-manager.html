@@ -1,0 +1,25 @@
+<dom-module id="layout-manager">
+  <template>
+    <style>
+      
+    </style>
+    
+  </template>
+
+  <script>
+    class layoutManager extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'layout-manager'; }
+      static get properties() {
+        return {
+          legId: Number,
+        };
+      }
+      
+      temp(e) {
+        
+      }
+
+    }
+    window.customElements.define(layoutManager.is, layoutManager);
+  </script>
+</dom-module>

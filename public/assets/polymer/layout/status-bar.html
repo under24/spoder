@@ -1,0 +1,25 @@
+<dom-module id="status-bar">
+  <template>
+    <style>
+      
+    </style>
+    
+  </template>
+
+  <script>
+    class statusBar extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'status-bar'; }
+      static get properties() {
+        return {
+          legId: Number,
+        };
+      }
+      
+      temp(e) {
+        
+      }
+
+    }
+    window.customElements.define(statusBar.is, statusBar);
+  </script>
+</dom-module>
