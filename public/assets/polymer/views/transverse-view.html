@@ -17,7 +17,7 @@
     <transverse-view-base
       x="[[computeXY(coords.transverseBaseX, viewOffsets.transverseViewOffsetX)]]"
       y="[[computeXY(coords.transverseBaseY, viewOffsets.transverseViewOffsetY)]]"
-      side="[[computeSide(legId)]]"
+      side="[[side]]"
       reach-radius="[[misc.transverseReachRadius]]"
       coxa-screen-angle="[[angles.coxaScreenAngle]]"
       impossible-range="[[metaData.impossibleRange]]"
@@ -30,7 +30,7 @@
     </transverse-view-base>
     
     <view-cursor
-      side="[[computeSide(legId)]]"
+      side="[[side]]"
       xy="[[computeCursorXY(coords.transverseCursorX, viewOffsets.transverseViewOffsetX, coords.transverseCursorY, viewOffsets.transverseViewOffsetY)]]"
       output={{cursorOutput}}>
     </view-cursor>
@@ -91,6 +91,10 @@
             statePath(state) {
               return state.movement.pointers[this.legId];
             }
+          },
+          side: {
+            computed: 'computeSide(legId)',
+            reflectToAttribute: true
           },
           // upcoming props
           cursorOutput: {
