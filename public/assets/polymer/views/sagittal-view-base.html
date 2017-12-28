@@ -120,8 +120,9 @@
       .floor {
         display: inline-block;
         border-top: 1px dashed rgba(255, 0, 0, 0.5);
-        width: 100%;
         position: absolute;
+        top: 0px;
+        width: 500px;
       }
       .transverseReachLine {
         border-top: 2px dotted green;
@@ -148,7 +149,7 @@
     </div>
     
     <!-- floor level line -->
-    <div class="floor" style$="top: [[floorLevel]]px;"></div>
+    <div class="floor"></div>
     
     <div class="transverseReachEnd" style$="[[computeTransverseReachEnd(transverseReachPoints, side)]]"></div>
     <div class="transverseReachBeginning" style$="[[computeTransverseReachBeginning(transverseReachPoints, side)]]">
@@ -178,7 +179,6 @@
           distanceLine: Object,
           boundaryBall: Object,
           transverseReachPoints: Object,
-          floorLevel: Number,
           output: {
             notify: true
           }
