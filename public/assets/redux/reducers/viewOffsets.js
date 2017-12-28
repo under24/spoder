@@ -53,17 +53,6 @@ let viewOffsetsReducerInitState = {
 
 const viewOffsetsReducer = (state = viewOffsetsReducerInitState, action) => {
   switch (action.type) {
-    // case "VIEW_OFFSET_SHIFTED":
-    //   {
-    //     let newOffsets = {};
-    //     // if (action.payload)
-    //     
-    //     return Object.assign(
-    //       {}, 
-    //       state,
-    //       { [action.legId]: Object.assign({}, state[action.legId], action.payload) }
-    //     );
-    //   }
     case "SEQUENCE_SHIFTED_XY_BATCHED":
       {
         let newState = {};
