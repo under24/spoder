@@ -45,23 +45,23 @@
     
     <div class="center-point">
       <transverse-view-base
-        x="[[computeXY(coords.transverseBaseX, viewOffsets.transverseViewOffsetX)]]"
-        y="[[computeXY(coords.transverseBaseY, viewOffsets.transverseViewOffsetY)]]"
+        x="[[computeXY(coords.transverseBaseX, viewOffsets.transverseViewOffsetX, scaling)]]"
+        y="[[computeXY(coords.transverseBaseY, viewOffsets.transverseViewOffsetY, scaling)]]"
         side="[[side]]"
-        reach-radius="[[misc.transverseReachRadius]]"
+        reach-radius="[[scaleInput(misc.transverseReachRadius, scaling)]]"
         coxa-screen-angle="[[angles.coxaScreenAngle]]"
-        impossible-range="[[metaData.impossibleRange]]"
-        leg-length="[[misc.transverseLegLength]]"
-        movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets)]]"
-        movement-circle-diameter="[[movementCircle.diameter]]"
-        movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets)]]"
+        impossible-range="[[scaleInput(metaData.impossibleRange, scaling)]]"
+        leg-length="[[scaleInput(misc.transverseLegLength, scaling)]]"
+        movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets, scaling)]]"
+        movement-circle-diameter="[[scaleInput(movementCircle.diameter, scaling)]]"
+        movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, scaling)]]"
         base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle)]]"
         output="{{baseOutput}}">
       </transverse-view-base>
       
       <view-cursor
         side="[[side]]"
-        xy="[[computeCursorXY(coords.transverseCursorX, viewOffsets.transverseViewOffsetX, coords.transverseCursorY, viewOffsets.transverseViewOffsetY)]]"
+        xy="[[computeCursorXY(coords.transverseCursorX, viewOffsets.transverseViewOffsetX, coords.transverseCursorY, viewOffsets.transverseViewOffsetY, scaling)]]"
         output={{cursorOutput}}>
       </view-cursor>
     </div>
@@ -131,6 +131,9 @@
             computed: 'computeRow(legId)',
             reflectToAttribute: true
           },
+          scaling: {
+            statePath: 'viewSettings.transverseView.scaling'
+          },
           // upcoming props
           cursorOutput: {
             observer: 'observeCursorOutput'
@@ -149,8 +152,8 @@
           type: "CURSOR_XY_SHIFTED",
           legId: this.legId,
           payload: {
-            transverseCursorX: newValue.x,
-            transverseCursorY: newValue.y
+            transverseCursorX: this.scaleOutput(newValue.x),
+            transverseCursorY: this.scaleOutput(newValue.y)
           }
         });
       }
@@ -160,8 +163,8 @@
           type: "BASE_XY_SHIFTED",
           legId: this.legId,
           payload: {
-            transverseBaseX: newValue.x,
-            transverseBaseY: newValue.y,
+            transverseBaseX: this.scaleOutput(newValue.x),
+            transverseBaseY: this.scaleOutput(newValue.y),
           }
         });
       }
@@ -175,26 +178,26 @@
       
       computeMovementCenterCoords(movementCircle, viewOffsets) {
         return {
-          x: movementCircle.x + viewOffsets.transverseViewOffsetX,
-          y: movementCircle.y + viewOffsets.transverseViewOffsetY,
+          x: this.scaleInput(movementCircle.x) + viewOffsets.transverseViewOffsetX,
+          y: this.scaleInput(movementCircle.y) + viewOffsets.transverseViewOffsetY,
         }
       }
       
       computeXY(coord, offset) {
-        return coord + offset;
+        return this.scaleInput(coord) + offset;
       }
       
       computeCursorXY(x, offsetX, y, offsetY) {
         return {
-          x: x + offsetX,
-          y: y + offsetY
+          x: this.scaleInput(x) + offsetX,
+          y: this.scaleInput(y) + offsetY
         }
       }
       
       computeMovementPointer(movementPointer, viewOffsets) {
         return {
-          x: movementPointer.x + viewOffsets.transverseViewOffsetX,
-          y: movementPointer.y + viewOffsets.transverseViewOffsetY
+          x: this.scaleInput(movementPointer.x) + viewOffsets.transverseViewOffsetX,
+          y: this.scaleInput(movementPointer.y) + viewOffsets.transverseViewOffsetY
         };
       }
       
@@ -208,6 +211,22 @@
       
       computeRow(legId) {
         return GU.getLegRow(legId);
+      }
+      
+      scaleOutput(val) {
+        // apply scaling if not null (null === 100%)
+        if (this.scaling)
+          val = MU.scaleUpOutput(this.scaling, val);
+        
+        return val;
+      }
+      
+      scaleInput(val) {
+        // apply scaling if not null (null === 100%)
+        if (this.scaling)
+          val = MU.scaleDownInput(this.scaling, val);
+          
+        return val;
       }
 
     }
