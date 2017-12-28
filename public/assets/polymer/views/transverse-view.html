@@ -157,8 +157,6 @@
       }
       
       computeMovementPointer(movementPointer, viewOffsets) {
-        if (movementPointer === null) return;
-        
         return {
           x: movementPointer.x + viewOffsets.transverseViewOffsetX,
           y: movementPointer.y + viewOffsets.transverseViewOffsetY
