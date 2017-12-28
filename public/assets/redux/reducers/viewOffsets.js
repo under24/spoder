@@ -2,7 +2,7 @@
 
 let viewOffsetsReducerInitState = {
   1: {
-    transverseViewOffsetY: 400,
+    transverseViewOffsetY: 0,
     transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
@@ -10,7 +10,7 @@ let viewOffsetsReducerInitState = {
     transverseAnimationViewOffsetY: 0
   },
   2: {
-    transverseViewOffsetY: 400,
+    transverseViewOffsetY: 0,
     transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
@@ -18,7 +18,7 @@ let viewOffsetsReducerInitState = {
     transverseAnimationViewOffsetY: 0
   },
   3: {
-    transverseViewOffsetY: 250,
+    transverseViewOffsetY: 0,
     transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
@@ -26,7 +26,7 @@ let viewOffsetsReducerInitState = {
     transverseAnimationViewOffsetY: 0
   },
   4: {
-    transverseViewOffsetY: 250,
+    transverseViewOffsetY: 0,
     transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
@@ -34,7 +34,7 @@ let viewOffsetsReducerInitState = {
     transverseAnimationViewOffsetY: 0
   },
   5: {
-    transverseViewOffsetY: 100,
+    transverseViewOffsetY: 0,
     transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
@@ -42,7 +42,7 @@ let viewOffsetsReducerInitState = {
     transverseAnimationViewOffsetY: 0
   },
   6: {
-    transverseViewOffsetY: 100,
+    transverseViewOffsetY: 0,
     transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,

@@ -12,28 +12,60 @@
         height: 100%;
         position: relative;
       }
+      :host([side=left]) .center-point {
+        left: 0px;
+      }
+      :host([side=right]) .center-point {
+        right: 0px;
+      }
+      :host([row=front]) .center-point {
+        bottom: 0px;
+      }
+      :host([row=middle]) .center-point {
+        top: 50%;
+      }
+      :host([row=back]) .center-point {
+        top: 0px;
+      }
+      .center-point {
+        position: absolute;
+        width: 0px;
+        height: 0px;
+      }
+      .center-point::after {
+        content: '';
+        display: inline-block;
+        border-radius: 100%;
+        width: 10px;
+        height: 10px;
+        background-color: black;
+        position: absolute;
+        transform: translate(-50%, -50%);
+      }
     </style>
     
-    <transverse-view-base
-      x="[[computeXY(coords.transverseBaseX, viewOffsets.transverseViewOffsetX)]]"
-      y="[[computeXY(coords.transverseBaseY, viewOffsets.transverseViewOffsetY)]]"
-      side="[[side]]"
-      reach-radius="[[misc.transverseReachRadius]]"
-      coxa-screen-angle="[[angles.coxaScreenAngle]]"
-      impossible-range="[[metaData.impossibleRange]]"
-      leg-length="[[misc.transverseLegLength]]"
-      movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets)]]"
-      movement-circle-diameter="[[movementCircle.diameter]]"
-      movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets)]]"
-      base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle)]]"
-      output="{{baseOutput}}">
-    </transverse-view-base>
-    
-    <view-cursor
-      side="[[side]]"
-      xy="[[computeCursorXY(coords.transverseCursorX, viewOffsets.transverseViewOffsetX, coords.transverseCursorY, viewOffsets.transverseViewOffsetY)]]"
-      output={{cursorOutput}}>
-    </view-cursor>
+    <div class="center-point">
+      <transverse-view-base
+        x="[[computeXY(coords.transverseBaseX, viewOffsets.transverseViewOffsetX)]]"
+        y="[[computeXY(coords.transverseBaseY, viewOffsets.transverseViewOffsetY)]]"
+        side="[[side]]"
+        reach-radius="[[misc.transverseReachRadius]]"
+        coxa-screen-angle="[[angles.coxaScreenAngle]]"
+        impossible-range="[[metaData.impossibleRange]]"
+        leg-length="[[misc.transverseLegLength]]"
+        movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets)]]"
+        movement-circle-diameter="[[movementCircle.diameter]]"
+        movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets)]]"
+        base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle)]]"
+        output="{{baseOutput}}">
+      </transverse-view-base>
+      
+      <view-cursor
+        side="[[side]]"
+        xy="[[computeCursorXY(coords.transverseCursorX, viewOffsets.transverseViewOffsetX, coords.transverseCursorY, viewOffsets.transverseViewOffsetY)]]"
+        output={{cursorOutput}}>
+      </view-cursor>
+    </div>
     
     <view-leg-selector 
       position="left"
@@ -94,6 +126,10 @@
           },
           side: {
             computed: 'computeSide(legId)',
+            reflectToAttribute: true
+          },
+          row: {
+            computed: 'computeRow(legId)',
             reflectToAttribute: true
           },
           // upcoming props
@@ -169,6 +205,10 @@
       
       computeSide(legId) {
         return GU.getLegSide(legId);
+      }
+      
+      computeRow(legId) {
+        return GU.getLegRow(legId);
       }
 
     }
