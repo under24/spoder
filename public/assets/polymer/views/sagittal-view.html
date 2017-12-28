@@ -12,30 +12,53 @@
         height: 100%;
         position: relative;
       }
+      :host([side=left]) .center-point {
+        left: 0px;
+      }
+      :host([side=right]) .center-point {
+        right: 0px;
+      }
+      .center-point {
+        position: absolute;
+        top: 50%;
+        width: 0px;
+        height: 0px;
+      }
+      .center-point::after {
+        content: '';
+        display: inline-block;
+        border-radius: 100%;
+        width: 10px;
+        height: 10px;
+        background-color: black;
+        position: absolute;
+        transform: translate(-50%, -50%);
+      }
     </style>
     
-    <sagittal-view-base
-      x="[[computeXY(coords.sagittalBaseX, viewOffsets.sagittalViewOffsetX)]]"
-      y="[[computeXY(coords.sagittalBaseY, viewOffsets.sagittalViewOffsetY)]]"
-      side="[[computeSide(legId)]]"
-      femur-length="[[metaData.femurLength]]"
-      tibia-length="[[metaData.tibiaLength]]"
-      reach-radius="[[metaData.combinedLegsLength]]"
-      impossible-range="[[metaData.impossibleRange]]"
-      femur-screen-angle="[[angles.femurScreenAngle]]"
-      tibia-screen-angle="[[angles.tibiaScreenAngle]]"
-      distance-line="[[computeDistanceLine(misc)]]"
-      boundary-ball="[[computeBoundaryBall(misc, viewOffsets)]]"
-      transverse-reach-points="[[computeTransverseReachPoints(misc, viewOffsets)]]"
-      floor-level="[[viewOffsets.sagittalViewOffsetY]]"
-      output="{{baseOutput}}">
-    </sagittal-view-base>
-    
-    <view-cursor
-      side="[[computeSide(legId)]]"
-      xy="[[computeCursorXY(coords.sagittalCursorX, viewOffsets.sagittalViewOffsetX, coords.sagittalCursorY, viewOffsets.sagittalViewOffsetY)]]"
-      output={{cursorOutput}}>
-    </view-cursor>
+    <div class="center-point">
+      <sagittal-view-base
+        x="[[computeXY(coords.sagittalBaseX, viewOffsets.sagittalViewOffsetX, scaling)]]"
+        y="[[computeXY(coords.sagittalBaseY, viewOffsets.sagittalViewOffsetY, scaling)]]"
+        side="[[side]]"
+        femur-length="[[scaleInput(metaData.femurLength, scaling)]]"
+        tibia-length="[[scaleInput(metaData.tibiaLength, scaling)]]"
+        reach-radius="[[scaleInput(metaData.combinedLegsLength, scaling)]]"
+        impossible-range="[[scaleInput(metaData.impossibleRange, scaling)]]"
+        femur-screen-angle="[[angles.femurScreenAngle]]"
+        tibia-screen-angle="[[angles.tibiaScreenAngle]]"
+        distance-line="[[computeDistanceLine(misc, scaling)]]"
+        boundary-ball="[[computeBoundaryBall(misc, viewOffsets, scaling)]]"
+        transverse-reach-points="[[computeTransverseReachPoints(misc, viewOffsets, scaling)]]"
+        output="{{baseOutput}}">
+      </sagittal-view-base>
+      
+      <view-cursor
+        side="[[side]]"
+        xy="[[computeCursorXY(coords.sagittalCursorX, viewOffsets.sagittalViewOffsetX, coords.sagittalCursorY, viewOffsets.sagittalViewOffsetY, scaling)]]"
+        output={{cursorOutput}}>
+      </view-cursor>
+    </div>
     
     <view-leg-selector 
       position="left"
@@ -76,6 +99,13 @@
               return state.misc[this.legId];
             }
           },
+          scaling: {
+            statePath: 'viewSettings.sagittalView.scaling'
+          },
+          side: {
+            computed: 'computeSide(legId)',
+            reflectToAttribute: true
+          },
           // upcoming props
           cursorOutput: {
             observer: 'observeCursorOutput'
@@ -94,8 +124,8 @@
           type: "CURSOR_XY_SHIFTED",
           legId: this.legId,
           payload: {
-            sagittalCursorX: newValue.x,
-            sagittalCursorY: newValue.y
+            sagittalCursorX: this.scaleOutput(newValue.x),
+            sagittalCursorY: this.scaleOutput(newValue.y)
           }
         });
       }
@@ -105,8 +135,8 @@
           type: "BASE_XY_SHIFTED",
           legId: this.legId,
           payload: {
-            sagittalBaseX: newValue.x,
-            sagittalBaseY: newValue.y
+            sagittalBaseX: this.scaleOutput(newValue.x),
+            sagittalBaseY: this.scaleOutput(newValue.y)
           }
         });
       }
@@ -120,43 +150,59 @@
       
       computeDistanceLine(misc) {
         return {
-          distance: misc.sagittalDistance,
+          distance: this.scaleInput(misc.sagittalDistance),
           angle: misc.sagittalAngle 
         };
       }
       
       computeBoundaryBall(misc, viewOffsets) {
         return {
-          x: misc.sagittalBoundaryBallCoords.x + viewOffsets.sagittalViewOffsetX,
-          y: misc.sagittalBoundaryBallCoords.y + viewOffsets.sagittalViewOffsetY
+          x: this.scaleInput(misc.sagittalBoundaryBallCoords.x) + viewOffsets.sagittalViewOffsetX,
+          y: this.scaleInput(misc.sagittalBoundaryBallCoords.y) + viewOffsets.sagittalViewOffsetY
         };
       }
       
       computeTransverseReachPoints(misc, viewOffsets) {
         return {
-          endX: misc.transverseReachCoords.endX + viewOffsets.sagittalViewOffsetX,
-          endY: misc.transverseReachCoords.endY + viewOffsets.sagittalViewOffsetY,
-          // beginningX: misc.transverseReachCoords.beginningX + viewOffsets.sagittalViewOffsetX,
-          // beginningY: misc.transverseReachCoords.beginningY + viewOffsets.sagittalViewOffsetY,
-          possibleX: misc.transverseReachCoords.possibleX + viewOffsets.sagittalViewOffsetX,
-          possibleY: misc.transverseReachCoords.possibleY + viewOffsets.sagittalViewOffsetY,
-          transverseReachRadius: misc.transverseReachCoords.endX - misc.transverseReachCoords.possibleX
+          endX: this.scaleInput(misc.transverseReachCoords.endX) + viewOffsets.sagittalViewOffsetX,
+          endY: this.scaleInput(misc.transverseReachCoords.endY) + viewOffsets.sagittalViewOffsetY,
+          // beginningX: this.scaleInput(misc.transverseReachCoords.beginningX) + viewOffsets.sagittalViewOffsetX,
+          // beginningY: this.scaleInput(misc.transverseReachCoords.beginningY) + viewOffsets.sagittalViewOffsetY,
+          possibleX: this.scaleInput(misc.transverseReachCoords.possibleX) + viewOffsets.sagittalViewOffsetX,
+          possibleY: this.scaleInput(misc.transverseReachCoords.possibleY) + viewOffsets.sagittalViewOffsetY,
+          transverseReachRadius: this.scaleInput(misc.transverseReachCoords.endX - misc.transverseReachCoords.possibleX)
         };
       }
       
       computeXY(coord, offset) {
-        return coord + offset;
+        return this.scaleInput(coord) + offset;
       }
       
       computeCursorXY(x, offsetX, y, offsetY) {
         return {
-          x: x + offsetX,
-          y: y + offsetY
+          x: this.scaleInput(x) + offsetX,
+          y: this.scaleInput(y) + offsetY
         }
       }
       
       computeSide(legId) {
         return GU.getLegSide(legId);
+      }
+      
+      scaleOutput(val) {
+        // apply scaling if not null (null === 100%)
+        if (this.scaling)
+          val = MU.scaleUpOutput(this.scaling, val);
+        
+        return val;
+      }
+      
+      scaleInput(val) {
+        // apply scaling if not null (null === 100%)
+        if (this.scaling)
+          val = MU.scaleDownInput(this.scaling, val);
+          
+        return val;
       }
  
     }
