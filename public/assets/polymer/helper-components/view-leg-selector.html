@@ -3,16 +3,16 @@
 <dom-module id="view-leg-selector">
   <template>
     <style>
-      :host,
-      :host([position=right]) {
+      :host {
+        display: inline-block;
         position: absolute;
-        right: 0px;
         top: 0px;
       }
+      :host([position=right]) {
+        right: 0px;
+      }
       :host([position=left]) {
-        position: absolute;
         left: 0px;
-        top: 0px;
       }
       select {
         width: 75px;
