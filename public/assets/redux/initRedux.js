@@ -25,6 +25,8 @@ const movementReducer = combineReducers({
 });
 
 const statusReducer = combineReducers({
+  arduino: arduinoReducer,
+  joystick: joystickReducer,
   socket: socketReducer
 });
 
