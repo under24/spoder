@@ -1,7 +1,9 @@
 'use strict';
 
 var joystickReducerInitState = {
-  connected: false
+  charge: null,
+  connected: false,
+  status: null
 }
 
 var joystickReducer = (state = joystickReducerInitState, action) => {
