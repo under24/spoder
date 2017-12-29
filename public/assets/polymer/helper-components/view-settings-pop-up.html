@@ -1,0 +1,29 @@
+<dom-module id="view-settings-pop-up">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        position: absolute;
+        top: 0px;
+      }
+    </style>
+
+  </template>
+
+  <script>
+    class viewSettingsPopUp extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'view-settings-pop-up'; }
+      static get properties() {
+        return {
+          legId: Number
+        };
+      }
+      
+      temp() {
+        
+      }
+
+    }
+    window.customElements.define(viewSettingsPopUp.is, viewSettingsPopUp);
+  </script>
+</dom-module>
