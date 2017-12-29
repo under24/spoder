@@ -1,7 +1,7 @@
-<dom-module id="analog-joystick-gateway">
+<dom-module id="socket-listener">
   <script>
-    class analogJoystickGateway extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'analog-joystick-gateway'; }
+    class socketListener extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'socket-listener'; }
       static get properties() {
         return {
           lol: {
@@ -29,6 +29,6 @@
       }
 
     }
-    window.customElements.define(analogJoystickGateway.is, analogJoystickGateway);
+    window.customElements.define(socketListener.is, socketListener);
   </script>
 </dom-module>
