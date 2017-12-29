@@ -77,32 +77,42 @@
     <!-- joystick gateway -->
     <analog-joystick-gateway></analog-joystick-gateway>
     
-    <div class="flex-container">
-      <div class="flex-column-container">
-        <div class="flex-row-box">
-          <view-picker view="sagittal-view"></view-picker>
+    <section class="main">
+      <div class="status-bar">
+        <div class="status-bar-item">
+          Joystick<i class="led red"></i>
         </div>
-        <div class="flex-row-box">
-          <view-picker view="transverse-view"></view-picker>
-        </div>
-      </div>
-      <div class="flex-column-container">
-        <div class="flex-row-box">
-          <view-picker view="sagittal-animation-view"></view-picker>
-        </div>
-        <div class="flex-row-box">
-          <view-picker view="transverse-animation-view"></view-picker>
+        <div class="status-bar-item">
+          Connected<i class="led green"></i>
         </div>
       </div>
-      <div class="flex-column-container">
-        <div class="flex-row-box">
-          <view-picker view="direction-joystick-view"></view-picker>
+      <div class="flex-container viewport">
+        <div class="flex-column-container">
+          <div class="flex-row-box">
+            <view-picker view="sagittal-view"></view-picker>
+          </div>
+          <div class="flex-row-box">
+            <view-picker view="transverse-view"></view-picker>
+          </div>
         </div>
-        <div class="flex-row-box">
-          <view-picker view="sequencer-view"></view-picker>
+        <div class="flex-column-container">
+          <div class="flex-row-box">
+            <view-picker view="sagittal-animation-view"></view-picker>
+          </div>
+          <div class="flex-row-box">
+            <view-picker view="transverse-animation-view"></view-picker>
+          </div>
+        </div>
+        <div class="flex-column-container">
+          <div class="flex-row-box">
+            <view-picker view="direction-joystick-view"></view-picker>
+          </div>
+          <div class="flex-row-box">
+            <view-picker view="sequencer-view"></view-picker>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
     
   </body>
 </html>
