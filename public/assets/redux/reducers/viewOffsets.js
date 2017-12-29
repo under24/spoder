@@ -2,48 +2,36 @@
 
 let viewOffsetsReducerInitState = {
   1: {
-    transverseViewOffsetY: 0,
-    transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
     transverseAnimationViewOffsetX: 0,
     transverseAnimationViewOffsetY: 0
   },
   2: {
-    transverseViewOffsetY: 0,
-    transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
     transverseAnimationViewOffsetX: 0,
     transverseAnimationViewOffsetY: 0
   },
   3: {
-    transverseViewOffsetY: 0,
-    transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
     transverseAnimationViewOffsetX: 0,
     transverseAnimationViewOffsetY: 0
   },
   4: {
-    transverseViewOffsetY: 0,
-    transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
     transverseAnimationViewOffsetX: 0,
     transverseAnimationViewOffsetY: 0
   },
   5: {
-    transverseViewOffsetY: 0,
-    transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
     transverseAnimationViewOffsetX: 0,
     transverseAnimationViewOffsetY: 0
   },
   6: {
-    transverseViewOffsetY: 0,
-    transverseViewOffsetX: 0,
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
     transverseAnimationViewOffsetX: 0,
