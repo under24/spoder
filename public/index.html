@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <!-- socket script -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- socket init -->
+    <script>let socket = io.connect(window.location.hostname + ':' + 3000);</script>
+    <!-- redux library -->
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+    <!-- utils helper functions -->
+    <script src="assets/utils/MathUtils.js"></script>
+    <script src="assets/utils/ReduxUtils.js"></script>
+    <script src="assets/utils/SequencerUtils.js"></script>
+    <script src="assets/utils/GenericUtils.js"></script>
+    <script src="assets/utils/CoordsUtils.js"></script>
+    <!-- reducers -->
+    <script src="assets/redux/reducers/angles.js"></script>
+    <script src="assets/redux/reducers/base/direction.js"></script>
+    <script src="assets/redux/reducers/base/centerCoords.js"></script>
+    <script src="assets/redux/reducers/base/coxaAttachmentAngle.js"></script>
+    <script src="assets/redux/reducers/coords.js"></script>
+    <script src="assets/redux/reducers/customBlueprints.js"></script>
+    <script src="assets/redux/reducers/gaits.js"></script>
+    <script src="assets/redux/reducers/legs.js"></script>
+    <script src="assets/redux/reducers/metaData.js"></script>
+    <script src="assets/redux/reducers/misc.js"></script>
+    <script src="assets/redux/reducers/modifiers/level.js"></script>
+    <script src="assets/redux/reducers/modifiers/rotation.js"></script>
+    <script src="assets/redux/reducers/modifiers/shift.js"></script>
+    <script src="assets/redux/reducers/modifiers/tilt.js"></script>
+    <script src="assets/redux/reducers/movement/circles.js"></script>
+    <script src="assets/redux/reducers/movement/directionJoystick.js"></script>
+    <script src="assets/redux/reducers/movement/iteration.js"></script>
+    <script src="assets/redux/reducers/movement/pointers.js"></script>
+    <script src="assets/redux/reducers/movement/settings.js"></script>
+    <script src="assets/redux/reducers/movement/turnJoystick.js"></script>
+    <script src="assets/redux/reducers/viewOffsets.js"></script>
+    <script src="assets/redux/reducers/viewSettings/sagittalAnimationView.js"></script>
+    <script src="assets/redux/reducers/viewSettings/sagittalView.js"></script>
+    <script src="assets/redux/reducers/viewSettings/transverseAnimationView.js"></script>
+    <script src="assets/redux/reducers/viewSettings/transverseView.js"></script>
+    <!-- webcomponents -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <!-- polymer redux -->
+    <link rel="import" href="bower_components/polymer-redux/polymer-redux.html">
+    <!-- init redux -->
+    <script src="assets/redux/initRedux.js"></script>
+    <!-- polymer if -->
+    <link rel="import" href="bower_components/polymer/lib/elements/dom-if.html">
+    <!-- polymer state watchers -->
+    <link rel="import" href="assets/polymer/watchers/coords-watcher.html">
+    <link rel="import" href="assets/polymer/watchers/modifier-watcher.html">
+    <link rel="import" href="assets/polymer/watchers/pointer-generator.html">
+    <link rel="import" href="assets/polymer/watchers/iteration-generator.html">
+    <link rel="import" href="assets/polymer/watchers/blueprint-generator.html">
+    <link rel="import" href="assets/polymer/watchers/movement-sequencer.html">
+    <link rel="import" href="assets/polymer/watchers/analog-joystick-gateway.html">
+    <!-- polymer components -->
+    <link rel="import" href="assets/polymer/helper-components/view-picker.html">
+  </head>
+  
+  <body>
+    
+    <!-- generate angles from coords -->
+    <coords-watcher></coords-watcher>
+    <!-- watches modifier values -->
+    <modifier-watcher></modifier-watcher>
+    <!-- generate movement pointers -->
+    <pointer-generator></pointer-generator>
+    <!-- generate TransitionShift + pick up observable settings -->
+    <iteration-generator></iteration-generator>
+    <!-- prepare blueprint -->
+    <blueprint-generator></blueprint-generator>
+    <!-- handle movement -->
+    <movement-sequencer></movement-sequencer>
+    <!-- joystick gateway -->
+    <analog-joystick-gateway></analog-joystick-gateway>
+    
+    <section class="main">
+      <div class="status-bar">
+        <div class="status-bar-item">
+          Joystick<i class="led red"></i>
+        </div>
+        <div class="status-bar-item">
+          Connected<i class="led green"></i>
+        </div>
+      </div>
+      <div class="flex-container viewport">
+        <div class="flex-column-container">
+          <div class="flex-row-box">
+            <view-picker view="sagittal-view"></view-picker>
+          </div>
+          <div class="flex-row-box">
+            <view-picker view="transverse-view"></view-picker>
+          </div>
+        </div>
+        <div class="flex-column-container">
+          <div class="flex-row-box">
+            <view-picker view="sagittal-animation-view"></view-picker>
+          </div>
+          <div class="flex-row-box">
+            <view-picker view="transverse-animation-view"></view-picker>
+          </div>
+        </div>
+        <div class="flex-column-container">
+          <div class="flex-row-box">
+            <view-picker view="direction-joystick-view"></view-picker>
+          </div>
+          <div class="flex-row-box">
+            <view-picker view="sequencer-view"></view-picker>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </body>
+</html>
