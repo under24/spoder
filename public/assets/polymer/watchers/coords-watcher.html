@@ -2,15 +2,15 @@
 <link rel="import" href="angle-generator/misc-generator.html">
 <link rel="import" href="angle-generator/circle-generator.html">
 
-<dom-module id="coords-watcher">
+<dom-module id="angle-generator">
   <template>
     <base-generator id="baseGenerator"></base-generator>
     <misc-generator id="miscGenerator"></misc-generator>
     <circle-generator id="circleGenerator"></circle-generator>
   </template>
   <script>
-    class coordsWatcher extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'coords-watcher'; }
+    class angleGenerator extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'angle-generator'; }
       static get properties() {
         return {
           metaData: {
@@ -235,6 +235,6 @@
       }
 
     }
-    window.customElements.define(coordsWatcher.is, coordsWatcher);
+    window.customElements.define(angleGenerator.is, angleGenerator);
   </script>
 </dom-module>
