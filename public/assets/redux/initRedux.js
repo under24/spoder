@@ -24,6 +24,10 @@ const movementReducer = combineReducers({
   turnJoystick: movementTurnJoystickReducer
 });
 
+const statusReducer = combineReducers({
+  socket: socketReducer
+});
+
 const viewSettingsReducer = combineReducers({
   sagittalAnimationView: viewSettingsSagittalAnimationReducer,
   sagittalView: viewSettingsSagittalReducer,
@@ -42,6 +46,7 @@ const reducers = combineReducers({
   misc: miscReducer,
   modifiers: modifierReducer,
   movement: movementReducer,
+  status: statusReducer,
   viewOffsets: viewOffsetsReducer,
   viewSettings: viewSettingsReducer
 });
