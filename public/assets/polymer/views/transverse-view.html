@@ -45,8 +45,8 @@
     
     <div class="center-point">
       <transverse-view-base
-        x="[[computeXY(coords.transverseBaseX, viewOffsets.transverseViewOffsetX, scaling)]]"
-        y="[[computeXY(coords.transverseBaseY, viewOffsets.transverseViewOffsetY, scaling)]]"
+        x="[[computeXY(coords.transverseBaseX, viewOffsets.transverseX, scaling)]]"
+        y="[[computeXY(coords.transverseBaseY, viewOffsets.transverseY, scaling)]]"
         side="[[side]]"
         reach-radius="[[scaleInput(misc.transverseReachRadius, scaling)]]"
         coxa-screen-angle="[[angles.coxaScreenAngle]]"
@@ -61,7 +61,7 @@
       
       <view-cursor
         side="[[side]]"
-        xy="[[computeCursorXY(coords.transverseCursorX, viewOffsets.transverseViewOffsetX, coords.transverseCursorY, viewOffsets.transverseViewOffsetY, scaling)]]"
+        xy="[[computeCursorXY(coords.transverseCursorX, viewOffsets.transverseX, coords.transverseCursorY, viewOffsets.transverseY, scaling)]]"
         output={{cursorOutput}}>
       </view-cursor>
     </div>
@@ -178,8 +178,8 @@
       
       computeMovementCenterCoords(movementCircle, viewOffsets) {
         return {
-          x: this.scaleInput(movementCircle.x) + viewOffsets.transverseViewOffsetX,
-          y: this.scaleInput(movementCircle.y) + viewOffsets.transverseViewOffsetY,
+          x: this.scaleInput(movementCircle.x) + viewOffsets.transverseX,
+          y: this.scaleInput(movementCircle.y) + viewOffsets.transverseY,
         }
       }
       
@@ -196,8 +196,8 @@
       
       computeMovementPointer(movementPointer, viewOffsets) {
         return {
-          x: this.scaleInput(movementPointer.x) + viewOffsets.transverseViewOffsetX,
-          y: this.scaleInput(movementPointer.y) + viewOffsets.transverseViewOffsetY
+          x: this.scaleInput(movementPointer.x) + viewOffsets.transverseX,
+          y: this.scaleInput(movementPointer.y) + viewOffsets.transverseY
         };
       }
       

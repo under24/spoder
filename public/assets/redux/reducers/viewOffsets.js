@@ -4,38 +4,38 @@ let viewOffsetsReducerInitState = {
   1: {
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
-    transverseAnimationViewOffsetX: 0,
-    transverseAnimationViewOffsetY: 0
+    transverseX: 0,
+    transverseY: 0
   },
   2: {
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
-    transverseAnimationViewOffsetX: 0,
-    transverseAnimationViewOffsetY: 0
+    transverseX: 0,
+    transverseY: 0
   },
   3: {
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
-    transverseAnimationViewOffsetX: 0,
-    transverseAnimationViewOffsetY: 0
+    transverseX: 0,
+    transverseY: 0
   },
   4: {
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
-    transverseAnimationViewOffsetX: 0,
-    transverseAnimationViewOffsetY: 0
+    transverseX: 0,
+    transverseY: 0
   },
   5: {
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
-    transverseAnimationViewOffsetX: 0,
-    transverseAnimationViewOffsetY: 0
+    transverseX: 0,
+    transverseY: 0
   },
   6: {
     sagittalViewOffsetY: 0,
     sagittalViewOffsetX: 0,
-    transverseAnimationViewOffsetX: 0,
-    transverseAnimationViewOffsetY: 0
+    transverseX: 0,
+    transverseY: 0
   }
 }
 
@@ -50,10 +50,10 @@ const viewOffsetsReducer = (state = viewOffsetsReducerInitState, action) => {
           let payload = {};
           
           if (action.payload[legId].transverseBaseX)
-            payload.transverseAnimationViewOffsetX = state[legId].transverseAnimationViewOffsetX + action.payload[legId].transverseBaseX;
+            payload.transverseX = state[legId].transverseX + action.payload[legId].transverseBaseX;
           
           if (action.payload[legId].transverseBaseY)
-            payload.transverseAnimationViewOffsetY = state[legId].transverseAnimationViewOffsetY + action.payload[legId].transverseBaseY;
+            payload.transverseY = state[legId].transverseY + action.payload[legId].transverseBaseY;
           
           newState[legId] = Object.assign({}, state[legId], payload);
         }

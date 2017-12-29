@@ -301,8 +301,8 @@
       computeBase(coords, offsets, legId) {
         let x, y;
         if (this.useOffsets) {
-          x = `${GU.getLegSide(legId)}: ${coords[legId].transverseBaseX + offsets[legId].transverseAnimationViewOffsetX}px;`;
-          y = `top: ${coords[legId].transverseBaseY + offsets[legId].transverseAnimationViewOffsetY}px;`;
+          x = `${GU.getLegSide(legId)}: ${coords[legId].transverseBaseX + offsets[legId].transverseX}px;`;
+          y = `top: ${coords[legId].transverseBaseY + offsets[legId].transverseY}px;`;
         } else {
           x = `${GU.getLegSide(legId)}: ${coords[legId].transverseBaseX}px;`;
           y = `top: ${coords[legId].transverseBaseY}px;`;
@@ -314,8 +314,8 @@
       computeCursor(coords, offsets, legId) {        
         let x, y;
         if (this.useOffsets) {
-          x = `${GU.getLegSide(legId)}: ${coords[legId].transverseCursorX + offsets[legId].transverseAnimationViewOffsetX}px;`;
-          y = `top: ${coords[legId].transverseCursorY + offsets[legId].transverseAnimationViewOffsetY}px;`;
+          x = `${GU.getLegSide(legId)}: ${coords[legId].transverseCursorX + offsets[legId].transverseX}px;`;
+          y = `top: ${coords[legId].transverseCursorY + offsets[legId].transverseY}px;`;
         } else {
           x = `${GU.getLegSide(legId)}: ${coords[legId].transverseCursorX}px;`;
           y = `top: ${coords[legId].transverseCursorY}px;`;
@@ -351,11 +351,11 @@
         if (this.useOffsets) {
           switch (GU.getLegSide(legId)) {
             case 'left':
-              x = `left: ${movementPointers[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
+              x = `left: ${movementPointers[legId].x + offsets[legId].transverseX}px;`; break;
             case 'right':
-              x = `right: ${movementPointers[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
+              x = `right: ${movementPointers[legId].x + offsets[legId].transverseX}px;`; break;
           }
-          y = `top: ${movementPointers[legId].y + offsets[legId].transverseAnimationViewOffsetY}px;`;
+          y = `top: ${movementPointers[legId].y + offsets[legId].transverseY}px;`;
         } else {
           switch (GU.getLegSide(legId)) {
             case 'left':
@@ -374,11 +374,11 @@
         if (this.useOffsets) {
           switch (GU.getLegSide(legId)) {
             case 'left':
-              x = `left: ${movementCircles[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
+              x = `left: ${movementCircles[legId].x + offsets[legId].transverseX}px;`; break;
             case 'right':
-              x = `right: ${movementCircles[legId].x + offsets[legId].transverseAnimationViewOffsetX}px;`; break;
+              x = `right: ${movementCircles[legId].x + offsets[legId].transverseX}px;`; break;
           }
-          y = `top: ${movementCircles[legId].y + offsets[legId].transverseAnimationViewOffsetY}px;`;
+          y = `top: ${movementCircles[legId].y + offsets[legId].transverseY}px;`;
         } else {
           switch (GU.getLegSide(legId)) {
             case 'left':
