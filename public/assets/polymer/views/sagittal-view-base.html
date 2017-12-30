@@ -6,12 +6,6 @@
         width: 1px;
         position: absolute;
       }
-      :host([side=left]) #base {
-        right: initial !important;
-      }
-      :host([side=right]) #base {
-        left: initial !important;
-      }
       #base::after {
         content: '';
         background: rgba(0, 0, 255, 0.25);
@@ -59,13 +53,9 @@
         pointer-events: none;
       }
       :host([side=left]) .reachRadius {
-        border-bottom-left-radius: initial !important;
-        border-top-left-radius: initial !important;
         left: 0px;
       }
       :host([side=right]) .reachRadius {
-        border-bottom-right-radius: initial !important;
-        border-top-right-radius: initial !important;
         right: 0px;
       }
       .baseInvalidRange {
@@ -109,13 +99,11 @@
       :host([side=left]) .transverseReachBeginning,
       :host([side=left]) .boundaryBall {
         transform: translate(-50%, -50%);
-        right: initial !important;
       }
       :host([side=right]) .transverseReachEnd,
       :host([side=right]) .transverseReachBeginning,
       :host([side=right]) .boundaryBall {
         transform: translate(50%, -50%);
-        left: initial !important;
       }
       .floor {
         display: inline-block;
