@@ -178,26 +178,26 @@
       
       computeMovementCenterCoords(movementCircle, viewOffsets) {
         return {
-          x: this.scaleInput(movementCircle.x) + viewOffsets.transverseX,
-          y: this.scaleInput(movementCircle.y) + viewOffsets.transverseY,
+          x: this.scaleInput(movementCircle.x + viewOffsets.transverseX),
+          y: this.scaleInput(movementCircle.y + viewOffsets.transverseY),
         }
       }
       
       computeXY(coord, offset) {
-        return this.scaleInput(coord) + offset;
+        return this.scaleInput(coord + offset);
       }
       
       computeCursorXY(x, offsetX, y, offsetY) {
         return {
-          x: this.scaleInput(x) + offsetX,
-          y: this.scaleInput(y) + offsetY
+          x: this.scaleInput(x + offsetX),
+          y: this.scaleInput(y + offsetY)
         }
       }
       
       computeMovementPointer(movementPointer, viewOffsets) {
         return {
-          x: this.scaleInput(movementPointer.x) + viewOffsets.transverseX,
-          y: this.scaleInput(movementPointer.y) + viewOffsets.transverseY
+          x: this.scaleInput(movementPointer.x + viewOffsets.transverseX),
+          y: this.scaleInput(movementPointer.y + viewOffsets.transverseY)
         };
       }
       
