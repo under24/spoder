@@ -1,7 +1,8 @@
 'use strict';
 
 let viewSettingsSagittalAnimationReducerInitState = {
-  scaling: 60
+  scaling: 60,
+  useOffsets: false
 };
 
 const viewSettingsSagittalAnimationReducer = (state = viewSettingsSagittalAnimationReducerInitState, action) => {

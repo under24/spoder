@@ -2,7 +2,8 @@
 
 let viewSettingsTransverseReducerInitState = {
   legId: 1,
-  scaling: null
+  scaling: null,
+  useOffsets: false
 };
 
 const viewSettingsTransverseReducer = (state = viewSettingsTransverseReducerInitState, action) => {

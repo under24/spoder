@@ -1,7 +1,8 @@
 'use strict';
 
 let viewSettingsTransverseAnimationReducerInitState = {
-  scaling: 60
+  scaling: 60,
+  useOffsets: false
 };
 
 const viewSettingsTransverseAnimationReducer = (state = viewSettingsTransverseAnimationReducerInitState, action) => {
