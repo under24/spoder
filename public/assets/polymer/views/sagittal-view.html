@@ -37,8 +37,8 @@
     
     <div class="center-point">
       <sagittal-view-base
-        x="[[computeXY(coords.sagittalBaseX, viewOffsets.sagittalViewOffsetX, scaling)]]"
-        y="[[computeXY(coords.sagittalBaseY, viewOffsets.sagittalViewOffsetY, scaling)]]"
+        x="[[computeXY(coords.sagittalBaseX, viewOffsets.sagittalX, scaling)]]"
+        y="[[computeXY(coords.sagittalBaseY, viewOffsets.sagittalY, scaling)]]"
         side="[[side]]"
         femur-length="[[scaleInput(metaData.femurLength, scaling)]]"
         tibia-length="[[scaleInput(metaData.tibiaLength, scaling)]]"
@@ -54,7 +54,7 @@
       
       <view-cursor
         side="[[side]]"
-        xy="[[computeCursorXY(coords.sagittalCursorX, viewOffsets.sagittalViewOffsetX, coords.sagittalCursorY, viewOffsets.sagittalViewOffsetY, scaling)]]"
+        xy="[[computeCursorXY(coords.sagittalCursorX, viewOffsets.sagittalX, coords.sagittalCursorY, viewOffsets.sagittalY, scaling)]]"
         output={{cursorOutput}}>
       </view-cursor>
     </div>
@@ -156,19 +156,19 @@
       
       computeBoundaryBall(misc, viewOffsets) {
         return {
-          x: this.scaleInput(misc.sagittalBoundaryBallCoords.x) + viewOffsets.sagittalViewOffsetX,
-          y: this.scaleInput(misc.sagittalBoundaryBallCoords.y) + viewOffsets.sagittalViewOffsetY
+          x: this.scaleInput(misc.sagittalBoundaryBallCoords.x) + viewOffsets.sagittalX,
+          y: this.scaleInput(misc.sagittalBoundaryBallCoords.y) + viewOffsets.sagittalY
         };
       }
       
       computeTransverseReachPoints(misc, viewOffsets) {
         return {
-          endX: this.scaleInput(misc.transverseReachCoords.endX) + viewOffsets.sagittalViewOffsetX,
-          endY: this.scaleInput(misc.transverseReachCoords.endY) + viewOffsets.sagittalViewOffsetY,
-          // beginningX: this.scaleInput(misc.transverseReachCoords.beginningX) + viewOffsets.sagittalViewOffsetX,
-          // beginningY: this.scaleInput(misc.transverseReachCoords.beginningY) + viewOffsets.sagittalViewOffsetY,
-          possibleX: this.scaleInput(misc.transverseReachCoords.possibleX) + viewOffsets.sagittalViewOffsetX,
-          possibleY: this.scaleInput(misc.transverseReachCoords.possibleY) + viewOffsets.sagittalViewOffsetY,
+          endX: this.scaleInput(misc.transverseReachCoords.endX) + viewOffsets.sagittalX,
+          endY: this.scaleInput(misc.transverseReachCoords.endY) + viewOffsets.sagittalY,
+          // beginningX: this.scaleInput(misc.transverseReachCoords.beginningX) + viewOffsets.sagittalX,
+          // beginningY: this.scaleInput(misc.transverseReachCoords.beginningY) + viewOffsets.sagittalY,
+          possibleX: this.scaleInput(misc.transverseReachCoords.possibleX) + viewOffsets.sagittalX,
+          possibleY: this.scaleInput(misc.transverseReachCoords.possibleY) + viewOffsets.sagittalY,
           transverseReachRadius: this.scaleInput(misc.transverseReachCoords.endX - misc.transverseReachCoords.possibleX)
         };
       }
