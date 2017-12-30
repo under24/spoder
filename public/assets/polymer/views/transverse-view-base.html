@@ -2,15 +2,9 @@
   <template>
     <style>
       #base {
-        height: 1px;
-        width: 1px;
+        height: 0px;
+        width: 0px;
         position: absolute;
-      }
-      :host([side=left]) #base {
-        right: initial !important;
-      }
-      :host([side=right]) #base {
-        left: initial !important;
       }
       #base::after {
         content: '';
@@ -44,14 +38,10 @@
         pointer-events: none;
       }
       :host([side=left]) .reachRadius {
-        border-bottom-left-radius: initial !important;
-        border-top-left-radius: initial !important;
         left: 0px;
         transform-origin: center left;
       }
       :host([side=right]) .reachRadius {
-        border-bottom-right-radius: initial !important;
-        border-top-right-radius: initial !important;
         right: 0px;
         transform-origin: center right;
       }
@@ -76,12 +66,6 @@
         height: 0px;
         width: 0px;
         pointer-events: none;
-      }
-      :host([side=left]) .movementCircleCenter {
-        right: initial !important;
-      }
-      :host([side=right]) .movementCircleCenter {
-        left: initial !important;
       }
       .movementCircle {
         display: inline-block;
@@ -111,11 +95,9 @@
         position: absolute;
       }
       :host([side=left]) .movementPointer {
-        right: initial !important;
         transform: translate(-50%,-50%);
       }
       :host([side=right]) .movementPointer {
-        left: initial !important;
         transform: translate(50%,-50%);
       }
     </style>
