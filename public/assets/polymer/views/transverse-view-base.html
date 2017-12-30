@@ -21,7 +21,7 @@
         transform: translate(-50%,-50%);
         border-radius: 100%;
       }
-      #coxa {
+      .coxa {
         position: absolute;
         top: 0px;
         height: 1px;
@@ -29,33 +29,33 @@
         z-index: 1;
         pointer-events: none;
       }
-      :host([side=left]) #coxa {
+      :host([side=left]) .coxa {
         transform-origin: left;
         left: 0px;
       }
-      :host([side=right]) #coxa {
+      :host([side=right]) .coxa {
         transform-origin: right;
         right: 0px;
       }
-      #reachRadius {
+      .reachRadius {
         background-color: rgba(255, 0, 0, 0.04);
         display: inline-block;
         position: absolute;
         pointer-events: none;
       }
-      :host([side=left]) #reachRadius {
+      :host([side=left]) .reachRadius {
         border-bottom-left-radius: initial !important;
         border-top-left-radius: initial !important;
         left: 0px;
         transform-origin: center left;
       }
-      :host([side=right]) #reachRadius {
+      :host([side=right]) .reachRadius {
         border-bottom-right-radius: initial !important;
         border-top-right-radius: initial !important;
         right: 0px;
         transform-origin: center right;
       }
-      #baseInvalidRange {
+      .baseInvalidRange {
         background-color: white;
         border-radius: 100%;
         position: absolute;
@@ -63,33 +63,33 @@
         pointer-events: none;
         box-sizing: border-box;
       }
-      :host([side=left]) #baseInvalidRange {
+      :host([side=left]) .baseInvalidRange {
         border-right-color: red;
         border-bottom-color: red;
       }
-      :host([side=right]) #baseInvalidRange {
+      :host([side=right]) .baseInvalidRange {
         border-left-color: red;
         border-top-color: red;
       }
-      #movementCircleCenter {
+      .movementCircleCenter {
         position: absolute;
         height: 0px;
         width: 0px;
         pointer-events: none;
       }
-      :host([side=left]) #movementCircleCenter {
+      :host([side=left]) .movementCircleCenter {
         right: initial !important;
       }
-      :host([side=right]) #movementCircleCenter {
+      :host([side=right]) .movementCircleCenter {
         left: initial !important;
       }
-      #movementCircle {
+      .movementCircle {
         display: inline-block;
         background-color: rgba(255, 0, 0, 0.1);
         transform: translate(-50%, -50%);
         border-radius: 100%;
       }
-      #movementCircleCenter::after {
+      .movementCircleCenter::after {
         content: '';
         display: inline-block;
         width: 4px;
@@ -101,7 +101,7 @@
         left: 50%;
         position: absolute;
       }
-      #movementPointer {
+      .movementPointer {
         content: '';
         background: rgba(0, 128, 0, 0.35);
         width: 20px;
@@ -110,27 +110,27 @@
         border-radius: 100%;
         position: absolute;
       }
-      :host([side=left]) #movementPointer {
+      :host([side=left]) .movementPointer {
         right: initial !important;
         transform: translate(-50%,-50%);
       }
-      :host([side=right]) #movementPointer {
+      :host([side=right]) .movementPointer {
         left: initial !important;
         transform: translate(50%,-50%);
       }
     </style>
     
     <div id="base" style$="[[computeBase(x, y, side)]]">
-      <div id="coxa" style$="[[computeCoxa(legLength, coxaScreenAngle, side)]]"></div>
-      <div id="reachRadius" style$="[[computeReachRadius(reachRadius, baseCoxaAngle, side)]]"></div>
-      <div id="baseInvalidRange" style$="[[computeBaseInvalidRange(baseCoxaAngle, impossibleRange)]]"></div>
+      <div class="coxa" style$="[[computeCoxa(legLength, coxaScreenAngle, side)]]"></div>
+      <div class="reachRadius" style$="[[computeReachRadius(reachRadius, baseCoxaAngle, side)]]"></div>
+      <div class="baseInvalidRange" style$="[[computeBaseInvalidRange(baseCoxaAngle, impossibleRange)]]"></div>
     </div>
     
-    <div id="movementCircleCenter" style$="[[computeMovementCircleCenter(movementCenterCoords, side)]]">
-      <div id="movementCircle" style$="[[computeMovementCircle(movementCircleDiameter)]]"></div>
+    <div class="movementCircleCenter" style$="[[computeMovementCircleCenter(movementCenterCoords, side)]]">
+      <div class="movementCircle" style$="[[computeMovementCircle(movementCircleDiameter)]]"></div>
     </div>
     
-    <div id="movementPointer" style$="[[computeMovementPointer(movementPointer, side)]]"></div>
+    <div class="movementPointer" style$="[[computeMovementPointer(movementPointer, side)]]"></div>
   </template>
 
   <script>
