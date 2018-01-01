@@ -3,7 +3,7 @@
 // CU == CoordsUtils
 let CU = {
   aggregateCoords(state, payload, additional) {
-    let coords = Object.assign({}, state, payload, additional);
+    var coords = Object.assign({}, state, payload, additional);
     
     return {
       tcx: coords.transverseCursorX,
@@ -22,8 +22,8 @@ let CU = {
   // output : sagittalCursorX + sagittalBaseX
   getTransverseBaseXYCompensativeCoords(coords) {
     // from center (zero) point to transverse base
-    let sagittalBaseX = MU.getDistance(coords.tbx, coords.tby),
-    // from transverse base to transverse cursor
+    var sagittalBaseX = MU.getDistance(coords.tbx, coords.tby),
+        // from transverse base to transverse cursor
         sagittalCursorX = sagittalBaseX + MU.getDistance(coords.tbx - coords.tcx, coords.tby - coords.tcy);
     
     return { sagittalBaseX, sagittalCursorX };
@@ -32,7 +32,7 @@ let CU = {
   // input: sagittalCursorX
   // output : transverseCursorX + transverseCursorY
   getSagittalCursorXCompensativeCoords(coords) {
-    let distance = coords.scx - coords.sbx,
+    var distance = coords.scx - coords.sbx,
         angle = MU.getAngle(coords.tcy - coords.tby, coords.tcx - coords.tbx),
         newCoords = MU.getCoordsFromDistanceAndAngle(coords.tbx, coords.tby, angle, distance);
     
@@ -45,7 +45,7 @@ let CU = {
   // input: sagittalBaseX
   // output : transverseBaseX + transverseBaseY
   getSagittalBaseXCompensativeCoords(coords) {
-    let distance = coords.scx - coords.sbx,
+    var distance = coords.scx - coords.sbx,
         angle = MU.getAngle(coords.tby - coords.tcy, coords.tbx - coords.tcx),
         newCoords = MU.getCoordsFromDistanceAndAngle(coords.tcx, coords.tcy, angle, distance);
     
