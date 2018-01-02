@@ -2,11 +2,48 @@
   <template>
     <style>
       :host {
+        width: 650px;
+        height: 400px;
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        display: none;
+        background-color: white;
+        border: 1px dotted rgba(0, 0, 0, 0.25);
+        transform: translate(-50%,-50%);
+        padding: 25px;
+        box-sizing: border-box;
+      }
+      :host([visible]) {
+        display: inline-block;
+      }
+      .close-settings-dialog {
         display: inline-block;
         position: absolute;
-        top: 0px;
+        padding: 3px 8px;
+        top: 10px;
+        right: 10px;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: rgba(69, 68, 83, 0.7);
+      }
+      .close-settings-dialog:hover {
+        color: #454453;
       }
     </style>
+    
+    <!-- close settings dialog -->
+    <div class="close-settings-dialog" on-click="hide">✕</div>
+    
+    <template is="dom-if" if="[[computeSettingsView('transverse-view', settingsView)]]" restamp>
+      transverse
+    </template>
+    
+    <template is="dom-if" if="[[computeSettingsView('test', settingsView)]]" restamp>
+      test
+    </template>
 
   </template>
 
@@ -15,12 +52,42 @@
       static get is() { return 'view-settings-pop-up'; }
       static get properties() {
         return {
-          legId: Number
+          settingsView: String,
+          visible: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+          }
         };
       }
       
-      temp() {
-        
+      connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener('open-settings-dialog', this.handleSettingsEvent.bind(this));
+      }
+      
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        window.removeEventListener('open-settings-dialog', this.handleSettingsEvent.bind(this));
+      }
+      
+      handleSettingsEvent(event) {
+        // set settings view
+        this.settingsView = event.detail;
+        // show settings dialog
+        this.show();
+      }
+      
+      show() {
+        this.visible = true;
+      }
+      
+      hide() {
+        this.visible = false;
+      }
+      
+      computeSettingsView(target, current) {
+        return target === current;
       }
 
     }
