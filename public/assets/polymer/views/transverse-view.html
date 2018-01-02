@@ -41,7 +41,21 @@
         position: absolute;
         transform: translate(-50%, -50%);
       }
+      .settings {
+        position: absolute;
+        top: 14px;
+        right: 48px;
+        color: rgba(69, 68, 83, 0.7);
+        cursor: pointer;
+      }
+      .settings:hover {
+        background-color: #fff;
+        color: #454453;
+      }
     </style>
+    
+    <!-- settings icon -->
+    <div class="settings" on-click="settingsHandler">☰</div>
     
     <div class="center-point">
       <transverse-view-base
@@ -229,6 +243,12 @@
           val = MU.scaleDownInput(this.scaling, val);
           
         return val;
+      }
+      
+      settingsHandler() {
+        var tagName = this.tagName.toLowerCase();
+        // open settings dialog
+        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: tagName }));
       }
 
     }
