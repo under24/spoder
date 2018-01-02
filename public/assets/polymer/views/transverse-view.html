@@ -45,8 +45,7 @@
     
     <div class="center-point">
       <transverse-view-base
-        x="[[computeXY(coords.transverseBaseX, viewOffsets.transverseX, scaling)]]"
-        y="[[computeXY(coords.transverseBaseY, viewOffsets.transverseY, scaling)]]"
+        xy="[[computeXY(coords, viewOffsets, scaling)]]"
         side="[[side]]"
         reach-radius="[[scaleInput(misc.transverseReachRadius, scaling)]]"
         coxa-screen-angle="[[angles.coxaScreenAngle]]"
@@ -183,8 +182,11 @@
         };
       }
       
-      computeXY(coord, offset) {
-        return this.scaleInput(coord + offset);
+      computeXY(coords, viewOffsets) {
+        return  {
+          x: this.scaleInput(coords.transverseBaseX + viewOffsets.transverseX),
+          y: this.scaleInput(coords.transverseBaseY + viewOffsets.transverseY)
+        };
       }
       
       computeCursorXY(x, offsetX, y, offsetY) {
