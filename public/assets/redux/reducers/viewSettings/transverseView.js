@@ -3,7 +3,12 @@
 let viewSettingsTransverseReducerInitState = {
   legId: 1,
   scaling: null,
-  useOffsets: false
+  useOffsets: false,
+  showMovementCircle: true,
+  showMovementPointer: true,
+  showInvalidRange: true,
+  showLegSelector: true,
+  showReachRadius: true
 };
 
 const viewSettingsTransverseReducer = (state = viewSettingsTransverseReducerInitState, action) => {
