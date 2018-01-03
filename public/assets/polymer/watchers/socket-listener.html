@@ -11,6 +11,8 @@
       }
       
       connectedCallback() {
+        super.connectedCallback();
+        
         socket.on('right-analog-stick-moved', (data) => {
           
           store.dispatch({
