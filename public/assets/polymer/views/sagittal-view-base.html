@@ -125,7 +125,7 @@
       }
     </style>
     
-    <div id="base" style$="[[computeBase(x, y, side)]]">
+    <div id="base" style$="[[computeBase(xy, side)]]">
       <div class="femur" style$="[[computeFemur(femurLength, femurScreenAngle, side)]]">
         <div class="tibia" style$="[[computeTibia(tibiaLength, tibiaScreenAngle, side)]]"></div>
       </div>
@@ -156,8 +156,7 @@
           side: {
             reflectToAttribute: true
           },
-          x: Number,
-          y: Number,
+          xy: Object,
           femurScreenAngle: Number,
           tibiaScreenAngle: Number,
           femurLength: Number,
@@ -217,15 +216,15 @@
         }
       }
       
-      computeBase(x, y, side) {
+      computeBase(coords, side) {
         switch (side) {
           case 'left':
-            var x = `left: ${x}px;`; break;
+            var x = `left: ${coords.x}px;`; break;
           case 'right':
-            var x = `right: ${x}px;`; break;
+            var x = `right: ${coords.x}px;`; break;
         }
         
-        var y = `top: ${y}px;`;
+        var y = `top: ${coords.y}px;`;
         
         return x + y;
       }
