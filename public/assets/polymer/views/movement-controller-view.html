@@ -31,7 +31,7 @@
     <fieldset>
       <legend>Generator settings:</legend>
       <p>
-        <label><input type="checkbox" checked="[[generatorEnabled]]" value="generatorEnabled" on-click="handleCheckboxChange" /> Movement Enabled</label>
+        <label><input type="checkbox" checked="[[sequencerEnabled]]" value="sequencerEnabled" on-click="handleCheckboxChange" /> Movement Enabled</label>
       </p>
       <p>
         <label><input type="checkbox" checked="[[loop]]" value="loop" on-click="handleCheckboxChange" /> Loop generator</label>
@@ -69,8 +69,8 @@
       static get is() { return 'movement-controller-view'; }
       static get properties() {
         return {
-          generatorEnabled: {
-            statePath: 'movement.settings.generatorEnabled'
+          sequencerEnabled: {
+            statePath: 'movement.settings.sequencerEnabled'
           },
           loop: {
             statePath: 'movement.settings.loop'

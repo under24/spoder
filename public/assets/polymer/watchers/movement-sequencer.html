@@ -9,9 +9,9 @@
       static get is() { return 'movement-sequencer'; }
       static get properties() {
         return {
-          generatorEnabled: {
-            statePath: 'movement.settings.generatorEnabled',
-            observer: 'observeGeneratorEnabled'
+          sequencerEnabled: {
+            statePath: 'movement.settings.sequencerEnabled',
+            observer: 'observeSequencerEnabled'
           },
           blueprint: {
             statePath: 'movement.iteration.blueprint'
@@ -58,7 +58,7 @@
             // start iterating over again
             if (this.loop)
               this.runSequencer();
-            // set generatorEnabled to false (disable movement sequencer)
+            // set sequencerEnabled to false (disable movement sequencer)
             else
               this.disableSequencer();
           }
@@ -144,7 +144,7 @@
       }
       
       disableSequencer() {
-        store.dispatch({ type: "MOVEMENT_SETTINGS_CHANGED", payload: { generatorEnabled: false } });
+        store.dispatch({ type: "MOVEMENT_SETTINGS_CHANGED", payload: { sequencerEnabled: false } });
       }
       
       // clear sequencer interval
@@ -153,7 +153,7 @@
         this.sequencerInterval = undefined;
       }
       
-      observeGeneratorEnabled(newValue, oldValue) {
+      observeSequencerEnabled(newValue, oldValue) {
         // start sequencer
         if (newValue === true)
           this.runSequencer(this.iteration.currentTick + 1);
@@ -172,7 +172,7 @@
           // set the flag which shows that the timeline is not idle (null)
           this.sequencerIdle = false;
           // run the sequencer again if it is enabled
-          if (this.generatorEnabled) this.runSequencer();
+          if (this.sequencerEnabled) this.runSequencer();
         }
       }
 
