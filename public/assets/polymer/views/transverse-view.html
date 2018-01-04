@@ -55,26 +55,26 @@
     </style>
     
     <!-- settings icon -->
-    <div class="settings" on-click="settingsHandler">☰</div>
+    <div class="settings" on-click="showSettingsDialog">☰</div>
     
     <div class="center-point">
       <transverse-view-base
-        xy="[[computeXY(coords, viewOffsets, scaling)]]"
+        xy="[[computeXY(coords, viewOffsets, scaling, useOffsets)]]"
         side="[[side]]"
         reach-radius="[[scaleInput(misc.transverseReachRadius, scaling)]]"
         coxa-screen-angle="[[angles.coxaScreenAngle]]"
         impossible-range="[[scaleInput(metaData.impossibleRange, scaling)]]"
         leg-length="[[scaleInput(misc.transverseLegLength, scaling)]]"
-        movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets, scaling)]]"
+        movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets, scaling, useOffsets)]]"
         movement-circle-diameter="[[scaleInput(movementCircle.diameter, scaling)]]"
-        movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, scaling)]]"
+        movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, scaling, useOffsets)]]"
         base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle)]]"
         output="{{baseOutput}}">
       </transverse-view-base>
       
       <view-cursor
         side="[[side]]"
-        xy="[[computeCursorXY(coords.transverseCursorX, viewOffsets.transverseX, coords.transverseCursorY, viewOffsets.transverseY, scaling)]]"
+        xy="[[computeCursorXY(coords.transverseCursorX, coords.transverseCursorY, viewOffsets, scaling, useOffsets)]]"
         output={{cursorOutput}}>
       </view-cursor>
     </div>
@@ -147,6 +147,9 @@
           scaling: {
             statePath: 'viewSettings.transverseView.scaling'
           },
+          useOffsets: {
+            statePath: 'viewSettings.transverseView.useOffsets'
+          },
           // upcoming props
           cursorOutput: {
             observer: 'observeCursorOutput'
@@ -189,31 +192,31 @@
         });
       }
       
-      computeMovementCenterCoords(movementCircle, viewOffsets) {
+      computeMovementCenterCoords(movementCircle) {
         return {
-          x: this.scaleInput(movementCircle.x + viewOffsets.transverseX),
-          y: this.scaleInput(movementCircle.y + viewOffsets.transverseY),
+          x: this.scaleInput(movementCircle.x + this.getOffset('x')),
+          y: this.scaleInput(movementCircle.y + this.getOffset('y')),
         };
       }
       
-      computeXY(coords, viewOffsets) {
+      computeXY(coords) {
         return  {
-          x: this.scaleInput(coords.transverseBaseX + viewOffsets.transverseX),
-          y: this.scaleInput(coords.transverseBaseY + viewOffsets.transverseY)
+          x: this.scaleInput(coords.transverseBaseX + this.getOffset('x')),
+          y: this.scaleInput(coords.transverseBaseY + this.getOffset('y'))
         };
       }
       
-      computeCursorXY(x, offsetX, y, offsetY) {
+      computeCursorXY(x, y) {
         return {
-          x: this.scaleInput(x + offsetX),
-          y: this.scaleInput(y + offsetY)
+          x: this.scaleInput(x + this.getOffset('x')),
+          y: this.scaleInput(y + this.getOffset('y'))
         };
       }
       
-      computeMovementPointer(movementPointer, viewOffsets) {
+      computeMovementPointer(movementPointer) {
         return {
-          x: this.scaleInput(movementPointer.x + viewOffsets.transverseX),
-          y: this.scaleInput(movementPointer.y + viewOffsets.transverseY)
+          x: this.scaleInput(movementPointer.x + this.getOffset('x')),
+          y: this.scaleInput(movementPointer.y + this.getOffset('y'))
         };
       }
       
@@ -245,10 +248,20 @@
         return val;
       }
       
-      settingsHandler() {
-        var tagName = this.tagName.toLowerCase();
-        // open settings dialog
-        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: tagName }));
+      getOffset(coord) {
+        // do not use offsets
+        if (!this.useOffsets) return 0;
+        
+        // transverseX
+        if (coord === 'x')
+          return this.viewOffsets.transverseX;
+        // transverseY
+        else
+          return this.viewOffsets.transverseY;
+      }
+      
+      showSettingsDialog() {
+        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: this.tagName.toLowerCase() }));
       }
 
     }
