@@ -261,7 +261,7 @@
       }
       
       showSettingsDialog() {
-        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: this.tagName.toLowerCase() }));
+        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: 'transverse-view' }));
       }
 
     }
