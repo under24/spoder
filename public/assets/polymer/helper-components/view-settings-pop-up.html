@@ -12,7 +12,6 @@
         background-color: white;
         border: 1px dotted rgba(0, 0, 0, 0.25);
         transform: translate(-50%,-50%);
-        padding: 25px;
         box-sizing: border-box;
       }
       :host([visible]) {
@@ -28,22 +27,83 @@
         cursor: pointer;
         background-color: rgba(255, 255, 255, 0.9);
         color: rgba(69, 68, 83, 0.7);
+        z-index: 1;
       }
       .close-settings-dialog:hover {
         color: #454453;
       }
+      header {
+        padding: 12px 15px 10px;
+        border-bottom: 1px dotted rgba(0, 0, 0, 0.25);
+        cursor: move;
+      }
+      .content {
+        padding: 15px;
+      }
+      fieldset {
+        display: inline-block;
+        box-sizing: border-box;
+        margin: 10px auto;
+        border-width: 0px;
+        border-style: hidden;
+        vertical-align: top;
+      }
+      p {
+        margin-left: 16px;
+        margin-right: 16px;
+      }
     </style>
     
+    <!-- header -->
+    <header>Settings dialog <[[settingsView]]></header>
     <!-- close settings dialog -->
     <div class="close-settings-dialog" on-click="hide">✕</div>
     
-    <template is="dom-if" if="[[computeSettingsView('transverse-view', settingsView)]]" restamp>
-      transverse
-    </template>
-    
-    <template is="dom-if" if="[[computeSettingsView('test', settingsView)]]" restamp>
-      test
-    </template>
+    <div class="content">
+      <!-- transverse-view -->
+      <template is="dom-if" if="[[computeSettingsView('transverse-view', settingsView)]]" restamp>
+        <fieldset>
+          <legend>View options:</legend>
+          <p>
+            <label>
+              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+            </label>
+          </p>
+        </fieldset>
+        <fieldset>
+          <legend>UI options:</legend>
+          <p>
+            <label>
+              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Show invalid range
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.showLegSelector]]" value="showLegSelector"> Show leg selector
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.showMovementCircle]]" value="showMovementCircle"> Show movement circle
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Show movement pointer
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.showReachRadius]]" value="showReachRadius"> Show reach radius
+            </label>
+          </p>
+        </fieldset>
+      </template>
+      
+      <template is="dom-if" if="[[computeSettingsView('test', settingsView)]]" restamp>
+        test
+      </template>
+    </div>
 
   </template>
 
@@ -57,6 +117,9 @@
             type: Boolean,
             value: false,
             reflectToAttribute: true
+          },
+          transverseViewSettings: {
+            statePath: 'viewSettings.transverseView'
           }
         };
       }
@@ -88,6 +151,13 @@
       
       computeSettingsView(target, current) {
         return target === current;
+      }
+      
+      handleTransverseSettings(e) {
+        store.dispatch({
+          type: "TRANSVERSE_VIEW_SETTINGS_CHANGED",
+          payload: { [e.target.value]: e.target.checked }
+        })
       }
 
     }
