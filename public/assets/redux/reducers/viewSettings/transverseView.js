@@ -3,7 +3,7 @@
 let viewSettingsTransverseReducerInitState = {
   legId: 1,
   scaling: null,
-  useOffsets: false,
+  useOffsets: true,
   showMovementCircle: true,
   showMovementPointer: true,
   showInvalidRange: true,
