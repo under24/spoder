@@ -252,12 +252,12 @@
         // do not use offsets
         if (!this.useOffsets) return 0;
         
-        // transverseX
-        if (coord === 'x')
-          return this.viewOffsets.transverseX;
-        // transverseY
-        else
-          return this.viewOffsets.transverseY;
+        switch (coord) {
+          case 'x':
+            return this.viewOffsets.transverseX;
+          case 'y':
+            return this.viewOffsets.transverseY;
+        }
       }
       
       showSettingsDialog() {
