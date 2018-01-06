@@ -3,8 +3,8 @@
 let viewSettingsSagittalReducerInitState = {
   legId: 1,
   useOffsets: false,
-  useScaling: false,
-  scaling: null
+  useScaling: true,
+  scaling: 70
 };
 
 const viewSettingsSagittalReducer = (state = viewSettingsSagittalReducerInitState, action) => {

@@ -37,23 +37,23 @@
     
     <div class="center-point">
       <sagittal-view-base
-        xy="[[computeXY(coords, scaling)]]"
+        xy="[[computeXY(coords, useScaling, scaling)]]"
         side="[[side]]"
-        femur-length="[[scaleInput(metaData.femurLength, scaling)]]"
-        tibia-length="[[scaleInput(metaData.tibiaLength, scaling)]]"
-        reach-radius="[[scaleInput(metaData.combinedLegsLength, scaling)]]"
-        impossible-range="[[scaleInput(metaData.impossibleRange, scaling)]]"
+        femur-length="[[scaleInput(metaData.femurLength, useScaling, scaling)]]"
+        tibia-length="[[scaleInput(metaData.tibiaLength, useScaling, scaling)]]"
+        reach-radius="[[scaleInput(metaData.combinedLegsLength, useScaling, scaling)]]"
+        impossible-range="[[scaleInput(metaData.impossibleRange, useScaling, scaling)]]"
         femur-screen-angle="[[angles.femurScreenAngle]]"
         tibia-screen-angle="[[angles.tibiaScreenAngle]]"
-        distance-line="[[computeDistanceLine(misc, scaling)]]"
-        boundary-ball="[[computeBoundaryBall(misc, viewOffsets, scaling)]]"
-        transverse-reach-points="[[computeTransverseReachPoints(misc, viewOffsets, scaling)]]"
+        distance-line="[[computeDistanceLine(misc, useScaling, scaling)]]"
+        boundary-ball="[[computeBoundaryBall(misc, viewOffsets, useScaling,  scaling)]]"
+        transverse-reach-points="[[computeTransverseReachPoints(misc, viewOffsets, useScaling, scaling)]]"
         output="{{baseOutput}}">
       </sagittal-view-base>
       
       <view-cursor
         side="[[side]]"
-        xy="[[computeCursorXY(coords.sagittalCursorX, viewOffsets.sagittalX, coords.sagittalCursorY, viewOffsets.sagittalY, scaling)]]"
+        xy="[[computeCursorXY(coords.sagittalCursorX, viewOffsets.sagittalX, coords.sagittalCursorY, viewOffsets.sagittalY, useScaling, scaling)]]"
         output={{cursorOutput}}>
       </view-cursor>
     </div>
@@ -99,6 +99,9 @@
           },
           scaling: {
             statePath: 'viewSettings.sagittalView.scaling'
+          },
+          useScaling: {
+            statePath: 'viewSettings.sagittalView.useScaling'
           },
           side: {
             computed: 'computeSide(legId)',
@@ -192,7 +195,7 @@
       
       scaleOutput(val) {
         // apply scaling if not null (null === 100%)
-        if (this.scaling)
+        if (this.useScaling)
           val = MU.scaleUpOutput(this.scaling, val);
         
         return val;
@@ -200,7 +203,7 @@
       
       scaleInput(val) {
         // apply scaling if not null (null === 100%)
-        if (this.scaling)
+        if (this.useScaling)
           val = MU.scaleDownInput(this.scaling, val);
           
         return val;
