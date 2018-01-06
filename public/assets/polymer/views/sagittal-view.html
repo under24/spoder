@@ -37,8 +37,7 @@
     
     <div class="center-point">
       <sagittal-view-base
-        x="[[computeXY(coords.sagittalBaseX, viewOffsets.sagittalX, scaling)]]"
-        y="[[computeXY(coords.sagittalBaseY, viewOffsets.sagittalY, scaling)]]"
+        xy="[[computeXY(coords, scaling)]]"
         side="[[side]]"
         femur-length="[[scaleInput(metaData.femurLength, scaling)]]"
         tibia-length="[[scaleInput(metaData.tibiaLength, scaling)]]"
@@ -173,8 +172,11 @@
         };
       }
       
-      computeXY(coord, offset) {
-        return this.scaleInput(coord) + offset;
+      computeXY(coords) {
+        return {
+          x: this.scaleInput(coords.sagittalBaseX),
+          y: this.scaleInput(coords.sagittalBaseY)
+        };
       }
       
       computeCursorXY(x, offsetX, y, offsetY) {
