@@ -59,22 +59,22 @@
     
     <div class="center-point">
       <transverse-view-base
-        xy="[[computeXY(coords, viewOffsets, scaling, useOffsets)]]"
+        xy="[[computeXY(coords, viewOffsets, useScaling, scaling, useOffsets)]]"
         side="[[side]]"
-        reach-radius="[[scaleInput(misc.transverseReachRadius, scaling)]]"
+        reach-radius="[[scaleInput(misc.transverseReachRadius, useScaling, scaling)]]"
         coxa-screen-angle="[[angles.coxaScreenAngle]]"
-        impossible-range="[[scaleInput(metaData.impossibleRange, scaling)]]"
-        leg-length="[[scaleInput(misc.transverseLegLength, scaling)]]"
-        movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets, scaling, useOffsets)]]"
-        movement-circle-diameter="[[scaleInput(movementCircle.diameter, scaling)]]"
-        movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, scaling, useOffsets)]]"
+        impossible-range="[[scaleInput(metaData.impossibleRange, useScaling, scaling)]]"
+        leg-length="[[scaleInput(misc.transverseLegLength, useScaling, scaling)]]"
+        movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets, useScaling, scaling, useOffsets)]]"
+        movement-circle-diameter="[[scaleInput(movementCircle.diameter, useScaling, scaling)]]"
+        movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, useScaling, scaling, useOffsets)]]"
         base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle)]]"
         output="{{baseOutput}}">
       </transverse-view-base>
       
       <view-cursor
         side="[[side]]"
-        xy="[[computeCursorXY(coords.transverseCursorX, coords.transverseCursorY, viewOffsets, scaling, useOffsets)]]"
+        xy="[[computeCursorXY(coords.transverseCursorX, coords.transverseCursorY, viewOffsets, useScaling, scaling, useOffsets)]]"
         output={{cursorOutput}}>
       </view-cursor>
     </div>
@@ -143,6 +143,9 @@
           row: {
             computed: 'computeRow(legId)',
             reflectToAttribute: true
+          },
+          useScaling: {
+            statePath: 'viewSettings.transverseView.useScaling'
           },
           scaling: {
             statePath: 'viewSettings.transverseView.scaling'
@@ -234,7 +237,7 @@
       
       scaleOutput(val) {
         // apply scaling if not null (null === 100%)
-        if (this.scaling)
+        if (this.useScaling)
           val = MU.scaleUpOutput(this.scaling, val);
         
         return val;
@@ -242,7 +245,7 @@
       
       scaleInput(val) {
         // apply scaling if not null (null === 100%)
-        if (this.scaling)
+        if (this.useScaling)
           val = MU.scaleDownInput(this.scaling, val);
           
         return val;
