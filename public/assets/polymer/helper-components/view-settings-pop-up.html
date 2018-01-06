@@ -52,6 +52,9 @@
         margin-left: 16px;
         margin-right: 16px;
       }
+      input[type=range] {
+        vertical-align: middle;
+      }
     </style>
     
     <!-- header -->
@@ -66,35 +69,43 @@
           <legend>View options:</legend>
           <p>
             <label>
-              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
             </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.useScaling]]" value="useScaling"> Use scaling: [[transverseViewSettings.scaling]]%
+            </label>
+          </p>
+          <p>
+            <input type="range" name="scaling" disabled="[[!transverseViewSettings.useScaling]]" value="[[transverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="transverseRange" />
           </p>
         </fieldset>
         <fieldset>
           <legend>UI options:</legend>
           <p>
             <label>
-              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Show invalid range
+              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Show invalid range
             </label>
           </p>
           <p>
             <label>
-              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.showLegSelector]]" value="showLegSelector"> Show leg selector
+              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showLegSelector]]" value="showLegSelector"> Show leg selector
             </label>
           </p>
           <p>
             <label>
-              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.showMovementCircle]]" value="showMovementCircle"> Show movement circle
+              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showMovementCircle]]" value="showMovementCircle"> Show movement circle
             </label>
           </p>
           <p>
             <label>
-              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Show movement pointer
+              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Show movement pointer
             </label>
           </p>
           <p>
             <label>
-              <input type="checkbox" on-click="handleTransverseSettings" checked="[[transverseViewSettings.showReachRadius]]" value="showReachRadius"> Show reach radius
+              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showReachRadius]]" value="showReachRadius"> Show reach radius
             </label>
           </p>
         </fieldset>
@@ -153,11 +164,18 @@
         return target === current;
       }
       
-      handleTransverseSettings(e) {
+      transverseCheckbox(e) {
         store.dispatch({
           type: "TRANSVERSE_VIEW_SETTINGS_CHANGED",
           payload: { [e.target.value]: e.target.checked }
-        })
+        });
+      }
+      
+      transverseRange(e) {
+        store.dispatch({
+          type: "TRANSVERSE_VIEW_SETTINGS_CHANGED",
+          payload: { [e.target.name]: +e.target.value }
+        });
       }
 
     }
