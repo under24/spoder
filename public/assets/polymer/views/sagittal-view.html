@@ -71,7 +71,7 @@
       static get is() { return 'sagittal-view'; }
       static get properties() {
         return {
-          // downcoming props
+          // outgoing properties
           legId: {
             statePath: 'viewSettings.sagittalView.legId'
           },
@@ -105,7 +105,7 @@
             computed: 'computeSide(legId)',
             reflectToAttribute: true
           },
-          // upcoming props
+          // incoming properties
           cursorOutput: {
             observer: 'observeCursorOutput'
           },
