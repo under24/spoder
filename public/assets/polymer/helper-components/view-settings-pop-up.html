@@ -110,7 +110,26 @@
           </p>
         </fieldset>
       </template>
-      
+      <!-- sagittal view -->
+      <template is="dom-if" if="[[computeSettingsView('sagittal-view', settingsView)]]" restamp>
+        <fieldset>
+          <legend>View options:</legend>
+          <p>
+            <label>
+              <input type="checkbox" on-click="sagittalCheckbox" checked="[[sagittalViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" on-click="sagittalCheckbox" checked="[[sagittalViewSettings.useScaling]]" value="useScaling"> Use scaling: [[sagittalViewSettings.scaling]]%
+            </label>
+          </p>
+          <p>
+            <input type="range" name="scaling" disabled="[[!sagittalViewSettings.useScaling]]" value="[[sagittalViewSettings.scaling]]" step="1" max="100" min="1" on-input="sagittalRange" />
+          </p>
+        </fieldset>
+      </template>
+      <!-- test -->
       <template is="dom-if" if="[[computeSettingsView('test', settingsView)]]" restamp>
         test
       </template>
@@ -131,6 +150,9 @@
           },
           transverseViewSettings: {
             statePath: 'viewSettings.transverseView'
+          },
+          sagittalViewSettings: {
+            statePath: 'viewSettings.sagittalView'
           }
         };
       }
@@ -174,6 +196,20 @@
       transverseRange(e) {
         store.dispatch({
           type: "TRANSVERSE_VIEW_SETTINGS_CHANGED",
+          payload: { [e.target.name]: +e.target.value }
+        });
+      }
+      
+      sagittalCheckbox(e) {
+        store.dispatch({
+          type: "SAGITTAL_VIEW_SETTINGS_CHANGED",
+          payload: { [e.target.value]: e.target.checked }
+        });
+      }
+      
+      sagittalRange(e) {
+        store.dispatch({
+          type: "SAGITTAL_VIEW_SETTINGS_CHANGED",
           payload: { [e.target.name]: +e.target.value }
         });
       }
