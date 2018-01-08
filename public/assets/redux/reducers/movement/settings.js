@@ -7,7 +7,8 @@ let movementSettingsReducerInitState = {
   gait: 'ripple',
   tps: 60,
   duration: 750,
-  sequencerMode: 'movement' // possible values: 'movement', 'custom'
+  sequencerMode: 'movement', // possible values: 'movement', 'custom'
+  customBlueprint: null
 };
 
 const movementSettingsReducer = (state = movementSettingsReducerInitState, action) => {
