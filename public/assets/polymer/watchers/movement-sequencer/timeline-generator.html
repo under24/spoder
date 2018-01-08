@@ -33,7 +33,7 @@
         }
       }
       
-      // generate a new timeline whenever this.blueprint || this.amountOfTicks and export to to the upper component
+      // generate a new timeline whenever this.blueprint || this.amountOfTicks and export it to <movement-sequencer>
       static get observers() {
         return [ 'processNewTimeline(blueprint, amountOfTicks)' ];
       }
