@@ -33,9 +33,22 @@
         position: absolute;
         transform: translate(-50%, -50%);
       }
+      .settings {
+        position: absolute;
+        top: 14px;
+        right: 48px;
+        color: rgba(69, 68, 83, 0.7);
+        cursor: pointer;
+      }
+      .settings:hover {
+        background-color: #fff;
+        color: #454453;
+      }
     </style>
     
-    <div class="center-point">
+    <!-- settings icon -->
+    <div class="settings" on-click="showSettingsDialog">☰</div>
+    
       <sagittal-view-base
         xy="[[computeXY(coords, useScaling, scaling)]]"
         side="[[side]]"
@@ -210,6 +223,10 @@
           val = MU.scaleDownInput(this.scaling, val);
           
         return val;
+      }
+      
+      showSettingsDialog() {
+        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: 'sagittal-view' }));
       }
  
     }
