@@ -39,23 +39,28 @@
         store.dispatch({ type: "APPLY_LEVEL_MODIFIER_TO_COORDS", payload });
       }
       
+      // tilt
       observeTiltModifier(newValue, oldValue) {
+        // old values is undefined. cannot compare new and old values
         if (oldValue === undefined) return;
-        if (newValue.backTiltModifier === oldValue.backTiltModifier &&
-            newValue.frontTiltModifier === oldValue.frontTiltModifier &&
-            newValue.leftTiltModifier === oldValue.leftTiltModifier &&
-            newValue.rightTiltModifier === oldValue.rightTiltModifier
-        ) {
+
+        if (newValue.normalizedX === oldValue.normalizedX && 
+            newValue.normalizedY === oldValue.normalizedY) {
           console.warn('same tilt modifier values');
           return;
-        }
+        }        
         
+        var x = oldValue.normalizedX - newValue.normalizedX,
+            y = oldValue.normalizedY - newValue.normalizedY;
+        
+        // create a payload object for dispatching
         var payload = {
-          backTiltModifier: oldValue.backTiltModifier - newValue.backTiltModifier,
-          frontTiltModifier: oldValue.frontTiltModifier - newValue.frontTiltModifier,
-          leftTiltModifier: oldValue.leftTiltModifier - newValue.leftTiltModifier,
-          rightTiltModifier: oldValue.rightTiltModifier - newValue.rightTiltModifier
-        }
+          leftTiltModifier: x,
+          frontTiltModifier: y,
+          rightTiltModifier: MU.flipNumber(x),
+          backTiltModifier: MU.flipNumber(y),
+        };
+        
         store.dispatch({ type: "APPLY_TILT_MODIFIER_TO_COORDS", payload });
       }
       
