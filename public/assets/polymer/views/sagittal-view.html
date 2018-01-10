@@ -212,7 +212,6 @@
       }
       
       scaleOutput(val) {
-        // apply scaling if not null (null === 100%)
         if (this.useScaling)
           val = MU.scaleUpOutput(this.scaling, val);
         
@@ -220,7 +219,6 @@
       }
       
       scaleInput(val) {
-        // apply scaling if not null (null === 100%)
         if (this.useScaling)
           val = MU.scaleDownInput(this.scaling, val);
           
