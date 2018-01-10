@@ -1,6 +1,6 @@
 'use strict';
 
-let legReducerInitState = {
+var legReducerInitState = {
   1: {
     legId: 1,
     coxaServoPIN: 1,
@@ -50,10 +50,6 @@ let legReducerInitState = {
     row: 'back'
   }
 }
-const legReducer = (state = legReducerInitState, action) => {
-  // switch (action.type) {
-  //   case "a":
-  //     
-  // }
+var legReducer = (state = legReducerInitState, action) => {
   return state;
 }
