@@ -49,8 +49,9 @@
     <!-- settings icon -->
     <div class="settings" on-click="showSettingsDialog">☰</div>
     
+    <div class="center-point">
       <sagittal-view-base
-        xy="[[computeXY(coords, useScaling, scaling)]]"
+        xy="[[computeXY(coords, offsetX, useScaling, scaling)]]"
         side="[[side]]"
         femur-length="[[scaleInput(metaData.femurLength, useScaling, scaling)]]"
         tibia-length="[[scaleInput(metaData.tibiaLength, useScaling, scaling)]]"
@@ -59,14 +60,14 @@
         femur-screen-angle="[[angles.femurScreenAngle]]"
         tibia-screen-angle="[[angles.tibiaScreenAngle]]"
         distance-line="[[computeDistanceLine(misc, useScaling, scaling)]]"
-        boundary-ball="[[computeBoundaryBall(misc, viewOffsets, useScaling,  scaling)]]"
-        transverse-reach-points="[[computeTransverseReachPoints(misc, viewOffsets, useScaling, scaling)]]"
+        boundary-ball="[[computeBoundaryBall(misc, offsetX, useScaling,  scaling)]]"
+        transverse-reach-points="[[computeTransverseReachPoints(misc, offsetX, useScaling, scaling)]]"
         output="{{baseOutput}}">
       </sagittal-view-base>
       
       <view-cursor
         side="[[side]]"
-        xy="[[computeCursorXY(coords.sagittalCursorX, viewOffsets.sagittalX, coords.sagittalCursorY, viewOffsets.sagittalY, useScaling, scaling)]]"
+        xy="[[computeCursorXY(coords.sagittalCursorX, coords.sagittalCursorY, offsetX, useScaling, scaling)]]"
         output={{cursorOutput}}>
       </view-cursor>
     </div>
@@ -89,11 +90,6 @@
           },
           metaData: {
             statePath: 'metaData',
-          },
-          viewOffsets: {
-            statePath(state) {
-              return state.viewOffsets[this.legId];
-            }
           },
           coords: {
             statePath(state) {
@@ -119,9 +115,15 @@
           useOffsets: {
             statePath: 'viewSettings.sagittalView.useOffsets'
           },
+          offsetX: {
+            computed: 'computeOffsetX(useOffsets, baseCenterCoords, side, legId)'
+          },
           side: {
             computed: 'computeSide(legId)',
             reflectToAttribute: true
+          },
+          baseCenterCoords: {
+            statePath: 'base.centerCoords'
           },
           // incoming properties
           cursorOutput: {
@@ -172,36 +174,36 @@
         };
       }
       
-      computeBoundaryBall(misc, viewOffsets) {
+      computeBoundaryBall(misc, offsetX) {
         return {
-          x: this.scaleInput(misc.sagittalBoundaryBallCoords.x) + viewOffsets.sagittalX,
-          y: this.scaleInput(misc.sagittalBoundaryBallCoords.y) + viewOffsets.sagittalY
+          x: this.scaleInput(misc.sagittalBoundaryBallCoords.x + offsetX),
+          y: this.scaleInput(misc.sagittalBoundaryBallCoords.y)
         };
       }
       
-      computeTransverseReachPoints(misc, viewOffsets) {
+      computeTransverseReachPoints(misc, offsetX) {
         return {
-          endX: this.scaleInput(misc.transverseReachCoords.endX) + viewOffsets.sagittalX,
-          endY: this.scaleInput(misc.transverseReachCoords.endY) + viewOffsets.sagittalY,
-          // beginningX: this.scaleInput(misc.transverseReachCoords.beginningX) + viewOffsets.sagittalX,
-          // beginningY: this.scaleInput(misc.transverseReachCoords.beginningY) + viewOffsets.sagittalY,
-          possibleX: this.scaleInput(misc.transverseReachCoords.possibleX) + viewOffsets.sagittalX,
-          possibleY: this.scaleInput(misc.transverseReachCoords.possibleY) + viewOffsets.sagittalY,
+          endX: this.scaleInput(misc.transverseReachCoords.endX + offsetX),
+          endY: this.scaleInput(misc.transverseReachCoords.endY),
+          // beginningX: this.scaleInput(misc.transverseReachCoords.beginningX + offsetX),
+          // beginningY: this.scaleInput(misc.transverseReachCoords.beginningY),
+          possibleX: this.scaleInput(misc.transverseReachCoords.possibleX + offsetX),
+          possibleY: this.scaleInput(misc.transverseReachCoords.possibleY),
           transverseReachRadius: this.scaleInput(misc.transverseReachCoords.endX - misc.transverseReachCoords.possibleX)
         };
       }
       
-      computeXY(coords) {
+      computeXY(coords, offsetX) {
         return {
-          x: this.scaleInput(coords.sagittalBaseX),
+          x: this.scaleInput(coords.sagittalBaseX + offsetX),
           y: this.scaleInput(coords.sagittalBaseY)
         };
       }
       
-      computeCursorXY(x, offsetX, y, offsetY) {
+      computeCursorXY(x, y, offsetX) {
         return {
-          x: this.scaleInput(x) + offsetX,
-          y: this.scaleInput(y) + offsetY
+          x: this.scaleInput(x + offsetX),
+          y: this.scaleInput(y)
         }
       }
       
@@ -223,6 +225,22 @@
           val = MU.scaleDownInput(this.scaling, val);
           
         return val;
+      }
+      
+      computeOffsetX(useOffsets, baseCenterCoords, side) {
+        // do not use offsets
+        if (!this.useOffsets) return 0;
+        
+        switch (side) {
+          case 'left':
+            var dist = MU.getDistance(this.coords.transverseBaseX - baseCenterCoords.x, this.coords.transverseBaseY - baseCenterCoords.y);
+            break;
+          case 'right':
+            var dist = MU.getDistance(MU.flipNumber(this.coords.transverseBaseX) - baseCenterCoords.x, this.coords.transverseBaseY - baseCenterCoords.y);
+            break;
+        }
+        
+        return dist - this.coords.sagittalBaseX;
       }
       
       showSettingsDialog() {
