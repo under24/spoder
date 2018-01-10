@@ -59,17 +59,23 @@
         store.dispatch({ type: "APPLY_TILT_MODIFIER_TO_COORDS", payload });
       }
       
+      // shift
       observeShiftModifier(newValue, oldValue) {
+        // old values is undefined. cannot compare new and old values
         if (oldValue === undefined) return;
-        if (newValue.x === oldValue.x && newValue.y === oldValue.y) {
+        
+        if (newValue.normalizedX === oldValue.normalizedX && 
+            newValue.normalizedY === oldValue.normalizedY) {
           console.warn('same shift modifier values');
           return;
         }  
 
+        // create a payload object for dispatching
         var payload = {
-          x: oldValue.x - newValue.x,
-          y: oldValue.y - newValue.y
-        }
+          x: oldValue.normalizedX - newValue.normalizedX,
+          y: oldValue.normalizedY - newValue.normalizedY
+        };
+        
         store.dispatch({ type: "APPLY_SHIFT_MODIFIER_TO_COORDS", payload });
       }
       
