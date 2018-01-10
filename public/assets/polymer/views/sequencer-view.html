@@ -314,9 +314,9 @@
         this.sequenceInterval = setInterval(() => {
           
           // apply movement.turnJoystick values
-          if (this.turnJoystick.x) {
+          if (this.turnJoystick.normalizedX) {
             // angle / amount of ticks = angle for each tick
-            let stepAngle = this.turnJoystick.x / this.sequence.metaData.amountOfTicks;
+            let stepAngle = this.turnJoystick.normalizedX / this.sequence.metaData.amountOfTicks;
             
             for (let legId = 1; legId <= 6; legId++) {
               // find rotated base coords

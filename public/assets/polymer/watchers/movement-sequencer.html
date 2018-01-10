@@ -95,13 +95,13 @@
       
       addTurningValues(payload) {
         // no turn values. return back the payload unchanged
-        if (this.turnJoystick.x === 0) return payload;
+        if (this.turnJoystick.normalizedX === 0) return payload;
         
         // calc turn values and add them to the payload
         for (let legId = 1; legId <= 6; legId++) {
           
           // angle / amount of ticks = angle for each tick
-          let stepAngle = MU.flipNumber(this.turnJoystick.x) / this.iteration.amountOfTicks;
+          let stepAngle = MU.flipNumber(this.turnJoystick.normalizedX) / this.iteration.amountOfTicks;
         
           // find rotated base coords
           let rotatedCoords = RU.getRotatedCoords(this.baseCenterCoords, stepAngle, this.coords[legId], GU.getLegSide(legId));

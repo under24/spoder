@@ -56,7 +56,7 @@
           
           if (applyDirectionAndTurnAngles)
             // apply baseDirection + turnJoystick
-            pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.x, GU.getLegSide(legId));
+            pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.normalizedX, GU.getLegSide(legId));
           
           // filter in unique value for dispatching
           GU.sieveOutAndGatherUp(pointer, this.pointers[legId], pointers, legId);
