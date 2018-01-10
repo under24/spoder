@@ -10,35 +10,37 @@
         left: 50%;
         display: none;
         background-color: white;
-        border: 1px dotted rgba(0, 0, 0, 0.25);
         transform: translate(-50%,-50%);
         box-sizing: border-box;
+        box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56);  
       }
       :host([visible]) {
         display: inline-block;
       }
       .close-settings-dialog {
         display: inline-block;
-        position: absolute;
-        padding: 3px 8px;
-        top: 10px;
-        right: 10px;
         font-size: 14px;
         cursor: pointer;
         background-color: rgba(255, 255, 255, 0.9);
         color: rgba(69, 68, 83, 0.7);
         z-index: 1;
+        right: 12px;
+        position: absolute;
+        top: 6px;
       }
       .close-settings-dialog:hover {
         color: #454453;
       }
       header {
-        padding: 12px 15px 10px;
+        padding: 4px 25px 4px;
         border-bottom: 1px dotted rgba(0, 0, 0, 0.25);
         cursor: move;
       }
+      header .header-title {
+        display: inline-block;
+      }
       .content {
-        padding: 15px;
+        padding: 10px;
       }
       fieldset {
         display: inline-block;
@@ -58,9 +60,11 @@
     </style>
     
     <!-- header -->
-    <header>Settings dialog <[[settingsView]]></header>
-    <!-- close settings dialog -->
-    <div class="close-settings-dialog" on-click="hide">✕</div>
+    <header>
+      <div class="header-title">Settings dialog <[[settingsView]]></div>
+      <!-- close settings dialog -->
+      <div class="close-settings-dialog" on-click="hide">✕</div>
+    </header>
     
     <div class="content">
       <!-- transverse-view -->
