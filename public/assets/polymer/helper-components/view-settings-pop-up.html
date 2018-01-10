@@ -41,6 +41,10 @@
       }
       .content {
         padding: 10px;
+        display: flex;
+      }
+      .content > section {
+        flex: 1;
       }
       fieldset {
         display: inline-block;
@@ -69,69 +73,75 @@
     <div class="content">
       <!-- transverse-view -->
       <template is="dom-if" if="[[computeSettingsView('transverse-view', settingsView)]]" restamp>
-        <fieldset>
-          <legend>View options:</legend>
-          <p>
-            <label>
-              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
-            </label>
-          </p>
-          <p>
-            <label>
-              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.useScaling]]" value="useScaling"> Use scaling: [[transverseViewSettings.scaling]]%
-            </label>
-          </p>
-          <p>
-            <input type="range" name="scaling" disabled="[[!transverseViewSettings.useScaling]]" value="[[transverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="transverseRange" />
-          </p>
-        </fieldset>
-        <fieldset>
-          <legend>UI options:</legend>
-          <p>
-            <label>
-              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Show invalid range
-            </label>
-          </p>
-          <p>
-            <label>
-              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showLegSelector]]" value="showLegSelector"> Show leg selector
-            </label>
-          </p>
-          <p>
-            <label>
-              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showMovementCircle]]" value="showMovementCircle"> Show movement circle
-            </label>
-          </p>
-          <p>
-            <label>
-              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Show movement pointer
-            </label>
-          </p>
-          <p>
-            <label>
-              <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showReachRadius]]" value="showReachRadius"> Show reach radius
-            </label>
-          </p>
-        </fieldset>
+        <section>
+          <fieldset>
+            <legend>View options:</legend>
+            <p>
+              <label>
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.useScaling]]" value="useScaling"> Use scaling: [[transverseViewSettings.scaling]]%
+              </label>
+            </p>
+            <p>
+              <input type="range" name="scaling" disabled="[[!transverseViewSettings.useScaling]]" value="[[transverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="transverseRange" />
+            </p>
+          </fieldset>
+        </section>
+        <section>
+          <fieldset>
+            <legend>UI options:</legend>
+            <p>
+              <label>
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Show invalid range
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showLegSelector]]" value="showLegSelector"> Show leg selector
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showMovementCircle]]" value="showMovementCircle"> Show movement circle
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Show movement pointer
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showReachRadius]]" value="showReachRadius"> Show reach radius
+              </label>
+            </p>
+          </fieldset>
+        </section>
       </template>
       <!-- sagittal view -->
       <template is="dom-if" if="[[computeSettingsView('sagittal-view', settingsView)]]" restamp>
-        <fieldset>
-          <legend>View options:</legend>
-          <p>
-            <label>
-              <input type="checkbox" on-click="sagittalCheckbox" checked="[[sagittalViewSettings.useOffsets]]" value="useOffsets"> Use offsets
-            </label>
-          </p>
-          <p>
-            <label>
-              <input type="checkbox" on-click="sagittalCheckbox" checked="[[sagittalViewSettings.useScaling]]" value="useScaling"> Use scaling: [[sagittalViewSettings.scaling]]%
-            </label>
-          </p>
-          <p>
-            <input type="range" name="scaling" disabled="[[!sagittalViewSettings.useScaling]]" value="[[sagittalViewSettings.scaling]]" step="1" max="100" min="1" on-input="sagittalRange" />
-          </p>
-        </fieldset>
+        <section>
+          <fieldset>
+            <legend>View options:</legend>
+            <p>
+              <label>
+                <input type="checkbox" on-click="sagittalCheckbox" checked="[[sagittalViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" on-click="sagittalCheckbox" checked="[[sagittalViewSettings.useScaling]]" value="useScaling"> Use scaling: [[sagittalViewSettings.scaling]]%
+              </label>
+            </p>
+            <p>
+              <input type="range" name="scaling" disabled="[[!sagittalViewSettings.useScaling]]" value="[[sagittalViewSettings.scaling]]" step="1" max="100" min="1" on-input="sagittalRange" />
+            </p>
+          </fieldset>
+        </section>
       </template>
       <!-- test -->
       <template is="dom-if" if="[[computeSettingsView('test', settingsView)]]" restamp>
