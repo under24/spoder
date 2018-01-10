@@ -46,6 +46,9 @@ let MU = {
   },
   scaleDownInput(pct, num) {
     return num / 100 * pct;
+  },
+  normalize(value, normalizer) {
+    return this.roundNumber(value * normalizer, 2);
   }
   // interceptOnCircleOrig(p1, p2, c, r) {
   //   //p1 is the first line point
