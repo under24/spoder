@@ -2,7 +2,7 @@
 
 let viewSettingsSagittalReducerInitState = {
   legId: 1,
-  useOffsets: false,
+  useOffsets: true,
   useScaling: false,
   scaling: 70
 };
