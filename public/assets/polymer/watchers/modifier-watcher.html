@@ -73,16 +73,19 @@
         store.dispatch({ type: "APPLY_SHIFT_MODIFIER_TO_COORDS", payload });
       }
       
+      // rotation
       observeRotationModifier(newValue, oldValue) {
+        // old values is undefined. cannot compare new and old values
         if (oldValue === undefined) return;
-        if (newValue.x === oldValue.x) {
+        
+        if (newValue.normalizedX === oldValue.normalizedX) {
           console.warn('same rotation modifier value');
           return;
         }
         
-        var payload = {
-          rotation: oldValue.x - newValue.x
-        }
+        // create a payload object for dispatching
+        var payload = { rotation: oldValue.normalizedX - newValue.normalizedX };
+        
         store.dispatch({ type: 'APPLY_ROTATION_MODIFIER_TO_COORDS', payload });
       }
 
