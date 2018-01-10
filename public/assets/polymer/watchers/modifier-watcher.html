@@ -23,14 +23,19 @@
         };
       }
       
+      // level
       observeLevelModifier(newValue, oldValue) {
+        // old values is undefined. cannot compare new and old values
         if (oldValue === undefined) return;
-        if (newValue.y === oldValue.y) {
+        
+        if (newValue.normalizedY === oldValue.normalizedY) {
           console.warn('same level modifier values');
           return;
         }
         
-        var payload = oldValue.y - newValue.y;
+        // create a payload object for dispatching
+        var payload = oldValue.normalizedY - newValue.normalizedY;
+        
         store.dispatch({ type: "APPLY_LEVEL_MODIFIER_TO_COORDS", payload });
       }
       
