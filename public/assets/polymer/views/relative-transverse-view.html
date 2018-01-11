@@ -2,7 +2,7 @@
 <link rel="import" href="../helper-components/view-cursor.html">
 <link rel="import" href="../helper-components/view-leg-selector.html">
 
-<dom-module id="transverse-view">
+<dom-module id="relative-transverse-view">
   <template>
     <style>
       :host {
@@ -88,7 +88,7 @@
 
   <script>
     class transverseView extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'transverse-view'; }
+      static get is() { return 'relative-transverse-view'; }
       static get properties() {
         return {
           // outgoing properties
@@ -262,7 +262,7 @@
       }
       
       showSettingsDialog() {
-        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: 'transverse-view' }));
+        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: 'relative-transverse-view' }));
       }
 
     }

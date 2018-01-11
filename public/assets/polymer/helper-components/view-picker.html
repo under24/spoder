@@ -8,7 +8,7 @@
 <link rel="import" href="../views/direction-joystick-view.html">
 <link rel="import" href="../views/turn-joystick-view.html">
 <link rel="import" href="../views/relative-sagittal-view.html">
-<link rel="import" href="../views/transverse-view.html">
+<link rel="import" href="../views/relative-transverse-view.html">
 <link rel="import" href="../views/sequencer-view.html">
 <link rel="import" href="../views/movement-controller-view.html">
 <link rel="import" href="../views/movement-inspector-view.html">
@@ -72,7 +72,7 @@
           <option value="direction-joystick-view">Direction Joystick View</option>
           <option value="turn-joystick-view">Turn Joystick View</option>
           <option value="relative-sagittal-view">Relative Sagittal View</option>
-          <option value="transverse-view">Transverse View</option>
+          <option value="relative-transverse-view">Relative Transverse View</option>
           <option value="sequencer-view">Sequencer View</option>
           <option value="movement-controller-view">Movement Controller View</option>
           <option value="movement-inspector-view">Movement Inspector View</option>
@@ -135,8 +135,8 @@
     </template>
     
     <!-- transverse view -->
-    <template is="dom-if" if="[[computeView('transverse-view', view)]]" restamp>
-      <transverse-view></transverse-view>
+    <template is="dom-if" if="[[computeView('relative-transverse-view', view)]]" restamp>
+      <relative-transverse-view></relative-transverse-view>
     </template>
     
     <!-- sequencer view -->
