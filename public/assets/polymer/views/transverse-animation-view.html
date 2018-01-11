@@ -141,22 +141,22 @@
     
     <div id="spoder">
       <div class="viewCenterPoint">
-        <div class="base leg1 left" style$="[[computeBase(coords, offsets, '1')]]">
+        <div class="base leg1 left" style$="[[computeBase(coords.1, offsets.1, '1')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '1', misc)]]"></div>
         </div>
-        <div class="base leg2 right" style$="[[computeBase(coords, offsets, '2')]]">
+        <div class="base leg2 right" style$="[[computeBase(coords.2, offsets.2, '2')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '2', misc)]]"></div>
         </div>
-        <div class="base leg3 left" style$="[[computeBase(coords, offsets, '3')]]">
+        <div class="base leg3 left" style$="[[computeBase(coords.3, offsets.3, '3')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '3', misc)]]"></div>
         </div>
-        <div class="base leg4 right" style$="[[computeBase(coords, offsets, '4')]]">
+        <div class="base leg4 right" style$="[[computeBase(coords.4, offsets.4, '4')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '4', misc)]]"></div>
         </div>
-        <div class="base leg5 left" style$="[[computeBase(coords, offsets, '5')]]">
+        <div class="base leg5 left" style$="[[computeBase(coords.5, offsets.5, '5')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '5', misc)]]"></div>
         </div>
-        <div class="base leg6 right" style$="[[computeBase(coords, offsets, '6')]]">
+        <div class="base leg6 right" style$="[[computeBase(coords.6, offsets.6, '6')]]">
           <div class="coxa" style$="[[computeCoxa(angles, '6', misc)]]"></div>
         </div>
         
@@ -297,13 +297,12 @@
       }
       
       computeBase(coords, offsets, legId) {
-        let x, y;
         if (this.useOffsets) {
-          x = `${GU.getLegSide(legId)}: ${coords[legId].transverseBaseX + offsets[legId].transverseX}px;`;
-          y = `top: ${coords[legId].transverseBaseY + offsets[legId].transverseY}px;`;
+          var x = `${GU.getLegSide(legId)}: ${coords.transverseBaseX + offsets.transverseX}px;`;
+          var y = `top: ${coords.transverseBaseY + offsets.transverseY}px;`;
         } else {
-          x = `${GU.getLegSide(legId)}: ${coords[legId].transverseBaseX}px;`;
-          y = `top: ${coords[legId].transverseBaseY}px;`;
+          var x = `${GU.getLegSide(legId)}: ${coords.transverseBaseX}px;`;
+          var y = `top: ${coords.transverseBaseY}px;`;
         }
         
         return x + y;
