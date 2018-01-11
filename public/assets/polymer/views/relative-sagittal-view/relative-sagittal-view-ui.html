@@ -1,4 +1,4 @@
-<dom-module id="sagittal-view-base">
+<dom-module id="relative-sagittal-view-ui">
   <template>
     <style>
       #base {
@@ -149,8 +149,8 @@
   </template>
 
   <script>
-    class sagittalViewBase extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'sagittal-view-base'; }
+    class relativeSagittalViewUi extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'relative-sagittal-view-ui'; }
       static get properties() {
         return {
           side: {
@@ -333,6 +333,6 @@
       }
 
     }
-    window.customElements.define(sagittalViewBase.is, sagittalViewBase);
+    window.customElements.define(relativeSagittalViewUi.is, relativeSagittalViewUi);
   </script>
 </dom-module>

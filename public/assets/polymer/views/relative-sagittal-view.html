@@ -1,8 +1,8 @@
-<link rel="import" href="sagittal-view-base.html">
+<link rel="import" href="relative-sagittal-view/relative-sagittal-view-ui.html">
 <link rel="import" href="../helper-components/view-cursor.html">
 <link rel="import" href="../helper-components/view-leg-selector.html">
 
-<dom-module id="sagittal-view">
+<dom-module id="relative-sagittal-view">
   <template>
     <style>
       :host {
@@ -50,7 +50,7 @@
     <div class="settings" on-click="showSettingsDialog">☰</div>
     
     <div class="center-point">
-      <sagittal-view-base
+      <relative-sagittal-view-ui
         xy="[[computeXY(coords, offsetX, useScaling, scaling)]]"
         side="[[side]]"
         femur-length="[[scaleInput(metaData.femurLength, useScaling, scaling)]]"
@@ -63,7 +63,7 @@
         boundary-ball="[[computeBoundaryBall(misc, offsetX, useScaling,  scaling)]]"
         transverse-reach-points="[[computeTransverseReachPoints(misc, offsetX, useScaling, scaling)]]"
         output="{{baseOutput}}">
-      </sagittal-view-base>
+      </relative-sagittal-view-ui>
       
       <view-cursor
         side="[[side]]"
@@ -80,8 +80,8 @@
   </template>
 
   <script>
-    class sagittalView extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'sagittal-view'; }
+    class relativeSagittalView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'relative-sagittal-view'; }
       static get properties() {
         return {
           // outgoing properties
@@ -242,10 +242,10 @@
       }
       
       showSettingsDialog() {
-        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: 'sagittal-view' }));
+        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: 'relative-sagittal-view' }));
       }
  
     }
-    window.customElements.define(sagittalView.is, sagittalView);
+    window.customElements.define(relativeSagittalView.is, relativeSagittalView);
   </script>
 </dom-module>
