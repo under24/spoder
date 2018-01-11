@@ -78,16 +78,16 @@
             <legend>View options:</legend>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.useScaling]]" value="useScaling"> Use scaling: [[relativeTransverseViewSettings.scaling]]%
+                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.useScaling]]" value="useScaling"> Use scaling: [[relativeTransverseViewSettings.scaling]]%
               </label>
             </p>
             <p>
-              <input type="range" name="scaling" disabled="[[!relativeTransverseViewSettings.useScaling]]" value="[[relativeTransverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="transverseRange" />
+              <input type="range" name="scaling" disabled="[[!relativeTransverseViewSettings.useScaling]]" value="[[relativeTransverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="handleRange" />
             </p>
           </fieldset>
         </section>
@@ -96,27 +96,27 @@
             <legend>UI options:</legend>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Show invalid range
+                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Show invalid range
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.showLegSelector]]" value="showLegSelector"> Show leg selector
+                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showLegSelector]]" value="showLegSelector"> Show leg selector
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.showMovementCircle]]" value="showMovementCircle"> Show movement circle
+                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showMovementCircle]]" value="showMovementCircle"> Show movement circle
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Show movement pointer
+                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Show movement pointer
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.showReachRadius]]" value="showReachRadius"> Show reach radius
+                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showReachRadius]]" value="showReachRadius"> Show reach radius
               </label>
             </p>
           </fieldset>
@@ -129,16 +129,16 @@
             <legend>View options:</legend>
             <p>
               <label>
-                <input type="checkbox" on-click="sagittalCheckbox" checked="[[relativeSagittalViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeSagittalViewSettings.useOffsets]]" value="useOffsets"> Use offsets
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="sagittalCheckbox" checked="[[relativeSagittalViewSettings.useScaling]]" value="useScaling"> Use scaling: [[relativeSagittalViewSettings.scaling]]%
+                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeSagittalViewSettings.useScaling]]" value="useScaling"> Use scaling: [[relativeSagittalViewSettings.scaling]]%
               </label>
             </p>
             <p>
-              <input type="range" name="scaling" disabled="[[!relativeSagittalViewSettings.useScaling]]" value="[[relativeSagittalViewSettings.scaling]]" step="1" max="100" min="1" on-input="sagittalRange" />
+              <input type="range" name="scaling" disabled="[[!relativeSagittalViewSettings.useScaling]]" value="[[relativeSagittalViewSettings.scaling]]" step="1" max="100" min="1" on-input="handleRange" />
             </p>
           </fieldset>
         </section>
@@ -200,32 +200,26 @@
         return target === current;
       }
       
-      transverseCheckbox(e) {
+      handleCheckbox(e) {
+        var view = this.getDispatchViewName();
+            
         store.dispatch({
-          type: "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED",
+          type: `${view}_SETTINGS_CHANGED`,
           payload: { [e.target.value]: e.target.checked }
         });
       }
       
-      transverseRange(e) {
+      handleRange(e) {
+        var view = this.getDispatchViewName();
+        
         store.dispatch({
-          type: "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED",
+          type: `${view}_SETTINGS_CHANGED`,
           payload: { [e.target.name]: +e.target.value }
         });
       }
       
-      sagittalCheckbox(e) {
-        store.dispatch({
-          type: "RELATIVE_SAGITTAL_VIEW_SETTINGS_CHANGED",
-          payload: { [e.target.value]: e.target.checked }
-        });
-      }
-      
-      sagittalRange(e) {
-        store.dispatch({
-          type: "RELATIVE_SAGITTAL_VIEW_SETTINGS_CHANGED",
-          payload: { [e.target.name]: +e.target.value }
-        });
+      getDispatchViewName() {
+        return this.settingsView.toUpperCase().replace(/-/g, '_');
       }
 
     }
