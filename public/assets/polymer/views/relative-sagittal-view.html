@@ -86,7 +86,7 @@
         return {
           // outgoing properties
           legId: {
-            statePath: 'viewSettings.sagittalView.legId'
+            statePath: 'viewSettings.relativeSagittalView.legId'
           },
           metaData: {
             statePath: 'metaData',
@@ -107,13 +107,13 @@
             }
           },
           scaling: {
-            statePath: 'viewSettings.sagittalView.scaling'
+            statePath: 'viewSettings.relativeSagittalView.scaling'
           },
           useScaling: {
-            statePath: 'viewSettings.sagittalView.useScaling'
+            statePath: 'viewSettings.relativeSagittalView.useScaling'
           },
           useOffsets: {
-            statePath: 'viewSettings.sagittalView.useOffsets'
+            statePath: 'viewSettings.relativeSagittalView.useOffsets'
           },
           offsetX: {
             computed: 'computeOffsetX(useOffsets, baseCenterCoords, side, legId)'
@@ -162,7 +162,7 @@
       
       observeSelectorOutput(newValue) {
         store.dispatch({
-          type: "SAGITTAL_VIEW_SETTINGS_CHANGED",
+          type: "RELATIVE_SAGITTAL_VIEW_SETTINGS_CHANGED",
           payload: { legId: newValue.value }
         });
       }

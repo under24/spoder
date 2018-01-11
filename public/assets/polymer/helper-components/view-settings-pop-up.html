@@ -129,16 +129,16 @@
             <legend>View options:</legend>
             <p>
               <label>
-                <input type="checkbox" on-click="sagittalCheckbox" checked="[[sagittalViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+                <input type="checkbox" on-click="sagittalCheckbox" checked="[[relativeSagittalViewSettings.useOffsets]]" value="useOffsets"> Use offsets
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="sagittalCheckbox" checked="[[sagittalViewSettings.useScaling]]" value="useScaling"> Use scaling: [[sagittalViewSettings.scaling]]%
+                <input type="checkbox" on-click="sagittalCheckbox" checked="[[relativeSagittalViewSettings.useScaling]]" value="useScaling"> Use scaling: [[relativeSagittalViewSettings.scaling]]%
               </label>
             </p>
             <p>
-              <input type="range" name="scaling" disabled="[[!sagittalViewSettings.useScaling]]" value="[[sagittalViewSettings.scaling]]" step="1" max="100" min="1" on-input="sagittalRange" />
+              <input type="range" name="scaling" disabled="[[!relativeSagittalViewSettings.useScaling]]" value="[[relativeSagittalViewSettings.scaling]]" step="1" max="100" min="1" on-input="sagittalRange" />
             </p>
           </fieldset>
         </section>
@@ -165,8 +165,8 @@
           relativeTransverseViewSettings: {
             statePath: 'viewSettings.relativeTransverseView'
           },
-          sagittalViewSettings: {
-            statePath: 'viewSettings.sagittalView'
+          relativeSagittalViewSettings: {
+            statePath: 'viewSettings.relativeSagittalView'
           }
         };
       }
@@ -216,14 +216,14 @@
       
       sagittalCheckbox(e) {
         store.dispatch({
-          type: "SAGITTAL_VIEW_SETTINGS_CHANGED",
+          type: "RELATIVE_SAGITTAL_VIEW_SETTINGS_CHANGED",
           payload: { [e.target.value]: e.target.checked }
         });
       }
       
       sagittalRange(e) {
         store.dispatch({
-          type: "SAGITTAL_VIEW_SETTINGS_CHANGED",
+          type: "RELATIVE_SAGITTAL_VIEW_SETTINGS_CHANGED",
           payload: { [e.target.name]: +e.target.value }
         });
       }
