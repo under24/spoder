@@ -87,13 +87,13 @@
   </template>
 
   <script>
-    class transverseView extends ReduxMixin(Polymer.Element) {
+    class relativeTransverseView extends ReduxMixin(Polymer.Element) {
       static get is() { return 'relative-transverse-view'; }
       static get properties() {
         return {
           // outgoing properties
           legId: {
-            statePath: 'viewSettings.transverseView.legId'
+            statePath: 'viewSettings.relativeTransverseView.legId'
           },
           metaData: {
             statePath: 'metaData',
@@ -145,13 +145,13 @@
             reflectToAttribute: true
           },
           useScaling: {
-            statePath: 'viewSettings.transverseView.useScaling'
+            statePath: 'viewSettings.relativeTransverseView.useScaling'
           },
           scaling: {
-            statePath: 'viewSettings.transverseView.scaling'
+            statePath: 'viewSettings.relativeTransverseView.scaling'
           },
           useOffsets: {
-            statePath: 'viewSettings.transverseView.useOffsets'
+            statePath: 'viewSettings.relativeTransverseView.useOffsets'
           },
           // incoming properties
           cursorOutput: {
@@ -190,7 +190,7 @@
       
       observeSelectorOutput(newValue) {
         store.dispatch({
-          type: "TRANSVERSE_VIEW_SETTINGS_CHANGED",
+          type: "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED",
           payload: { legId: newValue.value }
         });
       }
@@ -266,6 +266,6 @@
       }
 
     }
-    window.customElements.define(transverseView.is, transverseView);
+    window.customElements.define(relativeTransverseView.is, relativeTransverseView);
   </script>
 </dom-module>

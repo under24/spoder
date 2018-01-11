@@ -71,23 +71,23 @@
     </header>
     
     <div class="content">
-      <!-- transverse-view -->
-      <template is="dom-if" if="[[computeSettingsView('transverse-view', settingsView)]]" restamp>
+      <!-- relative transverse-view -->
+      <template is="dom-if" if="[[computeSettingsView('relative-transverse-view', settingsView)]]" restamp>
         <section>
           <fieldset>
             <legend>View options:</legend>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.useScaling]]" value="useScaling"> Use scaling: [[transverseViewSettings.scaling]]%
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.useScaling]]" value="useScaling"> Use scaling: [[relativeTransverseViewSettings.scaling]]%
               </label>
             </p>
             <p>
-              <input type="range" name="scaling" disabled="[[!transverseViewSettings.useScaling]]" value="[[transverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="transverseRange" />
+              <input type="range" name="scaling" disabled="[[!relativeTransverseViewSettings.useScaling]]" value="[[relativeTransverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="transverseRange" />
             </p>
           </fieldset>
         </section>
@@ -96,34 +96,34 @@
             <legend>UI options:</legend>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Show invalid range
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Show invalid range
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showLegSelector]]" value="showLegSelector"> Show leg selector
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.showLegSelector]]" value="showLegSelector"> Show leg selector
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showMovementCircle]]" value="showMovementCircle"> Show movement circle
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.showMovementCircle]]" value="showMovementCircle"> Show movement circle
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Show movement pointer
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Show movement pointer
               </label>
             </p>
             <p>
               <label>
-                <input type="checkbox" on-click="transverseCheckbox" checked="[[transverseViewSettings.showReachRadius]]" value="showReachRadius"> Show reach radius
+                <input type="checkbox" on-click="transverseCheckbox" checked="[[relativeTransverseViewSettings.showReachRadius]]" value="showReachRadius"> Show reach radius
               </label>
             </p>
           </fieldset>
         </section>
       </template>
-      <!-- sagittal view -->
-      <template is="dom-if" if="[[computeSettingsView('sagittal-view', settingsView)]]" restamp>
+      <!-- relative sagittal view -->
+      <template is="dom-if" if="[[computeSettingsView('relative-sagittal-view', settingsView)]]" restamp>
         <section>
           <fieldset>
             <legend>View options:</legend>
@@ -162,8 +162,8 @@
             value: false,
             reflectToAttribute: true
           },
-          transverseViewSettings: {
-            statePath: 'viewSettings.transverseView'
+          relativeTransverseViewSettings: {
+            statePath: 'viewSettings.relativeTransverseView'
           },
           sagittalViewSettings: {
             statePath: 'viewSettings.sagittalView'
@@ -202,14 +202,14 @@
       
       transverseCheckbox(e) {
         store.dispatch({
-          type: "TRANSVERSE_VIEW_SETTINGS_CHANGED",
+          type: "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED",
           payload: { [e.target.value]: e.target.checked }
         });
       }
       
       transverseRange(e) {
         store.dispatch({
-          type: "TRANSVERSE_VIEW_SETTINGS_CHANGED",
+          type: "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED",
           payload: { [e.target.name]: +e.target.value }
         });
       }

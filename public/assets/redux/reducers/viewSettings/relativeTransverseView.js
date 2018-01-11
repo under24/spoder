@@ -1,6 +1,6 @@
 'use strict';
 
-let viewSettingsTransverseReducerInitState = {
+let viewSettingsRelativeTransverseReducerInitState = {
   legId: 1,
   useOffsets: true,
   useScaling: false,
@@ -12,9 +12,9 @@ let viewSettingsTransverseReducerInitState = {
   showReachRadius: true
 };
 
-const viewSettingsTransverseReducer = (state = viewSettingsTransverseReducerInitState, action) => {
+const viewSettingsRelativeTransverseReducer = (state = viewSettingsRelativeTransverseReducerInitState, action) => {
   switch (action.type) {
-    case "TRANSVERSE_VIEW_SETTINGS_CHANGED":
+    case "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED":
       {
         return Object.assign({}, state, action.payload);
       }

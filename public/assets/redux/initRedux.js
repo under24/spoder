@@ -34,7 +34,7 @@ const viewSettingsReducer = combineReducers({
   sagittalAnimationView: viewSettingsSagittalAnimationReducer,
   sagittalView: viewSettingsSagittalReducer,
   transverseAnimationView: viewSettingsTransverseAnimationReducer,
-  transverseView: viewSettingsTransverseReducer
+  relativeTransverseView: viewSettingsRelativeTransverseReducer
 });
 
 const reducers = combineReducers({
