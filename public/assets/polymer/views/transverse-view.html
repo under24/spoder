@@ -1,4 +1,4 @@
-<link rel="import" href="transverse-view-base.html">
+<link rel="import" href="relative-transverse-view/relative-transverse-view-ui.html">
 <link rel="import" href="../helper-components/view-cursor.html">
 <link rel="import" href="../helper-components/view-leg-selector.html">
 
@@ -58,7 +58,7 @@
     <div class="settings" on-click="showSettingsDialog">☰</div>
     
     <div class="center-point">
-      <transverse-view-base
+      <relative-transverse-view-ui
         xy="[[computeXY(coords, viewOffsets, useScaling, scaling, useOffsets)]]"
         side="[[side]]"
         reach-radius="[[scaleInput(misc.transverseReachRadius, useScaling, scaling)]]"
@@ -70,7 +70,7 @@
         movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, useScaling, scaling, useOffsets)]]"
         base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle)]]"
         output="{{baseOutput}}">
-      </transverse-view-base>
+      </relative-transverse-view-ui>
       
       <view-cursor
         side="[[side]]"

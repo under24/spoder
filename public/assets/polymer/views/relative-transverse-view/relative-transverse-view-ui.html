@@ -1,4 +1,4 @@
-<dom-module id="transverse-view-base">
+<dom-module id="relative-transverse-view-ui">
   <template>
     <style>
       #base {
@@ -116,8 +116,8 @@
   </template>
 
   <script>
-    class transverseViewBase extends ReduxMixin(Polymer.Element) {
-      static get is() { return 'transverse-view-base'; }
+    class relativeTransverseViewUi extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'relative-transverse-view-ui'; }
       static get properties() {
         return {
           side: {
@@ -271,6 +271,6 @@
       }
 
     }
-    window.customElements.define(transverseViewBase.is, transverseViewBase);
+    window.customElements.define(relativeTransverseViewUi.is, relativeTransverseViewUi);
   </script>
 </dom-module>
