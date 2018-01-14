@@ -2,7 +2,7 @@
 
 let rotationReducerInitState = {
   x: 0,
-  normalizer: 0.4, // x: 100 -> normalizedX: 40
+  normalizer: 0.3, // x: 100 -> normalizedX: 30
   normalizedX: 0,
   appliedTo: 'transverseBaseXY'
 }
