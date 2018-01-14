@@ -1,0 +1,189 @@
+<link rel="import" href="coronal-view/coronal-view-ui.html">
+
+<dom-module id="coronal-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      .settings {
+        position: absolute;
+        top: 14px;
+        right: 48px;
+        color: rgba(69, 68, 83, 0.7);
+        cursor: pointer;
+      }
+      .settings:hover {
+        background-color: #fff;
+        color: #454453;
+      }
+      .center-point {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0px;
+        height: 0px;
+      }
+      .center-point::after {
+        content: '';
+        display: inline-block;
+        border-radius: 100%;
+        width: 6px;
+        height: 6px;
+        background-color: black;
+        position: absolute;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+    
+    <!-- settings icon -->
+    <div class="settings" on-click="showSettingsDialog">☰</div>
+    
+    <div class="center-point">
+      <coronal-view-ui
+        coords1="[[computeCoords('1', coords1, offset1, useOffsets, useScaling, scaling)]]"
+        coords2="[[computeCoords('2', coords2, offset2, useOffsets, useScaling, scaling)]]"
+        coords3="[[computeCoords('3', coords3, offset3, useOffsets, useScaling, scaling)]]"
+        coords4="[[computeCoords('4', coords4, offset4, useOffsets, useScaling, scaling)]]"
+        coords5="[[computeCoords('5', coords5, offset5, useOffsets, useScaling, scaling)]]"
+        coords6="[[computeCoords('6', coords6, offset6, useOffsets, useScaling, scaling)]]"
+        angles1="[[angles1]]"
+        angles2="[[angles2]]"
+        angles3="[[angles3]]"
+        angles4="[[angles4]]"
+        angles5="[[angles5]]"
+        angles6="[[angles6]]"
+        femur-length="[[computeFemurLength(metaData, useScaling, scaling)]]"
+        tibia-length="[[computeTibiaLength(metaData, useScaling, scaling)]]">
+      </coronal-view-ui>
+    </div>
+  </template>
+
+  <script>
+    class coronalView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'coronal-view'; }
+      static get properties() {
+        return {
+          coords1: {
+            statePath: 'coords.1'
+          },
+          coords2: {
+            statePath: 'coords.2'
+          },
+          coords3: {
+            statePath: 'coords.3'
+          },
+          coords4: {
+            statePath: 'coords.4'
+          },
+          coords5: {
+            statePath: 'coords.5'
+          },
+          coords6: {
+            statePath: 'coords.6'
+          },
+          angles1: {
+            statePath: 'angles.1'
+          },
+          angles2: {
+            statePath: 'angles.2'
+          },
+          angles3: {
+            statePath: 'angles.3'
+          },
+          angles4: {
+            statePath: 'angles.4'
+          },
+          angles5: {
+            statePath: 'angles.5'
+          },
+          angles6: {
+            statePath: 'angles.6'
+          },
+          offset1: {
+            statePath: 'viewOffsets.1'
+          },
+          offset2: {
+            statePath: 'viewOffsets.2'
+          },
+          offset3: {
+            statePath: 'viewOffsets.3'
+          },
+          offset4: {
+            statePath: 'viewOffsets.4'
+          },
+          offset5: {
+            statePath: 'viewOffsets.5'
+          },
+          offset6: {
+            statePath: 'viewOffsets.6'
+          },
+          useScaling: {
+            statePath: 'viewSettings.coronalView.useScaling'
+          },
+          scaling: {
+            statePath: 'viewSettings.coronalView.scaling'
+          },
+          useOffsets: {
+            statePath: 'viewSettings.coronalView.useOffsets'
+          },
+          metaData: {
+            statePath: 'metaData'
+          }
+        };
+      }
+      
+      computeCoords(legId, coords) {
+        var offsetX = this.getOffsetX(legId);
+        
+        return {
+          // cursor
+          transverseCursorX: this.scaleInput(coords.transverseCursorX + offsetX),
+          sagittalCursorY: this.scaleInput(coords.sagittalCursorY),
+          // base
+          transverseBaseX: this.scaleInput(coords.transverseBaseX + offsetX),
+          sagittalBaseY: this.scaleInput(coords.sagittalBaseY)
+        }
+      }
+      
+      computeFemurLength(metaData) {
+        return this.scaleInput(metaData.femurLength);
+      }
+      
+      computeTibiaLength(metaData) {
+        return this.scaleInput(metaData.tibiaLength);
+      }
+      
+      scaleOutput(val) {
+        if (this.useScaling)
+          val = MU.scaleUpOutput(this.scaling, val);
+        
+        return val;
+      }
+      
+      scaleInput(val) {
+        if (this.useScaling)
+          val = MU.scaleDownInput(this.scaling, val);
+          
+        return val;
+      }
+      
+      getOffsetX(legId) {
+        // do not use offsets
+        if (!this.useOffsets) return 0;
+        
+        return this[`offset${legId}`].transverseX;
+      }
+      
+      showSettingsDialog() {
+        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: 'coronal-view' }));
+      }
+
+    }
+    window.customElements.define(coronalView.is, coronalView);
+  </script>
+</dom-module>
