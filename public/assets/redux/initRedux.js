@@ -32,8 +32,8 @@ const statusReducer = combineReducers({
 
 const viewSettingsReducer = combineReducers({
   coronalView: viewSettingsCoronalViewReducer,
-  relativeSagittalView: viewSettingsRelativeSagittalReducer,
-  relativeTransverseView: viewSettingsRelativeTransverseReducer
+  relativeSagittalView: viewSettingsRelativeSagittalViewReducer,
+  relativeTransverseView: viewSettingsRelativeTransverseViewReducer
 });
 
 const reducers = combineReducers({

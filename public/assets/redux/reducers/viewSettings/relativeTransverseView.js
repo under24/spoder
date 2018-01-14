@@ -1,6 +1,6 @@
 'use strict';
 
-let viewSettingsRelativeTransverseReducerInitState = {
+let viewSettingsRelativeTransverseViewReducerInitState = {
   legId: 1,
   useOffsets: true,
   useScaling: false,
@@ -12,7 +12,7 @@ let viewSettingsRelativeTransverseReducerInitState = {
   showReachRadius: true
 };
 
-const viewSettingsRelativeTransverseReducer = (state = viewSettingsRelativeTransverseReducerInitState, action) => {
+const viewSettingsRelativeTransverseViewReducer = (state = viewSettingsRelativeTransverseViewReducerInitState, action) => {
   switch (action.type) {
     case "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED":
       {
