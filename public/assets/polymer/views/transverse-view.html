@@ -1,0 +1,69 @@
+<link rel="import" href="transverse-view/transverse-view-ui.html">
+
+<dom-module id="transverse-view">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      .settings {
+        position: absolute;
+        top: 14px;
+        right: 48px;
+        color: rgba(69, 68, 83, 0.7);
+        cursor: pointer;
+      }
+      .settings:hover {
+        background-color: #fff;
+        color: #454453;
+      }
+      .center-point {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0px;
+        height: 0px;
+      }
+      .center-point::after {
+        content: '';
+        display: inline-block;
+        border-radius: 100%;
+        width: 6px;
+        height: 6px;
+        background-color: black;
+        position: absolute;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+    
+    <!-- settings icon -->
+    <div class="settings" on-click="showSettingsDialog">☰</div>
+    
+    <div class="center-point">
+      
+    </div>
+  </template>
+
+  <script>
+    class transverseView extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'transverse-view'; }
+      static get properties() {
+        return {
+          coords1: {
+            statePath: 'coords.1'
+          }
+        };
+      }
+      
+      showSettingsDialog() {
+        window.dispatchEvent(new CustomEvent('open-settings-dialog', { detail: 'transverse-view' }));
+      }
+
+    }
+    window.customElements.define(transverseView.is, transverseView);
+  </script>
+</dom-module>
