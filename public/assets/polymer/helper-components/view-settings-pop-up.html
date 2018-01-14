@@ -143,6 +143,27 @@
           </fieldset>
         </section>
       </template>
+      <!-- coronal view -->
+      <template is="dom-if" if="[[computeSettingsView('coronal-view', settingsView)]]" restamp>
+        <section>
+          <fieldset>
+            <legend>View options:</legend>
+            <p>
+              <label>
+                <input type="checkbox" on-click="handleCheckbox" checked="[[coronalViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" on-click="handleCheckbox" checked="[[coronalViewSettings.useScaling]]" value="useScaling"> Use scaling: [[coronalViewSettings.scaling]]%
+              </label>
+            </p>
+            <p>
+              <input type="range" name="scaling" disabled="[[!coronalViewSettings.useScaling]]" value="[[coronalViewSettings.scaling]]" step="1" max="100" min="1" on-input="handleRange" />
+            </p>
+          </fieldset>
+        </section>
+      </template>
       <!-- test -->
       <template is="dom-if" if="[[computeSettingsView('test', settingsView)]]" restamp>
         test
@@ -167,6 +188,9 @@
           },
           relativeSagittalViewSettings: {
             statePath: 'viewSettings.relativeSagittalView'
+          },
+          coronalViewSettings: {
+            statePath: 'viewSettings.coronalView'
           }
         };
       }
