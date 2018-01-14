@@ -31,9 +31,10 @@ const statusReducer = combineReducers({
 });
 
 const viewSettingsReducer = combineReducers({
-  sagittalAnimationView: viewSettingsSagittalAnimationReducer,
+  coronalView: viewSettingsCoronalViewReducer,
+  // sagittalAnimationView: viewSettingsSagittalAnimationReducer,
   relativeSagittalView: viewSettingsRelativeSagittalReducer,
-  transverseAnimationView: viewSettingsTransverseAnimationReducer,
+  // transverseAnimationView: viewSettingsTransverseAnimationReducer,
   relativeTransverseView: viewSettingsRelativeTransverseReducer
 });
 
