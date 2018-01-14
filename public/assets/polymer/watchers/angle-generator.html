@@ -87,6 +87,10 @@
         var femurAngles = this.getFemurAngle(legId, view),
             tibiaAngles = this.getTibiaAngle(legId, view);
         
+        // fix side angle values (flip based on the side) so there is no need to do it in the UI
+        femurAngles.screen = this.correctScreenSideAngle(femurAngles.screen, legId);
+        tibiaAngles.screen = this.correctScreenSideAngle(tibiaAngles.screen, legId);
+        
         return {
           femurScreenAngle: femurAngles.screen,
           femurServoAngle: femurAngles.servo,
@@ -97,6 +101,9 @@
       
       calcForOutOfReachMode(legId, view) {
         var femurAngles = this.getAngleFromDistance(legId, view);
+        
+        // fix side angle values (flip based on the side) so there is no need to do it in the UI
+        femurAngles.screen = this.correctScreenSideAngle(femurAngles.screen, legId);
         
         return {
           femurScreenAngle: femurAngles.screen,
@@ -125,6 +132,13 @@
             A2Servo = A2Screen;
         
         return { screen: A2Screen, servo: +A2Servo.toFixed(0) };
+      }
+      
+      correctScreenSideAngle(angle, legId) {
+        if (GU.getLegSide(legId) === 'left')
+          angle = MU.flipNumber(angle);
+          
+        return angle;
       }
       
       correctCoxaOffset(legId, coxaAngles) {

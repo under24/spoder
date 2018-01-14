@@ -126,7 +126,7 @@
     </style>
     
     <div id="base" style$="[[computeBase(xy, side)]]">
-      <div class="femur" style$="[[computeFemur(femurLength, femurScreenAngle, side)]]">
+      <div class="femur" style$="[[computeFemur(femurLength, femurScreenAngle)]]">
         <div class="tibia" style$="[[computeTibia(tibiaLength, tibiaScreenAngle, side)]]"></div>
       </div>
       
@@ -232,12 +232,7 @@
       computeTibia(tibiaLength, tibiaScreenAngle, side) {
         var width = `width: ${tibiaLength}px;`;
         
-        switch (side) {
-          case 'left':
-            var transform = `transform: rotate(${tibiaScreenAngle}deg);`; break;
-          case 'right':
-            var transform = `transform: rotate(${MU.flipNumber(tibiaScreenAngle)}deg);`; break;
-        }
+        var transform = `transform: rotate(${MU.flipNumber(tibiaScreenAngle)}deg);`;
         
         return width + transform;
       }
@@ -280,15 +275,10 @@
         return width + transform;
       }
       
-      computeFemur(femurLength, femurScreenAngle, side) {
+      computeFemur(femurLength, femurScreenAngle) {
         var width = `width: ${femurLength}px;`;
         
-        switch (side) {
-          case 'left':
-            var transform = `transform: rotate(${femurScreenAngle}deg);`; break;
-          case 'right':
-            var transform = `transform: rotate(${MU.flipNumber(femurScreenAngle)}deg);`; break;
-        }
+        var transform = `transform: rotate(${MU.flipNumber(femurScreenAngle)}deg);`;
         
         return width + transform;
       }

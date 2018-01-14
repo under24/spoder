@@ -208,22 +208,11 @@
       }
       
       computeFemur(angles, legId) {
-        let a = angles[legId].femurScreenAngle;
-        if (GU.getLegSide(legId) === 'left') {
-          a = a * -1;
-        }
-        
-        let angle = 'transform: rotate(' + a + 'deg);';
-        return angle;
+        return `transform: rotate(${angles[legId].femurScreenAngle}deg);`;
       }
       
       computeTibia(angles, legId) {
-        let a = angles[legId].tibiaScreenAngle;
-        if (GU.getLegSide(legId) === 'left') {
-          a = a * -1;
-        }
-        let angle = `transform: rotate(${a}deg);`;
-        return angle;
+        return `transform: rotate(${angles[legId].tibiaScreenAngle}deg);`;
       }
       
       observeScale(scale) {
