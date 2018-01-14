@@ -1,7 +1,7 @@
 'use strict';
 
 let viewSettingsCoronalViewReducerInitState = {
-  useOffsets: false,
+  useOffsets: true,
   useScaling: true,
   scaling: 60
 };
