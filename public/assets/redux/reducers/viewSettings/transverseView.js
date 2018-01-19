@@ -1,8 +1,8 @@
 'use strict';
 
 let viewSettingsTransverseViewReducerInitState = {
-  useOffsets: false,
-  useScaling: false,
+  useOffsets: true,
+  useScaling: true,
   scaling: 60
 };
 
