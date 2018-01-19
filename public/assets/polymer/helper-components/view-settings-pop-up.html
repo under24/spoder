@@ -6,8 +6,6 @@
         height: 400px;
         position: absolute;
         z-index: 2;
-        top: 50%;
-        left: 50%;
         display: none;
         background-color: white;
         transform: translate(-50%,-50%);
@@ -211,6 +209,12 @@
           },
           transverseViewSettings: {
             statePath: 'viewSettings.transverseView'
+          },
+          top: {
+            observer: 'observeTop'
+          },
+          left: {
+            observer: 'observeLeft'
           }
         };
       }
@@ -234,6 +238,7 @@
       
       show() {
         this.visible = true;
+        this.initializePosition();
       }
       
       hide() {
@@ -260,6 +265,22 @@
           type: `${view}_SETTINGS_CHANGED`,
           payload: { [e.target.name]: +e.target.value }
         });
+      }
+      
+      initializePosition() {
+        if (!this.top)
+          this.top = document.body.offsetHeight / 2;
+          
+        if (!this.left)
+          this.left = document.body.offsetWidth / 2;
+      }
+      
+      observeTop(top) {
+        this.style.top = `${top}px`;
+      }
+      
+      observeLeft(left) {
+        this.style.left = `${left}px`;
       }
       
       getDispatchViewName() {
