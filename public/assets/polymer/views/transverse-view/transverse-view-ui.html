@@ -1,0 +1,198 @@
+<dom-module id="transverse-view-ui">
+  <template>
+    <style>
+    .baseCenterPoint {
+      display: inline-block;
+      position: absolute;
+      width: 0px;
+      height: 0px
+    }
+    .baseCenterPoint::after {
+      content: '';
+      display: inline-block;
+      border-radius: 100%;
+      width: 6px;
+      height: 6px;
+      background-color: black;
+      position: absolute;
+      transform: translate(-50%,-50%);
+    }
+    .baseDirection {
+      border-left: 1px dotted;
+      position: absolute;
+      bottom: 0px;
+      transform-origin: bottom;
+    }
+    .left {
+      transform: translate(-50%,-50%);
+    }
+    .right {
+      transform: translate(50%,-50%);
+    }
+    .dot {
+      display: inline-block;
+      height: 10px;
+      width: 10px;
+      position: absolute;
+      border-radius: 100%;
+    }
+    .cursor {
+      background-color: rgba(255, 0, 0, 0.35);
+    }
+    .pointer {
+      background-color: rgba(0, 128, 0, 0.35);
+    }
+    .base {
+      background-color: rgba(0, 0, 255, 0.25);
+    }
+    .circle-center {
+      position: absolute;
+      height: 0px;
+      width: 0px;
+    }
+    .circle-center::after {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      transform: translate(-50%, -50%);
+      background-color: black;
+      border-radius: 100%;
+      top: 50%;
+      left: 50%;
+      position: absolute;
+    }
+    .circle {
+      display: inline-block;
+      background-color: rgba(255, 0, 0, 0.03);
+      transform: translate(-50%, -50%);
+      border-radius: 100%;
+      border: 1px solid rgba(255, 0, 0, 0.25);
+      box-sizing: border-box;
+    }
+    .leg {
+      border-top: 1px solid;
+      position: absolute;
+      top: 50%;
+    }
+    .left .leg {
+      transform-origin: left;
+      left: 50%;
+    }
+    .right .leg {
+      transform-origin: right;
+      right: 50%;
+    }
+    </style>
+    
+    <div class="base dot left" style$="left: [[coords1.transverseBaseX]]px; top: [[coords1.transverseBaseY]]px;">
+      <div class="leg" style$="transform: rotate([[angles1]]deg); width: [[misc1.transverseLegLength]]px;"></div>
+    </div>
+    <div class="base dot right" style$="right: [[coords2.transverseBaseX]]px; top: [[coords2.transverseBaseY]]px;">
+      <div class="leg" style$="transform: rotate([[angles2]]deg); width: [[misc2.transverseLegLength]]px;"></div>
+    </div>
+    <div class="base dot left" style$="left: [[coords3.transverseBaseX]]px; top: [[coords3.transverseBaseY]]px;">
+      <div class="leg" style$="transform: rotate([[angles3]]deg); width: [[misc3.transverseLegLength]]px;"></div>
+    </div>
+    <div class="base dot right" style$="right: [[coords4.transverseBaseX]]px; top: [[coords4.transverseBaseY]]px;">
+      <div class="leg" style$="transform: rotate([[angles4]]deg); width: [[misc4.transverseLegLength]]px;"></div>
+    </div>
+    <div class="base dot left" style$="left: [[coords5.transverseBaseX]]px; top: [[coords5.transverseBaseY]]px;">
+      <div class="leg" style$="transform: rotate([[angles5]]deg); width: [[misc5.transverseLegLength]]px;"></div>
+    </div>
+    <div class="base dot right" style$="right: [[coords6.transverseBaseX]]px; top: [[coords6.transverseBaseY]]px;">
+      <div class="leg" style$="transform: rotate([[angles6]]deg); width: [[misc6.transverseLegLength]]px;"></div>
+    </div>
+    
+    <!-- movement circle 1 -->
+    <div class="circle-center" style$="left: [[circles1.x]]px; top: [[circles1.y]]px;">
+      <div class="circle" style$="height: [[circles1.diameter]]px; width: [[circles1.diameter]]px;"></div>
+    </div>
+    <!-- movement circle 2 -->
+    <div class="circle-center" style$="right: [[circles2.x]]px; top: [[circles2.y]]px;">
+      <div class="circle" style$="height: [[circles2.diameter]]px; width: [[circles2.diameter]]px;"></div>
+    </div>
+    <!-- movement circle 3 -->
+    <div class="circle-center" style$="left: [[circles3.x]]px; top: [[circles3.y]]px;">
+      <div class="circle" style$="height: [[circles3.diameter]]px; width: [[circles3.diameter]]px;"></div>
+    </div>
+    <!-- movement circle 4 -->
+    <div class="circle-center" style$="right: [[circles4.x]]px; top: [[circles4.y]]px;">
+      <div class="circle" style$="height: [[circles4.diameter]]px; width: [[circles4.diameter]]px;"></div>
+    </div>
+    <!-- movement circle 5 -->
+    <div class="circle-center" style$="left: [[circles5.x]]px; top: [[circles5.y]]px;">
+      <div class="circle" style$="height: [[circles5.diameter]]px; width: [[circles5.diameter]]px;"></div>
+    </div>
+    <!-- movement circle 6 -->
+    <div class="circle-center" style$="right: [[circles6.x]]px; top: [[circles6.y]]px;">
+      <div class="circle" style$="height: [[circles6.diameter]]px; width: [[circles6.diameter]]px;"></div>
+    </div>
+    
+    <!-- movement pointers -->
+    <div class="pointer dot left" style$="left: [[pointers1.x]]px; top: [[pointers1.y]]px;"></div>
+    <div class="pointer dot right" style$="right: [[pointers2.x]]px; top: [[pointers2.y]]px;"></div>
+    <div class="pointer dot left" style$="left: [[pointers3.x]]px; top: [[pointers3.y]]px;"></div>
+    <div class="pointer dot right" style$="right: [[pointers4.x]]px; top: [[pointers4.y]]px;"></div>
+    <div class="pointer dot left" style$="left: [[pointers5.x]]px; top: [[pointers5.y]]px;"></div>
+    <div class="pointer dot right" style$="right: [[pointers6.x]]px; top: [[pointers6.y]]px;"></div>
+    
+    <!-- cursors -->
+    <div class="cursor dot left" style$="left: [[coords1.transverseCursorX]]px; top: [[coords1.transverseCursorY]]px;"></div>
+    <div class="cursor dot right" style$="right: [[coords2.transverseCursorX]]px; top: [[coords2.transverseCursorY]]px;"></div>
+    <div class="cursor dot left" style$="left: [[coords3.transverseCursorX]]px; top: [[coords3.transverseCursorY]]px;"></div>
+    <div class="cursor dot right" style$="right: [[coords4.transverseCursorX]]px; top: [[coords4.transverseCursorY]]px;"></div>
+    <div class="cursor dot left" style$="left: [[coords5.transverseCursorX]]px; top: [[coords5.transverseCursorY]]px;"></div>
+    <div class="cursor dot right" style$="right: [[coords6.transverseCursorX]]px; top: [[coords6.transverseCursorY]]px;"></div>
+    
+    <div class="baseCenterPoint" style$="left: [[baseCenterCoords.x]]px; top: [[baseCenterCoords.y]]px;">
+      <div class="baseDirection" style$="transform: translateX(-50%) rotate([[baseDirection]]deg); height: [[baseDirectionLength]]px;"></div>
+    </div>
+    
+  </template>
+
+  <script>
+    class transverseViewUi extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'transverse-view-ui'; }
+      static get properties() {
+        return {
+          baseCenterCoords: Object,
+          baseDirection: Number,
+          baseDirectionLength: Number,
+          coords1: Object,
+          coords2: Object,
+          coords3: Object,
+          coords4: Object,
+          coords5: Object,
+          coords6: Object,
+          pointers1: Object,
+          pointers2: Object,
+          pointers3: Object,
+          pointers4: Object,
+          pointers5: Object,
+          pointers6: Object,
+          circles1: Object,
+          circles2: Object,
+          circles3: Object,
+          circles4: Object,
+          circles5: Object,
+          circles6: Object,
+          angles1: Object,
+          angles2: Object,
+          angles3: Object,
+          angles4: Object,
+          angles5: Object,
+          angles6: Object,
+          misc1: Object,
+          misc2: Object,
+          misc3: Object,
+          misc4: Object,
+          misc5: Object,
+          misc6: Object
+        };
+      }
+
+    }
+    window.customElements.define(transverseViewUi.is, transverseViewUi);
+  </script>
+</dom-module>

@@ -44,7 +44,41 @@
     <div class="settings" on-click="showSettingsDialog">☰</div>
     
     <div class="center-point">
-      
+      <transverse-view-ui
+        base-center-coords="[[computeBaseCenterCoords(baseCenterCoords, useOffsets, viewOffsets, useScaling, scaling)]]"
+        base-direction="[[baseDirection]]"
+        base-direction-length="[[computeBaseDirectionLength(useScaling, scaling)]]"
+        coords1="[[computeCoords('1', coords1, offsets1, useOffsets, useScaling, scaling)]]"
+        coords2="[[computeCoords('2', coords2, offsets2, useOffsets, useScaling, scaling)]]"
+        coords3="[[computeCoords('3', coords3, offsets3, useOffsets, useScaling, scaling)]]"
+        coords4="[[computeCoords('4', coords4, offsets4, useOffsets, useScaling, scaling)]]"
+        coords5="[[computeCoords('5', coords5, offsets5, useOffsets, useScaling, scaling)]]"
+        coords6="[[computeCoords('6', coords6, offsets6, useOffsets, useScaling, scaling)]]"
+        pointers1="[[computePointer('1', pointers1, offsets1, useOffsets, useScaling, scaling)]]"
+        pointers2="[[computePointer('2', pointers2, offsets2, useOffsets, useScaling, scaling)]]"
+        pointers3="[[computePointer('3', pointers3, offsets3, useOffsets, useScaling, scaling)]]"
+        pointers4="[[computePointer('4', pointers4, offsets4, useOffsets, useScaling, scaling)]]"
+        pointers5="[[computePointer('5', pointers5, offsets5, useOffsets, useScaling, scaling)]]"
+        pointers6="[[computePointer('6', pointers6, offsets6, useOffsets, useScaling, scaling)]]"
+        circles1="[[computeCircle('1', circles1, offsets1, useOffsets, useScaling, scaling)]]"
+        circles2="[[computeCircle('2', circles2, offsets2, useOffsets, useScaling, scaling)]]"
+        circles3="[[computeCircle('3', circles3, offsets3, useOffsets, useScaling, scaling)]]"
+        circles4="[[computeCircle('4', circles4, offsets4, useOffsets, useScaling, scaling)]]"
+        circles5="[[computeCircle('5', circles5, offsets5, useOffsets, useScaling, scaling)]]"
+        circles6="[[computeCircle('6', circles6, offsets6, useOffsets, useScaling, scaling)]]"
+        angles1="[[angles1]]"
+        angles2="[[angles2]]"
+        angles3="[[angles3]]"
+        angles4="[[angles4]]"
+        angles5="[[angles5]]"
+        angles6="[[angles6]]"
+        misc1="[[computeMisc('1', misc1, useScaling, scaling)]]"
+        misc2="[[computeMisc('2', misc2, useScaling, scaling)]]"
+        misc3="[[computeMisc('3', misc3, useScaling, scaling)]]"
+        misc4="[[computeMisc('4', misc4, useScaling, scaling)]]"
+        misc5="[[computeMisc('5', misc5, useScaling, scaling)]]"
+        misc6="[[computeMisc('6', misc6, useScaling, scaling)]]">
+      </transverse-view-ui>
     </div>
   </template>
 
@@ -55,8 +89,200 @@
         return {
           coords1: {
             statePath: 'coords.1'
+          },
+          coords2: {
+            statePath: 'coords.2'
+          },
+          coords3: {
+            statePath: 'coords.3'
+          },
+          coords4: {
+            statePath: 'coords.4'
+          },
+          coords5: {
+            statePath: 'coords.5'
+          },
+          coords6: {
+            statePath: 'coords.6'
+          },
+          offsets1: {
+            statePath: 'viewOffsets.1'
+          },
+          offsets2: {
+            statePath: 'viewOffsets.2'
+          },
+          offsets3: {
+            statePath: 'viewOffsets.3'
+          },
+          offsets4: {
+            statePath: 'viewOffsets.4'
+          },
+          offsets5: {
+            statePath: 'viewOffsets.5'
+          },
+          offsets6: {
+            statePath: 'viewOffsets.6'
+          },
+          pointers1: {
+            statePath: 'movement.pointers.1'
+          },
+          pointers2: {
+            statePath: 'movement.pointers.2'
+          },
+          pointers3: {
+            statePath: 'movement.pointers.3'
+          },
+          pointers4: {
+            statePath: 'movement.pointers.4'
+          },
+          pointers5: {
+            statePath: 'movement.pointers.5'
+          },
+          pointers6: {
+            statePath: 'movement.pointers.6'
+          },
+          circles1: {
+            statePath: 'movement.circles.1'
+          },
+          circles2: {
+            statePath: 'movement.circles.2'
+          },
+          circles3: {
+            statePath: 'movement.circles.3'
+          },
+          circles4: {
+            statePath: 'movement.circles.4'
+          },
+          circles5: {
+            statePath: 'movement.circles.5'
+          },
+          circles6: {
+            statePath: 'movement.circles.6'
+          },
+          angles1: {
+            statePath: 'angles.1.coxaScreenAngle'
+          },
+          angles2: {
+            statePath: 'angles.2.coxaScreenAngle'
+          },
+          angles3: {
+            statePath: 'angles.3.coxaScreenAngle'
+          },
+          angles4: {
+            statePath: 'angles.4.coxaScreenAngle'
+          },
+          angles5: {
+            statePath: 'angles.5.coxaScreenAngle'
+          },
+          angles6: {
+            statePath: 'angles.6.coxaScreenAngle'
+          },
+          baseCenterCoords: {
+            statePath: 'base.centerCoords'
+          },
+          misc1: {
+            statePath: 'misc.1'
+          },
+          misc2: {
+            statePath: 'misc.2'
+          },
+          misc3: {
+            statePath: 'misc.3'
+          },
+          misc4: {
+            statePath: 'misc.4'
+          },
+          misc5: {
+            statePath: 'misc.5'
+          },
+          misc6: {
+            statePath: 'misc.6'
+          },
+          baseDirection: {
+            statePath: 'base.direction'
+          },
+          useScaling: {
+            statePath: 'viewSettings.transverseView.useScaling'
+          },
+          scaling: {
+            statePath: 'viewSettings.transverseView.scaling'
+          },
+          viewOffsets: {
+            statePath: 'viewOffsets.1'
+          },
+          useOffsets: {
+            statePath: 'viewSettings.transverseView.useOffsets'
           }
         };
+      }
+      
+      computeBaseCenterCoords(baseCenterCoords) {
+        return {
+          x: this.scaleInput(baseCenterCoords.x + this.getOffset(1, 'x')),
+          y: this.scaleInput(baseCenterCoords.y + this.getOffset(1, 'y'))
+        };
+      }
+      
+      computeBaseDirectionLength() {
+        return this.scaleInput(100); // 100px just abstract value
+      }
+      
+      computeCoords(legId, coords) {
+        return {
+          // transverse cursor
+          transverseCursorX: this.scaleInput(coords.transverseCursorX + this.getOffset(legId, 'x')),
+          transverseCursorY: this.scaleInput(coords.transverseCursorY + this.getOffset(legId, 'y')),
+          // transverse base
+          transverseBaseX: this.scaleInput(coords.transverseBaseX + this.getOffset(legId, 'x')),
+          transverseBaseY: this.scaleInput(coords.transverseBaseY + this.getOffset(legId, 'y'))
+        }
+      }
+      
+      computePointer(legId, pointer) {
+        return {
+          x: this.scaleInput(pointer.x + this.getOffset(legId, 'x')),
+          y: this.scaleInput(pointer.y + this.getOffset(legId, 'y'))
+        }
+      }
+      
+      computeCircle(legId, circle) {
+        return {
+          x: this.scaleInput(circle.x + this.getOffset(legId, 'x')),
+          y: this.scaleInput(circle.y + this.getOffset(legId, 'y')),
+          diameter: this.scaleInput(circle.diameter)
+        }
+      }
+      
+      computeMisc(legId, misc) {
+        return {
+          transverseLegLength: this.scaleInput(misc.transverseLegLength)
+        };
+      }
+      
+      scaleOutput(val) {
+        if (this.useScaling)
+          val = MU.scaleUpOutput(this.scaling, val);
+        
+        return val;
+      }
+      
+      scaleInput(val) {
+        if (this.useScaling)
+          val = MU.scaleDownInput(this.scaling, val);
+          
+        return val;
+      }
+      
+      getOffset(legId, coord) {
+        // do not use offsets
+        if (!this.useOffsets) return 0;
+        
+        switch (coord) {
+          case 'x':
+            return this[`offsets${legId}`].transverseX;
+          case 'y':
+            return this[`offsets${legId}`].transverseY;
+        }
       }
       
       showSettingsDialog() {
