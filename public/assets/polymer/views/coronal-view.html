@@ -45,12 +45,12 @@
     
     <div class="center-point">
       <coronal-view-ui
-        coords1="[[computeCoords('1', coords1, offset1, useOffsets, useScaling, scaling)]]"
-        coords2="[[computeCoords('2', coords2, offset2, useOffsets, useScaling, scaling)]]"
-        coords3="[[computeCoords('3', coords3, offset3, useOffsets, useScaling, scaling)]]"
-        coords4="[[computeCoords('4', coords4, offset4, useOffsets, useScaling, scaling)]]"
-        coords5="[[computeCoords('5', coords5, offset5, useOffsets, useScaling, scaling)]]"
-        coords6="[[computeCoords('6', coords6, offset6, useOffsets, useScaling, scaling)]]"
+        coords1="[[computeCoords('1', coords1, offsets1, useOffsets, useScaling, scaling)]]"
+        coords2="[[computeCoords('2', coords2, offsets2, useOffsets, useScaling, scaling)]]"
+        coords3="[[computeCoords('3', coords3, offsets3, useOffsets, useScaling, scaling)]]"
+        coords4="[[computeCoords('4', coords4, offsets4, useOffsets, useScaling, scaling)]]"
+        coords5="[[computeCoords('5', coords5, offsets5, useOffsets, useScaling, scaling)]]"
+        coords6="[[computeCoords('6', coords6, offsets6, useOffsets, useScaling, scaling)]]"
         angles1="[[angles1]]"
         angles2="[[angles2]]"
         angles3="[[angles3]]"
@@ -104,22 +104,22 @@
           angles6: {
             statePath: 'angles.6'
           },
-          offset1: {
+          offsets1: {
             statePath: 'viewOffsets.1'
           },
-          offset2: {
+          offsets2: {
             statePath: 'viewOffsets.2'
           },
-          offset3: {
+          offsets3: {
             statePath: 'viewOffsets.3'
           },
-          offset4: {
+          offsets4: {
             statePath: 'viewOffsets.4'
           },
-          offset5: {
+          offsets5: {
             statePath: 'viewOffsets.5'
           },
-          offset6: {
+          offsets6: {
             statePath: 'viewOffsets.6'
           },
           useScaling: {
@@ -176,7 +176,7 @@
         // do not use offsets
         if (!this.useOffsets) return 0;
         
-        return this[`offset${legId}`].transverseX;
+        return this[`offsets${legId}`].transverseX;
       }
       
       showSettingsDialog() {
