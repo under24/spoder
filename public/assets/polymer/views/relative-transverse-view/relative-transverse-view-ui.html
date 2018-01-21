@@ -103,7 +103,7 @@
     </style>
     
     <div id="base" style$="[[computeBase(xy, side)]]">
-      <div class="coxa" style$="[[computeCoxa(legLength, coxaScreenAngle, side)]]"></div>
+      <div class="coxa" style$="width: [[legLength]]px; transform: rotate([[coxaScreenAngle]]deg"></div>
       <div class="reachRadius" style$="[[computeReachRadius(reachRadius, baseCoxaAngle, side)]]"></div>
       <div class="baseInvalidRange" style$="[[computeBaseInvalidRange(baseCoxaAngle, impossibleRange)]]"></div>
     </div>
@@ -242,19 +242,6 @@
         }
         
         return width + height + transform + borderTopX + borderBottomX;
-      }
-      
-      computeCoxa(legLength, coxaScreenAngle, side) {
-        var width = `width: ${legLength}px;`;
-        
-        switch (side) {
-          case 'left':
-            var transform = `transform: rotate(${coxaScreenAngle}deg);`; break;
-          case 'right':
-            var transform = `transform: rotate(${MU.flipNumber(coxaScreenAngle)}deg);`; break;
-        }
-        
-        return width + transform;
       }
       
       computeMovementPointer(movementPointer, side) {
