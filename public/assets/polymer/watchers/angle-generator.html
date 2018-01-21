@@ -67,6 +67,9 @@
         
         // correct the coxa servo angle
         this.correctCoxaOffset(legId, coxaAngles);
+        
+        // fix side angle values (flip based on the side) so there is no need to do it in the UI
+        coxaAngles.screen = this.correctScreenSideAngle(coxaAngles.screen, legId, 'right');
 
         return {
           coxaScreenAngle: coxaAngles.screen,
