@@ -326,14 +326,13 @@
         if (GU.getLegSide(legId) === 'left') {
           y = 'transform-origin: left;';
           z = 'left: 50%;';
-          x = `transform: rotate(${angles[legId].coxaScreenAngle}deg);`;
         } 
         if (GU.getLegSide(legId) === 'right') {
           y = 'transform-origin: right;';
           z = 'right: 50%;';
-          let temp = angles[legId].coxaScreenAngle * -1;
-          x = `transform: rotate(${temp}deg);`;
         } 
+        
+        x = `transform: rotate(${angles[legId].coxaScreenAngle}deg);`;
         
         let c = misc[legId].transverseLegLength;
         c = `width: ${c}px;`;
