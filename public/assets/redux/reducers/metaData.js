@@ -14,9 +14,5 @@ let metaDataReducerInitState = {
 };
 
 const metaDataReducer = (state = metaDataReducerInitState, action) => {
-  switch (action.type) {
-    case "a":
-    
-  }
   return state;
 }

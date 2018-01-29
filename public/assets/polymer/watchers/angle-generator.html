@@ -202,8 +202,8 @@
             miscPayload = {}, 
             circlesPayload = {};
             
-        var baseCenterCoords = this.$.baseGenerator.calcBaseCenterCoords(newCoords),
-            baseDirection = this.$.baseGenerator.calcBaseDirection(newCoords, baseCenterCoords);
+        var baseCenterCoords = this.$.baseGenerator.processNewBaseCenterCoords(newCoords),
+            baseDirection = this.$.baseGenerator.processNewBaseDirection(newCoords, baseCenterCoords);
             
         for (let legId = 1; legId <= 6; legId++) {
           // transverse coords

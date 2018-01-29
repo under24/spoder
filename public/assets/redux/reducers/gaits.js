@@ -68,9 +68,5 @@ let gaitReducerInitState = {
 };
 
 const gaitReducer = (state = gaitReducerInitState, action) => {
-  // switch (action.type) {
-    // case "a":
-      // return Object.assign({}, state, action.payload);
-  // }
   return state;
 };

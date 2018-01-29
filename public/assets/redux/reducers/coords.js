@@ -301,6 +301,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
             distPct = 0.6666666666666666;
         
         for (let legId = 1; legId <= 6; legId++) {
+          
           let finalValue,
               row = GU.getLegRow(legId);
           
@@ -316,6 +317,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
               if (row === 'back') finalValue = action.payload.rightTiltModifier * distPct + action.payload.backTiltModifier;
               break;
           }
+          
           newState[legId] = Object.assign({}, state[legId], { sagittalBaseY: state[legId].sagittalBaseY - finalValue });
         }        
         return newState;

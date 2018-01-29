@@ -138,14 +138,12 @@
       }
       
       computeCoords(legId, coords) {
-        var offsetX = this.getOffsetX(legId);
-        
         return {
           // cursor
-          transverseCursorX: this.scaleInput(coords.transverseCursorX + offsetX),
+          transverseCursorX: this.scaleInput(coords.transverseCursorX + this.getOffsetX(legId)),
           sagittalCursorY: this.scaleInput(coords.sagittalCursorY),
           // base
-          transverseBaseX: this.scaleInput(coords.transverseBaseX + offsetX),
+          transverseBaseX: this.scaleInput(coords.transverseBaseX + this.getOffsetX(legId)),
           sagittalBaseY: this.scaleInput(coords.sagittalBaseY)
         }
       }

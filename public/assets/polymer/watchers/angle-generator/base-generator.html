@@ -13,11 +13,11 @@
         };
       }
       
-      calcBaseCenterCoords(coords) {
+      processNewBaseCenterCoords(coords) {
         return RU.getBaseCenter(coords);
       }
       
-      calcBaseDirection(coords, baseCenterCoords) {
+      processNewBaseDirection(coords, baseCenterCoords) {
         var baseDirection = MU.getAngle(coords[3].transverseBaseY - baseCenterCoords.y, coords[3].transverseBaseX - baseCenterCoords.x);
         
         return GU.correctAngle(baseDirection);

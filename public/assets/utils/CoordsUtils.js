@@ -52,6 +52,6 @@ let CU = {
     return {
       transverseBaseX: newCoords.x,
       transverseBaseY: newCoords.y
-    }
+    };
   }
 }
