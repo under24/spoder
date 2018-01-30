@@ -36,7 +36,7 @@
       processNewPointers(circles, directionJoystick, turnJoystick, applyDirectionAndTurnAngles) {
         // create new pointers
         var pointers = this.generatePointers(circles, directionJoystick, turnJoystick, applyDirectionAndTurnAngles);
-        // dispatch pointers
+        // dispatch them
         this.dispatchPointers(pointers);
       }
       
@@ -58,7 +58,7 @@
             // apply baseDirection + turnJoystick
             pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.normalizedX, GU.getLegSide(legId));
           
-          // filter in unique value for dispatching
+          // filter-in unique value before dispatching
           GU.sieveOutAndGatherUp(pointer, this.pointers[legId], pointers, legId);
         }
         
