@@ -30,10 +30,9 @@
         var circleDiameter = transverseReachRadius - this.metaData.impossibleRange,
             tbx = coords.transverseBaseX,
             tby = coords.transverseBaseY,
-            side = GU.getLegSide(legId),
             coxaAttachment = this.base.coxaAttachmentAngles[legId],
             // sum up coxaAttachment + baseDirection - turnJoystick
-            angle = this.calcAngle(side, coxaAttachment, baseDirection),
+            angle = this.calcAngle(coxaAttachment, baseDirection),
             // distance to the center of the circle + offset from impossible range
             // distance = (transverseReachRadius + this.metaData.impossibleRange) / 2;
             // for when the leg is raised. the circle should have solid position so it does not move when the leg is raised
@@ -42,12 +41,12 @@
         // if the turn joystick is not centered (!== 0) find circleCenterCoords + solidX/Y 
         if (this.turnJoystick.normalizedX) {
           // turn base coords
-          var { x: turnedBaseX, y: turnedBaseY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.normalizedX), coords);
+          var { x: turnedBaseX, y: turnedBaseY } = MU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.normalizedX), coords);
           // find circle center coords (fluent)
           var circleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedBaseX, turnedBaseY, angle, distance);
           
           // find solid angle (the way the leg is attached to the base)
-          let solidAngle = this.calcSolidAngle(side, coxaAttachment, baseDirection);
+          let solidAngle = this.calcSolidAngle(coxaAttachment, baseDirection);
           // solid (unturned) circle center coords
           var { x: solidX, y: solidY } = MU.getCoordsFromDistanceAndAngle(tbx, tby, solidAngle, distance);
         }
@@ -71,22 +70,12 @@
         }
       }
       
-      calcAngle(side, coxaAttachment, baseDirection) {
-        switch (side) {
-          case 'left':
-            return coxaAttachment + baseDirection - this.turnJoystick.normalizedX;
-          case 'right':
-            return MU.flipNumber(coxaAttachment + baseDirection - this.turnJoystick.normalizedX);
-        }
+      calcAngle(coxaAttachment, baseDirection) {
+        return coxaAttachment + baseDirection - this.turnJoystick.normalizedX;
       }
       
-      calcSolidAngle(side, coxaAttachment, baseDirection) {
-        switch (side) {
-          case 'left':
-            return coxaAttachment + baseDirection;
-          case 'right':
-            return MU.flipNumber(coxaAttachment + baseDirection);
-        }
+      calcSolidAngle(coxaAttachment, baseDirection) {
+        return coxaAttachment + baseDirection;
       }
       
       sieveOutAndGatherUp(legId, circle, payload) {
