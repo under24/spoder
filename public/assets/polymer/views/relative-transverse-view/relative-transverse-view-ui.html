@@ -22,28 +22,16 @@
         background-color: black;
         z-index: 1;
         pointer-events: none;
-      }
-      :host([side=left]) .coxa {
         transform-origin: left;
         left: 0px;
-      }
-      :host([side=right]) .coxa {
-        transform-origin: right;
-        right: 0px;
       }
       .reachRadius {
         background-color: rgba(255, 0, 0, 0.04);
         display: inline-block;
         position: absolute;
         pointer-events: none;
-      }
-      :host([side=left]) .reachRadius {
         left: 0px;
         transform-origin: center left;
-      }
-      :host([side=right]) .reachRadius {
-        right: 0px;
-        transform-origin: center right;
       }
       .baseInvalidRange {
         background-color: white;
@@ -52,14 +40,8 @@
         border: 1px solid transparent;
         pointer-events: none;
         box-sizing: border-box;
-      }
-      :host([side=left]) .baseInvalidRange {
         border-right-color: red;
         border-bottom-color: red;
-      }
-      :host([side=right]) .baseInvalidRange {
-        border-left-color: red;
-        border-top-color: red;
       }
       .movementCircleCenter {
         position: absolute;
@@ -93,26 +75,21 @@
         display: inline-block;
         border-radius: 100%;
         position: absolute;
-      }
-      :host([side=left]) .movementPointer {
         transform: translate(-50%,-50%);
-      }
-      :host([side=right]) .movementPointer {
-        transform: translate(50%,-50%);
       }
     </style>
     
-    <div id="base" style$="[[computeBase(xy, side)]]">
+    <div id="base" style$="left: [[xy.x]]px; top: [[xy.y]]px;">
       <div class="coxa" style$="width: [[legLength]]px; transform: rotate([[coxaScreenAngle]]deg"></div>
-      <div class="reachRadius" style$="[[computeReachRadius(reachRadius, baseCoxaAngle, side)]]"></div>
+      <div class="reachRadius" style$="[[computeReachRadius(reachRadius, baseCoxaAngle)]]"></div>
       <div class="baseInvalidRange" style$="[[computeBaseInvalidRange(baseCoxaAngle, impossibleRange)]]"></div>
     </div>
     
-    <div class="movementCircleCenter" style$="[[computeMovementCircleCenter(movementCenterCoords, side)]]">
-      <div class="movementCircle" style$="[[computeMovementCircle(movementCircleDiameter)]]"></div>
+    <div class="movementCircleCenter" style$="left: [[movementCenterCoords.x]]px; top: [[movementCenterCoords.y]]px;">
+      <div class="movementCircle" style$="width: [[movementCircleDiameter]]px; height: [[movementCircleDiameter]]px;"></div>
     </div>
     
-    <div class="movementPointer" style$="[[computeMovementPointer(movementPointer, side)]]"></div>
+    <div class="movementPointer" style$="left: [[movementPointer.x]]px; top: [[movementPointer.y]]px;"></div>
   </template>
 
   <script>
@@ -120,9 +97,6 @@
       static get is() { return 'relative-transverse-view-ui'; }
       static get properties() {
         return {
-          side: {
-            reflectToAttribute: true
-          },
           xy: Object,
           coxaScreenAngle: Number,
           reachRadius: Number,
@@ -151,15 +125,11 @@
             // the position is the same
             if (diffX === 0 && diffY === 0) return;
             
-            // filter out 0 value
             let payload = {};
+            
+            // filter out 0 value
             if (diffX !== 0) {
-              switch (this.side) {
-                case 'left':
-                  payload.x = diffX; break;
-                case 'right':
-                  payload.x = -diffX; break;
-              }
+              payload.x = diffX;
               this.clickCoords.x = e.pageX;
             }
             if (diffY !== 0) {
@@ -182,39 +152,6 @@
         }
       }
       
-      computeBase(coords, side) {
-        switch (side) {
-          case 'left':
-            var x = `left: ${coords.x}px;`; break;
-          case 'right':
-            var x = `right: ${coords.x}px;`; break;
-        }
-        
-        var y = `top: ${coords.y}px;`;
-        
-        return x + y;
-      }
-      
-      computeMovementCircleCenter(movementCenterCoords, side) {
-        switch (side) {
-          case 'left':
-            var x = `left: ${movementCenterCoords.x}px;`; break;
-          case 'right':
-            var x = `right: ${movementCenterCoords.x}px;`; break;
-        }
-        
-        var y = `top: ${movementCenterCoords.y}px;`;
-        
-        return x + y;
-      }
-      
-      computeMovementCircle(movementCircleDiameter) {
-        var width = `width: ${movementCircleDiameter}px;`;
-        var height = `height: ${movementCircleDiameter}px;`;
-        
-        return width + height;
-      }
-      
       computeBaseInvalidRange(baseCoxaAngle, impossibleRange) {
         var transform = `transform: translate(-50%, -50%) rotateZ(-45deg) rotate(${baseCoxaAngle}deg);`;
         
@@ -224,37 +161,16 @@
         return transform + width + height;
       }
       
-      computeReachRadius(reachRadius, baseCoxaAngle, side) {
-        var width = `width: ${reachRadius}px;`;
-        var height = `height: ${reachRadius * 2}px;`;
-        
-        var transform = `transform: translate(0%, -50%) rotate(${baseCoxaAngle}deg);`;
-        
-        switch (side) {
-          case 'left':
-            var borderTopX = `border-top-right-radius: ${reachRadius * 2}px;`;
-            var borderBottomX = `border-bottom-right-radius: ${reachRadius * 2}px;`;
-            break;
-          case 'right':
-            var borderTopX = `border-top-left-radius: ${reachRadius * 2}px;`;
-            var borderBottomX = `border-bottom-left-radius: ${reachRadius * 2}px;`;
-            break;
-        }
-        
+      computeReachRadius(reachRadius, baseCoxaAngle) {
+        var width = `width: ${reachRadius}px;`,
+            height = `height: ${reachRadius * 2}px;`,
+            
+            transform = `transform: translate(0%, -50%) rotate(${baseCoxaAngle}deg);`,
+            
+            borderTopX = `border-top-right-radius: ${reachRadius * 2}px;`,
+            borderBottomX = `border-bottom-right-radius: ${reachRadius * 2}px;`;
+            
         return width + height + transform + borderTopX + borderBottomX;
-      }
-      
-      computeMovementPointer(movementPointer, side) {
-        switch (side) {
-          case 'left':
-            var x = `left: ${movementPointer.x}px;`; break;
-          case 'right':
-            var x = `right: ${movementPointer.x}px;`; break;
-        }
-        
-        var y = `top: ${movementPointer.y}px;`;
-        
-        return x + y;
       }
 
     }

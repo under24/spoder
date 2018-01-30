@@ -60,7 +60,6 @@
     <div class="center-point">
       <relative-transverse-view-ui
         xy="[[computeXY(coords, viewOffsets, useScaling, scaling, useOffsets)]]"
-        side="[[side]]"
         reach-radius="[[scaleInput(misc.transverseReachRadius, useScaling, scaling)]]"
         coxa-screen-angle="[[angles.coxaScreenAngle]]"
         impossible-range="[[scaleInput(metaData.impossibleRange, useScaling, scaling)]]"
@@ -73,7 +72,7 @@
       </relative-transverse-view-ui>
       
       <view-cursor
-        side="[[side]]"
+        side="left"
         xy="[[computeCursorXY(coords.transverseCursorX, coords.transverseCursorY, viewOffsets, useScaling, scaling, useOffsets)]]"
         output={{cursorOutput}}>
       </view-cursor>
