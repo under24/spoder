@@ -16,9 +16,9 @@ let coordsReducerInitState = {
     sagittalCursorY: 0,
     // sagittalBaseX: 100,
     sagittalBaseY: -30,
-    transverseCursorX: 200,
+    transverseCursorX: -200,
     transverseCursorY: -250,
-    transverseBaseX: 100,
+    transverseBaseX: -100,
     transverseBaseY: -150
   },
   3: {
@@ -36,9 +36,9 @@ let coordsReducerInitState = {
     sagittalCursorY: 0,
     // sagittalBaseX: 100,
     sagittalBaseY: -30,
-    transverseCursorX: 300,
+    transverseCursorX: -300,
     transverseCursorY: 0,
-    transverseBaseX: 150,
+    transverseBaseX: -150,
     transverseBaseY: 0
   },
   5: {
@@ -56,9 +56,9 @@ let coordsReducerInitState = {
     sagittalCursorY: 0,
     // sagittalBaseX: 100,
     sagittalBaseY: -30,
-    transverseCursorX: 200,
+    transverseCursorX: -200,
     transverseCursorY: 250,
-    transverseBaseX: 100,
+    transverseBaseX: -100,
     transverseBaseY: 150
   }
 };
@@ -270,16 +270,8 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
         
         for (let legId = 1; legId <= 6; legId++) {
           
-          let transverseBaseX;
-          switch (GU.getLegSide(legId)) {
-            case 'left':
-              transverseBaseX = state[legId].transverseBaseX + action.payload.x; break;
-            case 'right':
-              transverseBaseX = state[legId].transverseBaseX - action.payload.x; break;
-          }
-          
           let shiftedCoords = {
-            transverseBaseX: transverseBaseX,
+            transverseBaseX: state[legId].transverseBaseX + action.payload.x,
             transverseBaseY: state[legId].transverseBaseY + action.payload.y
           };
           
