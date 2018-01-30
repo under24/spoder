@@ -26,12 +26,6 @@
         background-color: black;
         z-index: 1;
         pointer-events: none;
-      }
-      .right .femur {
-        transform-origin: right;
-        right: 50%;
-      }
-      .left .femur {
         transform-origin: left;
         left: 50%;
       }
@@ -42,60 +36,59 @@
         background-color: black;
         z-index: 1;
         pointer-events: none;
-      }
-      .right .tibia {
-        transform-origin: right;
-        right: 100%;
-      }
-      .left .tibia {
         transform-origin: left;
         left: 100%;
       }
     </style>
     
     <!-- leg 1 -->
-    <div class="base leg1 right" style$="right: [[coords1.transverseBaseX]]px; top: [[coords1.sagittalBaseY]]px">
+    <div class="base" style$="left: [[coords1.transverseBaseX]]px; top: [[coords1.sagittalBaseY]]px">
       <div class="femur" style$="transform: rotateY([[angles1.coxaScreenAngle]]deg) rotate([[angles1.femurScreenAngle]]deg); width: [[femurLength]]px">
         <div class="tibia" style$="transform: rotate([[angles1.tibiaScreenAngle]]deg); width: [[tibiaLength]]px"></div>
       </div>
     </div>
     <!-- leg 2 -->
-    <div class="base leg2 left" style$="left: [[coords2.transverseBaseX]]px; top: [[coords2.sagittalBaseY]]px">
+    <div class="base" style$="left: [[coords2.transverseBaseX]]px; top: [[coords2.sagittalBaseY]]px">
       <div class="femur" style$="transform: rotateY([[angles2.coxaScreenAngle]]deg) rotate([[angles2.femurScreenAngle]]deg); width: [[femurLength]]px">
         <div class="tibia" style$="transform: rotate([[angles2.tibiaScreenAngle]]deg); width: [[tibiaLength]]px"></div>
       </div>
     </div>
     <!-- leg 3 -->
-    <div class="base leg3 right" style$="right: [[coords3.transverseBaseX]]px; top: [[coords3.sagittalBaseY]]px">
+    <div class="base" style$="left: [[coords3.transverseBaseX]]px; top: [[coords3.sagittalBaseY]]px">
       <div class="femur" style$="transform: rotateY([[angles3.coxaScreenAngle]]deg) rotate([[angles3.femurScreenAngle]]deg); width: [[femurLength]]px">
         <div class="tibia" style$="transform: rotate([[angles3.tibiaScreenAngle]]deg); width: [[tibiaLength]]px"></div>
       </div>
     </div>
     <!-- leg 4 -->
-    <div class="base leg4 left" style$="left: [[coords4.transverseBaseX]]px; top: [[coords4.sagittalBaseY]]px">
+    <div class="base" style$="left: [[coords4.transverseBaseX]]px; top: [[coords4.sagittalBaseY]]px">
       <div class="femur" style$="transform: rotateY([[angles4.coxaScreenAngle]]deg) rotate([[angles4.femurScreenAngle]]deg); width: [[femurLength]]px">
         <div class="tibia" style$="transform: rotate([[angles4.tibiaScreenAngle]]deg); width: [[tibiaLength]]px"></div>
       </div>
     </div>
     <!-- leg 5 -->
-    <div class="base leg5 right" style$="right: [[coords5.transverseBaseX]]px; top: [[coords5.sagittalBaseY]]px">
+    <div class="base" style$="left: [[coords5.transverseBaseX]]px; top: [[coords5.sagittalBaseY]]px">
       <div class="femur" style$="transform: rotateY([[angles5.coxaScreenAngle]]deg) rotate([[angles5.femurScreenAngle]]deg); width: [[femurLength]]px">
         <div class="tibia" style$="transform: rotate([[angles5.tibiaScreenAngle]]deg); width: [[tibiaLength]]px"></div>
       </div>
     </div>
     <!-- leg 6 -->
-    <div class="base leg6 left" style$="left: [[coords6.transverseBaseX]]px; top: [[coords6.sagittalBaseY]]px">
+    <div class="base" style$="left: [[coords6.transverseBaseX]]px; top: [[coords6.sagittalBaseY]]px">
       <div class="femur" style$="transform: rotateY([[angles6.coxaScreenAngle]]deg) rotate([[angles6.femurScreenAngle]]deg); width: [[femurLength]]px">
         <div class="tibia" style$="transform: rotate([[angles6.tibiaScreenAngle]]deg); width: [[tibiaLength]]px"></div>
       </div>
     </div>
     
-    <!-- cursors -->
-    <div class="cursor" style$="right: [[coords1.transverseCursorX]]px; top: [[coords1.sagittalCursorY]]px;"></div>
+    <!-- cursor 1 -->
+    <div class="cursor" style$="left: [[coords1.transverseCursorX]]px; top: [[coords1.sagittalCursorY]]px;"></div>
+    <!-- cursor 2 -->
     <div class="cursor" style$="left: [[coords2.transverseCursorX]]px; top: [[coords2.sagittalCursorY]]px;"></div>
-    <div class="cursor" style$="right: [[coords3.transverseCursorX]]px; top: [[coords3.sagittalCursorY]]px;"></div>
+    <!-- cursor 3 -->
+    <div class="cursor" style$="left: [[coords3.transverseCursorX]]px; top: [[coords3.sagittalCursorY]]px;"></div>
+    <!-- cursor 4 -->
     <div class="cursor" style$="left: [[coords4.transverseCursorX]]px; top: [[coords4.sagittalCursorY]]px;"></div>
-    <div class="cursor" style$="right: [[coords5.transverseCursorX]]px; top: [[coords5.sagittalCursorY]]px;"></div>
+    <!-- cursor 5 -->
+    <div class="cursor" style$="left: [[coords5.transverseCursorX]]px; top: [[coords5.sagittalCursorY]]px;"></div>
+    <!-- cursor 6 -->
     <div class="cursor" style$="left: [[coords6.transverseCursorX]]px; top: [[coords6.sagittalCursorY]]px;"></div>
   </template>
 
