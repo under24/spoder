@@ -24,7 +24,6 @@
       transform-origin: bottom;
     }
     .dot {
-      display: inline-block;
       height: 10px;
       width: 10px;
       position: absolute;
@@ -42,12 +41,18 @@
       background-color: rgba(0, 0, 255, 0.25);
       transform: translate(-50%,-50%);
     }
-    .circle-center {
+    .fluent-base {
+      background-color: rgba(0, 0, 255, 0.08);
+      transform: translate(-50%,-50%);
+    }
+    .circle-center,
+    .solid-circle-center {
       position: absolute;
       height: 0px;
       width: 0px;
     }
-    .circle-center::after {
+    .circle-center::after,
+    .solid-circle-center::after {
       content: '';
       display: inline-block;
       width: 5px;
@@ -58,6 +63,13 @@
       top: 50%;
       left: 50%;
       position: absolute;
+    }
+    .solid-circle {
+      display: inline-block;
+      background-color: rgba(255, 0, 0, 0.05);
+      transform: translate(-50%, -50%);
+      border-radius: 100%;
+      box-sizing: border-box;
     }
     .circle {
       display: inline-block;
@@ -95,6 +107,34 @@
     <div class="base dot" style$="left: [[coords6.transverseBaseX]]px; top: [[coords6.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles6]]deg); width: [[misc6.transverseLegLength]]px;"></div>
     </div>
+    
+    <!-- solid movement circles -->
+    <div class="solid-circle-center" style$="left: [[circles1.solidX]]px; top: [[circles1.solidY]]px;" hidden="[[!circles1.solidX]]">
+      <div class="solid-circle" style$="height: [[circles1.fluentDiameter]]px; width: [[circles1.fluentDiameter]]px;"></div>
+    </div>
+    <div class="solid-circle-center" style$="left: [[circles2.solidX]]px; top: [[circles2.solidY]]px;" hidden="[[!circles2.solidX]]">
+      <div class="solid-circle" style$="height: [[circles2.fluentDiameter]]px; width: [[circles2.fluentDiameter]]px;"></div>
+    </div>
+    <div class="solid-circle-center" style$="left: [[circles3.solidX]]px; top: [[circles3.solidY]]px;" hidden="[[!circles3.solidX]]">
+      <div class="solid-circle" style$="height: [[circles3.fluentDiameter]]px; width: [[circles3.fluentDiameter]]px;"></div>
+    </div>
+    <div class="solid-circle-center" style$="left: [[circles4.solidX]]px; top: [[circles4.solidY]]px;" hidden="[[!circles4.solidX]]">
+      <div class="solid-circle" style$="height: [[circles4.fluentDiameter]]px; width: [[circles4.fluentDiameter]]px;"></div>
+    </div>
+    <div class="solid-circle-center" style$="left: [[circles5.solidX]]px; top: [[circles5.solidY]]px;" hidden="[[!circles5.solidX]]">
+      <div class="solid-circle" style$="height: [[circles5.fluentDiameter]]px; width: [[circles5.fluentDiameter]]px;"></div>
+    </div>
+    <div class="solid-circle-center" style$="left: [[circles6.solidX]]px; top: [[circles6.solidY]]px;" hidden="[[!circles6.solidX]]">
+      <div class="solid-circle" style$="height: [[circles6.fluentDiameter]]px; width: [[circles6.fluentDiameter]]px;"></div>
+    </div>
+    
+    <!-- fluent transverseBaseX/Y -->
+    <div class="fluent-base dot" style$="left: [[circles1.fluentBaseX]]px; top: [[circles1.fluentBaseY]]px;" hidden="[[!circles1.fluentBaseX]]"></div>
+    <div class="fluent-base dot" style$="left: [[circles2.fluentBaseX]]px; top: [[circles2.fluentBaseY]]px;" hidden="[[!circles2.fluentBaseX]]"></div>
+    <div class="fluent-base dot" style$="left: [[circles3.fluentBaseX]]px; top: [[circles3.fluentBaseY]]px;" hidden="[[!circles3.fluentBaseX]]"></div>
+    <div class="fluent-base dot" style$="left: [[circles4.fluentBaseX]]px; top: [[circles4.fluentBaseY]]px;" hidden="[[!circles4.fluentBaseX]]"></div>
+    <div class="fluent-base dot" style$="left: [[circles5.fluentBaseX]]px; top: [[circles5.fluentBaseY]]px;" hidden="[[!circles5.fluentBaseX]]"></div>
+    <div class="fluent-base dot" style$="left: [[circles6.fluentBaseX]]px; top: [[circles6.fluentBaseY]]px;" hidden="[[!circles6.fluentBaseX]]"></div>
     
     <!-- movement circles -->
     <div class="circle-center" style$="left: [[circles1.x]]px; top: [[circles1.y]]px;">

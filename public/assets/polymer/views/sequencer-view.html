@@ -214,8 +214,8 @@
       
       getIterationMovementData(legId) {
         return {
-          transverseBaseX: this.circles[legId].x - this.pointers[legId].x,
-          transverseBaseY: this.circles[legId].y - this.pointers[legId].y,
+          transverseBaseX: this.circles[legId].fluentX - this.pointers[legId].x,
+          transverseBaseY: this.circles[legId].fluentY - this.pointers[legId].y,
           transverseCursorX: this.coords[legId].transverseCursorX - this.pointers[legId].x,
           transverseCursorY: this.coords[legId].transverseCursorY - this.pointers[legId].y
         };

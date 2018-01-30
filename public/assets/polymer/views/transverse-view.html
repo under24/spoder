@@ -247,9 +247,14 @@
       
       computeCircle(legId, circle) {
         return {
-          x: this.scaleInput(circle.x + this.getOffset(legId, 'x')),
-          y: this.scaleInput(circle.y + this.getOffset(legId, 'y')),
-          diameter: this.scaleInput(circle.diameter)
+          x: this.scaleInput(circle.fluentX + this.getOffset(legId, 'x')),
+          y: this.scaleInput(circle.fluentY + this.getOffset(legId, 'y')),
+          diameter: this.scaleInput(circle.solidDiameter),
+          fluentDiameter: this.scaleInput(circle.fluentDiameter),
+          solidX: this.scaleInput(circle.solidX + this.getOffset(legId, 'x')),
+          solidY: this.scaleInput(circle.solidY + this.getOffset(legId, 'y')),
+          fluentBaseX: this.scaleInput(circle.fluentTransverseBaseX + this.getOffset(legId, 'x')),
+          fluentBaseY: this.scaleInput(circle.fluentTransverseBaseY + this.getOffset(legId, 'y'))
         }
       }
       

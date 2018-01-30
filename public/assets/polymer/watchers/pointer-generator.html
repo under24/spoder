@@ -46,8 +46,8 @@
         for (let legId = 1; legId <= 6; legId++) {
           
           let pointer = {
-            x: circles[legId].x - circles[legId].radius * (directionJoystick.x / 100),
-            y: circles[legId].y - circles[legId].radius * (directionJoystick.y / 100)
+            x: circles[legId].fluentX - circles[legId].solidRadius * (directionJoystick.x / 100),
+            y: circles[legId].fluentY - circles[legId].solidRadius * (directionJoystick.y / 100)
           };
           
           if (applyDirectionAndTurnAngles)
@@ -62,15 +62,15 @@
       }
       
       applyDirectionAndTurn(pointer, circle, baseDirection, turn) {
-        var dx = pointer.x - circle.x,
-            dy = pointer.y - circle.y,
+        var dx = pointer.x - circle.fluentX,
+            dy = pointer.y - circle.fluentY,
             distance = MU.getDistance(dx, dy),
             circleToPointerAngle = MU.getAngle(dy, dx);
             
         // angle correction
         circleToPointerAngle = GU.correctAngle(circleToPointerAngle);
         
-        return MU.getCoordsFromDistanceAndAngle(circle.x, circle.y, circleToPointerAngle + baseDirection - turn, distance);
+        return MU.getCoordsFromDistanceAndAngle(circle.fluentX, circle.fluentY, circleToPointerAngle + baseDirection - turn, distance);
       }
       
       dispatchPointers(payload) {

@@ -65,7 +65,7 @@
         impossible-range="[[scaleInput(metaData.impossibleRange, useScaling, scaling)]]"
         leg-length="[[scaleInput(misc.transverseLegLength, useScaling, scaling)]]"
         movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets, useScaling, scaling, useOffsets)]]"
-        movement-circle-diameter="[[scaleInput(movementCircle.diameter, useScaling, scaling)]]"
+        movement-circle-diameter="[[scaleInput(movementCircle.solidDiameter, useScaling, scaling)]]"
         movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, useScaling, scaling, useOffsets)]]"
         base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle)]]"
         output="{{baseOutput}}">
@@ -196,8 +196,8 @@
       
       computeMovementCenterCoords(movementCircle) {
         return {
-          x: this.scaleInput(movementCircle.x + this.getOffset('x')),
-          y: this.scaleInput(movementCircle.y + this.getOffset('y')),
+          x: this.scaleInput(movementCircle.fluentX + this.getOffset('x')),
+          y: this.scaleInput(movementCircle.fluentY + this.getOffset('y')),
         };
       }
       
