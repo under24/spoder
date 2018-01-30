@@ -47,6 +47,7 @@ let MU = {
   scaleDownInput(pct, num) {
     return num / 100 * pct;
   },
+  // used for mapping joystick values
   normalize(value, normalizer) {
     return this.roundNumber(value * normalizer, 2);
   }
