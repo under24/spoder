@@ -3,7 +3,6 @@
 <link rel="import" href="../views/tilt-modifier-view.html">
 <link rel="import" href="../views/shift-modifier-view.html">
 <link rel="import" href="../views/transverse-animation-view.html">
-<link rel="import" href="../views/sagittal-animation-view.html">
 <link rel="import" href="../views/rotation-modifier-view.html">
 <link rel="import" href="../views/direction-joystick-view.html">
 <link rel="import" href="../views/turn-joystick-view.html">
@@ -63,7 +62,7 @@
     <!-- selection -->
     <template is="dom-if" if="[[computeView('none', view)]]" restamp>
       <section class="selection-section">
-        <select value="{{view::change}}" multiple size="16">
+        <select value="{{view::change}}" multiple size="15">
           <option value="digital-joystick">Joystick Demo</option>
           <option value="level-modifier-view">Level Modifier View</option>
           <option value="rotation-modifier-view">Rotation Modifier View</option>
@@ -74,7 +73,6 @@
           <option value="relative-sagittal-view">Relative Sagittal View</option>
           <option value="relative-transverse-view">Relative Transverse View</option>
           <option value="coronal-view">Coronal View</option>
-          <option value="sagittal-animation-view">Sagittal Animation View</option>
           <option value="transverse-view">Transverse View</option>
           <option value="transverse-animation-view">Transverse Animation View</option>
           <option value="sequencer-view">Sequencer View</option>
@@ -116,11 +114,6 @@
     <!-- transverse animation view -->
     <template is="dom-if" if="[[computeView('transverse-animation-view', view)]]" restamp>
       <transverse-animation-view></transverse-animation-view>
-    </template>
-    
-    <!-- sagittal animation view -->
-    <template is="dom-if" if="[[computeView('sagittal-animation-view', view)]]" restamp>
-      <sagittal-animation-view></sagittal-animation-view>
     </template>
     
     <!-- direction joystick view -->
