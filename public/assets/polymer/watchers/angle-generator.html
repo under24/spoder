@@ -53,7 +53,10 @@
         var screen = MU.getAngle(this.getDY(legId, view), this.getDX(legId, view)),
             servo = GU.correctAngle(screen + 90);
         
-        return { screen, servo: +servo.toFixed(0) };
+        return {
+          screen: GU.correctAngle(screen),
+          servo: +servo.toFixed(0)
+        };
       }
       
       sameCoords(newCoords, oldCoords, view) {
@@ -67,16 +70,10 @@
       
       processNewCoxaAngles(legId) {
         var coxaAngles = this.getAngleFromDistance(legId, 'transverse');
-        
-        // correct the coxa servo angle
-        this.correctCoxaOffset(legId, coxaAngles);
-        
-        // fix side angle values (flip based on the side) so there is no need to do it in the UI
-        coxaAngles.screen = this.correctScreenSideAngle(coxaAngles.screen, legId, 'right');
-
+            
         return {
           coxaScreenAngle: coxaAngles.screen,
-          coxaServoAngle: coxaAngles.servo
+          coxaServoAngle: this.applyCoxaAttachmentAngle(legId, coxaAngles.servo)
         };
       }
       
@@ -93,10 +90,6 @@
         var femurAngles = this.getFemurAngle(legId, view),
             tibiaAngles = this.getTibiaAngle(legId, view);
         
-        // fix side angle values (flip based on the side) so there is no need to do it in the UI
-        femurAngles.screen = this.correctScreenSideAngle(femurAngles.screen, legId, 'left');
-        tibiaAngles.screen = this.correctScreenSideAngle(tibiaAngles.screen, legId, 'left');
-        
         return {
           femurScreenAngle: femurAngles.screen,
           femurServoAngle: femurAngles.servo,
@@ -107,9 +100,6 @@
       
       calcForOutOfReachMode(legId, view) {
         var femurAngles = this.getAngleFromDistance(legId, view);
-        
-        // fix side angle values (flip based on the side) so there is no need to do it in the UI
-        femurAngles.screen = this.correctScreenSideAngle(femurAngles.screen, legId, 'left');
         
         return {
           femurScreenAngle: femurAngles.screen,
@@ -127,8 +117,13 @@
         
         var A1Screen = A1 / Math.PI * -180,
             A1Servo = A1Screen + 90;
+            
+        // correct angle (-55 -> 305)
+        var screen = GU.correctAngle(A1Screen);
+        // apply decimal precision
+        var servo = +A1Servo.toFixed(0)
         
-        return { screen: A1Screen, servo: +A1Servo.toFixed(0) };
+        return { screen, servo };
       }
       
       getTibiaAngle(legId, view) {
@@ -192,8 +187,8 @@
           socket.emit('servo-angles-changed', servoAngles);
         
         // TODO temp. for debugging purposes
-        if (angles[1] && angles[1].femurServoAngle)
-          socket.emit('femur-servo-angle-changed', { value: angles[1].femurServoAngle });
+        if (angles[1] && angles[1].coxaServoAngle)
+          socket.emit('femur-servo-angle-changed', { value: angles[1].coxaServoAngle });
       }
       
       observeCoords(newCoords, oldCoords) {
