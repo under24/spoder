@@ -23,12 +23,6 @@
       bottom: 0px;
       transform-origin: bottom;
     }
-    .left {
-      transform: translate(-50%,-50%);
-    }
-    .right {
-      transform: translate(50%,-50%);
-    }
     .dot {
       display: inline-block;
       height: 10px;
@@ -38,12 +32,15 @@
     }
     .cursor {
       background-color: rgba(255, 0, 0, 0.35);
+      transform: translate(-50%,-50%);
     }
     .pointer {
       background-color: rgba(0, 128, 0, 0.35);
+      transform: translate(-50%,-50%);
     }
     .base {
       background-color: rgba(0, 0, 255, 0.25);
+      transform: translate(-50%,-50%);
     }
     .circle-center {
       position: absolute;
@@ -74,33 +71,27 @@
       border-top: 1px solid;
       position: absolute;
       top: 50%;
-    }
-    .left .leg {
-      transform-origin: left;
       left: 50%;
-    }
-    .right .leg {
-      transform-origin: right;
-      right: 50%;
+      transform-origin: left;
     }
     </style>
     
-    <div class="base dot left" style$="left: [[coords1.transverseBaseX]]px; top: [[coords1.transverseBaseY]]px;">
+    <div class="base dot" style$="left: [[coords1.transverseBaseX]]px; top: [[coords1.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles1]]deg); width: [[misc1.transverseLegLength]]px;"></div>
     </div>
-    <div class="base dot right" style$="right: [[coords2.transverseBaseX]]px; top: [[coords2.transverseBaseY]]px;">
+    <div class="base dot" style$="left: [[coords2.transverseBaseX]]px; top: [[coords2.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles2]]deg); width: [[misc2.transverseLegLength]]px;"></div>
     </div>
-    <div class="base dot left" style$="left: [[coords3.transverseBaseX]]px; top: [[coords3.transverseBaseY]]px;">
+    <div class="base dot" style$="left: [[coords3.transverseBaseX]]px; top: [[coords3.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles3]]deg); width: [[misc3.transverseLegLength]]px;"></div>
     </div>
-    <div class="base dot right" style$="right: [[coords4.transverseBaseX]]px; top: [[coords4.transverseBaseY]]px;">
+    <div class="base dot" style$="left: [[coords4.transverseBaseX]]px; top: [[coords4.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles4]]deg); width: [[misc4.transverseLegLength]]px;"></div>
     </div>
-    <div class="base dot left" style$="left: [[coords5.transverseBaseX]]px; top: [[coords5.transverseBaseY]]px;">
+    <div class="base dot" style$="left: [[coords5.transverseBaseX]]px; top: [[coords5.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles5]]deg); width: [[misc5.transverseLegLength]]px;"></div>
     </div>
-    <div class="base dot right" style$="right: [[coords6.transverseBaseX]]px; top: [[coords6.transverseBaseY]]px;">
+    <div class="base dot" style$="left: [[coords6.transverseBaseX]]px; top: [[coords6.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles6]]deg); width: [[misc6.transverseLegLength]]px;"></div>
     </div>
     
@@ -109,7 +100,7 @@
       <div class="circle" style$="height: [[circles1.diameter]]px; width: [[circles1.diameter]]px;"></div>
     </div>
     <!-- movement circle 2 -->
-    <div class="circle-center" style$="right: [[circles2.x]]px; top: [[circles2.y]]px;">
+    <div class="circle-center" style$="left: [[circles2.x]]px; top: [[circles2.y]]px;">
       <div class="circle" style$="height: [[circles2.diameter]]px; width: [[circles2.diameter]]px;"></div>
     </div>
     <!-- movement circle 3 -->
@@ -117,7 +108,7 @@
       <div class="circle" style$="height: [[circles3.diameter]]px; width: [[circles3.diameter]]px;"></div>
     </div>
     <!-- movement circle 4 -->
-    <div class="circle-center" style$="right: [[circles4.x]]px; top: [[circles4.y]]px;">
+    <div class="circle-center" style$="left: [[circles4.x]]px; top: [[circles4.y]]px;">
       <div class="circle" style$="height: [[circles4.diameter]]px; width: [[circles4.diameter]]px;"></div>
     </div>
     <!-- movement circle 5 -->
@@ -125,25 +116,25 @@
       <div class="circle" style$="height: [[circles5.diameter]]px; width: [[circles5.diameter]]px;"></div>
     </div>
     <!-- movement circle 6 -->
-    <div class="circle-center" style$="right: [[circles6.x]]px; top: [[circles6.y]]px;">
+    <div class="circle-center" style$="left: [[circles6.x]]px; top: [[circles6.y]]px;">
       <div class="circle" style$="height: [[circles6.diameter]]px; width: [[circles6.diameter]]px;"></div>
     </div>
     
     <!-- movement pointers -->
-    <div class="pointer dot left" style$="left: [[pointers1.x]]px; top: [[pointers1.y]]px;"></div>
-    <div class="pointer dot right" style$="right: [[pointers2.x]]px; top: [[pointers2.y]]px;"></div>
-    <div class="pointer dot left" style$="left: [[pointers3.x]]px; top: [[pointers3.y]]px;"></div>
-    <div class="pointer dot right" style$="right: [[pointers4.x]]px; top: [[pointers4.y]]px;"></div>
-    <div class="pointer dot left" style$="left: [[pointers5.x]]px; top: [[pointers5.y]]px;"></div>
-    <div class="pointer dot right" style$="right: [[pointers6.x]]px; top: [[pointers6.y]]px;"></div>
+    <div class="pointer dot" style$="left: [[pointers1.x]]px; top: [[pointers1.y]]px;"></div>
+    <div class="pointer dot" style$="left: [[pointers2.x]]px; top: [[pointers2.y]]px;"></div>
+    <div class="pointer dot" style$="left: [[pointers3.x]]px; top: [[pointers3.y]]px;"></div>
+    <div class="pointer dot" style$="left: [[pointers4.x]]px; top: [[pointers4.y]]px;"></div>
+    <div class="pointer dot" style$="left: [[pointers5.x]]px; top: [[pointers5.y]]px;"></div>
+    <div class="pointer dot" style$="left: [[pointers6.x]]px; top: [[pointers6.y]]px;"></div>
     
     <!-- cursors -->
-    <div class="cursor dot left" style$="left: [[coords1.transverseCursorX]]px; top: [[coords1.transverseCursorY]]px;"></div>
-    <div class="cursor dot right" style$="right: [[coords2.transverseCursorX]]px; top: [[coords2.transverseCursorY]]px;"></div>
-    <div class="cursor dot left" style$="left: [[coords3.transverseCursorX]]px; top: [[coords3.transverseCursorY]]px;"></div>
-    <div class="cursor dot right" style$="right: [[coords4.transverseCursorX]]px; top: [[coords4.transverseCursorY]]px;"></div>
-    <div class="cursor dot left" style$="left: [[coords5.transverseCursorX]]px; top: [[coords5.transverseCursorY]]px;"></div>
-    <div class="cursor dot right" style$="right: [[coords6.transverseCursorX]]px; top: [[coords6.transverseCursorY]]px;"></div>
+    <div class="cursor dot" style$="left: [[coords1.transverseCursorX]]px; top: [[coords1.transverseCursorY]]px;"></div>
+    <div class="cursor dot" style$="left: [[coords2.transverseCursorX]]px; top: [[coords2.transverseCursorY]]px;"></div>
+    <div class="cursor dot" style$="left: [[coords3.transverseCursorX]]px; top: [[coords3.transverseCursorY]]px;"></div>
+    <div class="cursor dot" style$="left: [[coords4.transverseCursorX]]px; top: [[coords4.transverseCursorY]]px;"></div>
+    <div class="cursor dot" style$="left: [[coords5.transverseCursorX]]px; top: [[coords5.transverseCursorY]]px;"></div>
+    <div class="cursor dot" style$="left: [[coords6.transverseCursorX]]px; top: [[coords6.transverseCursorY]]px;"></div>
     
     <div class="baseCenterPoint" style$="left: [[baseCenterCoords.x]]px; top: [[baseCenterCoords.y]]px;">
       <div class="baseDirection" style$="transform: translateX(-50%) rotate([[baseDirection]]deg); height: [[baseDirectionLength]]px;"></div>
