@@ -2,7 +2,6 @@
 <link rel="import" href="../views/level-modifier-view.html">
 <link rel="import" href="../views/tilt-modifier-view.html">
 <link rel="import" href="../views/shift-modifier-view.html">
-<link rel="import" href="../views/transverse-animation-view.html">
 <link rel="import" href="../views/rotation-modifier-view.html">
 <link rel="import" href="../views/direction-joystick-view.html">
 <link rel="import" href="../views/turn-joystick-view.html">
@@ -62,7 +61,7 @@
     <!-- selection -->
     <template is="dom-if" if="[[computeView('none', view)]]" restamp>
       <section class="selection-section">
-        <select value="{{view::change}}" multiple size="15">
+        <select value="{{view::change}}" multiple size="14">
           <option value="digital-joystick">Joystick Demo</option>
           <option value="level-modifier-view">Level Modifier View</option>
           <option value="rotation-modifier-view">Rotation Modifier View</option>
@@ -74,7 +73,6 @@
           <option value="relative-transverse-view">Relative Transverse View</option>
           <option value="coronal-view">Coronal View</option>
           <option value="transverse-view">Transverse View</option>
-          <option value="transverse-animation-view">Transverse Animation View</option>
           <option value="sequencer-view">Sequencer View</option>
           <option value="movement-controller-view">Movement Controller View</option>
           <option value="movement-inspector-view">Movement Inspector View</option>
@@ -109,11 +107,6 @@
     <!-- shift modifier view -->
     <template is="dom-if" if="[[computeView('shift-modifier-view', view)]]" restamp>
       <shift-modifier-view></shift-modifier-view>
-    </template>
-    
-    <!-- transverse animation view -->
-    <template is="dom-if" if="[[computeView('transverse-animation-view', view)]]" restamp>
-      <transverse-animation-view></transverse-animation-view>
     </template>
     
     <!-- direction joystick view -->
