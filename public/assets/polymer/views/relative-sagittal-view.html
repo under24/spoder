@@ -57,8 +57,8 @@
         tibia-length="[[scaleInput(metaData.tibiaLength, useScaling, scaling)]]"
         reach-radius="[[scaleInput(metaData.combinedLegsLength, useScaling, scaling)]]"
         impossible-range="[[scaleInput(metaData.impossibleRange, useScaling, scaling)]]"
-        femur-screen-angle="[[angles.femurScreenAngle]]"
-        tibia-screen-angle="[[angles.tibiaScreenAngle]]"
+        femur-screen-angle="[[computeFemurAngle(angles.femurScreenAngle)]]"
+        tibia-screen-angle="[[computeTibiaAngle(angles.tibiaScreenAngle)]]"
         distance-line="[[computeDistanceLine(misc, useScaling, scaling)]]"
         boundary-ball="[[computeBoundaryBall(misc, offsetX, useScaling,  scaling)]]"
         transverse-reach-points="[[computeTransverseReachPoints(misc, offsetX, useScaling, scaling)]]"
@@ -209,6 +209,18 @@
       
       computeSide(legId) {
         return GU.getLegSide(legId);
+      }
+      
+      computeFemurAngle(femurAngle) {
+        if (this.side === 'right') femurAngle = MU.flipNumber(femurAngle);
+        
+        return femurAngle;
+      }
+      
+      computeTibiaAngle(tibiaAngle) {
+        if (this.side === 'right') tibiaAngle = MU.flipNumber(tibiaAngle);
+        
+        return tibiaAngle;
       }
       
       scaleOutput(val) {

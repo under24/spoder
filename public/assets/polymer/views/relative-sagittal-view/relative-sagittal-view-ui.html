@@ -112,6 +112,12 @@
         top: 0px;
         width: 500px;
       }
+      :host([side=left]) .floor {
+        left: 0px;
+      }
+      :host([side=right]) .floor {
+        right: 0px;
+      }
       .transverseReachLine {
         border-top: 2px dotted green;
         top: 50%;
@@ -126,8 +132,8 @@
     </style>
     
     <div id="base" style$="[[computeBase(xy, side)]]">
-      <div class="femur" style$="[[computeFemur(femurLength, femurScreenAngle)]]">
-        <div class="tibia" style$="[[computeTibia(tibiaLength, tibiaScreenAngle, side)]]"></div>
+      <div class="femur" style$="width: [[femurLength]]px; transform: rotate([[femurScreenAngle]]deg);">
+        <div class="tibia" style$="width: [[tibiaLength]]px; transform: rotate([[tibiaScreenAngle]]deg);"></div>
       </div>
       
       <div class="reachRadius" style$="[[computeReachRadius(reachRadius, side)]]"></div>
@@ -229,14 +235,6 @@
         return x + y;
       }
       
-      computeTibia(tibiaLength, tibiaScreenAngle, side) {
-        var width = `width: ${tibiaLength}px;`;
-        
-        var transform = `transform: rotate(${MU.flipNumber(tibiaScreenAngle)}deg);`;
-        
-        return width + transform;
-      }
-      
       computeReachRadius(reachRadius, side) {
         switch (side) {
           case 'left':
@@ -271,14 +269,6 @@
           case 'right':
             var transform = `transform: rotate(-${distanceLine.angle}deg);`; break;
         }
-        
-        return width + transform;
-      }
-      
-      computeFemur(femurLength, femurScreenAngle) {
-        var width = `width: ${femurLength}px;`;
-        
-        var transform = `transform: rotate(${MU.flipNumber(femurScreenAngle)}deg);`;
         
         return width + transform;
       }
