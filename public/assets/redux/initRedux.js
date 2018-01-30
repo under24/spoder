@@ -4,7 +4,7 @@ const { combineReducers, createStore } = Redux;
 
 const baseReducer = combineReducers({
   centerCoords: baseCenterCoordsReducer,
-  coxaAttachmentAngle: baseCoxaAttachmentAngleReducer,
+  coxaAttachmentAngles: baseCoxaAttachmentAnglesReducer,
   direction: baseDirectionReducer
 });
 

@@ -22,6 +22,9 @@
           coords: {
             statePath: 'coords',
             observer: 'observeCoords'
+          },
+          coxaAttachmentAngles: {
+            statePath: 'base.coxaAttachmentAngles'
           }
         };
       }
@@ -137,26 +140,22 @@
         return { screen: A2Screen, servo: +A2Servo.toFixed(0) };
       }
       
-      correctScreenSideAngle(angle, legId, sideToCorrect) {
-        if (GU.getLegSide(legId) === sideToCorrect)
-          angle = MU.flipNumber(angle);
-          
-        return angle;
-      }
-      
-      correctCoxaOffset(legId, coxaAngles) {
-        // legs 3 and 4 have 0 offset rotation 
+      applyCoxaAttachmentAngle(legId, coxaServoAngle) {
+        // correct angle so it is 0 deg
         switch (legId) {
           case 1:
+            coxaServoAngle -= this.coxaAttachmentAngles[legId]; break;
           case 2:
-            coxaAngles.servo += 45; break;
+            coxaServoAngle -= this.coxaAttachmentAngles[legId]; break;
+          case 4:
+            coxaServoAngle -= this.coxaAttachmentAngles[legId]; break;
           case 5:
+            coxaServoAngle -= this.coxaAttachmentAngles[legId]; break;
           case 6:
-            coxaAngles.servo += -45; break;
+            coxaServoAngle -= this.coxaAttachmentAngles[legId]; break;
         }
         
-        // correct angle if after applying coxa offset the angle is outside 0-360 range
-        coxaAngles.servo = GU.correctAngle(coxaAngles.servo);
+        return GU.correctAngle(coxaServoAngle);
       }
       
       emitAngles(angles) {

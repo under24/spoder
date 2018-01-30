@@ -30,8 +30,8 @@
         var circleDiameter = transverseReachRadius - this.metaData.impossibleRange,
             tbx = coords.transverseBaseX,
             tby = coords.transverseBaseY,
-            coxaAttachment = this.base.coxaAttachmentAngle[legId],
             side = GU.getLegSide(legId),
+            coxaAttachment = this.base.coxaAttachmentAngles[legId],
             // sum up coxaAttachment + baseDirection - turnJoystick
             angle = this.calcAngle(side, coxaAttachment, baseDirection),
             // distance to the center of the circle + offset from impossible range
