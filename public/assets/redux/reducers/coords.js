@@ -317,10 +317,10 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
     case "APPLY_ROTATION_MODIFIER_TO_COORDS":
       {
         let newState = {},
-            baseCenterCoords = RU.getBaseCenter(state);
+            baseCenterCoords = MU.getBaseCenter(state);
         
         for (let legId = 1; legId <= 6; legId++) {
-          let rotatedCoords = RU.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[legId]);
+          let rotatedCoords = MU.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[legId]);
           
           let finalCoords = {
             transverseBaseX: rotatedCoords.x,
