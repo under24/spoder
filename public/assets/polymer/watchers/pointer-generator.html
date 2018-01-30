@@ -44,19 +44,15 @@
         var pointers = {};
         
         for (let legId = 1; legId <= 6; legId++) {
-          let pointer = {};
           
-          switch (GU.getLegSide(legId)) {
-            case 'left':
-              pointer.x = circles[legId].x - circles[legId].radius * (directionJoystick.x / 100); break;
-            case 'right':
-              pointer.x = circles[legId].x + circles[legId].radius * (directionJoystick.x / 100); break;
-          }
-          pointer.y = circles[legId].y - circles[legId].radius * (directionJoystick.y / 100);
+          let pointer = {
+            x: circles[legId].x - circles[legId].radius * (directionJoystick.x / 100),
+            y: circles[legId].y - circles[legId].radius * (directionJoystick.y / 100)
+          };
           
           if (applyDirectionAndTurnAngles)
             // apply baseDirection + turnJoystick
-            pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.normalizedX, GU.getLegSide(legId));
+            pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.normalizedX);
           
           // filter-in unique value before dispatching
           GU.sieveOutAndGatherUp(pointer, this.pointers[legId], pointers, legId);
@@ -65,7 +61,7 @@
         return pointers;
       }
       
-      applyDirectionAndTurn(pointer, circle, baseDirection, turn, side) {
+      applyDirectionAndTurn(pointer, circle, baseDirection, turn) {
         var dx = pointer.x - circle.x,
             dy = pointer.y - circle.y,
             distance = MU.getDistance(dx, dy),
@@ -74,12 +70,7 @@
         // angle correction
         circleToPointerAngle = GU.correctAngle(circleToPointerAngle);
         
-        switch (side) {
-          case 'left':
-            return MU.getCoordsFromDistanceAndAngle(circle.x, circle.y, circleToPointerAngle + baseDirection - turn, distance);
-          case 'right':
-            return MU.getCoordsFromDistanceAndAngle(circle.x, circle.y, circleToPointerAngle - baseDirection + turn, distance);
-        }
+        return MU.getCoordsFromDistanceAndAngle(circle.x, circle.y, circleToPointerAngle + baseDirection - turn, distance);
       }
       
       dispatchPointers(payload) {
