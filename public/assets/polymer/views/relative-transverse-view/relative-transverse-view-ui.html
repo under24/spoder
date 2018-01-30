@@ -79,7 +79,7 @@
       }
     </style>
     
-    <div id="base" style$="left: [[xy.x]]px; top: [[xy.y]]px;">
+    <div id="base" style$="left: [[baseCoords.x]]px; top: [[baseCoords.y]]px;">
       <div class="coxa" style$="width: [[legLength]]px; transform: rotate([[coxaScreenAngle]]deg"></div>
       <div class="reachRadius" style$="[[computeReachRadius(reachRadius, baseCoxaAngle)]]"></div>
       <div class="baseInvalidRange" style$="[[computeBaseInvalidRange(baseCoxaAngle, impossibleRange)]]"></div>
@@ -97,7 +97,7 @@
       static get is() { return 'relative-transverse-view-ui'; }
       static get properties() {
         return {
-          xy: Object,
+          baseCoords: Object,
           coxaScreenAngle: Number,
           reachRadius: Number,
           impossibleRange: Number,
