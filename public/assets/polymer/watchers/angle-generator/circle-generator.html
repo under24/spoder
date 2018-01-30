@@ -42,7 +42,7 @@
         // if the turn joystick is not centered (!== 0) find circleCenterCoords + solidX/Y 
         if (this.turnJoystick.normalizedX) {
           // turn base coords
-          var { x: turnedBaseX, y: turnedBaseY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.normalizedX), coords, side);
+          var { x: turnedBaseX, y: turnedBaseY } = RU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.normalizedX), coords);
           // find circle center coords (fluent)
           var circleCenterCoords = MU.getCoordsFromDistanceAndAngle(turnedBaseX, turnedBaseY, angle, distance);
           

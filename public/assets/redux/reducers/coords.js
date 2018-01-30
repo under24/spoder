@@ -320,7 +320,7 @@ const coordsReducer = (state = coordsReducerInitState, action) => {
             baseCenterCoords = RU.getBaseCenter(state);
         
         for (let legId = 1; legId <= 6; legId++) {
-          let rotatedCoords = RU.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[legId], GU.getLegSide(legId));
+          let rotatedCoords = RU.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[legId]);
           
           let finalCoords = {
             transverseBaseX: rotatedCoords.x,
