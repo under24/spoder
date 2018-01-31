@@ -1,77 +1,77 @@
 'use strict';
 
 let movementCircleReducerInitState = {
-  1: {
-    diameter: null,
-    fluentDiameter: null,
-    fluentRadius: null,
+  1: {    
     fluentTransverseBaseX: null,
     fluentTransverseBaseY: null,
-    radius: null,
+    fluentX: null,
+    fluentY: null,
+    fluentDiameter: null,
+    fluentRadius: null,
     solidX: null,
     solidY: null,
-    x: null,
-    y: null
+    solidDiameter: null,
+    solidRadius: null
   },
   2: {
-    diameter: null,
-    fluentDiameter: null,
-    fluentRadius: null,
     fluentTransverseBaseX: null,
     fluentTransverseBaseY: null,
-    radius: null,
+    fluentX: null,
+    fluentY: null,
+    fluentDiameter: null,
+    fluentRadius: null,
     solidX: null,
     solidY: null,
-    x: null,
-    y: null
+    solidDiameter: null,
+    solidRadius: null
   },
   3: {
-    diameter: null,
-    fluentDiameter: null,
-    fluentRadius: null,
     fluentTransverseBaseX: null,
     fluentTransverseBaseY: null,
-    radius: null,
+    fluentX: null,
+    fluentY: null,
+    fluentDiameter: null,
+    fluentRadius: null,
     solidX: null,
     solidY: null,
-    x: null,
-    y: null
+    solidDiameter: null,
+    solidRadius: null
   },
   4: {
-    diameter: null,
-    fluentDiameter: null,
-    fluentRadius: null,
     fluentTransverseBaseX: null,
     fluentTransverseBaseY: null,
-    radius: null,
+    fluentX: null,
+    fluentY: null,
+    fluentDiameter: null,
+    fluentRadius: null,
     solidX: null,
     solidY: null,
-    x: null,
-    y: null
+    solidDiameter: null,
+    solidRadius: null
   },
   5: {
-    diameter: null,
-    fluentDiameter: null,
-    fluentRadius: null,
     fluentTransverseBaseX: null,
     fluentTransverseBaseY: null,
-    radius: null,
+    fluentX: null,
+    fluentY: null,
+    fluentDiameter: null,
+    fluentRadius: null,
     solidX: null,
     solidY: null,
-    x: null,
-    y: null
+    solidDiameter: null,
+    solidRadius: null
   },
   6: {
-    diameter: null,
-    fluentDiameter: null,
-    fluentRadius: null,
     fluentTransverseBaseX: null,
     fluentTransverseBaseY: null,
-    radius: null,
+    fluentX: null,
+    fluentY: null,
+    fluentDiameter: null,
+    fluentRadius: null,
     solidX: null,
     solidY: null,
-    x: null,
-    y: null
+    solidDiameter: null,
+    solidRadius: null
   }
 }
 
