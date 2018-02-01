@@ -1,8 +1,8 @@
 'use strict';
 
 var socketReducerInitState = {
-  connected: false
-}
+  connected: true
+};
 
 var socketReducer = (state = socketReducerInitState, action) => {
   switch (action.type) {
