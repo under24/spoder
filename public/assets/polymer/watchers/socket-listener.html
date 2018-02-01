@@ -13,6 +13,16 @@
       connectedCallback() {
         super.connectedCallback();
         
+        // socket connected
+        socket.on('connect', function() {
+          store.dispatch({ type: "SOCKET_STATUS_CHANGED", payload: { connected: true } });
+        });
+        // socket disconnected
+        socket.on('disconnect', function() {
+          store.dispatch({ type: "SOCKET_STATUS_CHANGED", payload: { connected: false } });
+        });
+        
+        
         socket.on('right-analog-stick-moved', (data) => {
           
           store.dispatch({
