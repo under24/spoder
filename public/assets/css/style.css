@@ -60,8 +60,8 @@ body {
   vertical-align: middle;
 }
 .led.green {
-  background: rgba(0, 128, 0, 0.7);
+  background: #2eb62e;
 }
 .led.red {
-  background: rgba(244, 67, 54, 0.7);
+  background: #ff1100;
 }
