@@ -62,7 +62,7 @@
     </style>
     
     <!-- header -->
-    <header>
+    <header id="header">
       <div class="header-title">Settings dialog <[[settingsView]]></div>
       <!-- close settings dialog -->
       <div class="close-settings-dialog" on-click="hide">✕</div>
@@ -221,12 +221,51 @@
       
       connectedCallback() {
         super.connectedCallback();
+        
+        // event to show the dialog window
         window.addEventListener('open-settings-dialog', this.handleSettingsEvent.bind(this));
+        // event to handle the dialog window drag
+        this.$.header.addEventListener('mousedown', this.handleHeaderMousedown.bind(this));
       }
       
       disconnectedCallback() {
         super.disconnectedCallback();
+        
+        // event to show the dialog window
         window.removeEventListener('open-settings-dialog', this.handleSettingsEvent.bind(this));
+        // event to handle the dialog window drag
+        this.$.header.removeEventListener('mousedown', this.handleHeaderMousedown.bind(this));
+      }
+      
+      handleHeaderMousedown(e) {
+        var clickCoords = { x: e.pageX, y: e.pageY };
+
+        document.onmousemove = e => {
+          let diffX = clickCoords.x - e.pageX,
+              diffY = clickCoords.y - e.pageY;
+              
+          // the position is the same
+          if (diffX === 0 && diffY === 0) return;
+          
+          // ignore 0 value
+          if (diffX !== 0) {
+            this.left -= diffX;
+            clickCoords.x = e.pageX;
+          }
+          if (diffY !== 0) {
+            this.top -= diffY;
+            clickCoords.y = e.pageY;
+          }
+          
+          e.preventDefault();
+          e.stopPropagation();
+        };
+        document.onmouseup = () => {
+          document.onmousemove = null;
+          document.onmouseup = null;
+        }
+        e.preventDefault();
+        e.stopPropagation()
       }
       
       handleSettingsEvent(event) {
