@@ -276,8 +276,14 @@
       }
       
       show() {
+        // check if this is the first time
+        if (!this.positionInitialized) {
+          // calc the center position of the screen
+          this.initializePosition();
+        }
+        
+        // show the dialog window
         this.visible = true;
-        this.initializePosition();
       }
       
       hide() {
@@ -312,6 +318,9 @@
           
         if (!this.left)
           this.left = document.body.offsetWidth / 2;
+        
+        // set the flag which prevents second time initializing (centering) the dialog window
+        this.positionInitialized = true;
       }
       
       observeTop(top) {
