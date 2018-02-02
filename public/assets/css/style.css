@@ -44,7 +44,7 @@ body {
   height: 25px;
   line-height: 25px;
   padding: 0px 125px;
-  /* text-align: right; */
+  color: #888888;
   border-bottom: 1px dotted rgba(0, 0, 0, 0.25);
   background: rgba(255, 255, 255, 0.9);
   z-index: 1;
