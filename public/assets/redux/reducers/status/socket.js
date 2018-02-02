@@ -1,15 +1,17 @@
 'use strict';
 
-var socketReducerInitState = {
-  connected: true
-};
+{
+  let socketReducerInitState = {
+    connected: true
+  };
 
-var socketReducer = (state = socketReducerInitState, action) => {
-  switch (action.type) {
-    case "SOCKET_STATUS_CHANGED":
-      {
-        return Object.assign({}, state, action.payload);
-      }
-  }
-  return state;
+  var socketReducer = (state = socketReducerInitState, action) => {
+    switch (action.type) {
+      case "SOCKET_STATUS_CHANGED":
+        {
+          return Object.assign({}, state, action.payload);
+        }
+    }
+    return state;
+  }  
 }

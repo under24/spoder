@@ -1,18 +1,20 @@
 'use strict';
 
-let femurLength = 100;
-let tibiaLength = 140;
-let combinedLegsLength = femurLength + tibiaLength;
-let impossibleRange = Math.abs(femurLength - tibiaLength);
+{
+  let femurLength = 100,
+      tibiaLength = 140,
+      combinedLegsLength = femurLength + tibiaLength,
+      impossibleRange = Math.abs(femurLength - tibiaLength);
 
-let metaDataReducerInitState = {
-  // coxaLength: 20,
-  femurLength,
-  tibiaLength,
-  combinedLegsLength,
-  impossibleRange
-};
+  let metaDataReducerInitState = {
+    // coxaLength: 20,
+    femurLength,
+    tibiaLength,
+    combinedLegsLength,
+    impossibleRange
+  };
 
-const metaDataReducer = (state = metaDataReducerInitState, action) => {
-  return state;
+  var metaDataReducer = (state = metaDataReducerInitState, action) => {
+    return state;
+  }
 }
