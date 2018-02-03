@@ -11,10 +11,9 @@
     // get settings from local storage
     let localSettings = LSU.get('coronalView');
     // if some settings are present
-    if (localSettings) {
+    if (localSettings)
       // merge them with the init state
       viewSettingsCoronalViewReducerInitState = Object.assign({}, viewSettingsCoronalViewReducerInitState, JSON.parse(localSettings));
-    }  
   }
 
   var viewSettingsCoronalViewReducer = (state = viewSettingsCoronalViewReducerInitState, action) => {

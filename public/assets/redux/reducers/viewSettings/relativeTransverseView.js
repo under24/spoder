@@ -17,10 +17,9 @@
     // get settings from local storage
     let localSettings = LSU.get('relativeTransverseView');
     // if some settings are present
-    if (localSettings) {
+    if (localSettings)
       // merge them with the init state
       viewSettingsRelativeTransverseViewReducerInitState = Object.assign({}, viewSettingsRelativeTransverseViewReducerInitState, JSON.parse(localSettings));
-    }  
   }
 
   var viewSettingsRelativeTransverseViewReducer = (state = viewSettingsRelativeTransverseViewReducerInitState, action) => {

@@ -12,10 +12,9 @@
     // get settings from local storage
     let localSettings = LSU.get('relativeSagittalView');
     // if some settings are present
-    if (localSettings) {
+    if (localSettings)
       // merge them with the init state
       viewSettingsRelativeSagittalViewReducerInitState = Object.assign({}, viewSettingsRelativeSagittalViewReducerInitState, JSON.parse(localSettings));
-    }  
   }
 
   var viewSettingsRelativeSagittalViewReducer = (state = viewSettingsRelativeSagittalViewReducerInitState, action) => {
