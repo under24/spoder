@@ -1,7 +1,7 @@
 'use strict';
 
 // GU == GenericUtils
-let GU = {
+var GU = {
   getLegSide(legId) {
     switch (legId) {
       case 1:

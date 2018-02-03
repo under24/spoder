@@ -1,7 +1,7 @@
 'use strict';
 
 // SU == SequencerUtils
-let SU = {
+var SU = {
   generateSequenceTimeline(blueprint, tps, duration, amountOfTicks = this.calcAmountOfTicks(tps, duration)) {
     // create a timeline object
     let timeline = this.createTimeline(amountOfTicks);

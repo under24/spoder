@@ -1,7 +1,7 @@
 'use strict';
 
 // CU == CoordsUtils
-let CU = {
+var CU = {
   aggregateCoords(state, payload, additional) {
     var coords = Object.assign({}, state, payload, additional);
     
