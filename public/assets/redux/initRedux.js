@@ -1,6 +1,6 @@
 'use strict';
 
-const { combineReducers, createStore } = Redux;
+const { combineReducers, createStore, applyMiddleware } = Redux;
 
 const baseReducer = combineReducers({
   centerCoords: baseCenterCoordsReducer,
@@ -53,8 +53,22 @@ const reducers = combineReducers({
   viewSettings: viewSettingsReducer
 });
 
+// const logger = store => next => action => {
+//   console.group(action.type);
+//   console.info('dispatching', action);
+//   let result = next(action);
+//   console.log('next state', store.getState());
+//   console.groupEnd(action.type);
+//   return result;
+// 
+//   return action;
+// }
+
 const store = createStore(
-  reducers, 
+  reducers,
+  // applyMiddleware(
+  //   // logger,
+  // )
   // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
