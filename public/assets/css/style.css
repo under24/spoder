@@ -17,7 +17,7 @@ body {
   flex: 1;
   display:flex;
   flex-direction:column;
-  border-left: 1px dotted rgba(0, 0, 0, 0.25);
+  border-left: 1px solid #ebebeb;
 }
 .flex-column-container:first-of-type {
   border-left: none;
@@ -31,7 +31,7 @@ body {
   position:relative;
 }
 .flex-row-box:first-of-type {
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid #ebebeb;
 }
 .main {
   width: 100%;
@@ -41,12 +41,11 @@ body {
   flex-direction: column;
 }
 .status-bar {
-  height: 25px;
-  line-height: 25px;
+  height: 35px;
+  line-height: 35px;
   padding: 0px 125px;
-  color: #888888;
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.25);
-  background: rgba(255, 255, 255, 0.9);
+  color: #777;
+  background: #fafafa;
   z-index: 1;
 }
 .status-bar-right-holder {
