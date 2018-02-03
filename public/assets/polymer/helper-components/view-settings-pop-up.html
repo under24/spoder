@@ -10,47 +10,57 @@
         background-color: white;
         transform: translate(-50%,-50%);
         box-sizing: border-box;
-        box-shadow: rgba(0, 0, 0, 0.14) 0px 16px 24px 2px, rgba(0, 0, 0, 0.12) 0px 6px 30px 5px, rgba(0, 0, 0, 0.4) 0px 8px 10px -5px; 
+        box-shadow: rgba(0, 0, 0, 0.14) 0px 16px 24px 2px, rgba(0, 0, 0, 0.12) 0px 6px 30px 5px, rgba(0, 0, 0, 0.4) 0px 8px 10px -5px;
+        flex-direction: column;
       }
       :host([visible]) {
-        display: inline-block;
+        display: flex;
       }
       .close-settings-dialog {
         display: inline-block;
         font-size: 14px;
         cursor: pointer;
-        background-color: rgba(255, 255, 255, 0.9);
         color: rgba(69, 68, 83, 0.7);
         z-index: 1;
-        right: 12px;
+        right: 10px;
         position: absolute;
-        top: 6px;
+        padding: 0px 15px;
       }
       .close-settings-dialog:hover {
         color: #454453;
       }
       header {
-        padding: 4px 25px 4px;
-        border-bottom: 1px dotted rgba(0, 0, 0, 0.25);
+        padding: 0px 28px;
         cursor: move;
+        height: 55px;
+        line-height: 55px;
+        background-color: rgb(245, 245, 245);
+        color: rgba(0, 0, 0, 0.87);
       }
       header .header-title {
         display: inline-block;
       }
       .content {
-        padding: 10px;
+        padding: 28px;
         display: flex;
-      }
-      .content > section {
         flex: 1;
+      }
+      .content > section.settings {
+        flex: 1;
+      }
+      .content > section.reset {
+        flex: 0.5;
+        align-self: flex-end;
+        text-align: right;
       }
       fieldset {
         display: inline-block;
         box-sizing: border-box;
-        margin: 10px auto;
+        margin: 0px;
         border-width: 0px;
         border-style: hidden;
         vertical-align: top;
+        padding: 0px;
       }
       p {
         margin-left: 16px;
@@ -71,7 +81,7 @@
     <div class="content">
       <!-- relative transverse-view -->
       <template is="dom-if" if="[[computeSettingsView('relative-transverse-view', settingsView)]]" restamp>
-        <section>
+        <section class="settings">
           <fieldset>
             <legend>View options:</legend>
             <p>
@@ -89,7 +99,7 @@
             </p>
           </fieldset>
         </section>
-        <section>
+        <section class="settings">
           <fieldset>
             <legend>UI options:</legend>
             <p>
@@ -119,10 +129,13 @@
             </p>
           </fieldset>
         </section>
+        <section class="reset">
+          <button on-click="dispatchResetView" name="RELATIVE_TRANSVERSE_VIEW_SETTINGS_RESET">Reset view settings</button>
+        </section>
       </template>
       <!-- relative sagittal view -->
       <template is="dom-if" if="[[computeSettingsView('relative-sagittal-view', settingsView)]]" restamp>
-        <section>
+        <section class="settings">
           <fieldset>
             <legend>View options:</legend>
             <p>
@@ -140,10 +153,13 @@
             </p>
           </fieldset>
         </section>
+        <section class="reset">
+          <button on-click="dispatchResetView" name="RELATIVE_SAGITTAL_VIEW_SETTINGS_RESET">Reset view settings</button>
+        </section>
       </template>
       <!-- coronal view -->
       <template is="dom-if" if="[[computeSettingsView('coronal-view', settingsView)]]" restamp>
-        <section>
+        <section class="settings">
           <fieldset>
             <legend>View options:</legend>
             <p>
@@ -161,10 +177,13 @@
             </p>
           </fieldset>
         </section>
+        <section class="reset">
+          <button on-click="dispatchResetView" name="CORONAL_VIEW_SETTINGS_RESET">Reset view settings</button>
+        </section>
       </template>
       <!-- transverse view -->
       <template is="dom-if" if="[[computeSettingsView('transverse-view', settingsView)]]" restamp>
-        <section>
+        <section class="settings">
           <fieldset>
             <legend>View options:</legend>
             <p>
@@ -181,6 +200,9 @@
               <input type="range" name="scaling" disabled="[[!transverseViewSettings.useScaling]]" value="[[transverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="handleRange" />
             </p>
           </fieldset>
+        </section>
+        <section class="reset">
+          <button on-click="dispatchResetView" name="TRANSVERSE_VIEW_SETTINGS_RESET">Reset view settings</button>
         </section>
       </template>
     </div>
@@ -310,6 +332,10 @@
           type: `${view}_SETTINGS_CHANGED`,
           payload: { [e.target.name]: +e.target.value }
         });
+      }
+      
+      dispatchResetView(e) {
+        store.dispatch({ type: e.target.name });
       }
       
       initializePosition() {
