@@ -116,7 +116,7 @@
             statePath: 'viewSettings.relativeSagittalView.useOffsets'
           },
           offsetX: {
-            computed: 'computeOffsetX(useOffsets, baseCenterCoords, side, legId)'
+            computed: 'computeOffsetX(useOffsets, baseCenterCoords, legId)'
           },
           side: {
             computed: 'computeSide(legId)',
@@ -237,18 +237,11 @@
         return val;
       }
       
-      computeOffsetX(useOffsets, baseCenterCoords, side) {
+      computeOffsetX(useOffsets, baseCenterCoords) {
         // do not use offsets
         if (!this.useOffsets) return 0;
         
-        switch (side) {
-          case 'left':
-            var dist = MU.getDistance(this.coords.transverseBaseX - baseCenterCoords.x, this.coords.transverseBaseY - baseCenterCoords.y);
-            break;
-          case 'right':
-            var dist = MU.getDistance(MU.flipNumber(this.coords.transverseBaseX) - baseCenterCoords.x, this.coords.transverseBaseY - baseCenterCoords.y);
-            break;
-        }
+        var dist = MU.getDistance(this.coords.transverseBaseX - baseCenterCoords.x, this.coords.transverseBaseY - baseCenterCoords.y);
         
         return dist - this.coords.sagittalBaseX;
       }
