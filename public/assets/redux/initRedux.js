@@ -1,75 +1,77 @@
 'use strict';
 
-const { combineReducers, createStore, applyMiddleware } = Redux;
+{
+  let { combineReducers, createStore, applyMiddleware } = Redux;
 
-const baseReducer = combineReducers({
-  centerCoords: baseCenterCoordsReducer,
-  coxaAttachmentAngles: baseCoxaAttachmentAnglesReducer,
-  direction: baseDirectionReducer
-});
+  let baseReducer = combineReducers({
+    centerCoords: baseCenterCoordsReducer,
+    coxaAttachmentAngles: baseCoxaAttachmentAnglesReducer,
+    direction: baseDirectionReducer
+  });
 
-const modifierReducer = combineReducers({
-  level: levelReducer,
-  rotation: rotationReducer,
-  shift: shiftReducer,
-  tilt: tiltReducer
-});
+  let modifierReducer = combineReducers({
+    level: levelReducer,
+    rotation: rotationReducer,
+    shift: shiftReducer,
+    tilt: tiltReducer
+  });
 
-const movementReducer = combineReducers({
-  circles: movementCircleReducer,
-  directionJoystick: movementDirectionJoystickReducer,
-  iteration: movementInterationReducer,
-  pointers: movementPointerReducer,
-  settings: movementSettingsReducer,
-  turnJoystick: movementTurnJoystickReducer
-});
+  let movementReducer = combineReducers({
+    circles: movementCircleReducer,
+    directionJoystick: movementDirectionJoystickReducer,
+    iteration: movementInterationReducer,
+    pointers: movementPointerReducer,
+    settings: movementSettingsReducer,
+    turnJoystick: movementTurnJoystickReducer
+  });
 
-const statusReducer = combineReducers({
-  arduino: arduinoReducer,
-  joystick: joystickReducer,
-  socket: socketReducer
-});
+  let statusReducer = combineReducers({
+    arduino: arduinoReducer,
+    joystick: joystickReducer,
+    socket: socketReducer
+  });
 
-const viewSettingsReducer = combineReducers({
-  coronalView: viewSettingsCoronalViewReducer,
-  relativeSagittalView: viewSettingsRelativeSagittalViewReducer,
-  transverseView: viewSettingsTransverseViewReducer,
-  relativeTransverseView: viewSettingsRelativeTransverseViewReducer
-});
+  let viewSettingsReducer = combineReducers({
+    coronalView: viewSettingsCoronalViewReducer,
+    relativeSagittalView: viewSettingsRelativeSagittalViewReducer,
+    transverseView: viewSettingsTransverseViewReducer,
+    relativeTransverseView: viewSettingsRelativeTransverseViewReducer
+  });
 
-const reducers = combineReducers({
-  angles: angleReducer,
-  base: baseReducer,
-  coords: coordsReducer,
-  customBlueprints: customBlueprintReducer,
-  gaits: gaitReducer,
-  legs: legReducer,
-  metaData: metaDataReducer,
-  misc: miscReducer,
-  modifiers: modifierReducer,
-  movement: movementReducer,
-  status: statusReducer,
-  viewOffsets: viewOffsetsReducer,
-  viewSettings: viewSettingsReducer
-});
+  let reducers = combineReducers({
+    angles: angleReducer,
+    base: baseReducer,
+    coords: coordsReducer,
+    customBlueprints: customBlueprintReducer,
+    gaits: gaitReducer,
+    legs: legReducer,
+    metaData: metaDataReducer,
+    misc: miscReducer,
+    modifiers: modifierReducer,
+    movement: movementReducer,
+    status: statusReducer,
+    viewOffsets: viewOffsetsReducer,
+    viewSettings: viewSettingsReducer
+  });
 
-// const logger = store => next => action => {
-//   console.group(action.type);
-//   console.info('dispatching', action);
-//   let result = next(action);
-//   console.log('next state', store.getState());
-//   console.groupEnd(action.type);
-//   return result;
-// 
-//   return action;
-// }
+  // const logger = store => next => action => {
+  //   console.group(action.type);
+  //   console.info('dispatching', action);
+  //   let result = next(action);
+  //   console.log('next state', store.getState());
+  //   console.groupEnd(action.type);
+  //   return result;
+  // 
+  //   return action;
+  // }
 
-const store = createStore(
-  reducers,
-  // applyMiddleware(
-  //   // logger,
-  // )
-  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+  var store = createStore(
+    reducers,
+    // applyMiddleware(
+    //   // logger,
+    // )
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
 
-const ReduxMixin = PolymerRedux(store);
+  var ReduxMixin = PolymerRedux(store);  
+}
