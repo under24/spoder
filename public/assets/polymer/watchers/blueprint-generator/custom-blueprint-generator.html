@@ -1,0 +1,18 @@
+<dom-module id="custom-blueprint-generator">
+  <script>
+    class customBlueprintGenerator extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'custom-blueprint-generator'; }
+      static get properties() {
+        return {
+          lol: {
+            value: 'coords'
+          }
+          
+        }
+      }
+      
+
+    }
+    window.customElements.define(customBlueprintGenerator.is, customBlueprintGenerator);
+  </script>
+</dom-module>

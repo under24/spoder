@@ -1,4 +1,9 @@
+<link rel="import" href="blueprint-generator/custom-blueprint-generator.html">
+
 <dom-module id="blueprint-generator">
+  <template>
+    <custom-blueprint-generator></custom-blueprint-generator>
+  </template>
   <script>
     class blueprintGenerator extends ReduxMixin(Polymer.Element) {
       static get is() { return 'blueprint-generator'; }
