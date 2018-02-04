@@ -1,11 +1,17 @@
+<link rel="import" href="socket-listener/angle-converter.html">
+
 <dom-module id="socket-listener">
+  <template>
+    <angle-converter id="angleConverter"></angle-converter>
+  </template>
   <script>
     class socketListener extends ReduxMixin(Polymer.Element) {
       static get is() { return 'socket-listener'; }
       static get properties() {
         return {
-          lol: {
-            value: 'lol'
+          angles: {
+            statePath: 'angles',
+            // observer: 'observeAngles'
           }
         }
       }
@@ -22,6 +28,12 @@
           store.dispatch({ type: "SOCKET_STATUS_CHANGED", payload: { connected: false } });
         });
         
+        // TODO
+        socket.on('sync-servo-angles', function(angles) {
+          
+        });
+        
+        
         
         socket.on('right-analog-stick-moved', (data) => {
           
@@ -36,8 +48,10 @@
         });
       }
       
-      temp() {
+      observeAngles(servoAngles) {
         
+        var temp = this.$.angleConverter.processCoordsFromServoAngles(servoAngles);
+        console.log(temp);
       }
 
     }
