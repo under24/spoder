@@ -64,12 +64,12 @@
       
       addTransverseBaseXY(result, transitionShift) {
         // transverseBaseX
-        if (MU.notEmpty(transitionShift['transverseBaseX'])) {
+        if (MU.notEmpty(transitionShift.transverseBaseX)) {
           let tbx = this.buildDataObject('transverseBaseX', 0, 100, transitionShift.transverseBaseX);
           result.push(tbx);
         }
         // transverseBaseY
-        if (MU.notEmpty(transitionShift['transverseBaseY'])) {
+        if (MU.notEmpty(transitionShift.transverseBaseY)) {
           let tby = this.buildDataObject('transverseBaseY', 0, 100, transitionShift.transverseBaseY);
           result.push(tby);
         }
@@ -77,12 +77,12 @@
       
       addTransverseCursorXY(result, legTimings, transitionShift) {
         // transverseCursorX
-        if (MU.notEmpty(transitionShift['transverseCursorX'])) {
+        if (MU.notEmpty(transitionShift.transverseCursorX)) {
           let tcx =  this.buildDataObject('transverseCursorX', legTimings.startPct, legTimings.endPct, transitionShift.transverseCursorX);
           result.push(tcx);
         }
         // transverseCursorY
-        if (MU.notEmpty(transitionShift['transverseCursorY'])) {
+        if (MU.notEmpty(transitionShift.transverseCursorY)) {
           let tcy = this.buildDataObject('transverseCursorY', legTimings.startPct, legTimings.endPct, transitionShift.transverseCursorY);
           result.push(tcy);
         }
