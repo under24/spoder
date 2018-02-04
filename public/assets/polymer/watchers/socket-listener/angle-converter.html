@@ -26,7 +26,7 @@
       convertServoIntoScreenAngles(servoAngles) {
         var result = {};
         
-        for (let legId = 1; legId < 6; legId++) {
+        for (let legId = 1; legId <= 6; legId++) {
           result[legId] = {
             coxaScreenAngle: GU.correctAngle(servoAngles[legId].coxaServoAngle - 90 + this.coxaAttachmentAngles[legId]),
             femurScreenAngle: GU.correctAngle(servoAngles[legId].femurServoAngle - 90),
@@ -40,7 +40,7 @@
       calcCoordsFromScreenAngles(screenAngles) {
         var result = {};
         
-        for (let legId = 1; legId < 6; legId++) {
+        for (let legId = 1; legId <= 6; legId++) {
           // femur
           let sbx = this.coords[legId].sagittalBaseX,
               sby = this.coords[legId].sagittalBaseY,
