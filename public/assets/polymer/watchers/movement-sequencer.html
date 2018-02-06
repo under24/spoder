@@ -37,7 +37,7 @@
         }
       }
       
-      runSequencer(currentTick = 1) {
+      runSequence(currentTick = 1) {
         // validation: no second invocation, no invalid tick, no idle timeline
         if (!this.validConditions(currentTick)) return;
         
@@ -50,16 +50,18 @@
           
           // check if that was the last tick of the iteration
           if (currentTick === this.iteration.amountOfTicks) {
-            // finish current iteration
-            this.pauseSequencer();
+            // current iteration is compelete. stop sequencer
+            this.clearSequencerInterval();
             // reset progress when the iteration is complete
             this.resetTickData();
             
-            // start iterating over again
+            // if loop flag is true
             if (this.loop)
-              this.runSequencer();
-            // set sequencerEnabled to false (disable movement sequencer)
+              // start iterating over again
+              this.runSequence();
+            // loop flag is false
             else
+              // set sequencerEnabled flag to false which will clear sequencer interval
               this.disableSequencer();
           }
           
@@ -147,19 +149,21 @@
         store.dispatch({ type: "MOVEMENT_SETTINGS_CHANGED", payload: { sequencerEnabled: false } });
       }
       
-      // clear sequencer interval
-      pauseSequencer() {
+      // stop sequencer
+      clearSequencerInterval() {
         clearInterval(this.sequencerInterval);
         this.sequencerInterval = undefined;
       }
       
       observeSequencerEnabled(newValue, oldValue) {
-        // start sequencer
+        // sequencer enabled
         if (newValue === true)
-          this.runSequencer(this.iteration.currentTick + 1);
-        // pause sequencer
+          // start sequencer from where it stopped
+          this.runSequence(this.iteration.currentTick + 1);
+        // sequencer disabled
         else
-          this.pauseSequencer();
+          // stop sequencer
+          this.clearSequencerInterval();
       }
       
       observeTimeline(newValue, oldValue) {
@@ -172,7 +176,7 @@
           // set the flag which shows that the timeline is not idle (null)
           this.sequencerIdle = false;
           // run the sequencer again if it is enabled
-          if (this.sequencerEnabled) this.runSequencer();
+          if (this.sequencerEnabled) this.runSequence();
         }
       }
 
