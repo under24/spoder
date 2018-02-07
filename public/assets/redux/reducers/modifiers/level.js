@@ -6,7 +6,7 @@
     normalizer: 1.5, // x: 100 -> normalizedY: 150
     normalizedY: 0,
     appliedTo: 'sagittalBaseY'
-  }
+  };
 
   var levelReducer = (state = levelReducerInitState, action) => {
     switch (action.type) {
