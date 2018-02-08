@@ -63,14 +63,50 @@
   // 
   //   return action;
   // }
+  
+  var logicReducers = store => next => action => {
+    
+    // catch action -> generate new branch for the state
+    
+    switch (action.type) {
+      case "LEVEL_MODIFIER_CHANGED":
+        action = modifierModule.processLevelModifier(action); break;
+      case "ROTATION_MODIFIER_CHANGED":
+        action = modifierModule.processRotationModifier(action); break;
+    }
+    
+    next(action);
+  }
+  
+  var cascade = store => next => action => {
+    
+    // observe new state branches and react to the changes
+    // by generating new branches
+    // and propagate further
+    
+    debugger;
+    
+    coordsModule.input(action);
+    anglesModule.input(action);
+  
+    next(action);
+  }
 
   var store = createStore(
     reducers,
     // applyMiddleware(
     //   // logger,
+    //   logicReducers,
+    //   cascade
     // )
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
+  
+  var modifierModule = new ModifierLogicReducer(store);
+  
+  var coordsModule = new CoordsCascadeModule(store);
+  var anglesModule = new AngleCascadeModule(store);
+
 
   var ReduxMixin = PolymerRedux(store);  
 }
