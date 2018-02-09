@@ -41,9 +41,11 @@ var MU = {
   notEmpty(num) {
     return !this.empty(num);
   },
+  // used for scaling view output data
   scaleUpOutput(pct, num) {
     return num * 100 / pct;
   },
+  // used for scaling view input data
   scaleDownInput(pct, num) {
     return num / 100 * pct;
   },
@@ -52,7 +54,7 @@ var MU = {
     return this.roundNumber(value * normalizer, 2);
   },
   getBaseCenter(coords) {
-    let x1 = coords[1].transverseBaseX,
+    var x1 = coords[1].transverseBaseX,
         y1 = coords[1].transverseBaseY,
         x2 = coords[6].transverseBaseX,
         y2 = coords[6].transverseBaseY,
@@ -61,8 +63,8 @@ var MU = {
         x4 = coords[5].transverseBaseX,
         y4 = coords[5].transverseBaseY;
     
-﻿    let ua, 
-        ub, 
+﻿    var ua,
+        ub,
         denom = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
 
     if (denom == 0) return null;
@@ -120,11 +122,14 @@ var MU = {
   // c is the circle's center
   // r is the circle's radius
   interceptOnCircle(p1, p2, c, r) {
-    var p3 = { x: p1.x - c.x, y: p1.y - c.y }; // shifted line points
-    var p4 = { x: p2.x - c.x, y: p2.y - c.y };
+    // shifted line points
+    var p3 = { x: p1.x - c.x, y: p1.y - c.y },
+        p4 = { x: p2.x - c.x, y: p2.y - c.y };
   
-    var m = (p4.y - p3.y) / (p4.x - p3.x); // slope of the line
-    var b = p3.y - m * p3.x; // y-intercept of line
+    // slope of the line
+    var m = (p4.y - p3.y) / (p4.x - p3.x);
+    // y-intercept of line
+    var b = p3.y - m * p3.x;
   
     var underRadical = Math.pow(r,2) * Math.pow(m,2) + Math.pow(r,2) - Math.pow(b,2); // the value under the square root sign
   
@@ -136,10 +141,13 @@ var MU = {
       var t1 = (-m * b + Math.sqrt(underRadical)) / (Math.pow(m,2) + 1), // one of the intercept x's
           t2 = (-m * b - Math.sqrt(underRadical)) / (Math.pow(m,2) + 1); // other intercept's x
           
-      // var i1 = { x: t1 + c.x, y: m * t1 + b + c.y }; // intercept point 1
-      var i2 = { x: t2 + c.x, y: m * t2 + b + c.y }; // intercept point 2
+          
+      if (p1.x < p2.x)
+        var result = { x: t1 + c.x, y: m * t1 + b + c.y }; // intercept point 1
+      else
+        var result = { x: t2 + c.x, y: m * t2 + b + c.y }; // intercept point 2
       
-      return i2;
+      return result;
     }
   }
 };
