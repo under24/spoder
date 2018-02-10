@@ -134,7 +134,7 @@ var MU = {
     var underRadical = Math.pow(r,2) * Math.pow(m,2) + Math.pow(r,2) - Math.pow(b,2); // the value under the square root sign
   
     // line completely missed
-    if (underRadical < 0) 
+    if (underRadical < 0)
       return null;
     // line is withit the circle
     else {

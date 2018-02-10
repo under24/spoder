@@ -2,10 +2,10 @@
 
 class LogicReducer {
   
-	constructor(store) {
+  constructor(store) {
     // save referrence to the store in LogicReducer.store
     LogicReducer.store = store;
-	}
+  }
   
   getState() {
     return LogicReducer.store.getState();
@@ -13,7 +13,7 @@ class LogicReducer {
   
   // [props...]
   syncProps(props) {
-    // argument is passed
+    // array is passed
     if (props) {
       for (let i = 0; i < props.length; i++) {
         let propName = props[i],
