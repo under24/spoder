@@ -125,14 +125,13 @@ var MU = {
     // shifted line points
     var p3 = { x: p1.x - c.x, y: p1.y - c.y },
         p4 = { x: p2.x - c.x, y: p2.y - c.y };
-  
     // slope of the line
     var m = (p4.y - p3.y) / (p4.x - p3.x);
     // y-intercept of line
     var b = p3.y - m * p3.x;
-  
-    var underRadical = Math.pow(r,2) * Math.pow(m,2) + Math.pow(r,2) - Math.pow(b,2); // the value under the square root sign
-  
+    // the value under the square root sign
+    var underRadical = Math.pow(r,2) * Math.pow(m,2) + Math.pow(r,2) - Math.pow(b,2);
+    
     // line completely missed
     if (underRadical < 0)
       return null;
