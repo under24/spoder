@@ -142,9 +142,9 @@ var MU = {
           
           
       if (p1.x < p2.x)
-        var result = { x: t1 + c.x, y: m * t1 + b + c.y }; // intercept point 1
+        var result = { x: t2 + c.x, y: m * t2 + b + c.y }; // intercept point 1
       else
-        var result = { x: t2 + c.x, y: m * t2 + b + c.y }; // intercept point 2
+        var result = { x: t1 + c.x, y: m * t1 + b + c.y }; // intercept point 2
       
       return result;
     }
