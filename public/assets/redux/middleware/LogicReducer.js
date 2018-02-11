@@ -95,6 +95,21 @@ class LogicReducer {
     });
   }
   
+  resolveDependencies(dependencies, newState) {
+    return dependencies.map(dependency => {
+      var path = this.getPropPath(dependency);
+      
+      // if dependency is present in the newState
+      if (path in newState)
+        // pull it from there
+        return newState[path];
+      // dependency is not in the newState  
+      else
+        // take it from the state
+        return this.resolvePath(path);
+    });
+  }
+  
   process(newState) {
     // iterate module observers
     this.observers.forEach(observer => {
@@ -107,19 +122,8 @@ class LogicReducer {
       // no dependencies on the newState. skip the observer
       if (!observerTriggered) return;
       
-      // resolve dependencies TODO
-      var args =  dependencies.map(dependency => {
-        var path = this.getPropPath(dependency);
-        
-        // if dependency is present in the newState
-        if (path in newState)
-          // pull it from there
-          return newState[path];
-        // dependency is not in the newState  
-        else
-          // take it from the state
-          return this.resolvePath(path);
-      });
+      // resolve dependencies
+      var args = this.resolveDependencies(dependencies, newState);
       
       // save observer generated newState branch
       var observerResult = this[handler](...args);
