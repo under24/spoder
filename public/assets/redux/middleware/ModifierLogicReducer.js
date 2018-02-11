@@ -13,34 +13,34 @@ class ModifierLogicReducer extends LogicReducer {
 		};
 	}
 	
-	processLevelModifier(action) {
+	processLevelModifier(action, newState) {
 		this.syncProps(['level']);
 		
 		// validation
 		if (this.level.y === action.payload.y) throw new Error('same values');
 		
 		// calc normalized y (joystick value * normalizer)
-		action.payload.normalizedY = MU.normalize(action.payload.y, this.level.normalizer);
-		action.path = this.getPropPath('level');
-
-		this.flushProps(['level']);
+		let normalizedY = MU.normalize(action.payload.y, this.level.normalizer);
 		
-		return action;
+		// create new state branch 'modifiers.level' which is going to be merged with the current state
+		newState['modifiers.level'] = Object.assign({}, this.level, action.payload, { normalizedY } );
+		
+		this.flushProps(['level']);
 	}
 	
-	processRotationModifier(action) {
-		this.syncProps(['rotation']);
-		
-		// validation
-		if (this.rotation.x === action.payload.x) throw new Error('same values');
-		
-		// calc normalized x (joystick value * normalizer)
-		action.payload.normalizedX = MU.normalize(action.payload.x, this.rotation.normalizer);
-		action.path = this.getPropPath('rotation');
-		
-		this.flushProps(['rotation']);
-		
-		return action;
-	}
+	// processRotationModifier(action) {
+	// 	this.syncProps(['rotation']);
+  // 
+	// 	// validation
+	// 	if (this.rotation.x === action.payload.x) throw new Error('same values');
+  // 
+	// 	// calc normalized x (joystick value * normalizer)
+	// 	action.payload.normalizedX = MU.normalize(action.payload.x, this.rotation.normalizer);
+	// 	action.path = this.getPropPath('rotation');
+  // 
+	// 	this.flushProps(['rotation']);
+  // 
+	// 	return action;
+	// }
   
 }
