@@ -14,55 +14,34 @@ class CoordsModule extends LogicReducer {
 		};
 		
 		this.observers = [
-			'processLevelModifier(level, coords)',
-			'processRotationModifier(rotation, coords)'
+			'processLevelModifier(level)',
+			'processRotationModifier(rotation)'
 		];
 	}
   
-  processLevelModifier(level, coords) {
-    debugger;
-		// this.syncProps(['coords']);
+  processLevelModifier(level) {
+		// get values from the old state
+		var stateLevel = this.getPropStateValue('level'),
+				stateCoords = this.getPropStateValue('coords');
 		
-		// do some calcs here
+		// validation
+		if (level.normalizedY === stateLevel.normalizedY) {
+			console.warn('same level modifier values');
+			return;
+		}
 		
-		return {
-			'fromLevel': {
-				// path data here
-			}
-		};
+		var newState = {};
 		
-		// this.flushProps(['coords']);
+		var levelModifierDiff = stateLevel.normalizedY - level.normalizedY;
 		
+		for (let legId = 1; legId <= 6; legId++) {
+			newState[legId] = Object.assign({}, stateCoords[legId], { sagittalBaseY: stateCoords[legId].sagittalBaseY + levelModifierDiff });
+		}
 		
-		
-		
-		
-    
-    // this.syncProps(['level', 'coords']);
-    // 
-    // // validation
-    // if (this.level.normalizedY === action.payload.normalizedY) throw new Error('same values');
-    // 
-    // var coords = { type: "APPLY_LEVEL_MODIFIER_TO_COORDS", payload: {}, path: 'coords' };
-    // 
-    // for (let legId = 1; legId <= 6; legId++) {
-    //   coords.payload[legId] = {
-    //     sagittalBaseY: this.coords[legId].sagittalBaseY + action.payload.normalizedY
-    //   };
-    // }
-    // 
-    // debugger;
-    // 
-    // 
-    // 
-    // 
-    // this.flushProps(['level', 'coords']);
-    
-    
+		return { 'coords': newState };
   }
 	
-	processRotationModifier(level, rotation, coords) {
-		debugger;
+	processRotationModifier(rotation) {
 		
 		return {
 			'fromRotation': 1
