@@ -17,7 +17,7 @@ class LogicReducer {
     if (props) {
       for (let i = 0; i < props.length; i++) {
         let propName = props[i],
-            propStatePath = this.properties[propName],
+            propStatePath = this.getPropPath(propName),
             propStateValue = this.resolvePath(propStatePath);
         
         this[propName] = this.resolvePath(propStatePath);
@@ -27,7 +27,7 @@ class LogicReducer {
     else {
       for (let key in this.properties) {
         let propName = key,
-            propStatePath = this.properties[propName],
+            propStatePath = this.getPropPath(propName),
             propStateValue = this.resolvePath(propStatePath);
             
         this[propName] = propStateValue;
@@ -71,7 +71,7 @@ class LogicReducer {
       throw new Error('no such propname in properties');
     
     // get property state path
-    var propStatePath = this.properties[propName],
+    var propStatePath = this.getPropPath(propName),
         // get property state value
         propStateValue = this.resolvePath(propStatePath);
         
