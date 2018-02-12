@@ -7,9 +7,9 @@ class ModifierLogicReducer extends LogicReducer {
 		
 		this.properties = {
 			level: 'modifiers.level',
-			rotation: 'modifiers.rotation',
-			shift: 'modifiers.shift',
-			tilt: 'modifiers.tilt'
+			// rotation: 'modifiers.rotation',
+			// shift: 'modifiers.shift',
+			// tilt: 'modifiers.tilt'
 		};
 	}
 	
