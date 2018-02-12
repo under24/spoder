@@ -3,7 +3,7 @@
 // MU == MathUtils
 var MU = {
   lawOfCos(a, b, c) {
-  	return Math.acos((a * a + b * b - c * c) / (2 * a * b));
+    return Math.acos((a * a + b * b - c * c) / (2 * a * b));
   },
   getDistance(dx, dy) {
     return Math.sqrt( dx * dx + dy * dy );
