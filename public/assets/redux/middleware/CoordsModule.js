@@ -19,7 +19,7 @@ class CoordsModule extends LogicReducer {
 		];
 	}
   
-  processLevelModifier(level) {
+	levelModifierHandler(newLevel) {
 		// get values from the old state
 		var stateLevel = this.getPropStateValue('level'),
 				stateCoords = this.getPropStateValue('coords');
@@ -39,7 +39,7 @@ class CoordsModule extends LogicReducer {
 		}
 		
 		return { 'coords': newState };
-  }
+	}
 	
 	processRotationModifier(rotation) {
 		
