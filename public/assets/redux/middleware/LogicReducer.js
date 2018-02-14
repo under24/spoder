@@ -1,129 +1,21 @@
 'use strict';
 
-class LogicReducer {
-  
-  constructor(store) {
-    // save referrence to the store in LogicReducer.store
-    LogicReducer.store = store;
-  }
-  
-  getState() {
-    return LogicReducer.store.getState();
-  }
-  
-  // [props...]
-  syncProps(props) {
-    // array is passed
-    if (props) {
-      for (let i = 0; i < props.length; i++) {
-        let propName = props[i],
-            propStatePath = this.getPropPath(propName),
-            propStateValue = this.resolvePath(propStatePath);
-        
-        this[propName] = this.resolvePath(propStatePath);
-      }
-    }
-    // no argument is passed
-    else {
-      for (let key in this.properties) {
-        let propName = key,
-            propStatePath = this.getPropPath(propName),
-            propStateValue = this.resolvePath(propStatePath);
-            
-        this[propName] = propStateValue;
-      }
-    }
-  }
-  
-  // [props...]
-  flushProps(props) {
-    // argument is passed
-    if (props) {
-      for (let i = 0; i < props.length; i++) {
-        let propName = props[i];
-        delete this[propName];
-      }
-    }
-    // no argument is passed
-    else {
-      for (let propName in this.properties) {
-        delete this[propName]; // this[propName] = undefined;
-      }
-    }
-  }
-  
-  resolvePath(path) {
-    var prop = this.getState();
-    
-    var pathParts = path.split('.');
-    
-    for (let i = 0; i < pathParts.length; i++) {
-      let nextStep = pathParts[i];
-      prop = prop[nextStep];
-    }
-    
-    return prop;
-  }
-  
-  getPropStateValue(propName) {
-    // validation
-    if (!this.properties[propName]) 
-      throw new Error('no such propname in properties');
-    
-    // get property state path
-    var propStatePath = this.getPropPath(propName),
-        // get property state value
-        propStateValue = this.resolvePath(propStatePath);
-        
-    return propStateValue;
-  }
-  
-  getPropPath(propName) {
-    return this.properties[propName];
-  }
-  
-  dependentOnNewState(dependencies, newState) {
-    return dependencies.some(dependency => {
-      // dependency path
-      var path = this.getPropPath(dependency);
-      
-      // check if the path is present in the newState
-      if (path in newState) 
-        return true;
-      
-      return false;
-    });
-  }
-  
-  resolveDependencies(dependencies, newState) {
-    return dependencies.map(dependency => {
-      var path = this.getPropPath(dependency);
-      
-      // if dependency is present in the newState
-      if (path in newState)
-        // pull it from there
-        return newState[path];
-      // dependency is not in the newState  
-      else
-        // take it from the state
-        return this.resolvePath(path);
-    });
-  }
+class LogicReducer extends StateModule {
   
   process(newState) {
     // iterate module observers
     this.observers.forEach(observer => {
       // parse observer into object with observer handler and dependencies
-      var { handler, dependencies } = this.parseObserver(observer);
+      var { handler, dependencies } = this._parseObserver(observer);
       
       // determine if the observer should be called
-      var observerTriggered = this.dependentOnNewState(dependencies, newState);
+      var observerTriggered = this._dependentOnNewState(dependencies, newState);
       
       // no dependencies on the newState. skip the observer
       if (!observerTriggered) return;
       
       // resolve dependencies
-      var args = this.resolveDependencies(dependencies, newState);
+      var args = this._resolveDependencies(dependencies, newState);
       
       // save observer generated newState branch
       var observerResult = this[handler](...args);
@@ -139,7 +31,7 @@ class LogicReducer {
     });
   }
   
-  parseObserver(observer) {
+  _parseObserver(observer) {
     // trim spaces
     observer = observer.replace(/ /g, '');
     
@@ -149,6 +41,35 @@ class LogicReducer {
       // observer dependencies
       dependencies: observer.slice(observer.indexOf('(') + 1, observer.indexOf(')')).split(',')
     };
+  }
+  
+  _dependentOnNewState(dependencies, newState) {
+    return dependencies.some(dependency => {
+      // dependency path
+      var path = this._getPropPath(dependency);
+      
+      // check if the path is present in the newState
+      if (path in newState) 
+        return true;
+      
+      return false;
+    });
+  }
+  
+  _resolveDependencies(dependencies, newState) {
+    // [dependency1, dependency2, ...] => [stateValue1, stateValue2, ...]
+    return dependencies.map(dependency => {
+      var path = this._getPropPath(dependency);
+      
+      // if dependency is present in the newState
+      if (path in newState)
+        // pull it from there
+        return newState[path];
+      // dependency is not in the newState  
+      else
+        // take it from the state
+        return this.resolvePath(path);
+    });
   }
   
 }
