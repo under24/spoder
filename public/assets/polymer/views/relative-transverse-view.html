@@ -235,16 +235,14 @@
       }
       
       scaleOutput(val) {
-        if (this.useScaling)
-          val = MU.scaleUpOutput(this.scaling, val);
+        if (this.useScaling) val = MU.scaleUpOutput(this.scaling, val);
         
         return val;
       }
       
       scaleInput(val) {
-        if (this.useScaling)
-          val = MU.scaleDownInput(this.scaling, val);
-          
+        if (this.useScaling) val = MU.scaleDownInput(this.scaling, val);
+        
         return val;
       }
       
