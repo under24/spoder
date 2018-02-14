@@ -3,7 +3,6 @@
 {
   let movementSettingsReducerInitState = {
     loop: true,
-    applyDirectionAndTurnAngles: true,
     sequencerEnabled: false,
     gait: 'ripple',
     tps: 60,

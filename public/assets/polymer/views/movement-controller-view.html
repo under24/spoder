@@ -44,9 +44,6 @@
         </label>
       </p>
       <p>
-        <label><input type="checkbox" checked="[[applyDirectionAndTurnAngles]]" value="applyDirectionAndTurnAngles" on-click="handleCheckboxChange" /> Apply direction and turn angles</label>
-      </p>
-      <p>
         Gait:
         <select size="4" on-change="handleSelectChanged" value="[[gait]]">
           <option value="ripple">Ripple</option>
@@ -81,9 +78,6 @@
           },
           loop: {
             statePath: 'movement.settings.loop'
-          },
-          applyDirectionAndTurnAngles: {
-            statePath: 'movement.settings.applyDirectionAndTurnAngles'
           },
           gait: {
             statePath: 'movement.settings.gait'

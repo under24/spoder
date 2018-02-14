@@ -12,10 +12,6 @@
           baseDirection: {
             statePath: 'base.direction'
           },
-          // flag which allows rotation when moving in one direction
-          applyDirectionAndTurnAngles: {
-            statePath: 'movement.settings.applyDirectionAndTurnAngles'
-          },
           directionJoystick: {
             statePath: 'movement.directionJoystick'
           },
@@ -28,19 +24,19 @@
         }
       }
       
-      // calc pointers whenever this.circles || directionJoystick || this.turnJoystick || applyDirectionAndTurnAngles changes
+      // calc pointers whenever this.circles || directionJoystick || this.turnJoystick changes
       static get observers() {
-        return [ 'processNewPointers(circles, directionJoystick, turnJoystick, applyDirectionAndTurnAngles)' ];
+        return [ 'processNewPointers(circles, directionJoystick, turnJoystick)' ];
       }
       
-      processNewPointers(circles, directionJoystick, turnJoystick, applyDirectionAndTurnAngles) {
+      processNewPointers(circles, directionJoystick, turnJoystick) {
         // create new pointers
-        var pointers = this.generatePointers(circles, directionJoystick, turnJoystick, applyDirectionAndTurnAngles);
+        var pointers = this.generatePointers(circles, directionJoystick, turnJoystick);
         // dispatch them
         this.dispatchPointers(pointers);
       }
       
-      generatePointers(circles, directionJoystick, turnJoystick, applyDirectionAndTurnAngles) {
+      generatePointers(circles, directionJoystick, turnJoystick) {
         var pointers = {};
         
         for (let legId = 1; legId <= 6; legId++) {
@@ -50,9 +46,8 @@
             y: circles[legId].fluentY - circles[legId].solidRadius * (directionJoystick.y / 100)
           };
           
-          if (applyDirectionAndTurnAngles)
-            // apply baseDirection + turnJoystick
-            pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.normalizedX);
+          // apply baseDirection + turnJoystick
+          pointer = this.applyDirectionAndTurn(pointer, circles[legId], this.baseDirection, turnJoystick.normalizedX);
           
           // filter-in unique value before dispatching
           GU.sieveOutAndGatherUp(pointer, this.pointers[legId], pointers, legId);
@@ -68,7 +63,7 @@
             circleToPointerAngle = MU.getAngle(dy, dx);
             
         // angle correction
-        circleToPointerAngle = GU.correctAngle(circleToPointerAngle);
+        // circleToPointerAngle = GU.correctAngle(circleToPointerAngle);
         
         return MU.getCoordsFromDistanceAndAngle(circle.fluentX, circle.fluentY, circleToPointerAngle + baseDirection - turn, distance);
       }
