@@ -13,6 +13,7 @@ class CoordsModule extends LogicReducer {
       // coords: 'coords'
     };
     
+    // ['handler(dependency, dependency)', ...]
     this.observers = [
       'levelModifierHandler(level)',
       'rotationModifierHandler(rotation)'
