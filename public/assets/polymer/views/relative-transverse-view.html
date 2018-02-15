@@ -59,7 +59,7 @@
     
     <div class="center-point">
       <relative-transverse-view-ui
-        base-coords="[[computeXY(coords, viewOffsets, useScaling, scaling, useOffsets)]]"
+        base-coords="[[computeBaseXY(coords, viewOffsets, useScaling, scaling, useOffsets)]]"
         reach-radius="[[scaleInput(misc.transverseReachRadius, useScaling, scaling)]]"
         coxa-screen-angle="[[angles.coxaScreenAngle]]"
         impossible-range="[[scaleInput(metaData.impossibleRange, useScaling, scaling)]]"
@@ -201,7 +201,7 @@
         };
       }
       
-      computeXY(coords) {
+      computeBaseXY(coords) {
         return {
           x: this.scaleInput(coords.transverseBaseX + this.getOffset('x')),
           y: this.scaleInput(coords.transverseBaseY + this.getOffset('y'))
