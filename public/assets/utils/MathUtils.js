@@ -79,6 +79,15 @@ var MU = {
         // seg2: ub >= 0 && ub <= 1
     };
   },
+  rotateCoords(rotationBaseCoords, rotatedCoords, rotationAngle) {
+    var dx = rotatedCoords.x - rotationBaseCoords.x,
+        dy = rotatedCoords.y - rotationBaseCoords.y,
+        distance = MU.getDistance(dx, dy),
+        angle = MU.getAngle(dy, dx);      
+        
+    // return { x, y }
+    return MU.getCoordsFromDistanceAndAngle(rotationBaseCoords.x, rotationBaseCoords.y, angle + rotationAngle, distance);
+  },
   getRotatedCoords(baseCenterCoords, rotationAngle, coords) {
     var dx = coords.transverseBaseX - baseCenterCoords.x,
         dy = coords.transverseBaseY - baseCenterCoords.y,
