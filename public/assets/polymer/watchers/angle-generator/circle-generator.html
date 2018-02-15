@@ -42,7 +42,10 @@
         }
         // turn joystick is not centered (active)
         else {
-          var { x: fluentBaseX, y: fluentBaseY } = MU.getRotatedCoords(baseCenterCoords, MU.flipNumber(this.turnJoystick.normalizedX), coords);
+          let rotationAngle = MU.flipNumber(this.turnJoystick.normalizedX),
+              rotatedCoords = { x: coords.transverseBaseX, y: coords.transverseBaseY };
+          
+          var { x: fluentBaseX, y: fluentBaseY } = MU.rotateCoords(baseCenterCoords, rotatedCoords, rotationAngle);
         }
         
         // calc fluent x/y

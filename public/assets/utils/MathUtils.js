@@ -88,19 +88,6 @@ var MU = {
     // return { x, y }
     return MU.getCoordsFromDistanceAndAngle(rotationOrigin.x, rotationOrigin.y, angle, distance);
   },
-  getRotatedCoords(baseCenterCoords, rotationAngle, coords) {
-    var dx = coords.transverseBaseX - baseCenterCoords.x,
-        dy = coords.transverseBaseY - baseCenterCoords.y,
-        distance = MU.getDistance(dx, dy),
-        angle = MU.getAngle(dy, dx);
-        
-    var rotatedCoords = MU.getCoordsFromDistanceAndAngle(baseCenterCoords.x, baseCenterCoords.y, angle + rotationAngle, distance);
-
-    return {
-      x: rotatedCoords.x,
-      y: rotatedCoords.y
-    };
-  },
   // interceptOnCircleOrig(p1, p2, c, r) {
   //   //p1 is the first line point
   //   //p2 is the second line point

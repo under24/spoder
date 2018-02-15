@@ -106,7 +106,8 @@
           let stepAngle = MU.flipNumber(this.turnJoystick.normalizedX) / this.iteration.amountOfTicks;
         
           // find rotated base coords
-          let rotatedCoords = MU.getRotatedCoords(this.baseCenterCoords, stepAngle, this.coords[legId]);
+          let rotatedCoords = { x: this.coords[legId].transverseBaseX, y: this.coords[legId].transverseBaseY };
+          rotatedCoords = MU.rotateCoords(this.baseCenterCoords, rotatedCoords, stepAngle);
         
           // get turn shift values
           let shiftX = this.coords[legId].transverseBaseX - rotatedCoords.x,

@@ -321,7 +321,8 @@
               baseCenterCoords = MU.getBaseCenter(state);
           
           for (let legId = 1; legId <= 6; legId++) {
-            let rotatedCoords = MU.getRotatedCoords(baseCenterCoords, action.payload.rotation, state[legId]);
+            let rotatedCoords = { x: state[legId].transverseBaseX, y: state[legId].transverseBaseY };
+            rotatedCoords = MU.rotateCoords(baseCenterCoords, rotatedCoords, action.payload.rotation);
             
             let finalCoords = {
               transverseBaseX: rotatedCoords.x,

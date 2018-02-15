@@ -320,7 +320,8 @@
             
             for (let legId = 1; legId <= 6; legId++) {
               // find rotated base coords
-              let rotatedCoords = MU.getRotatedCoords(this.baseCenterCoords, MU.flipNumber(stepAngle), this.coords[legId]);
+              let rotatedCoords = { x: this.coords[legId].transverseBaseX, y: this.coords[legId].transverseBaseY };
+              rotatedCoords = MU.rotateCoords(this.baseCenterCoords, rotatedCoords, MU.flipNumber(stepAngle));
               // get shift values from actual coords
               let shiftX = this.coords[legId].transverseBaseX - rotatedCoords.x,
                   shiftY = this.coords[legId].transverseBaseY - rotatedCoords.y;
