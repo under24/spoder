@@ -3,10 +3,6 @@
   <head>
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
-    <!-- socket script -->
-    <script src="/socket.io/socket.io.js"></script>
-    <!-- socket init -->
-    <script>let socket = io.connect(window.location.hostname + ':' + 3000);</script>
     <!-- redux library -->
     <!-- <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script> -->
     <script src="assets/js/redux.min.js"></script>
@@ -72,6 +68,10 @@
   </head>
   
   <body>
+    <!-- socket script -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- socket init -->
+    <script>var socket = io.connect(window.location.hostname + ':' + 8080);</script>
     
     <!-- generate angles from coords -->
     <angle-generator></angle-generator>

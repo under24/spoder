@@ -2,7 +2,7 @@
 
 {
   let socketReducerInitState = {
-    connected: true
+    connected: false
   };
 
   var socketReducer = (state = socketReducerInitState, action) => {
