@@ -52,60 +52,60 @@
     viewOffsets: viewOffsetsReducer,
     viewSettings: viewSettingsReducer
   });
-
-  // const logger = store => next => action => {
-  //   console.group(action.type);
-  //   console.info('dispatching', action);
-  //   let result = next(action);
-  //   console.log('next state', store.getState());
-  //   console.groupEnd(action.type);
-  //   return result;
-  // 
-  //   return action;
-  // }
   
-  var logicReducers = store => next => action => {
+  let logicReducers = store => next => action => {
+    // initialize newState which will hold updated state data
+    var newState = {};
     
-    // catch action -> generate new branch for the state
-    
-    switch (action.type) {
-      case "LEVEL_MODIFIER_CHANGED":
-        action = modifierModule.processLevelModifier(action); break;
-      case "ROTATION_MODIFIER_CHANGED":
-        action = modifierModule.processRotationModifier(action); break;
+    // check if the action is an array
+    if (Array.isArray(action)) {
+      // iterate array of action
+      action.forEach(action => processAction(action));
+    }
+    // action is single (object)
+    else
+      processAction(action);
+      
+      
+    if (action.type === "LEVEL_MODIFIER_CHANGED") {
+      next(newState);
+      return;
     }
     
     next(action);
+    
+    // ----------------------------------------------
+    
+    function processAction(action) {
+      switch (action.type) {
+        case "LEVEL_MODIFIER_CHANGED":
+          modifierModule.processLevelModifier(action, newState); break;
+        // case "ROTATION_MODIFIER_CHANGED":
+        //   modifierModule.processRotationModifier(action, newState); break;
+      }
+    }
   }
   
-  var cascade = store => next => action => {
+  let cascadeModules = store => next => newState => {
+    coordsModule.process(newState);
+    // anglesModule.input(newState);
     
-    // observe new state branches and react to the changes
-    // by generating new branches
-    // and propagate further
-    
-    debugger;
-    
-    coordsModule.input(action);
-    anglesModule.input(action);
-  
-    next(action);
+    next(newState);
   }
 
   var store = createStore(
     reducers,
-    // applyMiddleware(
-    //   // logger,
-    //   logicReducers,
-    //   cascade
-    // )
+    applyMiddleware(
+      logicReducers,
+      cascadeModules
+    )
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
   
   var modifierModule = new ModifierLogicReducer(store);
   
-  var coordsModule = new CoordsCascadeModule(store);
-  var anglesModule = new AngleCascadeModule(store);
+  var coordsModule = new CoordsModule(store);
+  // var anglesModule = new AngleCascadeModule(store);
 
 
   var ReduxMixin = PolymerRedux(store);  
