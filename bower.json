@@ -1,17 +1,27 @@
 {
-  "name": "Vitya the Spoder",
-  "description": "Awesome Hexapod Spoder",
-  "author": "Stadnichuk Konstantin <50499405qaz@gmail.com>",
+  "name": "spodervitya",
+  "description": "Awesome Hexapod Spoder named Vitya",
   "main": "server.js",
+  "authors": [
+    "Konstantin Stadnichuk <50499405qaz@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "hexapod",
+    "robot",
+    "spider",
+    "arduino",
+    "spoder"
+  ],
+  "homepage": "https://github.com/under24/spoder",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.0-rc.2"
-  },
-  "devDependencies": {
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2.0-preview",
-    "web-component-tester": "^6.0.0-prerelease.5",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0-rc.5"
-  },
-  "resolutions": {
-    "polymer": "^2.0.0-rc.2"
+    "polymer": "Polymer/polymer#^2.0.0"
   }
 }
