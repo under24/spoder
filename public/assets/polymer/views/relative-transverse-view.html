@@ -61,14 +61,14 @@
       <relative-transverse-view-ui
         base-coords="[[computeBaseXY(coords, viewOffsets, useScaling, scaling, useOffsets)]]"
         reach-radius="[[scaleInput(misc.transverseReachRadius, useScaling, scaling)]]"
-        coxa-screen-angle="[[angles.coxaScreenAngle]]"
+        coxa-screen-angle="[[computeCoxaScreenAngle(angles.coxaScreenAngle, useOffsets)]]"
         impossible-range="[[scaleInput(metaData.impossibleRange, useScaling, scaling)]]"
         leg-length="[[scaleInput(misc.transverseLegLength, useScaling, scaling)]]"
         movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets, useScaling, scaling, useOffsets)]]"
         movement-circle-diameter="[[scaleInput(movementCircle.solidDiameter, useScaling, scaling)]]"
         movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, useScaling, scaling, useOffsets)]]"
-        base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle)]]"
         output="{{baseOutput}}">
+        base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle, useOffsets)]]"
       </relative-transverse-view-ui>
       
       <view-cursor
@@ -194,11 +194,17 @@
         });
       }
       
+      computeCoxaScreenAngle(coxaAngle) {
+        return coxaAngle - this.getAngleOffset();
+      }
+      
       computeMovementCenterCoords(movementCircle) {
-        return {
+        var coords = {
           x: this.scaleInput(movementCircle.fluentX + this.getOffset('x')),
           y: this.scaleInput(movementCircle.fluentY + this.getOffset('y')),
         };
+        
+        return this.getOffsetRotatedCoords(coords);
       }
       
       computeBaseXY(coords) {
@@ -209,21 +215,25 @@
       }
       
       computeCursorXY(x, y) {
-        return {
+        var coords = {
           x: this.scaleInput(x + this.getOffset('x')),
           y: this.scaleInput(y + this.getOffset('y'))
         };
+        
+        return this.getOffsetRotatedCoords(coords);
       }
       
       computeMovementPointer(movementPointer) {
-        return {
+        var coords = {
           x: this.scaleInput(movementPointer.x + this.getOffset('x')),
           y: this.scaleInput(movementPointer.y + this.getOffset('y'))
         };
+        
+        return this.getOffsetRotatedCoords(coords);
       }
       
       computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle) {
-        return baseDirection + baseCoxaAttachmentAngle;
+        return baseDirection + baseCoxaAttachmentAngle - this.getAngleOffset();
       }
       
       computeSide(legId) {
@@ -258,6 +268,23 @@
           case 'y':
             return this.viewOffsets.transverseY;
         }
+      }
+      
+      getOffsetRotatedCoords(coords) {
+        // if useOffsets is false then return the coords back
+        if (!this.useOffsets) return coords;
+        
+        var rotationBaseCoords = this.computeBaseXY(this.coords),
+            rotationAngle = MU.flipNumber(this.baseDirection);
+        
+        return MU.rotateCoords(rotationBaseCoords, coords, rotationAngle);
+      }
+      
+      getAngleOffset() {
+        // do not use offsets
+        if (!this.useOffsets) return 0;
+        
+        return this.baseDirection;
       }
       
       showSettingsDialog() {
