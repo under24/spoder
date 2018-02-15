@@ -157,17 +157,17 @@
       }
       
       scaleOutput(val) {
-        if (this.useScaling)
-          val = MU.scaleUpOutput(this.scaling, val);
+        // do not use scaling. return the val back
+        if (!this.useScaling) return val;
         
-        return val;
+        return MU.scaleUpOutput(this.scaling, val);
       }
       
       scaleInput(val) {
-        if (this.useScaling)
-          val = MU.scaleDownInput(this.scaling, val);
-          
-        return val;
+        // do not use scaling. return the val back
+        if (!this.useScaling) return val;
+        
+        return MU.scaleDownInput(this.scaling, val);
       }
       
       getOffsetX(legId) {
