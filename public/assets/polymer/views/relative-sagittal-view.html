@@ -62,20 +62,23 @@
         distance-line="[[computeDistanceLine(misc, useScaling, scaling)]]"
         boundary-ball="[[computeBoundaryBall(misc, offsetX, useScaling,  scaling)]]"
         transverse-reach-points="[[computeTransverseReachPoints(misc, offsetX, useScaling, scaling)]]"
-        output="{{baseOutput}}">
+        output="{{baseOutput}}"
+      >
       </relative-sagittal-view-ui>
       
       <view-cursor
         side="[[side]]"
         xy="[[computeCursorXY(coords.sagittalCursorX, coords.sagittalCursorY, offsetX, useScaling, scaling)]]"
-        output={{cursorOutput}}>
+        output={{cursorOutput}}
+      >
       </view-cursor>
     </div>
     
     <view-leg-selector 
       position="left"
       leg-id="[[legId]]"
-      output="{{selectorOutput}}">
+      output="{{selectorOutput}}"
+    >
     </view-leg-selector>
   </template>
 

@@ -67,21 +67,24 @@
         movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets, useScaling, scaling, useOffsets)]]"
         movement-circle-diameter="[[scaleInput(movementCircle.solidDiameter, useScaling, scaling)]]"
         movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, useScaling, scaling, useOffsets)]]"
-        output="{{baseOutput}}">
         base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle, useOffsets)]]"
+        output="{{baseOutput}}"
+      >
       </relative-transverse-view-ui>
       
       <view-cursor
         side="left"
         xy="[[computeCursorXY(coords.transverseCursorX, coords.transverseCursorY, viewOffsets, useScaling, scaling, useOffsets)]]"
-        output={{cursorOutput}}>
+        output={{cursorOutput}}
+      >
       </view-cursor>
     </div>
     
     <view-leg-selector 
       position="left"
       leg-id="[[legId]]"
-      output="{{selectorOutput}}">
+      output="{{selectorOutput}}"
+    >
     </view-leg-selector>
   </template>
 
