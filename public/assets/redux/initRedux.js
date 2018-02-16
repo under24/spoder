@@ -59,11 +59,12 @@
     
     // check if the action is an array
     if (Array.isArray(action)) {
-      // iterate array of action
+      // iterate array of actions
       action.forEach(action => processAction(action));
     }
     // action is single (object)
     else
+      // reduce action into newState
       processAction(action);
       
       
@@ -102,9 +103,11 @@
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
   
-  var modifierModule = new ModifierLogicReducer(store);
+  // init logic reducers
+  let modifierLogicReducer = new ModifierLogicReducer(store);
   
-  var coordsModule = new CoordsModule(store);
+  // init cascade modules
+  let coordsCascadeModule = new CoordsCascadeModule(store);
   // var anglesModule = new AngleCascadeModule(store);
 
 
