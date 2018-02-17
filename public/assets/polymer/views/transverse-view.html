@@ -235,14 +235,14 @@
           // transverse base
           transverseBaseX: this.scaleInput(coords.transverseBaseX + this.getOffset(legId, 'x')),
           transverseBaseY: this.scaleInput(coords.transverseBaseY + this.getOffset(legId, 'y'))
-        }
+        };
       }
       
       computePointer(legId, pointer) {
         return {
           x: this.scaleInput(pointer.x + this.getOffset(legId, 'x')),
           y: this.scaleInput(pointer.y + this.getOffset(legId, 'y'))
-        }
+        };
       }
       
       computeCircle(legId, circle) {
@@ -255,7 +255,7 @@
           solidY: this.scaleInput(circle.solidY + this.getOffset(legId, 'y')),
           fluentBaseX: this.scaleInput(circle.fluentTransverseBaseX + this.getOffset(legId, 'x')),
           fluentBaseY: this.scaleInput(circle.fluentTransverseBaseY + this.getOffset(legId, 'y'))
-        }
+        };
       }
       
       computeMisc(legId, misc) {
