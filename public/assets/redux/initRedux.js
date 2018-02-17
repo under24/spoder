@@ -54,24 +54,25 @@
   });
   
   let logicReducers = store => next => action => {
-    // initialize newState which will hold updated state data
-    var newState = {};
     
-    // check if the action is an array
-    if (Array.isArray(action)) {
-      // iterate array of actions
-      action.forEach(processAction);
-    }
-    // action is single (object)
-    else
-      // reduce action into newState
-      processAction(action);
-      
-      
     if (action.type === "LEVEL_MODIFIER_CHANGED" ||
         action.type === "ROTATION_MODIFIER_CHANGED" ||
         action.type === "SHIFT_MODIFIER_CHANGED" ||
         action.type === "TILT_MODIFIER_CHANGED") {
+          
+      // initialize newState which will hold updated state data
+      var newState = {};
+      
+      // check if the action is an array
+      if (Array.isArray(action)) {
+        // iterate array of actions
+        action.forEach(processAction);
+      }
+      // action is single (object)
+      else
+        // reduce action into newState
+        processAction(action);
+        
       next(newState);
       return;
     }
