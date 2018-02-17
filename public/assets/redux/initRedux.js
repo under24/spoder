@@ -78,12 +78,12 @@
     // ----------------------------------------------
     
     function processAction(action) {
-      switch (action.type) {
-        case "LEVEL_MODIFIER_CHANGED":
-          modifierModule.processLevelModifier(action, newState); break;
-        // case "ROTATION_MODIFIER_CHANGED":
-        //   modifierModule.processRotationModifier(action, newState); break;
-      }
+      // modifier logic reducer
+      // @ "LEVEL_MODIFIER_CHANGED"
+      // @ "ROTATION_MODIFIER_CHANGED"
+      // @ "SHIFT_MODIFIER_CHANGED"
+      // @ TODO
+      modifierLogicReducer.processAction(action, newState);
     }
   }
   
