@@ -51,7 +51,7 @@ class ModifierLogicReducer extends LogicReducer {
         
     // calc normalized x (joystick x * normalizer)
     var normalizedX = MU.normalize(payload.x, oldShift.normalizer),
-        // calc normalized y  (joystick y * normalizer)
+        // calc normalized y (joystick y * normalizer)
         normalizedY = MU.normalize(payload.y, oldShift.normalizer);
     
     // create new state branch 'modifiers.shift' which is going to be merged with the current state
