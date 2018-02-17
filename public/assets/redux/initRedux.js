@@ -89,7 +89,7 @@
   
   let cascadeModules = store => next => newState => {
     coordsModule.process(newState);
-    // anglesModule.input(newState);
+    // anglesCascadeModule.processState(newState);
     
     next(newState);
   }
@@ -108,7 +108,7 @@
   
   // init cascade modules
   let coordsCascadeModule = new CoordsCascadeModule(store);
-  // var anglesModule = new AngleCascadeModule(store);
+  // var anglesCascadeModule = new AngleCascadeModule(store);
 
 
   var ReduxMixin = PolymerRedux(store);  
