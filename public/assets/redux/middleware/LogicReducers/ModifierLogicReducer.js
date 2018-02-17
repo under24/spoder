@@ -18,7 +18,7 @@ class ModifierLogicReducer extends LogicReducer {
     // validation. check if the payload and state values are the same
     if (oldLevel.y === payload.y) throw new Error('same level modifier values');
     
-    // calc normalized y (joystick value * normalizer)
+    // calc normalized y (joystick y * normalizer)
     var normalizedY = MU.normalize(payload.y, oldLevel.normalizer);
     
     // create new state branch 'modifiers.level' which is going to be merged with the current state
@@ -33,7 +33,7 @@ class ModifierLogicReducer extends LogicReducer {
     // validation. check if the payload and state values are the same
     if (oldRotation.x === payload.x) throw new Error('same rotation modifier values');
     
-    // calc normalized x (joystick value * normalizer)
+    // calc normalized x (joystick x * normalizer)
     var normalizedX = MU.normalize(payload.x, oldRotation.normalizer);
     
     // create new state branch 'modifiers.rotation' which is going to be merged with the current state
