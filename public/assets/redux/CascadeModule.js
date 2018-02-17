@@ -2,7 +2,7 @@
 
 class CascadeModule extends StateModule {
   
-  process(newState) {
+  processState(newState) {
     // iterate module observers
     this.observers.forEach(observer => {
       // parse observer into object with observer handler and dependencies

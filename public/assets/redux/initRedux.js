@@ -88,7 +88,12 @@
   }
   
   let cascadeModules = store => next => newState => {
-    coordsModule.process(newState);
+    // coords cascade module
+    // @ "modifiers.level"
+    // @ "modifiers.rotation"
+    // @ "modifiers.shift"
+    // @ TODO
+    coordsCascadeModule.processState(newState);
     // anglesCascadeModule.processState(newState);
     
     next(newState);
