@@ -255,16 +255,16 @@
           
           return Object.assign({}, state, newState);
         }
-      case "APPLY_LEVEL_MODIFIER_TO_COORDS":
-        {
-          let newState = {};
-          
-          for (let legId = 1; legId <= 6; legId++) {
-            newState[legId] = Object.assign({}, state[legId], { sagittalBaseY: state[legId].sagittalBaseY + action.payload });
-          }
-        
-          return newState;
-        }
+      // case "APPLY_LEVEL_MODIFIER_TO_COORDS":
+      //   {
+      //     let newState = {};
+      //     
+      //     for (let legId = 1; legId <= 6; legId++) {
+      //       newState[legId] = Object.assign({}, state[legId], { sagittalBaseY: state[legId].sagittalBaseY + action.payload });
+      //     }
+      //   
+      //     return newState;
+      //   }
       case "APPLY_SHIFT_MODIFIER_TO_COORDS":
         {
           let newState = {};

@@ -4,10 +4,10 @@
       static get is() { return 'modifier-watcher'; }
       static get properties() {
         return {
-          levelModifier: {
-            statePath: 'modifiers.level',
-            observer: 'observeLevelModifier'
-          },
+          // levelModifier: {
+          //   statePath: 'modifiers.level',
+          //   observer: 'observeLevelModifier'
+          // },
           tiltModifier: {
             statePath: 'modifiers.tilt',
             observer: 'observeTiltModifier'
@@ -24,20 +24,20 @@
       }
       
       // level
-      observeLevelModifier(newValue, oldValue) {
-        // old values is undefined. cannot compare new and old values
-        if (oldValue === undefined) return;
-        
-        if (newValue.normalizedY === oldValue.normalizedY) {
-          console.warn('same level modifier values');
-          return;
-        }
-        
-        // create a payload object for dispatching
-        var payload = oldValue.normalizedY - newValue.normalizedY;
-        
-        store.dispatch({ type: "APPLY_LEVEL_MODIFIER_TO_COORDS", payload });
-      }
+      // observeLevelModifier(newValue, oldValue) {
+      //   // old values is undefined. cannot compare new and old values
+      //   if (oldValue === undefined) return;
+      //   
+      //   if (newValue.normalizedY === oldValue.normalizedY) {
+      //     console.warn('same level modifier values');
+      //     return;
+      //   }
+      //   
+      //   // create a payload object for dispatching
+      //   var payload = oldValue.normalizedY - newValue.normalizedY;
+      //   
+      //   store.dispatch({ type: "APPLY_LEVEL_MODIFIER_TO_COORDS", payload });
+      // }
       
       // tilt
       observeTiltModifier(newValue, oldValue) {
