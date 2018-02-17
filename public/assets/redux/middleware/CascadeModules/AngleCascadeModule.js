@@ -1,6 +1,6 @@
 'use strict';
 
-class AngleCascadeModule extends LogicReducer {
+class AngleCascadeModule extends CascadeModule {
 
   constructor(store) {
     super(store);

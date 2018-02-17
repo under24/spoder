@@ -1,6 +1,6 @@
 'use strict';
 
-class CoordsCascadeModule extends LogicReducer {
+class CoordsCascadeModule extends CascadeModule {
   
   constructor(store) {
     super(store);
