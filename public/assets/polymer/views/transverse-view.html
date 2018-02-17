@@ -66,12 +66,12 @@
         circles4="[[computeCircle('4', circles4, offsets4, useOffsets, useScaling, scaling)]]"
         circles5="[[computeCircle('5', circles5, offsets5, useOffsets, useScaling, scaling)]]"
         circles6="[[computeCircle('6', circles6, offsets6, useOffsets, useScaling, scaling)]]"
-        angles1="[[angles1]]"
-        angles2="[[angles2]]"
-        angles3="[[angles3]]"
-        angles4="[[angles4]]"
-        angles5="[[angles5]]"
-        angles6="[[angles6]]"
+        angles1="[[computeAngle(angles1, useOffsets)]]"
+        angles2="[[computeAngle(angles2, useOffsets)]]"
+        angles3="[[computeAngle(angles3, useOffsets)]]"
+        angles4="[[computeAngle(angles4, useOffsets)]]"
+        angles5="[[computeAngle(angles5, useOffsets)]]"
+        angles6="[[computeAngle(angles6, useOffsets)]]"
         misc1="[[computeMisc('1', misc1, useScaling, scaling)]]"
         misc2="[[computeMisc('2', misc2, useScaling, scaling)]]"
         misc3="[[computeMisc('3', misc3, useScaling, scaling)]]"
@@ -264,6 +264,10 @@
         };
       }
       
+      computeAngle(angle) {
+        return angle - this.getAngleOffset();
+      }
+      
       scaleOutput(val) {
         // do not use scaling. return the val back
         if (!this.useScaling) return val;
@@ -288,6 +292,13 @@
           case 'y':
             return this[`offsets${legId}`].transverseY;
         }
+      }
+      
+      getAngleOffset() {
+        // do not use offsets
+        if (!this.useOffsets) return 0;
+        
+        return this.baseDirection;
       }
       
       showSettingsDialog() {
