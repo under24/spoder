@@ -265,29 +265,29 @@
       //   
       //     return newState;
       //   }
-      case "APPLY_SHIFT_MODIFIER_TO_COORDS":
-        {
-          let newState = {};
-          
-          for (let legId = 1; legId <= 6; legId++) {
-            
-            let shiftedCoords = {
-              transverseBaseX: state[legId].transverseBaseX + action.payload.x,
-              transverseBaseY: state[legId].transverseBaseY + action.payload.y
-            };
-            
-            // compensative computation
-            let coords = CU.aggregateCoords(state[legId], shiftedCoords);
-            let compensativeCoords = CU.getTransverseBaseXYCompensativeCoords(coords);
-            
-            if (compensativeCoords.sagittalBaseX !== state[legId].sagittalBaseX) shiftedCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
-            if (compensativeCoords.sagittalCursorX !== state[legId].sagittalCursorX) shiftedCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
-            
-            newState[legId] = Object.assign({}, state[legId], shiftedCoords);
-          }
-          
-          return newState;
-        }
+      // case "APPLY_SHIFT_MODIFIER_TO_COORDS":
+      //   {
+      //     let newState = {};
+      //     
+      //     for (let legId = 1; legId <= 6; legId++) {
+      //       
+      //       let shiftedCoords = {
+      //         transverseBaseX: state[legId].transverseBaseX + action.payload.x,
+      //         transverseBaseY: state[legId].transverseBaseY + action.payload.y
+      //       };
+      //       
+      //       // compensative computation
+      //       let coords = CU.aggregateCoords(state[legId], shiftedCoords);
+      //       let compensativeCoords = CU.getTransverseBaseXYCompensativeCoords(coords);
+      //       
+      //       if (compensativeCoords.sagittalBaseX !== state[legId].sagittalBaseX) shiftedCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
+      //       if (compensativeCoords.sagittalCursorX !== state[legId].sagittalCursorX) shiftedCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
+      //       
+      //       newState[legId] = Object.assign({}, state[legId], shiftedCoords);
+      //     }
+      //     
+      //     return newState;
+      //   }
       case "APPLY_TILT_MODIFIER_TO_COORDS":
         {
           let newState = {},

@@ -12,10 +12,10 @@
             statePath: 'modifiers.tilt',
             observer: 'observeTiltModifier'
           },
-          shiftModifier: {
-            statePath: 'modifiers.shift',
-            observer: 'observeShiftModifier'
-          },
+          // shiftModifier: {
+          //   statePath: 'modifiers.shift',
+          //   observer: 'observeShiftModifier'
+          // },
           // rotationModifier: {
           //   statePath: 'modifiers.rotation',
           //   observer: 'observeRotationModifier'
@@ -65,24 +65,24 @@
       }
       
       // shift
-      observeShiftModifier(newValue, oldValue) {
-        // old values is undefined. cannot compare new and old values
-        if (oldValue === undefined) return;
-        
-        if (newValue.normalizedX === oldValue.normalizedX && 
-            newValue.normalizedY === oldValue.normalizedY) {
-          console.warn('same shift modifier values');
-          return;
-        }  
-
-        // create a payload object for dispatching
-        var payload = {
-          x: oldValue.normalizedX - newValue.normalizedX,
-          y: oldValue.normalizedY - newValue.normalizedY
-        };
-        
-        store.dispatch({ type: "APPLY_SHIFT_MODIFIER_TO_COORDS", payload });
-      }
+      // observeShiftModifier(newValue, oldValue) {
+      //   // old values is undefined. cannot compare new and old values
+      //   if (oldValue === undefined) return;
+      // 
+      //   if (newValue.normalizedX === oldValue.normalizedX && 
+      //       newValue.normalizedY === oldValue.normalizedY) {
+      //     console.warn('same shift modifier values');
+      //     return;
+      //   }  
+      // 
+      //   // create a payload object for dispatching
+      //   var payload = {
+      //     x: oldValue.normalizedX - newValue.normalizedX,
+      //     y: oldValue.normalizedY - newValue.normalizedY
+      //   };
+      // 
+      //   store.dispatch({ type: "APPLY_SHIFT_MODIFIER_TO_COORDS", payload });
+      // }
       
       // rotation
       // observeRotationModifier(newValue, oldValue) {
