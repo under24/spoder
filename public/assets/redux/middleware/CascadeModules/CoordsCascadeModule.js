@@ -9,7 +9,7 @@ class CoordsCascadeModule extends CascadeModule {
       level: 'modifiers.level',
       rotation: 'modifiers.rotation',
       shift: 'modifiers.shift',
-      // tilt: 'modifiers.tilt',
+      tilt: 'modifiers.tilt',
     };
     
     // ['handler(dependency, dependency)', ...]
@@ -17,6 +17,7 @@ class CoordsCascadeModule extends CascadeModule {
       'levelModifierObserver(level)',
       'rotationModifierObserver(rotation)',
       'shiftModifierObserver(shift)',
+      'tiltModifierObserver(tilt)'
     ];
   }
   
@@ -118,6 +119,60 @@ class CoordsCascadeModule extends CascadeModule {
     }
     
     return { 'coords': newCoords};
+  }
+  
+  tiltModifierObserver(newTilt) {
+    var oldTilt = this.resolvePath(this.properties.tilt);
+    
+    // validation
+    if (newTilt.normalizedX === oldTilt.normalizedX &&
+        newTilt.normalizedY === oldTilt.normalizedY) {
+      console.warn('same tilt modifier values');
+      return;
+    }
+    
+    var leftTiltModifier = oldTilt.normalizedX - newTilt.normalizedX,
+        frontTiltModifier = oldTilt.normalizedY - newTilt.normalizedY,
+        rightTiltModifier = MU.flipNumber(leftTiltModifier),
+        backTiltModifier = MU.flipNumber(frontTiltModifier);
+    
+    var newCoords = {},
+        oldCoords = this.resolvePath('coords'),
+        distPct = 0.6666666666666666;
+    
+    for (let legId = 1; legId <= 6; legId++) {
+      let finalValue,
+          row = GU.getLegRow(legId);
+      
+      switch (GU.getLegSide(legId)) {
+        case 'right':
+          if (row === 'front') {
+            finalValue = (leftTiltModifier * distPct) + frontTiltModifier; break;
+          }
+          else if (row === 'middle') {
+            finalValue = leftTiltModifier; break;
+          }
+          else if (row === 'back') {
+            finalValue = (leftTiltModifier * distPct) + backTiltModifier; break;
+          }
+          break;
+        case 'left':
+          if (row === 'front') {
+            finalValue = (rightTiltModifier * distPct) + frontTiltModifier; break;
+          }
+          else if (row === 'middle') {
+            finalValue = rightTiltModifier; break;
+          }
+          else if (row === 'back') {
+            finalValue = (rightTiltModifier * distPct) + backTiltModifier; break;
+          }
+      }
+      let sagittalBaseY = oldCoords[legId].sagittalBaseY - finalValue;
+      
+      newCoords[legId] = Object.assign({}, oldCoords[legId], { sagittalBaseY });
+    }
+      
+    return { 'coords': newCoords };
   }
   
 }

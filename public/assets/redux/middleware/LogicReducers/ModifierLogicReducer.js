@@ -8,7 +8,8 @@ class ModifierLogicReducer extends LogicReducer {
     this.actionTypes = [
       'processLevelModifier(LEVEL_MODIFIER_CHANGED)',
       'processRotationModifier(ROTATION_MODIFIER_CHANGED)',
-      'processShiftModifier(SHIFT_MODIFIER_CHANGED)'
+      'processShiftModifier(SHIFT_MODIFIER_CHANGED)',
+      'processTiltModifier(TILT_MODIFIER_CHANGED)'
     ];
   }
 
@@ -58,6 +59,24 @@ class ModifierLogicReducer extends LogicReducer {
     var newShift = Object.assign({}, oldShift, payload, { normalizedX, normalizedY });
     
     return { 'modifiers.shift': newShift };
+  }
+  
+  processTiltModifier(payload) {
+    var oldTilt = this.resolvePath('modifiers.tilt');
+    
+    // validation. check if the payload and state values are the same
+    if (oldTilt.x === payload.x &&
+        oldTilt.y === payload.y) throw new Error('same tilt modifier values');
+        
+    // calc normalized x (joystick x * normalizer)
+    var normalizedX = MU.normalize(payload.x, oldTilt.normalizer),
+        // calc normalized y (joystick y * normalizer)
+        normalizedY = MU.normalize(payload.y, oldTilt.normalizer);
+    
+    // create new state branch 'modifiers.tilt' which is going to be merged with the current state
+    var newTilt = Object.assign({}, oldTilt, payload, { normalizedX, normalizedY });
+    
+    return { 'modifiers.tilt': newTilt };
   }
 
 }

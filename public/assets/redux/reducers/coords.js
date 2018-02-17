@@ -288,33 +288,33 @@
       //     
       //     return newState;
       //   }
-      case "APPLY_TILT_MODIFIER_TO_COORDS":
-        {
-          let newState = {},
-              distPct = 0.6666666666666666;
-          
-          for (let legId = 1; legId <= 6; legId++) {
-            
-            let finalValue,
-                row = GU.getLegRow(legId);
-            
-            switch (GU.getLegSide(legId)) {
-              case 'right':
-                if (row === 'front') finalValue = action.payload.leftTiltModifier * distPct + action.payload.frontTiltModifier;
-                if (row === 'middle') finalValue = action.payload.leftTiltModifier;
-                if (row === 'back') finalValue = action.payload.leftTiltModifier * distPct + action.payload.backTiltModifier;
-                break;
-              case 'left':
-                if (row === 'front') finalValue = action.payload.rightTiltModifier * distPct + action.payload.frontTiltModifier;
-                if (row === 'middle') finalValue = action.payload.rightTiltModifier;
-                if (row === 'back') finalValue = action.payload.rightTiltModifier * distPct + action.payload.backTiltModifier;
-                break;
-            }
-            
-            newState[legId] = Object.assign({}, state[legId], { sagittalBaseY: state[legId].sagittalBaseY - finalValue });
-          }        
-          return newState;
-        }
+      // case "APPLY_TILT_MODIFIER_TO_COORDS":
+      //   {
+      //     let newState = {},
+      //         distPct = 0.6666666666666666;
+      //     
+      //     for (let legId = 1; legId <= 6; legId++) {
+      //       
+      //       let finalValue,
+      //           row = GU.getLegRow(legId);
+      //       
+      //       switch (GU.getLegSide(legId)) {
+      //         case 'right':
+      //           if (row === 'front') finalValue = action.payload.leftTiltModifier * distPct + action.payload.frontTiltModifier;
+      //           if (row === 'middle') finalValue = action.payload.leftTiltModifier;
+      //           if (row === 'back') finalValue = action.payload.leftTiltModifier * distPct + action.payload.backTiltModifier;
+      //           break;
+      //         case 'left':
+      //           if (row === 'front') finalValue = action.payload.rightTiltModifier * distPct + action.payload.frontTiltModifier;
+      //           if (row === 'middle') finalValue = action.payload.rightTiltModifier;
+      //           if (row === 'back') finalValue = action.payload.rightTiltModifier * distPct + action.payload.backTiltModifier;
+      //           break;
+      //       }
+      //       
+      //       newState[legId] = Object.assign({}, state[legId], { sagittalBaseY: state[legId].sagittalBaseY - finalValue });
+      //     }        
+      //     return newState;
+      //   }
       // case "APPLY_ROTATION_MODIFIER_TO_COORDS":
       //   {
       //     let newState = {},

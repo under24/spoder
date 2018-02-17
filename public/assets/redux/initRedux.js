@@ -70,7 +70,8 @@
       
     if (action.type === "LEVEL_MODIFIER_CHANGED" ||
         action.type === "ROTATION_MODIFIER_CHANGED" ||
-        action.type === "SHIFT_MODIFIER_CHANGED") {
+        action.type === "SHIFT_MODIFIER_CHANGED" ||
+        action.type === "TILT_MODIFIER_CHANGED") {
       next(newState);
       return;
     }
@@ -80,21 +81,19 @@
     // ----------------------------------------------
     
     function processAction(action) {
-      // modifier logic reducer
-      // @ "LEVEL_MODIFIER_CHANGED"
-      // @ "ROTATION_MODIFIER_CHANGED"
-      // @ "SHIFT_MODIFIER_CHANGED"
-      // @ TODO
+      // @handle "LEVEL_MODIFIER_CHANGED"
+      // @handle "ROTATION_MODIFIER_CHANGED"
+      // @handle "SHIFT_MODIFIER_CHANGED"
+      // @handle "TILT_MODIFIER_CHANGED"
       modifierLogicReducer.processAction(action, newState);
     }
   }
   
   let cascadeModules = store => next => newState => {
-    // coords cascade module
-    // @ "modifiers.level"
-    // @ "modifiers.rotation"
-    // @ "modifiers.shift"
-    // @ TODO
+    // @observe "modifiers.level"
+    // @observe "modifiers.rotation"
+    // @observe "modifiers.shift"
+    // @observe "modifiers.tilt"
     coordsCascadeModule.processState(newState);
     // anglesCascadeModule.processState(newState);
     

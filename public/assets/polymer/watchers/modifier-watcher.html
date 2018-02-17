@@ -8,10 +8,10 @@
           //   statePath: 'modifiers.level',
           //   observer: 'observeLevelModifier'
           // },
-          tiltModifier: {
-            statePath: 'modifiers.tilt',
-            observer: 'observeTiltModifier'
-          },
+          // tiltModifier: {
+          //   statePath: 'modifiers.tilt',
+          //   observer: 'observeTiltModifier'
+          // },
           // shiftModifier: {
           //   statePath: 'modifiers.shift',
           //   observer: 'observeShiftModifier'
@@ -40,29 +40,29 @@
       // }
       
       // tilt
-      observeTiltModifier(newValue, oldValue) {
-        // old values is undefined. cannot compare new and old values
-        if (oldValue === undefined) return;
-
-        if (newValue.normalizedX === oldValue.normalizedX && 
-            newValue.normalizedY === oldValue.normalizedY) {
-          console.warn('same tilt modifier values');
-          return;
-        }        
-        
-        var x = oldValue.normalizedX - newValue.normalizedX,
-            y = oldValue.normalizedY - newValue.normalizedY;
-        
-        // create a payload object for dispatching
-        var payload = {
-          leftTiltModifier: x,
-          frontTiltModifier: y,
-          rightTiltModifier: MU.flipNumber(x),
-          backTiltModifier: MU.flipNumber(y),
-        };
-        
-        store.dispatch({ type: "APPLY_TILT_MODIFIER_TO_COORDS", payload });
-      }
+      // observeTiltModifier(newValue, oldValue) {
+      //   // old values is undefined. cannot compare new and old values
+      //   if (oldValue === undefined) return;
+      // 
+      //   if (newValue.normalizedX === oldValue.normalizedX && 
+      //       newValue.normalizedY === oldValue.normalizedY) {
+      //     console.warn('same tilt modifier values');
+      //     return;
+      //   }        
+      //   
+      //   var x = oldValue.normalizedX - newValue.normalizedX,
+      //       y = oldValue.normalizedY - newValue.normalizedY;
+      //   
+      //   // create a payload object for dispatching
+      //   var payload = {
+      //     leftTiltModifier: x,
+      //     frontTiltModifier: y,
+      //     rightTiltModifier: MU.flipNumber(x),
+      //     backTiltModifier: MU.flipNumber(y),
+      //   };
+      //   
+      //   store.dispatch({ type: "APPLY_TILT_MODIFIER_TO_COORDS", payload });
+      // }
       
       // shift
       // observeShiftModifier(newValue, oldValue) {
