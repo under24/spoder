@@ -51,7 +51,7 @@
     
     <div class="center-point">
       <relative-sagittal-view-ui
-        xy="[[computeXY(coords, offsetX, useScaling, scaling)]]"
+        base-coords="[[computeBaseCoords(coords, offsetX, useScaling, scaling)]]"
         side="[[side]]"
         femur-length="[[scaleInput(metaData.femurLength, useScaling, scaling)]]"
         tibia-length="[[scaleInput(metaData.tibiaLength, useScaling, scaling)]]"
@@ -68,7 +68,7 @@
       
       <view-cursor
         side="[[side]]"
-        xy="[[computeCursorXY(coords.sagittalCursorX, coords.sagittalCursorY, offsetX, useScaling, scaling)]]"
+        cursor-coords="[[computeCursorCoords(coords.sagittalCursorX, coords.sagittalCursorY, offsetX, useScaling, scaling)]]"
         output={{cursorOutput}}
       >
       </view-cursor>
@@ -196,14 +196,14 @@
         };
       }
       
-      computeXY(coords, offsetX) {
+      computeBaseCoords(coords, offsetX) {
         return {
           x: this.scaleInput(coords.sagittalBaseX + offsetX),
           y: this.scaleInput(coords.sagittalBaseY)
         };
       }
       
-      computeCursorXY(x, y, offsetX) {
+      computeCursorCoords(x, y, offsetX) {
         return {
           x: this.scaleInput(x + offsetX),
           y: this.scaleInput(y)

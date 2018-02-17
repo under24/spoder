@@ -59,7 +59,7 @@
     
     <div class="center-point">
       <relative-transverse-view-ui
-        base-coords="[[computeBaseXY(coords, viewOffsets, useScaling, scaling, useOffsets)]]"
+        base-coords="[[computeBaseCoords(coords, viewOffsets, useScaling, scaling, useOffsets)]]"
         reach-radius="[[scaleInput(misc.transverseReachRadius, useScaling, scaling)]]"
         coxa-screen-angle="[[computeCoxaScreenAngle(angles.coxaScreenAngle, useOffsets)]]"
         impossible-range="[[scaleInput(metaData.impossibleRange, useScaling, scaling)]]"
@@ -74,7 +74,7 @@
       
       <view-cursor
         side="left"
-        xy="[[computeCursorXY(coords.transverseCursorX, coords.transverseCursorY, viewOffsets, useScaling, scaling, useOffsets)]]"
+        cursor-coords="[[computeCursorCoords(coords.transverseCursorX, coords.transverseCursorY, viewOffsets, useScaling, scaling, useOffsets)]]"
         output={{cursorOutput}}
       >
       </view-cursor>
@@ -210,14 +210,14 @@
         return this.getOffsetRotatedCoords(coords);
       }
       
-      computeBaseXY(coords) {
+      computeBaseCoords(coords) {
         return {
           x: this.scaleInput(coords.transverseBaseX + this.getOffset('x')),
           y: this.scaleInput(coords.transverseBaseY + this.getOffset('y'))
         };
       }
       
-      computeCursorXY(x, y) {
+      computeCursorCoords(x, y) {
         var coords = {
           x: this.scaleInput(x + this.getOffset('x')),
           y: this.scaleInput(y + this.getOffset('y'))
@@ -277,7 +277,7 @@
         // if useOffsets is false then return the coords back
         if (!this.useOffsets) return coords;
         
-        var rotationBaseCoords = this.computeBaseXY(this.coords),
+        var rotationBaseCoords = this.computeBaseCoords(this.coords),
             rotationAngle = MU.flipNumber(this.baseDirection);
         
         return MU.rotateCoords(rotationBaseCoords, coords, rotationAngle);

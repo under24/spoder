@@ -27,8 +27,8 @@
           side: {
             reflectToAttribute: true
           },
-          xy: {
-            observer: 'observeXY'
+          cursorCoords: {
+            observer: 'observeCursorCoords'
           },
           output: {
             notify: true
@@ -96,7 +96,7 @@
       }
 
     }
-    viewCursor.prototype.observeXY = viewCursor.prototype.processInputFlow;
+    viewCursor.prototype.observeCursorCoords = viewCursor.prototype.processInputFlow;
     window.customElements.define(viewCursor.is, viewCursor);
   </script>
 </dom-module>

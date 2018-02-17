@@ -131,7 +131,7 @@
       }
     </style>
     
-    <div id="base" style$="[[computeBase(xy, side)]]">
+    <div id="base" style$="[[computeBase(baseCoords, side)]]">
       <div class="femur" style$="width: [[femurLength]]px; transform: rotate([[femurScreenAngle]]deg);">
         <div class="tibia" style$="width: [[tibiaLength]]px; transform: rotate([[tibiaScreenAngle]]deg);"></div>
       </div>
@@ -162,7 +162,7 @@
           side: {
             reflectToAttribute: true
           },
-          xy: Object,
+          baseCoords: Object,
           femurScreenAngle: Number,
           tibiaScreenAngle: Number,
           femurLength: Number,
