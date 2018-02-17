@@ -16,10 +16,10 @@
             statePath: 'modifiers.shift',
             observer: 'observeShiftModifier'
           },
-          rotationModifier: {
-            statePath: 'modifiers.rotation',
-            observer: 'observeRotationModifier'
-          }
+          // rotationModifier: {
+          //   statePath: 'modifiers.rotation',
+          //   observer: 'observeRotationModifier'
+          // }
         };
       }
       
@@ -85,20 +85,20 @@
       }
       
       // rotation
-      observeRotationModifier(newValue, oldValue) {
-        // old values is undefined. cannot compare new and old values
-        if (oldValue === undefined) return;
-        
-        if (newValue.normalizedX === oldValue.normalizedX) {
-          console.warn('same rotation modifier value');
-          return;
-        }
-        
-        // create a payload object for dispatching
-        var payload = { rotation: oldValue.normalizedX - newValue.normalizedX };
-        
-        store.dispatch({ type: 'APPLY_ROTATION_MODIFIER_TO_COORDS', payload });
-      }
+      // observeRotationModifier(newValue, oldValue) {
+      //   // old values is undefined. cannot compare new and old values
+      //   if (oldValue === undefined) return;
+      // 
+      //   if (newValue.normalizedX === oldValue.normalizedX) {
+      //     console.warn('same rotation modifier value');
+      //     return;
+      //   }
+      // 
+      //   // create a payload object for dispatching
+      //   var payload = { rotation: oldValue.normalizedX - newValue.normalizedX };
+      // 
+      //   store.dispatch({ type: 'APPLY_ROTATION_MODIFIER_TO_COORDS', payload });
+      // }
 
     }
     window.customElements.define(modifierWatcher.is, modifierWatcher);

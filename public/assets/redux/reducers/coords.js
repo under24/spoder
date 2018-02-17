@@ -315,32 +315,33 @@
           }        
           return newState;
         }
-      case "APPLY_ROTATION_MODIFIER_TO_COORDS":
-        {
-          let newState = {},
-              baseCenterCoords = MU.getBaseCenter(state);
-          
-          for (let legId = 1; legId <= 6; legId++) {
-            let rotatedCoords = { x: state[legId].transverseBaseX, y: state[legId].transverseBaseY };
-            rotatedCoords = MU.rotateCoords(baseCenterCoords, rotatedCoords, action.payload.rotation);
-            
-            let finalCoords = {
-              transverseBaseX: rotatedCoords.x,
-              transverseBaseY: rotatedCoords.y
-            }
-            
-            // gather up latest coords for further computations
-            let coords = CU.aggregateCoords(state[legId], finalCoords),
-                compensativeCoords = CU.getTransverseBaseXYCompensativeCoords(coords);
-            // compare with the existing coords
-            if (compensativeCoords.sagittalBaseX !== state[legId].sagittalBaseX) finalCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
-            if (compensativeCoords.sagittalCursorX !== state[legId].sagittalCursorX) finalCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
-            
-            newState[legId] = Object.assign({}, state[legId], finalCoords);
-          }
-          
-          return newState;
-        }    
+      // case "APPLY_ROTATION_MODIFIER_TO_COORDS":
+      //   {
+      //     let newState = {},
+      //         baseCenterCoords = MU.getBaseCenter(state);
+      // 
+      //     for (let legId = 1; legId <= 6; legId++) {
+      //       let rotatedCoords = { x: state[legId].transverseBaseX, y: state[legId].transverseBaseY };
+      //       rotatedCoords = MU.rotateCoords(baseCenterCoords, rotatedCoords, action.payload.rotation);
+      // 
+      //       let finalCoords = {
+      //         transverseBaseX: rotatedCoords.x,
+      //         transverseBaseY: rotatedCoords.y
+      //       }
+      // 
+      //       // gather up latest coords for further computations
+      //       let coords = CU.aggregateCoords(state[legId], finalCoords),
+      //           compensativeCoords = CU.getTransverseBaseXYCompensativeCoords(coords);
+      //       // compare with the existing coords
+      //       if (compensativeCoords.sagittalBaseX !== state[legId].sagittalBaseX) finalCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
+      //       if (compensativeCoords.sagittalCursorX !== state[legId].sagittalCursorX) finalCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
+      // 
+      //       newState[legId] = Object.assign({}, state[legId], finalCoords);
+      //     }
+      // 
+      //     return newState;
+      //   }    
+    }
     }
     return state;
   }  
