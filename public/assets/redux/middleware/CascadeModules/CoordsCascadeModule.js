@@ -14,13 +14,13 @@ class CoordsCascadeModule extends CascadeModule {
     
     // ['handler(dependency, dependency)', ...]
     this.observers = [
-      'levelModifierHandler(level)',
-      'rotationModifierHandler(rotation)',
-      'shiftModifierHandler(shift)'
+      'levelModifierObserver(level)',
+      'rotationModifierObserver(rotation)',
+      'shiftModifierObserver(shift)',
     ];
   }
   
-  levelModifierHandler(newLevel) {
+  levelModifierObserver(newLevel) {
     // get values from the current state
     var oldLevel = this.resolvePath(this.properties.level);
     
@@ -44,7 +44,7 @@ class CoordsCascadeModule extends CascadeModule {
     return { 'coords': newCoords };
   }
   
-  rotationModifierHandler(newRotation) {
+  rotationModifierObserver(newRotation) {
     // get values from the current state
     var oldRotation = this.resolvePath(this.properties.rotation);
     
@@ -82,7 +82,7 @@ class CoordsCascadeModule extends CascadeModule {
     return { 'coords': newCoords };
   }
   
-  shiftModifierHandler(newShift) {
+  shiftModifierObserver(newShift) {
     // get values from the current state
     var oldShift = this.resolvePath(this.properties.shift);
     
