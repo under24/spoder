@@ -2,7 +2,7 @@
   <template>
     <style>
       :host {
-        width: 650px;
+        width: 700px;
         height: 400px;
         position: absolute;
         z-index: 2;
@@ -40,18 +40,37 @@
       header .header-title {
         display: inline-block;
       }
-      .content {
-        padding: 28px;
+      main {
         display: flex;
         flex: 1;
       }
-      .content > section.settings {
+      main > .main-container {
+        flex: 1;
+        flex-direction: column;
+        display: flex;
+      }
+      .main-container > .settings-container {
+        display: flex;
+        flex: 1;
+        padding: 25px;
+        font-size: 15px;
+      }
+      .settings-container > .settings {
         flex: 1;
       }
-      .content > section.reset {
-        flex: 0.5;
-        align-self: flex-end;
-        text-align: right;
+      .main-container > .reset-container {
+        height: 55px;
+        line-height: 55px;
+        text-align: center;
+        font-size: 13px;
+        color: rgb(17, 17, 17);
+        border-top: 1px solid #ebebeb;
+      }
+      .reset-container > a.reset-btn {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        cursor: pointer;
       }
       fieldset {
         display: inline-block;
@@ -78,60 +97,84 @@
       <div class="close-settings-dialog" on-click="hide">✕</div>
     </header>
     
-    <div class="content">
+    <main>
       <!-- relative transverse-view -->
       <template is="dom-if" if="[[computeSettingsView('relative-transverse-view', settingsView)]]" restamp>
-        <section class="settings">
-          <fieldset>
-            <legend>View options:</legend>
-            <p>
-              <label>
-                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
-              </label>
-            </p>
-            <p>
-              <label>
-                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.useScaling]]" value="useScaling"> Use scaling: [[relativeTransverseViewSettings.scaling]]%
-              </label>
-            </p>
-            <p>
-              <input type="range" name="scaling" disabled="[[!relativeTransverseViewSettings.useScaling]]" value="[[relativeTransverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="handleRange" />
-            </p>
-          </fieldset>
-        </section>
-        <section class="settings">
-          <fieldset>
-            <legend>UI options:</legend>
-            <p>
-              <label>
-                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Show invalid range
-              </label>
-            </p>
-            <p>
-              <label>
-                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showLegSelector]]" value="showLegSelector"> Show leg selector
-              </label>
-            </p>
-            <p>
-              <label>
-                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showMovementCircle]]" value="showMovementCircle"> Show movement circle
-              </label>
-            </p>
-            <p>
-              <label>
-                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Show movement pointer
-              </label>
-            </p>
-            <p>
-              <label>
-                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showReachRadius]]" value="showReachRadius"> Show reach radius
-              </label>
-            </p>
-          </fieldset>
-        </section>
-        <section class="reset">
-          <button on-click="dispatchResetView" name="RELATIVE_TRANSVERSE_VIEW_SETTINGS_RESET">Reset Settings</button>
-        </section>
+        <div class="main-container">
+          <section class="settings-container">
+            <div class="settings">
+              <fieldset>
+                <legend>View options:</legend>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.useScaling]]" value="useScaling"> Use scaling: [[relativeTransverseViewSettings.scaling]]%
+                  </label>
+                </p>
+                <p>
+                  <input type="range" name="scaling" disabled="[[!relativeTransverseViewSettings.useScaling]]" value="[[relativeTransverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="handleRange" />
+                </p>
+              </fieldset>
+            </div>
+            <div class="settings">
+              <fieldset>
+                <legend>UI options:</legend>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Invalid Range
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showLegSelector]]" value="showLegSelector"> Leg Selector
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showMovementCircle]]" value="showMovementCircle"> Movement Circle
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Movement Pointer
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[relativeTransverseViewSettings.showReachRadius]]" value="showReachRadius"> Reach Radius
+                  </label>
+                </p>
+              </fieldset>
+            </div>
+            <div class="settings">
+              <fieldset>
+                <legend>UI Options:</legend>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox"> Solid Movement Circle
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox"> Fluent Movement Circle
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox"> Fluent Base Point
+                  </label>
+                </p>
+              </fieldset>
+            </div>
+          </section>
+          <section class="reset-container">
+            <a class="reset-btn" on-click="dispatchResetView" name="RELATIVE_TRANSVERSE_VIEW_SETTINGS_RESET">RESET SETTINGS</a>
+          </section>
+        </div>
       </template>
       <!-- relative sagittal view -->
       <template is="dom-if" if="[[computeSettingsView('relative-sagittal-view', settingsView)]]" restamp>
@@ -205,8 +248,7 @@
           <button on-click="dispatchResetView" name="TRANSVERSE_VIEW_SETTINGS_RESET">Reset Settings</button>
         </section>
       </template>
-    </div>
-
+    </main>
   </template>
 
   <script>

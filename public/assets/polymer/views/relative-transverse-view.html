@@ -68,6 +68,7 @@
         movement-circle-diameter="[[scaleInput(movementCircle.solidDiameter, useScaling, scaling)]]"
         movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, useScaling, scaling, useOffsets)]]"
         base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle, useOffsets)]]"
+        view-settings="[[viewSettings]]"
         output="{{baseOutput}}"
       >
       </relative-transverse-view-ui>
@@ -80,12 +81,14 @@
       </view-cursor>
     </div>
     
-    <view-leg-selector 
-      position="left"
-      leg-id="[[legId]]"
-      output="{{selectorOutput}}"
-    >
-    </view-leg-selector>
+    <template is="dom-if" if="[[viewSettings.showLegSelector]]" restamp>
+      <view-leg-selector 
+        position="left"
+        leg-id="[[legId]]"
+        output="{{selectorOutput}}"
+      >
+      </view-leg-selector>
+    </template>
   </template>
 
   <script>
@@ -154,6 +157,9 @@
           },
           useOffsets: {
             statePath: 'viewSettings.relativeTransverseView.useOffsets'
+          },
+          viewSettings: {
+            statePath: 'viewSettings.relativeTransverseView'
           },
           // incoming properties
           cursorOutput: {

@@ -81,15 +81,26 @@
     
     <div id="base" style$="left: [[baseCoords.x]]px; top: [[baseCoords.y]]px;">
       <div class="coxa" style$="width: [[legLength]]px; transform: rotate([[coxaScreenAngle]]deg"></div>
-      <div class="reachRadius" style$="[[computeReachRadius(reachRadius, baseCoxaAngle)]]"></div>
-      <div class="baseInvalidRange" style$="[[computeBaseInvalidRange(baseCoxaAngle, impossibleRange)]]"></div>
+      
+      <template is="dom-if" if="[[viewSettings.showReachRadius]]" restamp>
+        <div class="reachRadius" style$="[[computeReachRadius(reachRadius, baseCoxaAngle)]]"></div>
+      </template>
+      
+      <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
+        <div class="baseInvalidRange" style$="[[computeBaseInvalidRange(baseCoxaAngle, impossibleRange)]]"></div>
+      </template>
     </div>
     
-    <div class="movementCircleCenter" style$="left: [[movementCenterCoords.x]]px; top: [[movementCenterCoords.y]]px;">
-      <div class="movementCircle" style$="width: [[movementCircleDiameter]]px; height: [[movementCircleDiameter]]px;"></div>
-    </div>
+    <template is="dom-if" if="[[viewSettings.showMovementCircle]]" restamp>
+      <div class="movementCircleCenter" style$="left: [[movementCenterCoords.x]]px; top: [[movementCenterCoords.y]]px;">
+        <div class="movementCircle" style$="width: [[movementCircleDiameter]]px; height: [[movementCircleDiameter]]px;"></div>
+      </div>
+    </template>
     
-    <div class="movementPointer" style$="left: [[movementPointer.x]]px; top: [[movementPointer.y]]px;"></div>
+    <template is="dom-if" if="[[viewSettings.showMovementPointer]]" restamp>
+      <div class="movementPointer" style$="left: [[movementPointer.x]]px; top: [[movementPointer.y]]px;"></div>
+    </template>
+    <div class="movementPointer"></div>
   </template>
 
   <script>
@@ -106,6 +117,7 @@
           movementCircleDiameter: Number,
           baseCoxaAngle: Number,
           movementPointer: Object,
+          viewSettings: Object,
           output: {
             notify: true
           }
