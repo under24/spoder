@@ -178,27 +178,31 @@
       </template>
       <!-- relative sagittal view -->
       <template is="dom-if" if="[[computeSettingsView('relative-sagittal-view', settingsView)]]" restamp>
-        <section class="settings">
-          <fieldset>
-            <legend>View options:</legend>
-            <p>
-              <label>
-                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeSagittalViewSettings.useOffsets]]" value="useOffsets"> Use offsets
-              </label>
-            </p>
-            <p>
-              <label>
-                <input type="checkbox" on-click="handleCheckbox" checked="[[relativeSagittalViewSettings.useScaling]]" value="useScaling"> Use scaling: [[relativeSagittalViewSettings.scaling]]%
-              </label>
-            </p>
-            <p>
-              <input type="range" name="scaling" disabled="[[!relativeSagittalViewSettings.useScaling]]" value="[[relativeSagittalViewSettings.scaling]]" step="1" max="100" min="1" on-input="handleRange" />
-            </p>
-          </fieldset>
-        </section>
-        <section class="reset">
-          <button on-click="dispatchResetView" name="RELATIVE_SAGITTAL_VIEW_SETTINGS_RESET">Reset Settings</button>
-        </section>
+        <div class="main-container">
+          <section class="settings-container">
+            <div class="settings">
+              <fieldset>
+                <legend>View options:</legend>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[relativeSagittalViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[relativeSagittalViewSettings.useScaling]]" value="useScaling"> Use scaling: [[relativeSagittalViewSettings.scaling]]%
+                  </label>
+                </p>
+                <p>
+                  <input type="range" name="scaling" disabled="[[!relativeSagittalViewSettings.useScaling]]" value="[[relativeSagittalViewSettings.scaling]]" step="1" max="100" min="1" on-input="handleRange" />
+                </p>
+              </fieldset>
+            </div>
+          </section>
+          <section class="reset-container">
+            <a class="reset-btn" on-click="dispatchResetView" name="RELATIVE_SAGITTAL_VIEW_SETTINGS_RESET">RESET SETTINGS</a>
+          </section>
+        </div>
       </template>
       <!-- coronal view -->
       <template is="dom-if" if="[[computeSettingsView('coronal-view', settingsView)]]" restamp>
