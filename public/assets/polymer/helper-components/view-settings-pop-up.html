@@ -234,27 +234,31 @@
       </template>
       <!-- transverse view -->
       <template is="dom-if" if="[[computeSettingsView('transverse-view', settingsView)]]" restamp>
-        <section class="settings">
-          <fieldset>
-            <legend>View options:</legend>
-            <p>
-              <label>
-                <input type="checkbox" on-click="handleCheckbox" checked="[[transverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
-              </label>
-            </p>
-            <p>
-              <label>
-                <input type="checkbox" on-click="handleCheckbox" checked="[[transverseViewSettings.useScaling]]" value="useScaling"> Use scaling: [[transverseViewSettings.scaling]]%
-              </label>
-            </p>
-            <p>
-              <input type="range" name="scaling" disabled="[[!transverseViewSettings.useScaling]]" value="[[transverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="handleRange" />
-            </p>
-          </fieldset>
-        </section>
-        <section class="reset">
-          <button on-click="dispatchResetView" name="TRANSVERSE_VIEW_SETTINGS_RESET">Reset Settings</button>
-        </section>
+        <div class="main-container">
+          <section class="settings-container">
+            <div class="settings">
+              <fieldset>
+                <legend>View options:</legend>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[transverseViewSettings.useOffsets]]" value="useOffsets"> Use offsets
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[transverseViewSettings.useScaling]]" value="useScaling"> Use scaling: [[transverseViewSettings.scaling]]%
+                  </label>
+                </p>
+                <p>
+                  <input type="range" name="scaling" disabled="[[!transverseViewSettings.useScaling]]" value="[[transverseViewSettings.scaling]]" step="1" max="100" min="1" on-input="handleRange" />
+                </p>
+              </fieldset>
+            </div>
+          </section>
+          <section class="reset-container">
+            <a class="reset-btn" on-click="dispatchResetView" name="TRANSVERSE_VIEW_SETTINGS_RESET">RESET SETTINGS</a>
+          </section>
+        </div>
       </template>
     </main>
   </template>
