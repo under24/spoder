@@ -77,6 +77,15 @@
         position: absolute;
         transform: translate(-50%,-50%);
       }
+      .fluent-base-point {
+        background: rgba(0, 0, 255, 0.08);
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        border-radius: 100%;
+        position: absolute;
+        transform: translate(-50%,-50%);
+      }
     </style>
     
     <div id="base" style$="left: [[baseCoords.x]]px; top: [[baseCoords.y]]px;">
@@ -100,6 +109,11 @@
     <template is="dom-if" if="[[viewSettings.showMovementPointer]]" restamp>
       <div class="movementPointer" style$="left: [[movementPointer.x]]px; top: [[movementPointer.y]]px;"></div>
     </template>
+    
+    <template is="dom-if" if="[[viewSettings.showFluentTransverseBaseXY]]" restamp>
+      <div class="fluent-base-point" style="left: [[fluentBasePoint.x]]px; top:[[fluentBasePoint.y]]px;"></div>
+    </template>
+    
     <div class="movementPointer"></div>
   </template>
 
@@ -117,6 +131,7 @@
           movementCircleDiameter: Number,
           baseCoxaAngle: Number,
           movementPointer: Object,
+          fluentBasePoint: Object,
           viewSettings: Object,
           output: {
             notify: true

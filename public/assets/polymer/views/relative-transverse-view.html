@@ -66,6 +66,7 @@
         leg-length="[[scaleInput(misc.transverseLegLength, useScaling, scaling)]]"
         movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets, useScaling, scaling, useOffsets)]]"
         movement-circle-diameter="[[scaleInput(movementCircle.solidDiameter, useScaling, scaling)]]"
+        fluent-base-point="[[computeFluentBasePoint(movementCircle, useScaling, scaling)]]"
         movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, useScaling, scaling, useOffsets)]]"
         base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle, useOffsets)]]"
         view-settings="[[viewSettings]]"
@@ -251,6 +252,15 @@
       
       computeRow(legId) {
         return GU.getLegRow(legId);
+      }
+      
+      computeFluentBasePoint(movementCircle) {
+        var coords =  {
+          x: this.scaleInput(movementCircle.fluentTransverseBaseX + this.getOffset('x')),
+          y: this.scaleInput(movementCircle.fluentTransverseBaseY + this.getOffset('y'))
+        };
+        
+        return this.getOffsetRotatedCoords(coords);
       }
       
       scaleOutput(val) {

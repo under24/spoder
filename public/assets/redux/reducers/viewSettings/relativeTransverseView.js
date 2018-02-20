@@ -11,6 +11,7 @@
     showInvalidRange: true,
     showLegSelector: true,
     showReachRadius: true
+    showFluentTransverseBaseXY: true,
   };
   
   {
@@ -46,6 +47,7 @@
             showInvalidRange: true,
             showLegSelector: true,
             showReachRadius: true
+            showFluentTransverseBaseXY: true,
           });
         }
     }
