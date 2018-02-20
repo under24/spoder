@@ -7,7 +7,7 @@ class StateModule {
     LogicReducer.store = store;
   }
   
-  getState() {
+  _getState() {
     return LogicReducer.store.getState();
   }
   
@@ -53,7 +53,7 @@ class StateModule {
   }
   
   resolvePath(path) {
-    var prop = this.getState();
+    var prop = this._getState();
     
     var pathParts = path.split('.');
     
