@@ -25,7 +25,7 @@
         transform-origin: left;
         left: 0px;
       }
-      .reachRadius {
+      .reach-radius {
         background-color: rgba(255, 0, 0, 0.04);
         display: inline-block;
         position: absolute;
@@ -33,7 +33,7 @@
         left: 0px;
         transform-origin: center left;
       }
-      .baseInvalidRange {
+      .base-invalid-range {
         background-color: white;
         border-radius: 100%;
         position: absolute;
@@ -43,19 +43,19 @@
         border-right-color: red;
         border-bottom-color: red;
       }
-      .movementCircleCenter {
+      .movement-circle-center {
         position: absolute;
         height: 0px;
         width: 0px;
         pointer-events: none;
       }
-      .movementCircle {
+      .movement-circle {
         display: inline-block;
         background-color: rgba(255, 0, 0, 0.1);
         transform: translate(-50%, -50%);
         border-radius: 100%;
       }
-      .movementCircleCenter::after {
+      .movement-circle-center::after {
         content: '';
         display: inline-block;
         width: 4px;
@@ -67,7 +67,7 @@
         left: 50%;
         position: absolute;
       }
-      .movementPointer {
+      .movement-pointer {
         content: '';
         background: rgba(0, 128, 0, 0.35);
         width: 20px;
@@ -92,29 +92,29 @@
       <div class="coxa" style$="width: [[legLength]]px; transform: rotate([[coxaScreenAngle]]deg"></div>
       
       <template is="dom-if" if="[[viewSettings.showReachRadius]]" restamp>
-        <div class="reachRadius" style$="[[computeReachRadius(reachRadius, baseCoxaAngle)]]"></div>
+        <div class="reach-radius" style$="[[computeReachRadius(reachRadius, baseCoxaAngle)]]"></div>
       </template>
       
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
-        <div class="baseInvalidRange" style$="[[computeBaseInvalidRange(baseCoxaAngle, impossibleRange)]]"></div>
+        <div class="base-invalid-range" style$="[[computeBaseInvalidRange(baseCoxaAngle, impossibleRange)]]"></div>
       </template>
     </div>
     
     <template is="dom-if" if="[[viewSettings.showMovementCircle]]" restamp>
-      <div class="movementCircleCenter" style$="left: [[movementCenterCoords.x]]px; top: [[movementCenterCoords.y]]px;">
-        <div class="movementCircle" style$="width: [[movementCircleDiameter]]px; height: [[movementCircleDiameter]]px;"></div>
+      <div class="movement-circle-center" style$="left: [[movementCenterCoords.x]]px; top: [[movementCenterCoords.y]]px;">
+        <div class="movement-circle" style$="width: [[movementCircleDiameter]]px; height: [[movementCircleDiameter]]px;"></div>
       </div>
     </template>
     
     <template is="dom-if" if="[[viewSettings.showMovementPointer]]" restamp>
-      <div class="movementPointer" style$="left: [[movementPointer.x]]px; top: [[movementPointer.y]]px;"></div>
+      <div class="movement-pointer" style$="left: [[movementPointer.x]]px; top: [[movementPointer.y]]px;"></div>
     </template>
     
     <template is="dom-if" if="[[viewSettings.showFluentTransverseBaseXY]]" restamp>
       <div class="fluent-base-point" style="left: [[fluentBasePoint.x]]px; top:[[fluentBasePoint.y]]px;"></div>
     </template>
     
-    <div class="movementPointer"></div>
+    <div class="movement-pointer"></div>
   </template>
 
   <script>
