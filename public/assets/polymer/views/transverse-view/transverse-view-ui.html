@@ -1,13 +1,13 @@
 <dom-module id="transverse-view-ui">
   <template>
     <style>
-    .baseCenterPoint {
+    .base-center-point {
       display: inline-block;
       position: absolute;
       width: 0px;
       height: 0px
     }
-    .baseCenterPoint::after {
+    .base-center-point::after {
       content: '';
       display: inline-block;
       border-radius: 100%;
@@ -17,7 +17,7 @@
       position: absolute;
       transform: translate(-50%,-50%);
     }
-    .baseDirection {
+    .base-direction {
       border-left: 1px dotted;
       position: absolute;
       bottom: 0px;
@@ -173,8 +173,8 @@
     <div class="cursor dot" style$="left: [[coords6.transverseCursorX]]px; top: [[coords6.transverseCursorY]]px;"></div>
     
     <!-- base center point -->
-    <div class="baseCenterPoint" style$="left: [[baseCenterCoords.x]]px; top: [[baseCenterCoords.y]]px;">
-      <div class="baseDirection" style$="transform: translateX(-50%) rotate([[baseDirection]]deg); height: [[baseDirectionLength]]px;"></div>
+    <div class="base-center-point" style$="left: [[baseCenterCoords.x]]px; top: [[baseCenterCoords.y]]px;">
+      <div class="base-direction" style$="transform: translateX(-50%) rotate([[baseDirection]]deg); height: [[baseDirectionLength]]px;"></div>
     </div>
     
   </template>
