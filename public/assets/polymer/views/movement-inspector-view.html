@@ -7,7 +7,7 @@
         height: 100%;
         position: relative;
       }
-      #sequenceTimeline {
+      #sequence-timeline {
         width: 95%;
         border: 1px dotted;
         margin: auto;
@@ -16,22 +16,22 @@
         display: flex;
         flex-direction: column;
       }
-      #sequenceTimeline .leg-sequence {
+      #sequence-timeline .leg-sequence {
         font-size: 17px;
         display: flex;
         border-top: 1px dotted;
       }
-      #sequenceTimeline .leg-sequence:first-child {
+      #sequence-timeline .leg-sequence:first-child {
         border-top: none;
       }
-      #sequenceTimeline .sequence-header {
+      #sequence-timeline .sequence-header {
         display: inline-block;
         border-right: 1px dotted;
         padding: 4px 0px 4px 8px;
         width: 48px;
         font-size: 16px;
       }
-      #sequenceTimeline #cursor {
+      #sequence-timeline #cursor {
         width: 1px;
         background: black;
         position: absolute;
@@ -39,7 +39,7 @@
         top: 0px;
         bottom: 0px;
       }
-      #cursorKnob {
+      #cursor-knob {
         position: absolute;
         top: 100%;
         left: 50%;
@@ -75,7 +75,7 @@
       }
     </style>
     <br /><br /><br />
-    <div id="sequenceTimeline">
+    <div id="sequence-timeline">
       <div class="leg-sequence" id="leg1">
         <div class="sequence-header">L1 (1)</div>
         <div class="sequence-content">
@@ -115,7 +115,7 @@
       
       <div class="cursor-wrapper">
         <div id="cursor" style$="left: [[iteration.currentTickPct]]%">
-          <div id="cursorKnob">[[iteration.currentTickPct]]</div>
+          <div id="cursor-knob">[[iteration.currentTickPct]]</div>
         </div>
       </div>
 
