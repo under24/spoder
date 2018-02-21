@@ -97,31 +97,37 @@
     <div id="base" style$="left: [[baseCoords.x]]px; top: [[baseCoords.y]]px;">
       <div class="coxa" style$="width: [[legLength]]px; transform: rotate([[coxaScreenAngle]]deg"></div>
       
+      <!-- reach radius -->
       <template is="dom-if" if="[[viewSettings.showReachRadius]]" restamp>
         <div class="reach-radius" style$="[[computeReachRadius(reachRadius, baseCoxaAngle)]]"></div>
       </template>
       
+      <!-- invalid range -->
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
         <div class="base-invalid-range" style$="[[computeBaseInvalidRange(baseCoxaAngle, impossibleRange)]]"></div>
       </template>
     </div>
     
+    <!-- fluent movement circle -->
     <template is="dom-if" if="[[viewSettings.showFluentMovementCircle]]" restamp>
       <div class="movement-circle-center" style$="left: [[movementCenterCoords.x]]px; top: [[movementCenterCoords.y]]px;">
         <div class="movement-circle" style$="width: [[movementCircleDiameter]]px; height: [[movementCircleDiameter]]px;"></div>
       </div>
     </template>
     
+    <!-- solid movement circle -->
     <template is="dom-if" if="[[viewSettings.showSolidMovementCircle]]" restamp>
       <div class="movement-circle-center" style$="left: [[solidCircleCoords.x]]px; top: [[solidCircleCoords.y]]px;">
         <div class="solid-movement-circle" style$="width: [[fluentCircleDiameter]]px; height: [[fluentCircleDiameter]]px;"></div>
       </div>
     </template>
     
+    <!-- movement pointer -->
     <template is="dom-if" if="[[viewSettings.showMovementPointer]]" restamp>
       <div class="movement-pointer" style$="left: [[movementPointer.x]]px; top: [[movementPointer.y]]px;"></div>
     </template>
     
+    <!-- fluent base point -->
     <template is="dom-if" if="[[viewSettings.showFluentTransverseBaseXY]]" restamp>
       <div class="fluent-base-point" style="left: [[fluentBasePoint.x]]px; top:[[fluentBasePoint.y]]px;"></div>
     </template>
