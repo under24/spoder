@@ -10,8 +10,9 @@
     showMovementPointer: true,
     showInvalidRange: true,
     showLegSelector: true,
-    showReachRadius: true
+    showReachRadius: true,
     showFluentTransverseBaseXY: true,
+    showSolidMovementCircle: true
   };
   
   {
@@ -46,8 +47,9 @@
             showMovementPointer: true,
             showInvalidRange: true,
             showLegSelector: true,
-            showReachRadius: true
+            showReachRadius: true,
             showFluentTransverseBaseXY: true,
+            showSolidMovementCircle: true
           });
         }
     }

@@ -66,7 +66,9 @@
         leg-length="[[scaleInput(misc.transverseLegLength, useScaling, scaling)]]"
         movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets, useScaling, scaling, useOffsets)]]"
         movement-circle-diameter="[[scaleInput(movementCircle.solidDiameter, useScaling, scaling)]]"
-        fluent-base-point="[[computeFluentBasePoint(movementCircle, useScaling, scaling)]]"
+        solid-circle-coords="[[computeSolidCircleCoords(movementCircle, viewOffsets, useScaling, scaling, useOffsets)]]"
+        fluent-circle-diameter="[[scaleInput(movementCircle.fluentDiameter, useScaling, scaling)]]"
+        fluent-base-point="[[computeFluentBasePoint(movementCircle, useScaling, scaling, useOffsets)]]"
         movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, useScaling, scaling, useOffsets)]]"
         base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle, useOffsets)]]"
         view-settings="[[viewSettings]]"
@@ -260,6 +262,15 @@
           y: this.scaleInput(movementCircle.fluentTransverseBaseY + this.getOffset('y'))
         };
         
+        return this.getOffsetRotatedCoords(coords);
+      }
+      
+      computeSolidCircleCoords(movementCircle) {
+        var coords = {
+          x: this.scaleInput(movementCircle.solidX + this.getOffset('x')),
+          y: this.scaleInput(movementCircle.solidY + this.getOffset('y')),
+        };
+
         return this.getOffsetRotatedCoords(coords);
       }
       

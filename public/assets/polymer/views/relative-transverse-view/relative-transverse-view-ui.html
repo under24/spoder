@@ -55,6 +55,12 @@
         transform: translate(-50%, -50%);
         border-radius: 100%;
       }
+      .solid-movement-circle {
+        display: inline-block;
+        background-color: rgba(255, 0, 0, 0.05);
+        transform: translate(-50%, -50%);
+        border-radius: 100%;
+      }
       .movement-circle-center::after {
         content: '';
         display: inline-block;
@@ -106,6 +112,12 @@
       </div>
     </template>
     
+    <template is="dom-if" if="[[viewSettings.showSolidMovementCircle]]" restamp>
+      <div class="movement-circle-center" style$="left: [[solidCircleCoords.x]]px; top: [[solidCircleCoords.y]]px;">
+        <div class="solid-movement-circle" style$="width: [[fluentCircleDiameter]]px; height: [[fluentCircleDiameter]]px;"></div>
+      </div>
+    </template>
+    
     <template is="dom-if" if="[[viewSettings.showMovementPointer]]" restamp>
       <div class="movement-pointer" style$="left: [[movementPointer.x]]px; top: [[movementPointer.y]]px;"></div>
     </template>
@@ -133,6 +145,8 @@
           movementPointer: Object,
           fluentBasePoint: Object,
           viewSettings: Object,
+          solidCircleCoords: Object,
+          fluentCircleDiameter: Object,
           output: {
             notify: true
           }
