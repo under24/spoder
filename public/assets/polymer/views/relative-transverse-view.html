@@ -64,8 +64,8 @@
         coxa-screen-angle="[[computeCoxaScreenAngle(angles.coxaScreenAngle, useOffsets)]]"
         impossible-range="[[scaleInput(metaData.impossibleRange, useScaling, scaling)]]"
         leg-length="[[scaleInput(misc.transverseLegLength, useScaling, scaling)]]"
-        movement-center-coords="[[computeMovementCenterCoords(movementCircle, viewOffsets, useScaling, scaling, useOffsets)]]"
-        movement-circle-diameter="[[scaleInput(movementCircle.solidDiameter, useScaling, scaling)]]"
+        fluent-circle-coords="[[computeFluentCircleCoords(movementCircle, viewOffsets, useScaling, scaling, useOffsets)]]"
+        solid-circle-diameter="[[scaleInput(movementCircle.solidDiameter, useScaling, scaling)]]"
         solid-circle-coords="[[computeSolidCircleCoords(movementCircle, viewOffsets, useScaling, scaling, useOffsets)]]"
         fluent-circle-diameter="[[scaleInput(movementCircle.fluentDiameter, useScaling, scaling)]]"
         fluent-base-point="[[computeFluentBasePoint(movementCircle, useScaling, scaling, useOffsets)]]"
@@ -210,7 +210,7 @@
         return coxaAngle - this.getAngleOffset();
       }
       
-      computeMovementCenterCoords(movementCircle) {
+      computeFluentCircleCoords(movementCircle) {
         var coords = {
           x: this.scaleInput(movementCircle.fluentX + this.getOffset('x')),
           y: this.scaleInput(movementCircle.fluentY + this.getOffset('y')),

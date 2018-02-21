@@ -110,8 +110,8 @@
     
     <!-- fluent movement circle -->
     <template is="dom-if" if="[[viewSettings.showFluentMovementCircle]]" restamp>
-      <div class="movement-circle-center" style$="left: [[movementCenterCoords.x]]px; top: [[movementCenterCoords.y]]px;">
-        <div class="movement-circle" style$="width: [[movementCircleDiameter]]px; height: [[movementCircleDiameter]]px;"></div>
+      <div class="movement-circle-center" style$="left: [[fluentCircleCoords.x]]px; top: [[fluentCircleCoords.y]]px;">
+        <div class="movement-circle" style$="width: [[solidCircleDiameter]]px; height: [[solidCircleDiameter]]px;"></div>
       </div>
     </template>
     
@@ -145,8 +145,8 @@
           reachRadius: Number,
           impossibleRange: Number,
           legLength: Number,
-          movementCenterCoords: Object,
-          movementCircleDiameter: Number,
+          fluentCircleCoords: Object,
+          solidCircleDiameter: Number,
           baseCoxaAngle: Number,
           movementPointer: Object,
           fluentBasePoint: Object,
