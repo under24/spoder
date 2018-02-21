@@ -4,7 +4,13 @@
   let viewSettingsTransverseViewReducerInitState = {
     useOffsets: true,
     useScaling: true,
-    scaling: 60
+    scaling: 60,
+    showFluentTransverseBaseXY: true,
+    showInvalidRange: false,
+    showMovementPointer: true,
+    showReachRadius: false,
+    showFluentMovementCircle: true,
+    showSolidMovementCircle: true
   };
   
   {
@@ -33,7 +39,13 @@
           return Object.assign({}, {
             useOffsets: true,
             useScaling: true,
-            scaling: 60
+            scaling: 60,
+            showFluentTransverseBaseXY: true,
+            showInvalidRange: false,
+            showMovementPointer: true,
+            showReachRadius: false,
+            showFluentMovementCircle: true,
+            showSolidMovementCircle: true
           });
         }
     }
