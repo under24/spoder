@@ -109,60 +109,68 @@
     </div>
     
     <!-- solid movement circles -->
-    <div class="solid-circle-center" style$="left: [[circles1.solidX]]px; top: [[circles1.solidY]]px;" hidden="[[!circles1.solidX]]">
-      <div class="solid-circle" style$="height: [[circles1.fluentDiameter]]px; width: [[circles1.fluentDiameter]]px;"></div>
-    </div>
-    <div class="solid-circle-center" style$="left: [[circles2.solidX]]px; top: [[circles2.solidY]]px;" hidden="[[!circles2.solidX]]">
-      <div class="solid-circle" style$="height: [[circles2.fluentDiameter]]px; width: [[circles2.fluentDiameter]]px;"></div>
-    </div>
-    <div class="solid-circle-center" style$="left: [[circles3.solidX]]px; top: [[circles3.solidY]]px;" hidden="[[!circles3.solidX]]">
-      <div class="solid-circle" style$="height: [[circles3.fluentDiameter]]px; width: [[circles3.fluentDiameter]]px;"></div>
-    </div>
-    <div class="solid-circle-center" style$="left: [[circles4.solidX]]px; top: [[circles4.solidY]]px;" hidden="[[!circles4.solidX]]">
-      <div class="solid-circle" style$="height: [[circles4.fluentDiameter]]px; width: [[circles4.fluentDiameter]]px;"></div>
-    </div>
-    <div class="solid-circle-center" style$="left: [[circles5.solidX]]px; top: [[circles5.solidY]]px;" hidden="[[!circles5.solidX]]">
-      <div class="solid-circle" style$="height: [[circles5.fluentDiameter]]px; width: [[circles5.fluentDiameter]]px;"></div>
-    </div>
-    <div class="solid-circle-center" style$="left: [[circles6.solidX]]px; top: [[circles6.solidY]]px;" hidden="[[!circles6.solidX]]">
-      <div class="solid-circle" style$="height: [[circles6.fluentDiameter]]px; width: [[circles6.fluentDiameter]]px;"></div>
-    </div>
+    <template is="dom-if" if="[[viewSettings.showSolidMovementCircle]]" restamp>
+      <div class="solid-circle-center" style$="left: [[circles1.solidX]]px; top: [[circles1.solidY]]px;">
+        <div class="solid-circle" style$="height: [[circles1.fluentDiameter]]px; width: [[circles1.fluentDiameter]]px;"></div>
+      </div>
+      <div class="solid-circle-center" style$="left: [[circles2.solidX]]px; top: [[circles2.solidY]]px;">
+        <div class="solid-circle" style$="height: [[circles2.fluentDiameter]]px; width: [[circles2.fluentDiameter]]px;"></div>
+      </div>
+      <div class="solid-circle-center" style$="left: [[circles3.solidX]]px; top: [[circles3.solidY]]px;">
+        <div class="solid-circle" style$="height: [[circles3.fluentDiameter]]px; width: [[circles3.fluentDiameter]]px;"></div>
+      </div>
+      <div class="solid-circle-center" style$="left: [[circles4.solidX]]px; top: [[circles4.solidY]]px;">
+        <div class="solid-circle" style$="height: [[circles4.fluentDiameter]]px; width: [[circles4.fluentDiameter]]px;"></div>
+      </div>
+      <div class="solid-circle-center" style$="left: [[circles5.solidX]]px; top: [[circles5.solidY]]px;">
+        <div class="solid-circle" style$="height: [[circles5.fluentDiameter]]px; width: [[circles5.fluentDiameter]]px;"></div>
+      </div>
+      <div class="solid-circle-center" style$="left: [[circles6.solidX]]px; top: [[circles6.solidY]]px;">
+        <div class="solid-circle" style$="height: [[circles6.fluentDiameter]]px; width: [[circles6.fluentDiameter]]px;"></div>
+      </div>
+    </template>
     
     <!-- fluent transverseBaseX/Y -->
-    <div class="fluent-base dot" style$="left: [[circles1.fluentBaseX]]px; top: [[circles1.fluentBaseY]]px;" hidden="[[!circles1.fluentBaseX]]"></div>
-    <div class="fluent-base dot" style$="left: [[circles2.fluentBaseX]]px; top: [[circles2.fluentBaseY]]px;" hidden="[[!circles2.fluentBaseX]]"></div>
-    <div class="fluent-base dot" style$="left: [[circles3.fluentBaseX]]px; top: [[circles3.fluentBaseY]]px;" hidden="[[!circles3.fluentBaseX]]"></div>
-    <div class="fluent-base dot" style$="left: [[circles4.fluentBaseX]]px; top: [[circles4.fluentBaseY]]px;" hidden="[[!circles4.fluentBaseX]]"></div>
-    <div class="fluent-base dot" style$="left: [[circles5.fluentBaseX]]px; top: [[circles5.fluentBaseY]]px;" hidden="[[!circles5.fluentBaseX]]"></div>
-    <div class="fluent-base dot" style$="left: [[circles6.fluentBaseX]]px; top: [[circles6.fluentBaseY]]px;" hidden="[[!circles6.fluentBaseX]]"></div>
+    <template is="dom-if" if="[[viewSettings.showFluentTransverseBaseXY]]" restamp>
+      <div class="fluent-base dot" style$="left: [[circles1.fluentBaseX]]px; top: [[circles1.fluentBaseY]]px;"></div>
+      <div class="fluent-base dot" style$="left: [[circles2.fluentBaseX]]px; top: [[circles2.fluentBaseY]]px;"></div>
+      <div class="fluent-base dot" style$="left: [[circles3.fluentBaseX]]px; top: [[circles3.fluentBaseY]]px;"></div>
+      <div class="fluent-base dot" style$="left: [[circles4.fluentBaseX]]px; top: [[circles4.fluentBaseY]]px;"></div>
+      <div class="fluent-base dot" style$="left: [[circles5.fluentBaseX]]px; top: [[circles5.fluentBaseY]]px;"></div>
+      <div class="fluent-base dot" style$="left: [[circles6.fluentBaseX]]px; top: [[circles6.fluentBaseY]]px;"></div>
+    </template>
     
-    <!-- movement circles -->
-    <div class="circle-center" style$="left: [[circles1.x]]px; top: [[circles1.y]]px;">
-      <div class="circle" style$="height: [[circles1.diameter]]px; width: [[circles1.diameter]]px;"></div>
-    </div>
-    <div class="circle-center" style$="left: [[circles2.x]]px; top: [[circles2.y]]px;">
-      <div class="circle" style$="height: [[circles2.diameter]]px; width: [[circles2.diameter]]px;"></div>
-    </div>
-    <div class="circle-center" style$="left: [[circles3.x]]px; top: [[circles3.y]]px;">
-      <div class="circle" style$="height: [[circles3.diameter]]px; width: [[circles3.diameter]]px;"></div>
-    </div>
-    <div class="circle-center" style$="left: [[circles4.x]]px; top: [[circles4.y]]px;">
-      <div class="circle" style$="height: [[circles4.diameter]]px; width: [[circles4.diameter]]px;"></div>
-    </div>
-    <div class="circle-center" style$="left: [[circles5.x]]px; top: [[circles5.y]]px;">
-      <div class="circle" style$="height: [[circles5.diameter]]px; width: [[circles5.diameter]]px;"></div>
-    </div>
-    <div class="circle-center" style$="left: [[circles6.x]]px; top: [[circles6.y]]px;">
-      <div class="circle" style$="height: [[circles6.diameter]]px; width: [[circles6.diameter]]px;"></div>
-    </div>
+    <!-- fluent movement circles -->
+    <template is="dom-if" if="[[viewSettings.showFluentMovementCircle]]" restamp>
+      <div class="circle-center" style$="left: [[circles1.x]]px; top: [[circles1.y]]px;">
+        <div class="circle" style$="height: [[circles1.diameter]]px; width: [[circles1.diameter]]px;"></div>
+      </div>
+      <div class="circle-center" style$="left: [[circles2.x]]px; top: [[circles2.y]]px;">
+        <div class="circle" style$="height: [[circles2.diameter]]px; width: [[circles2.diameter]]px;"></div>
+      </div>
+      <div class="circle-center" style$="left: [[circles3.x]]px; top: [[circles3.y]]px;">
+        <div class="circle" style$="height: [[circles3.diameter]]px; width: [[circles3.diameter]]px;"></div>
+      </div>
+      <div class="circle-center" style$="left: [[circles4.x]]px; top: [[circles4.y]]px;">
+        <div class="circle" style$="height: [[circles4.diameter]]px; width: [[circles4.diameter]]px;"></div>
+      </div>
+      <div class="circle-center" style$="left: [[circles5.x]]px; top: [[circles5.y]]px;">
+        <div class="circle" style$="height: [[circles5.diameter]]px; width: [[circles5.diameter]]px;"></div>
+      </div>
+      <div class="circle-center" style$="left: [[circles6.x]]px; top: [[circles6.y]]px;">
+        <div class="circle" style$="height: [[circles6.diameter]]px; width: [[circles6.diameter]]px;"></div>
+      </div>
+    </template>
     
     <!-- movement pointers -->
-    <div class="pointer dot" style$="left: [[pointers1.x]]px; top: [[pointers1.y]]px;"></div>
-    <div class="pointer dot" style$="left: [[pointers2.x]]px; top: [[pointers2.y]]px;"></div>
-    <div class="pointer dot" style$="left: [[pointers3.x]]px; top: [[pointers3.y]]px;"></div>
-    <div class="pointer dot" style$="left: [[pointers4.x]]px; top: [[pointers4.y]]px;"></div>
-    <div class="pointer dot" style$="left: [[pointers5.x]]px; top: [[pointers5.y]]px;"></div>
-    <div class="pointer dot" style$="left: [[pointers6.x]]px; top: [[pointers6.y]]px;"></div>
+    <template is="dom-if" if="[[viewSettings.showMovementPointer]]" restamp>
+      <div class="pointer dot" style$="left: [[pointers1.x]]px; top: [[pointers1.y]]px;"></div>
+      <div class="pointer dot" style$="left: [[pointers2.x]]px; top: [[pointers2.y]]px;"></div>
+      <div class="pointer dot" style$="left: [[pointers3.x]]px; top: [[pointers3.y]]px;"></div>
+      <div class="pointer dot" style$="left: [[pointers4.x]]px; top: [[pointers4.y]]px;"></div>
+      <div class="pointer dot" style$="left: [[pointers5.x]]px; top: [[pointers5.y]]px;"></div>
+      <div class="pointer dot" style$="left: [[pointers6.x]]px; top: [[pointers6.y]]px;"></div>
+    </template>
     
     <!-- cursors -->
     <div class="cursor dot" style$="left: [[coords1.transverseCursorX]]px; top: [[coords1.transverseCursorY]]px;"></div>
@@ -217,6 +225,7 @@
           misc4: Object,
           misc5: Object,
           misc6: Object
+          viewSettings: Object
         };
       }
 
