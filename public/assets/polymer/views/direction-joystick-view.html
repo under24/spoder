@@ -44,10 +44,7 @@
         
         store.dispatch({
           type: "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED",
-          payload: {
-            x: newValue.xShift,
-            y: newValue.yShift
-          }
+          payload: { x: newValue.xShift, y: newValue.yShift }
         });
       }
       
