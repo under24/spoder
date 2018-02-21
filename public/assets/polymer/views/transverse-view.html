@@ -72,12 +72,12 @@
         angles4="[[computeAngle(angles4, useOffsets)]]"
         angles5="[[computeAngle(angles5, useOffsets)]]"
         angles6="[[computeAngle(angles6, useOffsets)]]"
-        misc1="[[computeMisc('1', misc1, useScaling, scaling)]]"
-        misc2="[[computeMisc('2', misc2, useScaling, scaling)]]"
-        misc3="[[computeMisc('3', misc3, useScaling, scaling)]]"
-        misc4="[[computeMisc('4', misc4, useScaling, scaling)]]"
-        misc5="[[computeMisc('5', misc5, useScaling, scaling)]]"
-        misc6="[[computeMisc('6', misc6, useScaling, scaling)]]"
+        misc1="[[computeMisc(misc1, useScaling, scaling)]]"
+        misc2="[[computeMisc(misc2, useScaling, scaling)]]"
+        misc3="[[computeMisc(misc3, useScaling, scaling)]]"
+        misc4="[[computeMisc(misc4, useScaling, scaling)]]"
+        misc5="[[computeMisc(misc5, useScaling, scaling)]]"
+        misc6="[[computeMisc(misc6, useScaling, scaling)]]"
         view-settings="[[viewSettings]]"
       >
       </transverse-view-ui>
@@ -257,7 +257,7 @@
         };
       }
       
-      computeMisc(legId, misc) {
+      computeMisc(misc) {
         return {
           transverseLegLength: this.scaleInput(misc.transverseLegLength)
         };
