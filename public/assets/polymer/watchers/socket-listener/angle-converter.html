@@ -17,13 +17,13 @@
       }
       
       processCoordsFromServoAngles(servoAngles) {
-        var screenAngles = this.convertServoIntoScreenAngles(servoAngles);
-        var coords = this.calcCoordsFromScreenAngles(screenAngles);
+        var screenAngles = this._convertServoIntoScreenAngles(servoAngles);
+        var coords = this._calcCoordsFromScreenAngles(screenAngles);
         
         return coords;
       }
       
-      convertServoIntoScreenAngles(servoAngles) {
+      _convertServoIntoScreenAngles(servoAngles) {
         var result = {};
         
         for (let legId = 1; legId <= 6; legId++) {
@@ -37,7 +37,7 @@
         return result;
       }
       
-      calcCoordsFromScreenAngles(screenAngles) {
+      _calcCoordsFromScreenAngles(screenAngles) {
         var result = {};
         
         for (let legId = 1; legId <= 6; legId++) {
