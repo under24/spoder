@@ -249,6 +249,46 @@
                 </p>
               </fieldset>
             </div>
+            <div class="settings">
+              <fieldset>
+                <legend>UI Options:</legend>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[transverseViewSettings.showInvalidRange]]" value="showInvalidRange"> Invalid Range
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[transverseViewSettings.showReachRadius]]" value="showReachRadius"> Reach Radius
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[transverseViewSettings.showMovementPointer]]" value="showMovementPointer"> Movement Pointer
+                  </label>
+                </p>
+              </fieldset>
+            </div>
+            <div class="settings">
+              <fieldset>
+                <legend>Solid / Fluent:</legend>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[transverseViewSettings.showFluentTransverseBaseXY]]" value="showFluentTransverseBaseXY"> Fluent Base Point
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[transverseViewSettings.showFluentMovementCircle]]" value="showFluentMovementCircle"> Fluent Movement Circle
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input type="checkbox" on-click="handleCheckbox" checked="[[transverseViewSettings.showSolidMovementCircle]]" value="showSolidMovementCircle"> Solid Movement Circle
+                  </label>
+                </p>
+              </fieldset>
+            </div>
           </section>
           <section class="reset-container">
             <a class="reset-btn" on-click="dispatchResetView" name="TRANSVERSE_VIEW_SETTINGS_RESET">RESET SETTINGS</a>
