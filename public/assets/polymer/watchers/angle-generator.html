@@ -183,12 +183,7 @@
         }
         
         // if there are some servo angles then send to the back end
-        if (Object.keys(servoAngles).length !== 0)
-          socket.emit('servo-angles-changed', servoAngles);
-        
-        // TODO temp. for debugging purposes
-        if (angles[1] && angles[1].coxaServoAngle)
-          socket.emit('femur-servo-angle-changed', { value: angles[1].coxaServoAngle });
+        if (Object.keys(servoAngles).length !== 0) SEU.emitAngles(servoAngles);
       }
       
       observeCoords(newCoords, oldCoords) {
