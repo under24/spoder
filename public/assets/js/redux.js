@@ -314,6 +314,15 @@ var ActionTypes = {
   function getState() {
     return currentState;
   }
+  
+  function syncState(newState) {
+    // replace the current state with the new state
+    currentState = newState;
+    
+    // call subscribers
+    // var listeners = currentListeners = nextListeners;
+    nextListeners.forEach(listener => listener());
+  }
 
   /**
    * Adds a change listener. It will be called any time an action is dispatched,
@@ -478,6 +487,7 @@ var ActionTypes = {
     dispatch: dispatch,
     subscribe: subscribe,
     getState: getState,
+    syncState: syncState,
     replaceReducer: replaceReducer
   }, _ref2[result] = observable, _ref2;
 }
