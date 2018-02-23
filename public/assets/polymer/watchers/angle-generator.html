@@ -55,7 +55,7 @@
         
         return {
           screen: GU.correctAngle(screen),
-          servo: +servo.toFixed(0)
+          servo
         };
       }
       
@@ -68,12 +68,12 @@
         return true;
       }
       
-      processNewCoxaAngles(legId) {
+      processNewCoxaAngles(legId, baseDirection) {
         var coxaAngles = this.getAngleFromDistance(legId, 'transverse');
             
         return {
           coxaScreenAngle: coxaAngles.screen,
-          coxaServoAngle: this.applyCoxaAttachmentAngle(legId, coxaAngles.servo)
+          coxaServoAngle: this.applyCoxaAttachmentAngle(legId, coxaAngles.servo, baseDirection)
         };
       }
       
@@ -103,7 +103,7 @@
         
         return {
           femurScreenAngle: femurAngles.screen,
-          femurServoAngle: femurAngles.servo,
+          femurServoAngle: +femurAngles.servo.toFixed(0),
           tibiaScreenAngle: 0,
           tibiaServoAngle: 0
         }
@@ -135,7 +135,7 @@
         return { screen: A2Screen, servo: +A2Servo.toFixed(0) };
       }
       
-      applyCoxaAttachmentAngle(legId, coxaServoAngle) {
+      applyCoxaAttachmentAngle(legId, coxaServoAngle, baseDirection) {
         // correct angle so it is 0 deg
         switch (legId) {
           case 1:
@@ -150,7 +150,10 @@
             coxaServoAngle -= this.coxaAttachmentAngles[legId]; break;
         }
         
-        return GU.correctAngle(coxaServoAngle);
+        // coxa angle should be relative to the base direction
+        coxaServoAngle = GU.correctAngle(coxaServoAngle - baseDirection);
+        
+        return +coxaServoAngle.toFixed(0);
       }
       
       emitAngles(angles) {
@@ -198,7 +201,7 @@
           // transverse coords
           if (!oldCoords || !this.sameCoords(newCoords[legId], oldCoords[legId], 'transverse')) {
             // transverse coords -> coxa angles
-            let coxaAngles = this.processNewCoxaAngles(legId);
+            let coxaAngles = this.processNewCoxaAngles(legId, baseDirection);
             // prepare payload obj by filtering out duplicate values before dispatching
             GU.sieveOutAndGatherUp(coxaAngles, this.angles[legId], anglesPayload, legId);
           }
