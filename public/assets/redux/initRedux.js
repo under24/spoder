@@ -82,19 +82,19 @@
     // ----------------------------------------------
     
     function processAction(action) {
-      // @handle "LEVEL_MODIFIER_CHANGED"
-      // @handle "ROTATION_MODIFIER_CHANGED"
-      // @handle "SHIFT_MODIFIER_CHANGED"
-      // @handle "TILT_MODIFIER_CHANGED"
+      // @handle "LEVEL_MODIFIER_CHANGED" -> "modifiers.level"
+      // @handle "ROTATION_MODIFIER_CHANGED" -> "modifiers.ratation"
+      // @handle "SHIFT_MODIFIER_CHANGED" -> "modifiers.shift"
+      // @handle "TILT_MODIFIER_CHANGED" -> "modifiers.tilt"
       modifierLogicReducer.processAction(action, newState);
     }
   }
   
   let cascadeModules = store => next => newState => {
-    // @observe "modifiers.level"
-    // @observe "modifiers.rotation"
-    // @observe "modifiers.shift"
-    // @observe "modifiers.tilt"
+    // @observe "modifiers.level" -> "coords"
+    // @observe "modifiers.rotation" -> "coords"
+    // @observe "modifiers.shift" -> "coords"
+    // @observe "modifiers.tilt" -> "coords"
     coordsCascadeModule.processState(newState);
     // anglesCascadeModule.processState(newState);
     
