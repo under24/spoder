@@ -33,10 +33,7 @@
           
         });
         
-        
-        
-        socket.on('right-analog-stick-moved', (data) => {
-          
+        socket.on('right-analog-stick-moved', data => {
           store.dispatch({
             type: "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED",
             payload: {
@@ -46,10 +43,19 @@
           });
           
         });
+        
+        socket.on('left-analog-stick-moved', data => {
+          store.dispatch({
+            type: "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED",
+            payload: {
+              x: data.x,
+              y: data.y
+            }
+          });
+        });
       }
       
       observeAngles(servoAngles) {
-        
         var temp = this.$.angleConverter.processCoordsFromServoAngles(servoAngles);
         console.log(temp);
       }
