@@ -67,7 +67,7 @@ class StateModule {
   
   getPropStateValue(propName) {
     // validation
-    if (!this.properties[propName]) 
+    if (!this.properties[propName])
       throw new Error('no such propname in properties');
     
     // get property state path
@@ -80,7 +80,8 @@ class StateModule {
   
   _getPropPath(propName) {
     // notify that there is no such prop declared
-    if (!(propName in this.properties)) console.warn('no such property in the properties:', propName);
+    if (!(propName in this.properties))
+      console.warn('no such property in the properties:', propName);
     
     return this.properties[propName];
   }
