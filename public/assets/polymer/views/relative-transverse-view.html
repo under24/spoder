@@ -191,13 +191,15 @@
       }
       
       observeBaseOutput(newValue) {
+        var payload = {};
+        
+        if (newValue.x) payload.transverseBaseX = this.scaleOutput(newValue.x);
+        if (newValue.y) payload.transverseBaseY = this.scaleOutput(newValue.y);
+        
         store.dispatch({
           type: "BASE_XY_SHIFTED",
           legId: this.legId,
-          payload: {
-            transverseBaseX: this.scaleOutput(newValue.x),
-            transverseBaseY: this.scaleOutput(newValue.y),
-          }
+          payload
         });
       }
       

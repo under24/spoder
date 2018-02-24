@@ -155,13 +155,15 @@
       }
       
       observeBaseOutput(newValue) {
+        var payload = {};
+        
+        if (newValue.x) payload.sagittalBaseX = this.scaleOutput(newValue.x);
+        if (newValue.y) payload.sagittalBaseY = this.scaleOutput(newValue.y);
+        
         store.dispatch({
           type: "BASE_XY_SHIFTED",
           legId: this.legId,
-          payload: {
-            sagittalBaseX: this.scaleOutput(newValue.x),
-            sagittalBaseY: this.scaleOutput(newValue.y)
-          }
+          payload
         });
       }
       
