@@ -232,10 +232,17 @@
       }
       
       computeBaseCenterCoords(baseCenterCoords) {
-        return {
-          x: this.scaleInput(baseCenterCoords.x + this.getOffset(1, 'x')),
-          y: this.scaleInput(baseCenterCoords.y + this.getOffset(1, 'y'))
-        };
+        if (this.useOffsets) return { x: 0, y: 0 };
+        else {
+          return {
+            x: this.scaleInput(baseCenterCoords.x + this.getOffset(1, 'x')),
+            y: this.scaleInput(baseCenterCoords.y + this.getOffset(1, 'y'))
+          };
+        }
+      }
+      
+      computeBaseDirection(baseDirection) {
+        return baseDirection - this.getAngleOffset();
       }
       
       computeBaseDirectionLength() {
@@ -243,33 +250,66 @@
       }
       
       computeCoords(legId, coords) {
+        var base = {
+          x: this.scaleInput(coords.transverseBaseX + this.getOffset(legId, 'x')),
+          y: this.scaleInput(coords.transverseBaseY + this.getOffset(legId, 'y'))
+        };
+        
+        var cursor = {
+          x: this.scaleInput(coords.transverseCursorX + this.getOffset(legId, 'x')),
+          y: this.scaleInput(coords.transverseCursorY + this.getOffset(legId, 'y'))
+        };
+        cursor = this.getOffsetRotatedCoords(base, cursor);
+        
         return {
           // transverse cursor
-          transverseCursorX: this.scaleInput(coords.transverseCursorX + this.getOffset(legId, 'x')),
-          transverseCursorY: this.scaleInput(coords.transverseCursorY + this.getOffset(legId, 'y')),
+          transverseCursorX: cursor.x ,
+          transverseCursorY: cursor.y ,
           // transverse base
-          transverseBaseX: this.scaleInput(coords.transverseBaseX + this.getOffset(legId, 'x')),
-          transverseBaseY: this.scaleInput(coords.transverseBaseY + this.getOffset(legId, 'y'))
+          transverseBaseX: base.x,
+          transverseBaseY: base.y
         };
       }
       
       computePointer(legId, pointer) {
-        return {
+        var coords = {
           x: this.scaleInput(pointer.x + this.getOffset(legId, 'x')),
           y: this.scaleInput(pointer.y + this.getOffset(legId, 'y'))
         };
+        
+        return this.getOffsetRotatedCoords(this.getBaseCoords(legId), coords);
       }
       
       computeCircle(legId, circle) {
-        return {
+        var baseCoords = this.getBaseCoords(legId);
+        
+        var xy = {
           x: this.scaleInput(circle.fluentX + this.getOffset(legId, 'x')),
-          y: this.scaleInput(circle.fluentY + this.getOffset(legId, 'y')),
+          y: this.scaleInput(circle.fluentY + this.getOffset(legId, 'y'))
+        };
+        xy = this.getOffsetRotatedCoords(baseCoords, xy);
+        
+        var solidXY = {
+          x: this.scaleInput(circle.solidX + this.getOffset(legId, 'x')),
+          y: this.scaleInput(circle.solidY + this.getOffset(legId, 'y')),
+        };
+        solidXY = this.getOffsetRotatedCoords(baseCoords, solidXY);
+        
+        var fluentBaseXY = {
+          x: this.scaleInput(circle.fluentTransverseBaseX + this.getOffset(legId, 'x')),
+          y: this.scaleInput(circle.fluentTransverseBaseY + this.getOffset(legId, 'y'))
+        };
+        fluentBaseXY = this.getOffsetRotatedCoords(baseCoords, fluentBaseXY);
+        
+        return {
+          x: xy.x,
+          y: xy.y,
           diameter: this.scaleInput(circle.solidDiameter),
           fluentDiameter: this.scaleInput(circle.fluentDiameter),
-          solidX: this.scaleInput(circle.solidX + this.getOffset(legId, 'x')),
-          solidY: this.scaleInput(circle.solidY + this.getOffset(legId, 'y')),
-          fluentBaseX: this.scaleInput(circle.fluentTransverseBaseX + this.getOffset(legId, 'x')),
-          fluentBaseY: this.scaleInput(circle.fluentTransverseBaseY + this.getOffset(legId, 'y'))
+          solidX: solidXY.x,
+          solidY: solidXY.y,
+          fluentBaseX: fluentBaseXY.x,
+          fluentBaseY: fluentBaseXY.y
         };
       }
       
@@ -291,6 +331,14 @@
       computeCoxaAngle(baseDirection, coxaAttachmentAngle) {
         return baseDirection + coxaAttachmentAngle - this.getAngleOffset();
       }
+      
+      getBaseCoords(legId) {
+        return {
+          x: this.scaleInput(this[`coords${legId}`].transverseBaseX + this.getOffset(legId, 'x')),
+          y: this.scaleInput(this[`coords${legId}`].transverseBaseY + this.getOffset(legId, 'y'))
+        };
+      }
+      
       scaleOutput(val) {
         // do not use scaling. return the val back
         if (!this.useScaling) return val;
@@ -322,6 +370,13 @@
         if (!this.useOffsets) return 0;
         
         return this.baseDirection;
+      }
+      
+      getOffsetRotatedCoords(origin, coords) {
+        // if useOffsets is false then return the coords back
+        if (!this.useOffsets) return coords;
+        
+        return MU.rotateCoords(origin, coords, MU.flipNumber(this.baseDirection));
       }
       
       showSettingsDialog() {
