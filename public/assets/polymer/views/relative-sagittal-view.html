@@ -142,13 +142,15 @@
       }
       
       observeCursorOutput(newValue) {
+        var payload = {};
+        
+        if (newValue.x) payload.sagittalCursorX = this.scaleOutput(newValue.x);
+        if (newValue.y) payload.sagittalCursorY = this.scaleOutput(newValue.y);
+        
         store.dispatch({
           type: "CURSOR_XY_SHIFTED",
           legId: this.legId,
-          payload: {
-            sagittalCursorX: this.scaleOutput(newValue.x),
-            sagittalCursorY: this.scaleOutput(newValue.y)
-          }
+          payload
         });
       }
       

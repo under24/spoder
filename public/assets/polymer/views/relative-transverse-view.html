@@ -177,18 +177,20 @@
         };
       }
       
-      observeCursorOutput(newValue, oldValue) {
+      observeCursorOutput(newValue) {
+        var payload = {};
+        
+        if (newValue.x) payload.transverseCursorX = this.scaleOutput(newValue.x);
+        if (newValue.y) payload.transverseCursorY = this.scaleOutput(newValue.y);
+        
         store.dispatch({
           type: "CURSOR_XY_SHIFTED",
           legId: this.legId,
-          payload: {
-            transverseCursorX: this.scaleOutput(newValue.x),
-            transverseCursorY: this.scaleOutput(newValue.y)
-          }
+          payload
         });
       }
       
-      observeBaseOutput(newValue, oldValue) {
+      observeBaseOutput(newValue) {
         store.dispatch({
           type: "BASE_XY_SHIFTED",
           legId: this.legId,
