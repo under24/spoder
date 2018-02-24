@@ -78,6 +78,7 @@
         misc4="[[computeMisc(misc4, useScaling, scaling)]]"
         misc5="[[computeMisc(misc5, useScaling, scaling)]]"
         misc6="[[computeMisc(misc6, useScaling, scaling)]]"
+        impossible-range="[[computeImpossibleRange(impossibleRange, useScaling, scaling)]]"
         view-settings="[[viewSettings]]"
       >
       </transverse-view-ui>
@@ -211,6 +212,10 @@
           },
           useOffsets: {
             statePath: 'viewSettings.transverseView.useOffsets'
+          },
+          impossibleRange: {
+            statePath: 'metaData.impossibleRange'
+          },
           viewSettings: {
             statePath: 'viewSettings.transverseView'
           }
@@ -269,6 +274,9 @@
         return angle - this.getAngleOffset();
       }
       
+      computeImpossibleRange(impossibleRange) {
+        return this.scaleInput(impossibleRange * 2);
+      }
       scaleOutput(val) {
         // do not use scaling. return the val back
         if (!this.useScaling) return val;
