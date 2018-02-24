@@ -102,6 +102,14 @@
       transform-origin: left;
       z-index: 1;
     }
+    .reach-radius {
+      background-color: rgba(255, 0, 0, 0.04);
+      display: inline-block;
+      position: absolute;
+      pointer-events: none;
+      left: 0px;
+      transform-origin: center left;
+    }
     </style>
     
     <!-- base -->
@@ -110,11 +118,17 @@
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
         <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle1]]deg);"></div>
       </template>
+      <template is="dom-if" if="[[viewSettings.showReachRadius]]" restamp>
+        <div class="reach-radius" style$="[[computeReachRadius(misc1.transverseReachRadius, baseCoxaAngle1)]]"></div>
+      </template>
     </div>
     <div class="base dot" style$="left: [[coords2.transverseBaseX]]px; top: [[coords2.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles2]]deg); width: [[misc2.transverseLegLength]]px;"></div>
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
         <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle2]]deg);"></div>
+      </template>
+      <template is="dom-if" if="[[viewSettings.showReachRadius]]" restamp>
+        <div class="reach-radius" style$="[[computeReachRadius(misc2.transverseReachRadius, baseCoxaAngle2)]]"></div>
       </template>
     </div>
     <div class="base dot" style$="left: [[coords3.transverseBaseX]]px; top: [[coords3.transverseBaseY]]px;">
@@ -122,11 +136,17 @@
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
         <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle3]]deg);"></div>
       </template>
+      <template is="dom-if" if="[[viewSettings.showReachRadius]]" restamp>
+        <div class="reach-radius" style$="[[computeReachRadius(misc3.transverseReachRadius, baseCoxaAngle3)]]"></div>
+      </template>
     </div>
     <div class="base dot" style$="left: [[coords4.transverseBaseX]]px; top: [[coords4.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles4]]deg); width: [[misc4.transverseLegLength]]px;"></div>
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
         <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle4]]deg);"></div>
+      </template>
+      <template is="dom-if" if="[[viewSettings.showReachRadius]]" restamp>
+        <div class="reach-radius" style$="[[computeReachRadius(misc4.transverseReachRadius, baseCoxaAngle4)]]"></div>
       </template>
     </div>
     <div class="base dot" style$="left: [[coords5.transverseBaseX]]px; top: [[coords5.transverseBaseY]]px;">
@@ -134,11 +154,17 @@
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
         <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle5]]deg);"></div>
       </template>
+      <template is="dom-if" if="[[viewSettings.showReachRadius]]" restamp>
+        <div class="reach-radius" style$="[[computeReachRadius(misc5.transverseReachRadius, baseCoxaAngle5)]]"></div>
+      </template>
     </div>
     <div class="base dot" style$="left: [[coords6.transverseBaseX]]px; top: [[coords6.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles6]]deg); width: [[misc6.transverseLegLength]]px;"></div>
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
         <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle6]]deg);"></div>
+      </template>
+      <template is="dom-if" if="[[viewSettings.showReachRadius]]" restamp>
+        <div class="reach-radius" style$="[[computeReachRadius(misc6.transverseReachRadius, baseCoxaAngle6)]]"></div>
       </template>
     </div>
     
@@ -268,6 +294,18 @@
           impossibleRange: Number,
           viewSettings: Object
         };
+      }
+      
+      computeReachRadius(reachRadius, baseCoxaAngle) {
+        var width = `width: ${reachRadius}px;`,
+            height = `height: ${reachRadius * 2}px;`,
+            
+            transform = `transform: translate(0%, -50%) rotate(${baseCoxaAngle}deg);`,
+            
+            borderTopX = `border-top-right-radius: ${reachRadius * 2}px;`,
+            borderBottomX = `border-bottom-right-radius: ${reachRadius * 2}px;`;
+            
+        return width + height + transform + borderTopX + borderBottomX;
       }
 
     }
