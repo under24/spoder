@@ -108,37 +108,37 @@
     <div class="base dot" style$="left: [[coords1.transverseBaseX]]px; top: [[coords1.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles1]]deg); width: [[misc1.transverseLegLength]]px;"></div>
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
-        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseDirection]]deg)"></div>
+        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle1]]deg);"></div>
       </template>
     </div>
     <div class="base dot" style$="left: [[coords2.transverseBaseX]]px; top: [[coords2.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles2]]deg); width: [[misc2.transverseLegLength]]px;"></div>
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
-        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseDirection]]deg)"></div>
+        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle2]]deg);"></div>
       </template>
     </div>
     <div class="base dot" style$="left: [[coords3.transverseBaseX]]px; top: [[coords3.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles3]]deg); width: [[misc3.transverseLegLength]]px;"></div>
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
-        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px;"></div>
+        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle3]]deg);"></div>
       </template>
     </div>
     <div class="base dot" style$="left: [[coords4.transverseBaseX]]px; top: [[coords4.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles4]]deg); width: [[misc4.transverseLegLength]]px;"></div>
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
-        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px;"></div>
+        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle4]]deg);"></div>
       </template>
     </div>
     <div class="base dot" style$="left: [[coords5.transverseBaseX]]px; top: [[coords5.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles5]]deg); width: [[misc5.transverseLegLength]]px;"></div>
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
-        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px;"></div>
+        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle5]]deg);"></div>
       </template>
     </div>
     <div class="base dot" style$="left: [[coords6.transverseBaseX]]px; top: [[coords6.transverseBaseY]]px;">
       <div class="leg" style$="transform: rotate([[angles6]]deg); width: [[misc6.transverseLegLength]]px;"></div>
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
-        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px;"></div>
+        <div class="invalid-range" style$="height: [[impossibleRange]]px; width: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle6]]deg);"></div>
       </template>
     </div>
     
@@ -259,6 +259,12 @@
           misc4: Object,
           misc5: Object,
           misc6: Object,
+          baseCoxaAngle1: Number,
+          baseCoxaAngle2: Number,
+          baseCoxaAngle3: Number,
+          baseCoxaAngle4: Number,
+          baseCoxaAngle5: Number,
+          baseCoxaAngle6: Number,
           impossibleRange: Number,
           viewSettings: Object
         };

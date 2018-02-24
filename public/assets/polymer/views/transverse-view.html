@@ -78,6 +78,12 @@
         misc4="[[computeMisc(misc4, useScaling, scaling)]]"
         misc5="[[computeMisc(misc5, useScaling, scaling)]]"
         misc6="[[computeMisc(misc6, useScaling, scaling)]]"
+        base-coxa-angle1="[[computeCoxaAngle(baseDirection, baseCoxaAttachmentAngles.1, useOffsets)]]"
+        base-coxa-angle2="[[computeCoxaAngle(baseDirection, baseCoxaAttachmentAngles.2, useOffsets)]]"
+        base-coxa-angle3="[[computeCoxaAngle(baseDirection, baseCoxaAttachmentAngles.3, useOffsets)]]"
+        base-coxa-angle4="[[computeCoxaAngle(baseDirection, baseCoxaAttachmentAngles.4, useOffsets)]]"
+        base-coxa-angle5="[[computeCoxaAngle(baseDirection, baseCoxaAttachmentAngles.5, useOffsets)]]"
+        base-coxa-angle6="[[computeCoxaAngle(baseDirection, baseCoxaAttachmentAngles.6, useOffsets)]]"
         impossible-range="[[computeImpossibleRange(impossibleRange, useScaling, scaling)]]"
         view-settings="[[viewSettings]]"
       >
@@ -216,6 +222,9 @@
           impossibleRange: {
             statePath: 'metaData.impossibleRange'
           },
+          baseCoxaAttachmentAngles: {
+            statePath: 'base.coxaAttachmentAngles'
+          },
           viewSettings: {
             statePath: 'viewSettings.transverseView'
           }
@@ -276,6 +285,10 @@
       
       computeImpossibleRange(impossibleRange) {
         return this.scaleInput(impossibleRange * 2);
+      }
+      
+      computeCoxaAngle(baseDirection, coxaAttachmentAngle) {
+        return baseDirection + coxaAttachmentAngle - this.getAngleOffset();
       }
       scaleOutput(val) {
         // do not use scaling. return the val back
