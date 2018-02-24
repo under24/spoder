@@ -13,6 +13,13 @@
           return Object.assign({}, state, action.payload);
         }
     }
+    // if ('base.centerCoords' in action) {
+    //   var newState = action['base.centerCoords'];
+    //   
+    //   delete action['base.centerCoords'];
+    //   
+    //   return newState;
+    // }
     return state;
   }
 }

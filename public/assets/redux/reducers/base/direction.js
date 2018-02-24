@@ -10,6 +10,13 @@
           return action.payload;
         }
     }
+    // if ('base.direction' in action) {
+    //   var newState = action['base.direction'];
+    //   
+    //   delete action['base.direction'];
+    //   
+    //   return newState;
+    // }
     return state;
   }
 }
