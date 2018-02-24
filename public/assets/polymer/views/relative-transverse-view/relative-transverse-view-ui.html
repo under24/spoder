@@ -104,7 +104,7 @@
       
       <!-- invalid range -->
       <template is="dom-if" if="[[viewSettings.showInvalidRange]]" restamp>
-        <div class="base-invalid-range" style$="[[computeBaseInvalidRange(baseCoxaAngle, impossibleRange)]]"></div>
+        <div class="base-invalid-range" style$="width: [[impossibleRange]]px; height: [[impossibleRange]]px; transform: translate(-50%, -50%) rotateZ(-45deg) rotate([[baseCoxaAngle]]deg);"></div>
       </template>
     </div>
     
@@ -195,15 +195,6 @@
           e.preventDefault();
           e.stopPropagation()
         }
-      }
-      
-      computeBaseInvalidRange(baseCoxaAngle, impossibleRange) {
-        var transform = `transform: translate(-50%, -50%) rotateZ(-45deg) rotate(${baseCoxaAngle}deg);`,
-            
-            width = `width: ${impossibleRange * 2}px;`,
-            height = `height: ${impossibleRange * 2}px;`;
-            
-        return transform + width + height;
       }
       
       computeReachRadius(reachRadius, baseCoxaAngle) {

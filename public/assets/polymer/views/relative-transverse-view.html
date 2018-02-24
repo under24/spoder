@@ -62,7 +62,7 @@
         base-coords="[[computeBaseCoords(coords, viewOffsets, useScaling, scaling, useOffsets)]]"
         reach-radius="[[scaleInput(misc.transverseReachRadius, useScaling, scaling)]]"
         coxa-screen-angle="[[computeCoxaScreenAngle(angles.coxaScreenAngle, useOffsets)]]"
-        impossible-range="[[scaleInput(metaData.impossibleRange, useScaling, scaling)]]"
+        impossible-range="[[computeImpossibleRange(metaData.impossibleRange, useScaling, scaling)]]"
         leg-length="[[scaleInput(misc.transverseLegLength, useScaling, scaling)]]"
         fluent-circle-coords="[[computeFluentCircleCoords(movementCircle, viewOffsets, useScaling, scaling, useOffsets)]]"
         solid-circle-diameter="[[scaleInput(movementCircle.solidDiameter, useScaling, scaling)]]"
@@ -272,6 +272,10 @@
         };
 
         return this.getOffsetRotatedCoords(coords);
+      }
+      
+      computeImpossibleRange(impossibleRange) {
+        return this.scaleInput(impossibleRange * 2);
       }
       
       scaleOutput(val) {
