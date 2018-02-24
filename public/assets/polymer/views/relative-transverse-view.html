@@ -70,7 +70,7 @@
         fluent-circle-diameter="[[scaleInput(movementCircle.fluentDiameter, useScaling, scaling)]]"
         fluent-base-point="[[computeFluentBasePoint(movementCircle, useScaling, scaling, useOffsets)]]"
         movement-pointer="[[computeMovementPointer(movementPointer, viewOffsets, useScaling, scaling, useOffsets)]]"
-        base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle)]]"
+        base-coxa-angle="[[computeBaseCoxaAngle(baseDirection, baseCoxaAttachmentAngle, useOffsets)]]"
         view-settings="[[viewSettings]]"
         output="{{baseOutput}}"
       >
