@@ -83,6 +83,39 @@
             transverseCursorX: this.coords[legId].transverseCursorX - this.pointers[legId].x,
             transverseCursorY: this.coords[legId].transverseCursorY - this.pointers[legId].y
           };
+          
+
+          
+          // var a = {
+          //   x: this.coords[legId].transverseCursorX,
+          //   y: this.coords[legId].transverseCursorY
+          // }
+          // var b = {
+          //   x: this.pointers[legId].x,
+          //   y: this.pointers[legId].y
+          // }
+          // var c = {
+          //   x: this.circles[legId].fluentX,
+          //   y: this.circles[legId].fluentY,
+          // }
+          // var temp = MU.interceptOnCircle(a,b,c,80);
+          // 
+          // transitionShift[legId].dragX = temp.x - this.coords[legId].transverseCursorX;
+          // transitionShift[legId].dragY = temp.y - this.coords[legId].transverseCursorY;
+          
+          
+          
+          
+          // transitionShift[legId].slackX = Math.abs(transitionShift[legId].dragX) - Math.abs(transitionShift[legId].transverseCursorX);
+          // transitionShift[legId].slackY = Math.abs(transitionShift[legId].dragY) - Math.abs(transitionShift[legId].transverseCursorY);
+          
+          // correction[legId] = {
+          //   x: temp.x - this.coords[legId].transverseCursorX,
+          //   y: temp.y - this.coords[legId].transverseCursorY
+          // };
+          // debugger;
+          // console.log(legId, temp);
+          // console.log(transitionShift[legId], correction[legId]);
         }
         
         return transitionShift;
