@@ -45,8 +45,8 @@
     
     <div class="center-point">
       <transverse-view-ui
-        base-direction="[[baseDirection]]"
         base-center-coords="[[computeBaseCenterCoords(baseCenterCoords, useOffsets, offsets1, useScaling, scaling)]]"
+        base-direction="[[computeBaseDirection(baseDirection, useOffsets)]]"
         base-direction-length="[[computeBaseDirectionLength(useScaling, scaling)]]"
         coords1="[[computeCoords('1', coords1, offsets1, useOffsets, useScaling, scaling)]]"
         coords2="[[computeCoords('2', coords2, offsets2, useOffsets, useScaling, scaling)]]"
