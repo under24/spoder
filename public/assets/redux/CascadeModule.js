@@ -22,7 +22,9 @@ class CascadeModule extends StateModule {
       
       // observer function returned falsey value
       if (!observerResult) {
-        console.log(`${handler} observer returned empty value`);
+        if (this.settings.consoleLogging)
+          console.log(`${handler} observer returned empty value`);
+          
         return;
       }
       
