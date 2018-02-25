@@ -18,7 +18,7 @@ class LogicReducer extends StateModule {
     // not found
     if (ind === -1) return;
     
-    var result = this[actionHandlers[ind]](action.payload);
+    var result = this[actionHandlers[ind]](action.payload, action);
     
     if (!result) {
       console.warn('action handler return empty object');
