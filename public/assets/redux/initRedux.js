@@ -97,6 +97,9 @@
     // @observe "modifiers.tilt" -> "coords"
     coordsCascadeModule.processState(newState);
     // anglesCascadeModule.processState(newState);
+    // @observe "coords" -> "base.centerCoords"
+    // @observe "coords" + "base.centerCoords" -> "base.direction"
+    baseCascadeModule.processState(newState);
     
     next(newState);
   }
@@ -116,6 +119,7 @@
   // init cascade modules
   let coordsCascadeModule = new CoordsCascadeModule(store);
   // var anglesCascadeModule = new AngleCascadeModule(store);
+  let baseCascadeModule = new BaseCascadeModule(store);
 
 
   var ReduxMixin = PolymerRedux(store);  
