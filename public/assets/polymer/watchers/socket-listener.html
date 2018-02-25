@@ -28,11 +28,7 @@
           store.dispatch({ type: "SOCKET_STATUS_CHANGED", payload: { connected: false } });
         });
         
-        // TODO
-        socket.on('sync-servo-angles', function(angles) {
-          
-        });
-        
+        // joystick right stick
         socket.on('right-analog-stick-moved', data => {
           store.dispatch({
             type: "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED",
@@ -43,7 +39,7 @@
           });
           
         });
-        
+        // joystick left stick
         socket.on('left-analog-stick-moved', data => {
           store.dispatch({
             type: "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED",
