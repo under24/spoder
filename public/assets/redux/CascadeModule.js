@@ -86,7 +86,7 @@ class CascadeModule extends StateModule {
     delete this._newState;
   }
   
-  resolvePath2(path) {
+  resolvePath(path) {
     // if dependency is present in the newState
     if (path in this._newState)
       // pull it from there

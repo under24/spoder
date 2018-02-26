@@ -16,7 +16,7 @@ class AngleCascadeModule extends CascadeModule {
   }
   
   processNewAngles(coords) {
-    var baseDirection = this.resolvePath2('base.direction');
+    var baseDirection = this.resolvePath('base.direction');
     
     for (let legId = 1; legId <= 6; legId++) {
       // transverse coords
