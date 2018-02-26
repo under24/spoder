@@ -58,7 +58,11 @@
     if (action.type === "LEVEL_MODIFIER_CHANGED" ||
         action.type === "ROTATION_MODIFIER_CHANGED" ||
         action.type === "SHIFT_MODIFIER_CHANGED" ||
-        action.type === "TILT_MODIFIER_CHANGED") {
+        action.type === "TILT_MODIFIER_CHANGED" ||
+        // @coordsLogicReducer
+        action.type === "CURSOR_XY_SHIFTED" ||
+        action.type === "BASE_XY_SHIFTED" ||
+        action.type === "SEQUENCE_SHIFTED_XY_BATCHED") {
           
       // initialize newState which will hold updated state data
       var newState = {};
@@ -87,6 +91,10 @@
       // @handle "SHIFT_MODIFIER_CHANGED" -> "modifiers.shift"
       // @handle "TILT_MODIFIER_CHANGED" -> "modifiers.tilt"
       modifierLogicReducer.processAction(action, newState);
+      // @handle "CURSOR_XY_SHIFTED" -> "coords"
+      // @handle "BASE_XY_SHIFTED" -> "coords"
+      // @handle "SEQUENCE_SHIFTED_XY_BATCHED" -> "coords", "movement.iteration":(currentTick, currentTickPct), "viewOffsets"
+      coordsLogicReducer.processAction(action, newState);
     }
   }
   
@@ -115,6 +123,7 @@
   
   // init logic reducers
   let modifierLogicReducer = new ModifierLogicReducer(store);
+  let coordsLogicReducer = new CoordsLogicReducer(store);
   
   // init cascade modules
   let coordsCascadeModule = new CoordsCascadeModule(store);

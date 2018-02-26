@@ -20,10 +20,17 @@
         {
           return Object.assign({}, state, action.payload);
         }
-      case "SEQUENCE_SHIFTED_XY_BATCHED":
-        {
-          return Object.assign({}, state, { currentTick: action.currentTick, currentTickPct: action.currentTickPct });
-        }
+      // case "SEQUENCE_SHIFTED_XY_BATCHED":
+      //   {
+      //     return Object.assign({}, state, { currentTick: action.currentTick, currentTickPct: action.currentTickPct });
+      //   }
+    }
+    if ('movement.iteration' in action) {
+      var newState = action['movement.iteration'];
+      
+      delete action['movement.iteration'];
+      
+      return newState;
     }
     return state;
   };  
