@@ -13,7 +13,7 @@ class CoordsLogicReducer extends LogicReducer {
   }
   
   processCursorXYShifted(payload, action) {
-    var oldCoords = this.resolvePath('coords');
+    var oldCoords = this.resolveStatePath('coords');
     
     // calc shifted coords
     var cursorXY = {};
@@ -58,7 +58,7 @@ class CoordsLogicReducer extends LogicReducer {
   }
   
   processBaseXYShifted(payload, action) {
-    var oldCoords = this.resolvePath('coords');
+    var oldCoords = this.resolveStatePath('coords');
     
     var baseXY = {};
     if (action.payload.sagittalBaseX)
@@ -105,7 +105,7 @@ class CoordsLogicReducer extends LogicReducer {
   processSequenceShiftedXYBatched(payload, action) {
     // "coords"
     {
-      let oldCoords = this.resolvePath('coords');
+      let oldCoords = this.resolveStatePath('coords');
       
       let newState = {};
       
@@ -186,14 +186,14 @@ class CoordsLogicReducer extends LogicReducer {
     
     // "movement.iteration"
     {
-      let oldMovementIteration = this.resolvePath('movement.iteration');
+      let oldMovementIteration = this.resolveStatePath('movement.iteration');
       
       var newMovementIteration = Object.assign({}, oldMovementIteration, { currentTick: action.currentTick, currentTickPct: action.currentTickPct });
     }
     
     // "viewOffsets"
     {
-      let oldViewOffsets = this.resolvePath('viewOffsets');
+      let oldViewOffsets = this.resolveStatePath('viewOffsets');
       
       let newState = {};
       

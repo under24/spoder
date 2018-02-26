@@ -74,7 +74,7 @@ class CascadeModule extends StateModule {
       // dependency is not in the newState  
       else
         // take it from the state
-        return this.resolvePath(path);
+        return this.resolveStatePath(path);
     });
   }
   
@@ -94,7 +94,7 @@ class CascadeModule extends StateModule {
     // dependency is not in the newState  
     else
       // take it from the state
-      return this.resolvePath(path);
+      return this.resolveStatePath(path);
   }
   
 }

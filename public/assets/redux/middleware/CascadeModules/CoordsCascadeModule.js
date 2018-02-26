@@ -23,7 +23,7 @@ class CoordsCascadeModule extends CascadeModule {
   
   levelModifierObserver(newLevel) {
     // get values from the current state
-    var oldLevel = this.resolvePath(this.properties.level);
+    var oldLevel = this.resolveStatePath(this.properties.level);
     
     // validation
     if (newLevel.normalizedY === oldLevel.normalizedY) {
@@ -34,7 +34,7 @@ class CoordsCascadeModule extends CascadeModule {
     var levelModifierDiff = oldLevel.normalizedY - newLevel.normalizedY;
     
     var newCoords = {},
-        oldCoords = this.resolvePath('coords');
+        oldCoords = this.resolveStatePath('coords');
       
     for (let legId = 1; legId <= 6; legId++) {
       let sagittalBaseY = oldCoords[legId].sagittalBaseY + levelModifierDiff;
@@ -47,7 +47,7 @@ class CoordsCascadeModule extends CascadeModule {
   
   rotationModifierObserver(newRotation) {
     // get values from the current state
-    var oldRotation = this.resolvePath(this.properties.rotation);
+    var oldRotation = this.resolveStatePath(this.properties.rotation);
     
     // validation
     if (newRotation.normalizedX === oldRotation.normalizedX) {
@@ -58,7 +58,7 @@ class CoordsCascadeModule extends CascadeModule {
     var rotationModifierDiff = oldRotation.normalizedX - newRotation.normalizedX;
     
     var newCoords = {},
-        oldCoords = this.resolvePath('coords'),
+        oldCoords = this.resolveStatePath('coords'),
         baseCenterCoords = MU.getBaseCenter(oldCoords);
     
     for (let legId = 1; legId <= 6; legId++) {
@@ -85,7 +85,7 @@ class CoordsCascadeModule extends CascadeModule {
   
   shiftModifierObserver(newShift) {
     // get values from the current state
-    var oldShift = this.resolvePath(this.properties.shift);
+    var oldShift = this.resolveStatePath(this.properties.shift);
     
     // validation
     if (newShift.normalizedX === oldShift.normalizedX &&
@@ -100,7 +100,7 @@ class CoordsCascadeModule extends CascadeModule {
     };
     
     var newCoords = {},
-        oldCoords = this.resolvePath('coords');
+        oldCoords = this.resolveStatePath('coords');
     
     for (let legId = 1; legId <= 6; legId++) {
       let shiftedCoords = {
@@ -122,7 +122,7 @@ class CoordsCascadeModule extends CascadeModule {
   }
   
   tiltModifierObserver(newTilt) {
-    var oldTilt = this.resolvePath(this.properties.tilt);
+    var oldTilt = this.resolveStatePath(this.properties.tilt);
     
     // validation
     if (newTilt.normalizedX === oldTilt.normalizedX &&
@@ -137,7 +137,7 @@ class CoordsCascadeModule extends CascadeModule {
         backTiltModifier = MU.flipNumber(frontTiltModifier);
     
     var newCoords = {},
-        oldCoords = this.resolvePath('coords'),
+        oldCoords = this.resolveStatePath('coords'),
         distPct = 0.6666666666666666;
     
     for (let legId = 1; legId <= 6; legId++) {

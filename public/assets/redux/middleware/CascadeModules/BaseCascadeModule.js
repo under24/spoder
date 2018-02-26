@@ -25,7 +25,7 @@ class BaseCascadeModule extends CascadeModule {
     var newBaseCenterCoords = MU.getBaseCenter(coords);
     
     // validation. check if the newly generated values differ from the ones we have in the state
-    var oldBaseCenterCoords = this.resolvePath('base.centerCoords');
+    var oldBaseCenterCoords = this.resolveStatePath('base.centerCoords');
     if (oldBaseCenterCoords.x === newBaseCenterCoords.x &&
         oldBaseCenterCoords.y === newBaseCenterCoords.y) return;
     
@@ -38,7 +38,7 @@ class BaseCascadeModule extends CascadeModule {
     var newBaseDirection = GU.correctAngle(directionAngle);
     
     // validation. check if the newly generated values differ from the ones we have in the state
-    var oldBaseDirection = this.resolvePath('base.direction');
+    var oldBaseDirection = this.resolveStatePath('base.direction');
     if (oldBaseDirection === newBaseDirection) return;
     
     return { 'base.direction': newBaseDirection };

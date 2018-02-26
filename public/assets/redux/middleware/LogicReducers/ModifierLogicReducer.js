@@ -14,7 +14,7 @@ class ModifierLogicReducer extends LogicReducer {
   }
 
   processLevelModifier(payload) {
-    var oldLevel = this.resolvePath('modifiers.level');
+    var oldLevel = this.resolveStatePath('modifiers.level');
     
     // validation. check if the payload and state values are the same
     if (oldLevel.y === payload.y) throw new Error('same level modifier values');
@@ -29,7 +29,7 @@ class ModifierLogicReducer extends LogicReducer {
   }
 
   processRotationModifier(payload) {
-    var oldRotation = this.resolvePath('modifiers.rotation');
+    var oldRotation = this.resolveStatePath('modifiers.rotation');
     
     // validation. check if the payload and state values are the same
     if (oldRotation.x === payload.x) throw new Error('same rotation modifier values');
@@ -44,7 +44,7 @@ class ModifierLogicReducer extends LogicReducer {
   }
   
   processShiftModifier(payload) {
-    var oldShift = this.resolvePath('modifiers.shift');
+    var oldShift = this.resolveStatePath('modifiers.shift');
     
     // validation. check if the payload and state values are the same
     if (oldShift.x === payload.x &&
@@ -62,7 +62,7 @@ class ModifierLogicReducer extends LogicReducer {
   }
   
   processTiltModifier(payload) {
-    var oldTilt = this.resolvePath('modifiers.tilt');
+    var oldTilt = this.resolveStatePath('modifiers.tilt');
     
     // validation. check if the payload and state values are the same
     if (oldTilt.x === payload.x &&

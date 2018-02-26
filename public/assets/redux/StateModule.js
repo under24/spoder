@@ -18,9 +18,9 @@ class StateModule {
       for (let i = 0; i < props.length; i++) {
         let propName = props[i],
             propStatePath = this._getPropPath(propName),
-            propStateValue = this.resolvePath(propStatePath);
+            propStateValue = this.resolveStatePath(propStatePath);
         
-        this[propName] = this.resolvePath(propStatePath);
+        this[propName] = this.resolveStatePath(propStatePath);
       }
     }
     // no argument is passed
@@ -28,7 +28,7 @@ class StateModule {
       for (let key in this.properties) {
         let propName = key,
             propStatePath = this._getPropPath(propName),
-            propStateValue = this.resolvePath(propStatePath);
+            propStateValue = this.resolveStatePath(propStatePath);
             
         this[propName] = propStateValue;
       }
@@ -52,7 +52,7 @@ class StateModule {
     }
   }
   
-  resolvePath(path) {
+  resolveStatePath(path) {
     var prop = this._getState();
     
     var pathParts = path.split('.');
@@ -73,7 +73,7 @@ class StateModule {
     // get property state path
     var propStatePath = this._getPropPath(propName),
         // get property state value
-        propStateValue = this.resolvePath(propStatePath);
+        propStateValue = this.resolveStatePath(propStatePath);
         
     return propStateValue;
   }
