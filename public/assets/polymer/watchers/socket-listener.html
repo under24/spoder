@@ -31,7 +31,7 @@
         // joystick right stick
         socket.on('right-analog-stick-moved', data => {
           store.dispatch({
-            type: "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED",
+            type: "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED",
             payload: {
               x: data.x,
               y: data.y
@@ -42,7 +42,7 @@
         // joystick left stick
         socket.on('left-analog-stick-moved', data => {
           store.dispatch({
-            type: "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED",
+            type: "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED",
             payload: {
               x: data.x,
               y: data.y
