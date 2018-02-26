@@ -93,7 +93,9 @@
       modifierLogicReducer.processAction(action, newState);
       // @handle "CURSOR_XY_SHIFTED" -> "coords"
       // @handle "BASE_XY_SHIFTED" -> "coords"
-      // @handle "SEQUENCE_SHIFTED_XY_BATCHED" -> "coords", "movement.iteration":(currentTick, currentTickPct), "viewOffsets"
+      // @handle "SEQUENCE_SHIFTED_XY_BATCHED" -> "coords",
+      //                                          "movement.iteration":(currentTick, currentTickPct),
+      //                                          "viewOffsets"
       coordsLogicReducer.processAction(action, newState);
     }
   }
