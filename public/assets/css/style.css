@@ -57,7 +57,7 @@ body {
 }
 .status-bar-item {
   display: inline-block;
-  margin: 0px 10px;
+  margin: 0px 14px;
 }
 .led {
   width: 9px;
