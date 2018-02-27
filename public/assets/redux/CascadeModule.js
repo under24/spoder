@@ -67,14 +67,7 @@ class CascadeModule extends StateModule {
     return dependencies.map(dependency => {
       var path = this._getPropPath(dependency);
       
-      // if dependency is present in the newState
-      if (path in newState)
-        // pull it from there
-        return newState[path];
-      // dependency is not in the newState  
-      else
-        // take it from the state
-        return this.resolveStatePath(path);
+      return this.resolvePath(path);
     });
   }
   
