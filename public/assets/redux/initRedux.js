@@ -28,7 +28,8 @@
   let statusReducer = combineReducers({
     arduino: arduinoReducer,
     joystick: joystickReducer,
-    socket: socketReducer
+    socket: socketReducer,
+    authorization: authorizationReducer
   });
 
   let viewSettingsReducer = combineReducers({
