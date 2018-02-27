@@ -3,8 +3,7 @@
 class StateObserver extends StateModule {
   
   constructor(store) {
-    // save referrence to the store in LogicReducer.store
-    LogicReducer.store = store;
+    super(store);
     
     // subscribe properties
     // store.subscribe

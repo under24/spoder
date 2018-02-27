@@ -3,12 +3,12 @@
 class StateModule {
   
   constructor(store) {
-    // save referrence to the store in LogicReducer.store
-    LogicReducer.store = store;
+    // save referrence to the store in StateModule.store
+    StateModule.store = store;
   }
   
   _getState() {
-    return LogicReducer.store.getState();
+    return StateModule.store.getState();
   }
   
   // [props...]
