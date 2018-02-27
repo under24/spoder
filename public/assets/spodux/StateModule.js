@@ -20,7 +20,7 @@ class StateModule {
             propStatePath = this._getPropPath(propName),
             propStateValue = this.resolveStatePath(propStatePath);
         
-        this[propName] = this.resolveStatePath(propStatePath);
+        this[propName] = propStateValue;
       }
     }
     // no argument is passed
