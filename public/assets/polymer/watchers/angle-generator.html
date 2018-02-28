@@ -63,8 +63,11 @@
         if (newCoords[`${view}CursorX`] !== oldCoords[`${view}CursorX`] ||
             newCoords[`${view}CursorY`] !== oldCoords[`${view}CursorY`] ||
             newCoords[`${view}BaseX`] !== oldCoords[`${view}BaseX`] ||
-            newCoords[`${view}BaseY`] !== oldCoords[`${view}BaseY`]) return false;
-            
+            newCoords[`${view}BaseY`] !== oldCoords[`${view}BaseY`])
+          // not same coords
+          return false;
+          
+        // same coords
         return true;
       }
       
