@@ -29,7 +29,7 @@
     arduino: arduinoReducer,
     joystick: joystickReducer,
     socket: socketReducer,
-    authorization: authorizationReducer
+    privileges: privilegeReducer
   });
 
   let viewSettingsReducer = combineReducers({
