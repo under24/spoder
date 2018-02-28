@@ -5,7 +5,7 @@
     charge: null,
     connected: false,
     status: null
-  }
+  };
 
   var joystickReducer = (state = joystickReducerInitState, action) => {
     switch (action.type) {

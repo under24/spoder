@@ -8,7 +8,7 @@
     normalizedY: 0,
     normalizer: 0.7, // x: 100 -> normalizedX/Y: 70
     appliedTo: 'transverseBaseXY'
-  }
+  };
 
   var shiftReducer = (state = shiftReducerInitState, action) => {
     // switch (action.type) {

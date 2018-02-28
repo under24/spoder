@@ -8,7 +8,7 @@
     normalizedY: 0,
     normalizer: 0.25, // x: 100 -> normalizedX/Y: 25
     appliedTo: 'sagittalBaseY'
-  }
+  };
 
   var tiltReducer = (state = tiltReducerInitState, action) => {
     // switch (action.type) {

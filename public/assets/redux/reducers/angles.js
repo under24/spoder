@@ -50,7 +50,7 @@
       tibiaScreenAngle: null,
       tibiaServoAngle: null
     }
-  }
+  };
 
   var angleReducer = (state = angleReducerInitState, action) => {
     switch (action.type) {

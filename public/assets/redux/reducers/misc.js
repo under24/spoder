@@ -56,7 +56,7 @@
       transverseReachCoords: null,
       transverseReachRadius: null
     }
-  }
+  };
 
   var miscReducer = (state = miscReducerInitState, action) => {
     switch (action.type) {

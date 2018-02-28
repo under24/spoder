@@ -4,7 +4,7 @@
   let movementDirectionJoystickReducerInitState = {
     x: 0,
     y: 0
-  }
+  };
 
   var movementDirectionJoystickReducer = (state = movementDirectionJoystickReducerInitState, action) => {
     switch (action.type) {

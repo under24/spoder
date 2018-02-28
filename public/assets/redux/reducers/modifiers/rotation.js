@@ -6,7 +6,7 @@
     normalizer: 0.3, // x: 100 -> normalizedX: 30
     normalizedX: 0,
     appliedTo: 'transverseBaseXY'
-  }
+  };
 
   var rotationReducer = (state = rotationReducerInitState, action) => {
     // switch (action.type) {

@@ -74,7 +74,7 @@
       solidDiameter: null,
       solidRadius: null
     }
-  }
+  };
 
   var movementCircleReducer = (state = movementCircleReducerInitState, action) => {
     switch (action.type) {

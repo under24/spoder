@@ -50,7 +50,8 @@
       side: 'right',
       row: 'back'
     }
-  }
+  };
+  
   var legReducer = (state = legReducerInitState, action) => {
     return state;
   }  

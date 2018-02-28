@@ -12,7 +12,7 @@
     sequencerMode: null,
     currentTick: 0,
     currentTickPct: 0
-  }
+  };
 
   var movementInterationReducer = (state = movementInterationReducerInitState, action) => {
     switch (action.type) {

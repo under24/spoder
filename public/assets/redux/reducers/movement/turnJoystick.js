@@ -5,7 +5,7 @@
     x: 0,
     normalizer: 0.25, // x: 100 -> normalizedX: 25
     normalizedX: 0
-  }
+  };
 
   var movementTurnJoystickReducer = (state = movementTurnJoystickReducerInitState, action) => {
     switch (action.type) {

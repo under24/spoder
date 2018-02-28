@@ -38,7 +38,7 @@
       transverseX: 0,
       transverseY: 0
     }
-  }
+  };
 
   var viewOffsetsReducer = (state = viewOffsetsReducerInitState, action) => {
     // switch (action.type) {

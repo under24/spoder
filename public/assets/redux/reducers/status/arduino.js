@@ -3,7 +3,7 @@
 {
   let arduinoReducerInitState = {
     connected: false
-  }
+  };
 
   var arduinoReducer = (state = arduinoReducerInitState, action) => {
     switch (action.type) {

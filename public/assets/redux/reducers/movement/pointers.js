@@ -26,7 +26,7 @@
       x: null,
       y: null
     }
-  }
+  };
 
   var movementPointerReducer = (state = movementPointerReducerInitState, action) => {
     switch (action.type) {
