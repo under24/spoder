@@ -51,12 +51,12 @@
         coords4="[[computeCoords('4', coords4, offsets4, useOffsets, useScaling, scaling)]]"
         coords5="[[computeCoords('5', coords5, offsets5, useOffsets, useScaling, scaling)]]"
         coords6="[[computeCoords('6', coords6, offsets6, useOffsets, useScaling, scaling)]]"
-        angles1="[[angles1]]"
-        angles2="[[angles2]]"
-        angles3="[[angles3]]"
-        angles4="[[angles4]]"
-        angles5="[[angles5]]"
-        angles6="[[angles6]]"
+        angles1="[[computeAngle(angles1, useOffsets)]]"
+        angles2="[[computeAngle(angles2, useOffsets)]]"
+        angles3="[[computeAngle(angles3, useOffsets)]]"
+        angles4="[[computeAngle(angles4, useOffsets)]]"
+        angles5="[[computeAngle(angles5, useOffsets)]]"
+        angles6="[[computeAngle(angles6, useOffsets)]]"
         femur-length="[[computeFemurLength(metaData, useScaling, scaling)]]"
         tibia-length="[[computeTibiaLength(metaData, useScaling, scaling)]]"
       >
@@ -134,19 +134,33 @@
           },
           metaData: {
             statePath: 'metaData'
-          }
+          },
+          baseDirection: {
+            statePath: 'base.direction'
+          },
         };
       }
       
       computeCoords(legId, coords) {
+        var base = {
+          x: this.scaleInput(coords.transverseBaseX + this.getOffset(legId, 'x')),
+          y: this.scaleInput(coords.transverseBaseY + this.getOffset(legId, 'y'))
+        };
+        
+        var cursor = {
+          x: this.scaleInput(coords.transverseCursorX + this.getOffset(legId, 'x')),
+          y: this.scaleInput(coords.transverseCursorY + this.getOffset(legId, 'y'))
+        };
+        cursor = this.getOffsetRotatedCoords(base, cursor);        
+        
         return {
           // cursor
-          transverseCursorX: this.scaleInput(coords.transverseCursorX + this.getOffsetX(legId)),
+          transverseCursorX: cursor.x,
           sagittalCursorY: this.scaleInput(coords.sagittalCursorY),
           // base
-          transverseBaseX: this.scaleInput(coords.transverseBaseX + this.getOffsetX(legId)),
+          transverseBaseX: base.x,
           sagittalBaseY: this.scaleInput(coords.sagittalBaseY)
-        }
+        };
       }
       
       computeFemurLength(metaData) {
@@ -155,6 +169,21 @@
       
       computeTibiaLength(metaData) {
         return this.scaleInput(metaData.tibiaLength);
+      }
+      
+      computeAngle(angle) {
+        return {
+          coxaScreenAngle: angle.coxaScreenAngle - this.getAngleOffset(),
+          femurScreenAngle: angle.femurScreenAngle,
+          tibiaScreenAngle: angle.tibiaScreenAngle
+        };
+      }
+      
+      getAngleOffset() {
+        // do not use offsets
+        if (!this.useOffsets) return 0;
+        
+        return this.baseDirection;
       }
       
       scaleOutput(val) {
@@ -176,6 +205,25 @@
         if (!this.useOffsets) return 0;
         
         return this[`offsets${legId}`].transverseX;
+      }
+      
+      getOffset(legId, coord) {
+        // do not use offsets
+        if (!this.useOffsets) return 0;
+        
+        switch (coord) {
+          case 'x':
+            return this[`offsets${legId}`].transverseX;
+          case 'y':
+            return this[`offsets${legId}`].transverseY;
+        }
+      }
+      
+      getOffsetRotatedCoords(origin, coords) {
+        // if useOffsets is false then return the coords back
+        if (!this.useOffsets) return coords;
+        
+        return MU.rotateCoords(origin, coords, MU.flipNumber(this.baseDirection));
       }
       
       showSettingsDialog() {
