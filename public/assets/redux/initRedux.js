@@ -39,7 +39,7 @@
     relativeTransverseView: viewSettingsRelativeTransverseViewReducer
   });
 
-  let reducers = combineReducers({
+  let rootReducer = combineReducers({
     angles: angleReducer,
     base: baseReducer,
     coords: coordsReducer,
@@ -117,7 +117,7 @@
   }
 
   var store = createStore(
-    reducers,
+    rootReducer,
     applyMiddleware(
       logicReducers,
       cascadeModules
