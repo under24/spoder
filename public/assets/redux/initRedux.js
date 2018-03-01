@@ -122,7 +122,6 @@
       logicReducers,
       cascadeModules
     )
-    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
   
   // init logic reducers
