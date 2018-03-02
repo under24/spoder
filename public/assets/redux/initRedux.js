@@ -15,6 +15,12 @@
     shift: shiftReducer,
     tilt: tiltReducer
   });
+  
+  let movementInterationReducer = combineReducers({
+    blueprint: movementIterationBlueprintReducer,
+    transition: movementIterationTransitionReducer,
+    properties: movementIterationPropertiesReducer
+  });
 
   let movementReducer = combineReducers({
     circles: movementCircleReducer,

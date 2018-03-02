@@ -79,43 +79,43 @@
       <div class="leg-sequence">
         <div class="sequence-header">L1 (1)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('1', iteration.gait)]]">[[computeStrokeDistance('1', iteration.transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('1', iterationProperties.gait)]]">[[computeStrokeDistance('1', transitionShift)]]</div>
         </div>
       </div>
       <div class="leg-sequence">
         <div class="sequence-header">R1 (2)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('2', iteration.gait)]]">[[computeStrokeDistance('2', iteration.transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('2', iterationProperties.gait)]]">[[computeStrokeDistance('2', transitionShift)]]</div>
         </div>
       </div>
       <div class="leg-sequence">
         <div class="sequence-header">L2 (3)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('3', iteration.gait)]]">[[computeStrokeDistance('3', iteration.transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('3', iterationProperties.gait)]]">[[computeStrokeDistance('3', transitionShift)]]</div>
         </div>
       </div>
       <div class="leg-sequence">
         <div class="sequence-header">R2 (4)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('4', iteration.gait)]]">[[computeStrokeDistance('4', iteration.transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('4', iterationProperties.gait)]]">[[computeStrokeDistance('4', transitionShift)]]</div>
         </div>
       </div>
       <div class="leg-sequence">
         <div class="sequence-header">L3 (5)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('5', iteration.gait)]]">[[computeStrokeDistance('5', iteration.transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('5', iterationProperties.gait)]]">[[computeStrokeDistance('5', transitionShift)]]</div>
         </div>
       </div>
       <div class="leg-sequence">
         <div class="sequence-header">R3 (6)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('6', iteration.gait)]]">[[computeStrokeDistance('6', iteration.transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('6', iterationProperties.gait)]]">[[computeStrokeDistance('6', transitionShift)]]</div>
         </div>
       </div>
       
       <div class="cursor-wrapper">
-        <div class="cursor" style$="left: [[iteration.currentTickPct]]%">
-          <div class="cursor-knob">[[iteration.currentTickPct]]</div>
+        <div class="cursor" style$="left: [[iterationProperties.currentTickPct]]%">
+          <div class="cursor-knob">[[iterationProperties.currentTickPct]]</div>
         </div>
       </div>
 
@@ -126,11 +126,14 @@
       static get is() { return 'movement-inspector-view'; }
       static get properties() {
         return {
-          iteration: {
-            statePath: 'movement.iteration'
+          iterationProperties: {
+            statePath: 'movement.iteration.properties'
           },
           gaits: {
             statePath: 'gaits'
+          },
+          transitionShift: {
+            statePath: 'movement.iteration.transition.transitionShift'
           }
         };
       }

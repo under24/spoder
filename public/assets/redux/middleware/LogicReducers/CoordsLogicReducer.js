@@ -184,11 +184,11 @@ class CoordsLogicReducer extends LogicReducer {
       var newCoords = Object.assign({}, oldCoords, newState);
     }
     
-    // "movement.iteration"
+    // "movement.iteration.properties"
     {
-      let oldMovementIteration = this.resolveStatePath('movement.iteration');
+      let oldMovementIterationProperties = this.resolveStatePath('movement.iteration.properties');
       
-      var newMovementIteration = Object.assign({}, oldMovementIteration, { currentTick: action.currentTick, currentTickPct: action.currentTickPct });
+      var newMovementIterationProperties = Object.assign({}, oldMovementIterationProperties, { currentTick: action.currentTick, currentTickPct: action.currentTickPct });
     }
     
     // "viewOffsets"
@@ -214,7 +214,7 @@ class CoordsLogicReducer extends LogicReducer {
     
     return {
       'coords': newCoords,
-      'movement.iteration': newMovementIteration,
+      'movement.iteration.properties': newMovementIterationProperties,
       'viewOffsets': newViewOffsets
     };
   }

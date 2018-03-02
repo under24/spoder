@@ -8,10 +8,10 @@
             statePath: 'movement.circles'
           },
           iteration: {
-            statePath: 'movement.iteration'
+            statePath: 'movement.iteration.properties'
           },
           iterationTick: {
-            statePath: 'movement.iteration.currentTick'
+            statePath: 'movement.iteration.properties.currentTick'
           },
           pointers: {
             statePath: 'movement.pointers'
@@ -28,6 +28,9 @@
           },
           turnJoystick: {
             statePath: 'movement.turnJoystick'
+          },
+          transitionShiftSource: {
+            statePath: 'movement.iteration.transition.transitionShiftSource'
           }
         };
       }
@@ -44,28 +47,34 @@
             transitionShiftSource = this.generateTransitionShiftSource();
             
         // prepare payload for dispatching
-        var payload = { transitionShift, transitionShiftSource };
+        var payload2 = { transitionShift, transitionShiftSource };
+        
+        store.dispatch({ type: "MOVEMENT_ITERATION_TRANSITION_CHANGED", payload: payload2 });
+        
+        
+        
         
         // when the iteration is complete or has not been started. new settings cannnot be applied in mid iteration
-        if (iterationTick === 0)
+        if (iterationTick === 0) {
+          var payload = {};
           // try to pick up new properties (if there are) from movement.settings
           this.mergeSettingsWithIteration(payload);
-        
-        // dispatch transitionShift + transitionShiftSource + maybe new settings
-        this.dispatchIterationValues(payload);
+          // dispatch transitionShift + transitionShiftSource + maybe new settings
+          this.dispatchIterationValues(payload);
+        }
       }
       
       invalidConditions(iterationTick) {
         // this check is first because this.iteration.transitionShiftSource is null during initialization
         // generate new transitionShift every time iterationTick is 0
-        if (iterationTick === 0) 
+        if (iterationTick === 0)
           // valid condition
           return false;
         
         // if one of the joysticks has changed its values then we generate new transitionShift
-        if (this.turnJoystick.x !== this.iteration.transitionShiftSource.turnX ||
-            this.directionJoystick.x !== this.iteration.transitionShiftSource.directionX ||
-            this.directionJoystick.y !== this.iteration.transitionShiftSource.directionY)
+        if (this.turnJoystick.x !== this.transitionShiftSource.turnX ||
+            this.directionJoystick.x !== this.transitionShiftSource.directionX ||
+            this.directionJoystick.y !== this.transitionShiftSource.directionY)
           // valid condition
           return false;
         
@@ -130,7 +139,7 @@
       }
       
       dispatchIterationValues(payload) {
-        store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload });
+        store.dispatch({ type: "MOVEMENT_ITERATION_PROPERTIES_CHANGED", payload });
       }
       
       mergeSettingsWithIteration(payload) {

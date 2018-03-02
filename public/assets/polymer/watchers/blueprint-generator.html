@@ -10,10 +10,10 @@
       static get properties() {
         return {
           transitionShift: {
-            statePath: 'movement.iteration.transitionShift'
+            statePath: 'movement.iteration.transition.transitionShift'
           },
           iterationGait: {
-            statePath: 'movement.iteration.gait'
+            statePath: 'movement.iteration.properties.gait'
           },
           gaits: {
             statePath: 'gaits'
@@ -30,7 +30,7 @@
         // create a new blueprint
         var blueprint = this.generateBlueprint();
         // dispatch it
-        store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload: { blueprint } });
+        store.dispatch({ type: "MOVEMENT_ITERATION_BLUEPRINT_CHANGED", payload: blueprint });
       }
       
       generateBlueprint() {

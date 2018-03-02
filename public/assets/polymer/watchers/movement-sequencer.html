@@ -17,7 +17,7 @@
             statePath: 'movement.iteration.blueprint'
           },
           iteration: {
-            statePath: 'movement.iteration'
+            statePath: 'movement.iteration.properties'
           },
           loop: {
             statePath: 'movement.settings.loop'
@@ -139,11 +139,11 @@
         // payload is empty, dispatch only currentTick and currentTickPct
         // payload can be empty when the current leg/stroke does not have any pexels to move
         else
-          store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload: { currentTick, currentTickPct } });
+          store.dispatch({ type: "MOVEMENT_ITERATION_PROPERTIES_CHANGED", payload: { currentTick, currentTickPct } });
       }
       
       resetTickData() {
-        store.dispatch({ type: "MOVEMENT_ITERATION_VALUES_CHANGED", payload: { currentTick: 0, currentTickPct: 0 } });
+        store.dispatch({ type: "MOVEMENT_ITERATION_PROPERTIES_CHANGED", payload: { currentTick: 0, currentTickPct: 0 } });
       }
       
       disableSequencer() {

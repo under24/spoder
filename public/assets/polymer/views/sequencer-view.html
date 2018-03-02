@@ -183,8 +183,8 @@
           gaits: {
             statePath: 'gaits'
           },
-          iteration: {
-            statePath: 'movement.iteration'
+          iterationProperties: {
+            statePath: 'movement.iteration.properties'
           },
           movementSettings: {
             statePath: 'movement.settings'
@@ -199,7 +199,7 @@
       generateSequenceBlueprint() {
         let blueprint = {},
             iterationMovementData = {},
-            selectedGait = this.iteration.currentTick === 0 ? this.movementSettings.gait : this.iteration.gait || this.movementSettings.gait;
+            selectedGait = this.iterationProperties.currentTick === 0 ? this.movementSettings.gait : this.iterationProperties.gait || this.movementSettings.gait;
         
         for (let legId = 1; legId <= 6; legId++) {
           iterationMovementData[legId] = this.getIterationMovementData(legId);
@@ -267,7 +267,7 @@
       }
       
       onGenerateSequenceButtonClicked() {
-        this.sequence = SU.generateSequenceTimeline(this.blueprint, this.iteration.tps, this.iteration.duration, this.iteration.amountOfTicks);
+        this.sequence = SU.generateSequenceTimeline(this.blueprint, this.iterationProperties.tps, this.iterationProperties.duration, this.iterationProperties.amountOfTicks);
       }
       
       pauseSequence() {
@@ -280,7 +280,7 @@
       }
       
       playOrResumeSequence() {
-        this.runSequence(this.iteration.currentTick + 1);
+        this.runSequence(this.iterationProperties.currentTick + 1);
       }
       
       observePointers(newValue, oldValue) {
@@ -344,7 +344,7 @@
 
             // reset iteration tick and tickPct to 0
             store.dispatch({
-              type: "MOVEMENT_ITERATION_VALUES_CHANGED",
+              type: "MOVEMENT_ITERATION_PROPERTIES_CHANGED",
               payload: { currentTick: 0, currentTickPct: 0 }
             });
             
