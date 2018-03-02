@@ -24,14 +24,14 @@
         }
       }
       
-      // calc pointers whenever this.circles || directionJoystick || this.turnJoystick changes
+      // calc pointers whenever this.circles || directionJoystick changes
       static get observers() {
-        return [ 'processNewPointers(circles, directionJoystick, turnJoystick)' ];
+        return [ 'processNewPointers(circles, directionJoystick)' ];
       }
       
-      processNewPointers(circles, directionJoystick, turnJoystick) {
+      processNewPointers(circles, directionJoystick) {
         // create new pointers
-        var pointers = this.generatePointers(circles, directionJoystick, turnJoystick);
+        var pointers = this.generatePointers(circles, directionJoystick, this.turnJoystick);
         // dispatch them
         this.dispatchPointers(pointers);
       }
