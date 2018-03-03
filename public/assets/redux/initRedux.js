@@ -129,7 +129,7 @@
     
     next(newState);
   }
-
+  
   var store = createStore(
     rootReducer,
     applyMiddleware(
