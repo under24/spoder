@@ -70,6 +70,8 @@
         action.type === "CURSOR_XY_SHIFTED" ||
         action.type === "BASE_XY_SHIFTED" ||
         action.type === "SEQUENCE_SHIFTED_XY_BATCHED") {
+        action.type === "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED" ||
+        action.type === "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED") {
           
       // initialize newState which will hold updated state data
       var newState = {};
@@ -104,6 +106,10 @@
       //                                          "movement.iteration":(currentTick, currentTickPct),
       //                                          "viewOffsets"
       coordsLogicReducer.processAction(action, newState);
+      // @handle "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED" -> "movement.turnJoystick"
+      movementTurnJoystickLogicReducer.processAction(action, newState);
+      // @handle "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED" -> "movement.directionJoystick"
+      movementDirectionJoystickLogicReducer.processAction(action, newState)
     }
   }
   
