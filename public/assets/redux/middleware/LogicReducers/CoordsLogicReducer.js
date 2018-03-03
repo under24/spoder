@@ -8,7 +8,8 @@ class CoordsLogicReducer extends LogicReducer {
     this.actionTypes = [
       'processCursorXYShifted(CURSOR_XY_SHIFTED)',
       'processBaseXYShifted(BASE_XY_SHIFTED)',
-      'processSequenceShiftedXYBatched(SEQUENCE_SHIFTED_XY_BATCHED)'
+      'processSequenceShiftedXYBatched(SEQUENCE_SHIFTED_XY_BATCHED)',
+      'processInitCoordsWithMockData(INIT_COORDS_WITH_MOCK_DATA)'
     ];
   }
   
@@ -217,6 +218,22 @@ class CoordsLogicReducer extends LogicReducer {
       'movement.iteration.properties': newMovementIterationProperties,
       'viewOffsets': newViewOffsets
     };
+  }
+  
+  processInitCoordsWithMockData(payload) {
+    // compute sagittalBaseX and sagittalCursorX coords
+    for (let key in payload) {
+      let result = CU.getTransverseBaseXYCompensativeCoords({
+        tbx: payload[key].transverseBaseX,
+        tby: payload[key].transverseBaseY,
+        tcx: payload[key].transverseCursorX,
+        tcy: payload[key].transverseCursorY
+      });
+      
+      Object.assign(payload[key], result);
+    }
+    
+    return { 'coords': payload };
   }
 
 }

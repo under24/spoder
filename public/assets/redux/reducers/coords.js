@@ -3,78 +3,78 @@
 {
   let coordsReducerInitState = {
     1: {
-      // sagittalCursorX: 250,
-      sagittalCursorY: 0,
-      // sagittalBaseX: 100,
-      sagittalBaseY: -30,
-      transverseCursorX: 200,
-      transverseCursorY: -250,
-      transverseBaseX: 100,
-      transverseBaseY: -150
+      sagittalCursorX: null,
+      sagittalCursorY: null,
+      sagittalBaseX: null,
+      sagittalBaseY: null,
+      transverseCursorX: null,
+      transverseCursorY: null,
+      transverseBaseX: null,
+      transverseBaseY: null
     },
     2: {
-      // sagittalCursorX: 250,
-      sagittalCursorY: 0,
-      // sagittalBaseX: 100,
-      sagittalBaseY: -30,
-      transverseCursorX: -200,
-      transverseCursorY: -250,
-      transverseBaseX: -100,
-      transverseBaseY: -150
+      sagittalCursorX: null,
+      sagittalCursorY: null,
+      sagittalBaseX: null,
+      sagittalBaseY: null,
+      transverseCursorX: null,
+      transverseCursorY: null,
+      transverseBaseX: null,
+      transverseBaseY: null
     },
     3: {
-      // sagittalCursorX: 250,
-      sagittalCursorY: 0,
-      // sagittalBaseX: 100,
-      sagittalBaseY: -30,
-      transverseCursorX: 300,
-      transverseCursorY: 0,
-      transverseBaseX: 150,
-      transverseBaseY: 0
+      sagittalCursorX: null,
+      sagittalCursorY: null,
+      sagittalBaseX: null,
+      sagittalBaseY: null,
+      transverseCursorX: null,
+      transverseCursorY: null,
+      transverseBaseX: null,
+      transverseBaseY: null
     },
     4: {
-      // sagittalCursorX: 250,
-      sagittalCursorY: 0,
-      // sagittalBaseX: 100,
-      sagittalBaseY: -30,
-      transverseCursorX: -300,
-      transverseCursorY: 0,
-      transverseBaseX: -150,
-      transverseBaseY: 0
+      sagittalCursorX: null,
+      sagittalCursorY: null,
+      sagittalBaseX: null,
+      sagittalBaseY: null,
+      transverseCursorX: null,
+      transverseCursorY: null,
+      transverseBaseX: null,
+      transverseBaseY: null
     },
     5: {
-      // sagittalCursorX: 250,
-      sagittalCursorY: 0,
-      // sagittalBaseX: 100,
-      sagittalBaseY: -30,
-      transverseCursorX: 200,
-      transverseCursorY: 250,
-      transverseBaseX: 100,
-      transverseBaseY: 150
+      sagittalCursorX: null,
+      sagittalCursorY: null,
+      sagittalBaseX: null,
+      sagittalBaseY: null,
+      transverseCursorX: null,
+      transverseCursorY: null,
+      transverseBaseX: null,
+      transverseBaseY: null
     },
     6: {
-      // sagittalCursorX: 250,
-      sagittalCursorY: 0,
-      // sagittalBaseX: 100,
-      sagittalBaseY: -30,
-      transverseCursorX: -200,
-      transverseCursorY: 250,
-      transverseBaseX: -100,
-      transverseBaseY: 150
+      sagittalCursorX: null,
+      sagittalCursorY: null,
+      sagittalBaseX: null,
+      sagittalBaseY: null,
+      transverseCursorX: null,
+      transverseCursorY: null,
+      transverseBaseX: null,
+      transverseBaseY: null
     }
   };
 
-  // compute sagittalBaseX and sagittalCursorX coords
-  for (let key in coordsReducerInitState) {
-    let result = CU.getTransverseBaseXYCompensativeCoords({
-      tbx: coordsReducerInitState[key].transverseBaseX,
-      tby: coordsReducerInitState[key].transverseBaseY,
-      tcx: coordsReducerInitState[key].transverseCursorX,
-      tcy: coordsReducerInitState[key].transverseCursorY
-    });
-    
-    Object.assign(coordsReducerInitState[key], result);
-  }
+  // // compute sagittalBaseX and sagittalCursorX coords
+  // for (let key in coordsReducerInitState) {
+  //   let result = CU.getTransverseBaseXYCompensativeCoords({
+  //     tbx: coordsReducerInitState[key].transverseBaseX,
+  //     tby: coordsReducerInitState[key].transverseBaseY,
+  //     tcx: coordsReducerInitState[key].transverseCursorX,
+  //     tcy: coordsReducerInitState[key].transverseCursorY
+  //   });
+  // 
+  //   Object.assign(coordsReducerInitState[key], result);
+  // }
 
   var coordsReducer = (state = coordsReducerInitState, action) => {
     switch (action.type) {

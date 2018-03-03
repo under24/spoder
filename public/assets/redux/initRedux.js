@@ -69,7 +69,8 @@
         // @coordsLogicReducer
         action.type === "CURSOR_XY_SHIFTED" ||
         action.type === "BASE_XY_SHIFTED" ||
-        action.type === "SEQUENCE_SHIFTED_XY_BATCHED") {
+        action.type === "SEQUENCE_SHIFTED_XY_BATCHED" ||
+        action.type === "INIT_COORDS_WITH_MOCK_DATA" ||
         action.type === "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED" ||
         action.type === "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED") {
           
@@ -105,6 +106,7 @@
       // @handle "SEQUENCE_SHIFTED_XY_BATCHED" -> "coords",
       //                                          "movement.iteration":(currentTick, currentTickPct),
       //                                          "viewOffsets"
+      // @handle "INIT_COORDS_WITH_MOCK_DATA" -> "coords"
       coordsLogicReducer.processAction(action, newState);
       // @handle "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED" -> "movement.turnJoystick"
       movementTurnJoystickLogicReducer.processAction(action, newState);
@@ -145,6 +147,71 @@
   let baseCascadeModule = new BaseCascadeModule(store);
   let anglesCascadeModule = new AngleCascadeModule(store);
 
+  store.dispatch({
+    type: "INIT_COORDS_WITH_MOCK_DATA",
+    payload: {
+      1: {
+        // sagittalCursorX: 250,
+        sagittalCursorY: 0,
+        // sagittalBaseX: 100,
+        sagittalBaseY: -30,
+        transverseCursorX: 200,
+        transverseCursorY: -250,
+        transverseBaseX: 100,
+        transverseBaseY: -150
+      },
+      2: {
+        // sagittalCursorX: 250,
+        sagittalCursorY: 0,
+        // sagittalBaseX: 100,
+        sagittalBaseY: -30,
+        transverseCursorX: -200,
+        transverseCursorY: -250,
+        transverseBaseX: -100,
+        transverseBaseY: -150
+      },
+      3: {
+        // sagittalCursorX: 250,
+        sagittalCursorY: 0,
+        // sagittalBaseX: 100,
+        sagittalBaseY: -30,
+        transverseCursorX: 300,
+        transverseCursorY: 0,
+        transverseBaseX: 150,
+        transverseBaseY: 0
+      },
+      4: {
+        // sagittalCursorX: 250,
+        sagittalCursorY: 0,
+        // sagittalBaseX: 100,
+        sagittalBaseY: -30,
+        transverseCursorX: -300,
+        transverseCursorY: 0,
+        transverseBaseX: -150,
+        transverseBaseY: 0
+      },
+      5: {
+        // sagittalCursorX: 250,
+        sagittalCursorY: 0,
+        // sagittalBaseX: 100,
+        sagittalBaseY: -30,
+        transverseCursorX: 200,
+        transverseCursorY: 250,
+        transverseBaseX: 100,
+        transverseBaseY: 150
+      },
+      6: {
+        // sagittalCursorX: 250,
+        sagittalCursorY: 0,
+        // sagittalBaseX: 100,
+        sagittalBaseY: -30,
+        transverseCursorX: -200,
+        transverseCursorY: 250,
+        transverseBaseX: -100,
+        transverseBaseY: 150
+      }
+    }
+  });
 
   var ReduxMixin = PolymerRedux(store);  
 }
