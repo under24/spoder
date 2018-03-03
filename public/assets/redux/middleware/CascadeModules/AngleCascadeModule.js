@@ -21,6 +21,8 @@ class AngleCascadeModule extends CascadeModule {
     var newAngles = {},
         oldAngles = this.resolveStatePath('angles');
         
+    var newDataGenerated = false;
+        
     for (let legId = 1; legId <= 6; legId++) {
       // transverse coords -> coxa angles
       // if no changed coords then referrence the state object
@@ -31,8 +33,11 @@ class AngleCascadeModule extends CascadeModule {
         };
       }
       // some coords have changed. need to calculate angles
-      else
+      else {
         var coxaAngles = this.processNewCoxaAngles(legId);
+        // some new values have been generated. set the flag to send them to store
+        newDataGenerated = true;
+      }
       
       // sagittal coords -> femur + tibia angles
       // if no changed coords then referrence the state object
@@ -45,14 +50,17 @@ class AngleCascadeModule extends CascadeModule {
         };
       }
       // some coords have changed. need to calculate angles
-      else
+      else {
         var femurAndTibiaAngles = this.processNewFemurAndTibiaAngles(legId);
+        // some new values have been generated. set the flag to send them to store
+        newDataGenerated = true;
+      }
       
       newAngles[legId] = Object.assign(coxaAngles, femurAndTibiaAngles);
     }
     
-    debugger;
-    return { 'angles': newAngles };
+    if (newDataGenerated) 
+      return { 'angles': newAngles };
   }
   
   sameCoords(newCoords, oldCoords, view) {
@@ -150,7 +158,7 @@ class AngleCascadeModule extends CascadeModule {
       femurServoAngle: femurAngles.servo,
       tibiaScreenAngle: tibiaAngles.screen,
       tibiaServoAngle: tibiaAngles.servo
-    }
+    };
   }
   
   getFemurAngle(legId, view) {
@@ -196,7 +204,7 @@ class AngleCascadeModule extends CascadeModule {
       femurServoAngle: +femurAngles.servo.toFixed(0),
       tibiaScreenAngle: 0,
       tibiaServoAngle: 0
-    }
+    };
   }
 
 }
