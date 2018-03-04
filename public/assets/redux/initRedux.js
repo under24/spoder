@@ -146,7 +146,7 @@
     movementPointersCascadeModule.processState(newState);
     // @observe "movement.settings"
     //          "movement.iteration.properties":(currentTick === 0) -> "movement.iteration.properties"
-    movementIterationPropertiesCascadeModule.processState(newState)
+    movementIterationPropertiesCascadeModule.processState(newState);
     
     next(newState);
   }
