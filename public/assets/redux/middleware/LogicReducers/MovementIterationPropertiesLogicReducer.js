@@ -6,11 +6,11 @@ class MovementIterationPropertiesLogicReducer extends LogicReducer {
     super(store);
     
     this.actionTypes = [
-      'processMovementIterationPropertiesChanged(MOVEMENT_ITERATION_PROPERTIES_CHANGED)'
+      'processMovementIterationProperties(MOVEMENT_ITERATION_PROPERTIES_CHANGED)'
     ];
   }
   
-  processMovementIterationPropertiesChanged(payload) {
+  processMovementIterationProperties(payload) {
     var oldMovementIterationProperties = this.resolveStatePath('movement.iteration.properties');
     
     var newMovementIterationProperties = Object.assign({}, oldMovementIterationProperties, payload);
