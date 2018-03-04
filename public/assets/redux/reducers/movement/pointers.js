@@ -29,17 +29,24 @@
   };
 
   var movementPointerReducer = (state = movementPointerReducerInitState, action) => {
-    switch (action.type) {
-      case "MOVEMENT_POINTERS_CHANGED_BATCHED":
-        {
-          let newState = {};
-          
-          for (let legId in action.payload) {
-            newState[legId] = Object.assign({}, state[legId], action.payload[legId]);
-          }
-          
-          return Object.assign({}, state, newState);
-        }
+    // switch (action.type) {
+    //   case "MOVEMENT_POINTERS_CHANGED_BATCHED":
+    //     {
+    //       let newState = {};
+    //       
+    //       for (let legId in action.payload) {
+    //         newState[legId] = Object.assign({}, state[legId], action.payload[legId]);
+    //       }
+    //       
+    //       return Object.assign({}, state, newState);
+    //     }
+    // }
+    if ('movement.pointers' in action) {
+      var newState = action['movement.pointers'];
+      
+      delete action['movement.pointers'];
+      
+      return newState;
     }
     return state;
   }  

@@ -133,6 +133,8 @@
     // @observe "coords" -> "movement.circles" 
     // @observe "movement.turnJoystick" -> "movement.circles"
     circlesCascadeModule.processState(newState);
+    // @observe "movement.circles" || "movement.directionJoystick" -> "movement.pointers"
+    pointersCascadeModule.processState(newState);
     
     next(newState);
   }
