@@ -105,7 +105,7 @@
       // @handle "CURSOR_XY_SHIFTED" -> "coords"
       // @handle "BASE_XY_SHIFTED" -> "coords"
       // @handle "SEQUENCE_SHIFTED_XY_BATCHED" -> "coords"
-      //                                          "movement.iteration":(currentTick, currentTickPct)
+      //                                          "movement.iteration.properties":(currentTick, currentTickPct)
       //                                          "viewOffsets"
       // @handle "INIT_COORDS_WITH_MOCK_DATA" -> "coords"
       coordsLogicReducer.processAction(action, newState);
