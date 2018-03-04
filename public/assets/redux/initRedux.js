@@ -172,6 +172,7 @@
       circlesCascadeModule = new CirclesCascadeModule(store),
       pointersCascadeModule = new PointersCascadeModule(store);
       
+  // init state with coords
   store.dispatch({
     type: "INIT_COORDS_WITH_MOCK_DATA",
     payload: {
