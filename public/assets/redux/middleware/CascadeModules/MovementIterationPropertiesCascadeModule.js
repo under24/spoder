@@ -1,6 +1,6 @@
 'use strict';
 
-class IterationPropertiesCascadeModule extends CascadeModule {
+class MovementIterationPropertiesCascadeModule extends CascadeModule {
 
   constructor(store) {
     super(store);

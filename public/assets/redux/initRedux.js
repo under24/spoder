@@ -146,7 +146,7 @@
     movementPointersCascadeModule.processState(newState);
     // @observe "movement.settings"
     //          "movement.iteration.properties":(currentTick === 0) -> "movement.iteration.properties"
-    iterationPropertiesCascadeModule.processState(newState)
+    movementIterationPropertiesCascadeModule.processState(newState)
     
     next(newState);
   }
@@ -174,7 +174,7 @@
       miscCascadeModule = new MiscCascadeModule(store),
       movementCirclesCascadeModule = new MovementCirclesCascadeModule(store),
       movementPointersCascadeModule = new MovementPointersCascadeModule(store),
-      iterationPropertiesCascadeModule = new IterationPropertiesCascadeModule(store);
+      movementIterationPropertiesCascadeModule = new MovementIterationPropertiesCascadeModule(store);
       
   // init state with coords
   store.dispatch({
