@@ -71,7 +71,9 @@
         action.type === "BASE_XY_SHIFTED" ||
         action.type === "SEQUENCE_SHIFTED_XY_BATCHED" ||
         action.type === "INIT_COORDS_WITH_MOCK_DATA" ||
+        // @movementTurnJoystickLogicReducer
         action.type === "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED" ||
+        // @movementDirectionJoystickLogicReducer
         action.type === "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED") {
           
       // initialize newState which will hold updated state data
