@@ -103,8 +103,8 @@
       modifierLogicReducer.processAction(action, newState);
       // @handle "CURSOR_XY_SHIFTED" -> "coords"
       // @handle "BASE_XY_SHIFTED" -> "coords"
-      // @handle "SEQUENCE_SHIFTED_XY_BATCHED" -> "coords",
-      //                                          "movement.iteration":(currentTick, currentTickPct),
+      // @handle "SEQUENCE_SHIFTED_XY_BATCHED" -> "coords"
+      //                                          "movement.iteration":(currentTick, currentTickPct)
       //                                          "viewOffsets"
       // @handle "INIT_COORDS_WITH_MOCK_DATA" -> "coords"
       coordsLogicReducer.processAction(action, newState);
@@ -122,7 +122,7 @@
     // @observe "modifiers.tilt" -> "coords"
     coordsCascadeModule.processState(newState);
     // @observe "coords" -> "base.centerCoords"
-    // @observe "coords" + "base.centerCoords" -> "base.direction"
+    // @observe "coords" || "base.centerCoords" -> "base.direction"
     baseCascadeModule.processState(newState);
     // @observe "coords" -> "angles"
     anglesCascadeModule.processState(newState);
