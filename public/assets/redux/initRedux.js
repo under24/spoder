@@ -147,14 +147,19 @@
   );
   
   // init logic reducers
-  let modifierLogicReducer = new ModifierLogicReducer(store);
-  let coordsLogicReducer = new CoordsLogicReducer(store);
-  
+  let modifierLogicReducer = new ModifierLogicReducer(store),
+      coordsLogicReducer = new CoordsLogicReducer(store),
+      movementDirectionJoystickLogicReducer = new MovementDirectionJoystickLogicReducer(store),
+      movementTurnJoystickLogicReducer = new MovementTurnJoystickLogicReducer(store);
+      
   // init cascade modules
-  let coordsCascadeModule = new CoordsCascadeModule(store);
-  let baseCascadeModule = new BaseCascadeModule(store);
-  let anglesCascadeModule = new AngleCascadeModule(store);
-
+  let coordsCascadeModule = new CoordsCascadeModule(store),
+      baseCascadeModule = new BaseCascadeModule(store),
+      anglesCascadeModule = new AngleCascadeModule(store),
+      miscCascadeModule = new MiscCascadeModule(store),
+      circlesCascadeModule = new CirclesCascadeModule(store),
+      pointersCascadeModule = new PointersCascadeModule(store);
+      
   store.dispatch({
     type: "INIT_COORDS_WITH_MOCK_DATA",
     payload: {
