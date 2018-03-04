@@ -75,7 +75,10 @@
         action.type === "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED" ||
         // @movementDirectionJoystickLogicReducer
         action.type === "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED" ||
-        action.type === "MOVEMENT_ITERATION_PROPERTIES_CHANGED") {
+        // @movementIterationPropertiesLogicReducer
+        action.type === "MOVEMENT_ITERATION_PROPERTIES_CHANGED" ||
+        // @movementSettingsLogicReducer
+        action.type === "MOVEMENT_SETTINGS_CHANGED") {
           
       // initialize newState which will hold updated state data
       var newState = {};
@@ -116,6 +119,8 @@
       movementDirectionJoystickLogicReducer.processAction(action, newState);
       // @handle "MOVEMENT_ITERATION_PROPERTIES_CHANGED" -> "movement.iteration.properties"
       movementIterationPropertiesLogicReducer.processAction(action, newState);
+      // @handle "MOVEMENT_SETTINGS_CHANGED" -> "movement.settings"
+      movementSettingsLogicReducer.processAction(action, newState);
     }
   }
   
@@ -156,7 +161,8 @@
       coordsLogicReducer = new CoordsLogicReducer(store),
       movementDirectionJoystickLogicReducer = new MovementDirectionJoystickLogicReducer(store),
       movementTurnJoystickLogicReducer = new MovementTurnJoystickLogicReducer(store),
-      movementIterationPropertiesLogicReducer = new MovementIterationPropertiesLogicReducer(store);
+      movementIterationPropertiesLogicReducer = new MovementIterationPropertiesLogicReducer(store),
+      movementSettingsLogicReducer = new MovementSettingsLogicReducer(store);
       
   // init cascade modules
   let coordsCascadeModule = new CoordsCascadeModule(store),
