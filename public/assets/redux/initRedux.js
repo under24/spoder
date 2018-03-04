@@ -80,10 +80,9 @@
       var newState = {};
       
       // check if the action is an array
-      if (Array.isArray(action)) {
+      if (Array.isArray(action))
         // iterate array of actions
         action.forEach(processAction);
-      }
       // action is single (object)
       else
         // reduce action into newState
