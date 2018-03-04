@@ -144,6 +144,9 @@
     // @observe "movement.circles"
     //          "movement.directionJoystick" -> "movement.pointers"
     pointersCascadeModule.processState(newState);
+    // @observe "movement.settings"
+    //          "movement.iteration.properties":(currentTick === 0) -> "movement.iteration.properties"
+    iterationPropertiesCascadeModule.processState(newState)
     
     next(newState);
   }
@@ -170,7 +173,8 @@
       anglesCascadeModule = new AngleCascadeModule(store),
       miscCascadeModule = new MiscCascadeModule(store),
       circlesCascadeModule = new CirclesCascadeModule(store),
-      pointersCascadeModule = new PointersCascadeModule(store);
+      pointersCascadeModule = new PointersCascadeModule(store),
+      iterationPropertiesCascadeModule = new IterationPropertiesCascadeModule(store);
       
   // init state with coords
   store.dispatch({
