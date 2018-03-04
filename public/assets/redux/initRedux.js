@@ -123,7 +123,8 @@
     // @observe "modifiers.tilt" -> "coords"
     coordsCascadeModule.processState(newState);
     // @observe "coords" -> "base.centerCoords"
-    // @observe "coords" || "base.centerCoords" -> "base.direction"
+    // @observe "coords"
+    //          "base.centerCoords" -> "base.direction"
     baseCascadeModule.processState(newState);
     // @observe "coords" -> "angles"
     anglesCascadeModule.processState(newState);
@@ -132,7 +133,8 @@
     // @observe "coords" -> "movement.circles" 
     // @observe "movement.turnJoystick" -> "movement.circles"
     circlesCascadeModule.processState(newState);
-    // @observe "movement.circles" || "movement.directionJoystick" -> "movement.pointers"
+    // @observe "movement.circles"
+    //          "movement.directionJoystick" -> "movement.pointers"
     pointersCascadeModule.processState(newState);
     
     next(newState);
