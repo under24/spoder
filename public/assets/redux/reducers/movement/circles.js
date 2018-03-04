@@ -77,17 +77,24 @@
   };
 
   var movementCircleReducer = (state = movementCircleReducerInitState, action) => {
-    switch (action.type) {
-      case "MOVEMENT_CIRCLES_CHANGED_BATCHED":
-        {
-          let newState = {};
-          
-          for (let legId in action.payload) {
-            newState[legId] = Object.assign({}, state[legId], action.payload[legId]);
-          }
-          
-          return Object.assign({}, state, newState);
-        }
+    // switch (action.type) {
+    //   case "MOVEMENT_CIRCLES_CHANGED_BATCHED":
+    //     {
+    //       let newState = {};
+    //       
+    //       for (let legId in action.payload) {
+    //         newState[legId] = Object.assign({}, state[legId], action.payload[legId]);
+    //       }
+    //       
+    //       return Object.assign({}, state, newState);
+    //     }
+    // }
+    if ('movement.circles' in action) {
+      var newState = action['movement.circles'];
+      
+      delete action['movement.circles'];
+      
+      return newState;
     }
     return state;
   }  

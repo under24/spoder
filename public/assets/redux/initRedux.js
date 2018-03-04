@@ -130,6 +130,9 @@
     anglesCascadeModule.processState(newState);
     // @observe "coords" -> "misc"
     miscCascadeModule.processState(newState);
+    // @observe "coords" -> "movement.circles" 
+    // @observe "movement.turnJoystick" -> "movement.circles"
+    circlesCascadeModule.processState(newState);
     
     next(newState);
   }
