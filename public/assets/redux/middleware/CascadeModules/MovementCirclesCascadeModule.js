@@ -1,6 +1,6 @@
 'use strict';
 
-class CirclesCascadeModule extends CascadeModule {
+class MovementCirclesCascadeModule extends CascadeModule {
 
   constructor(store) {
     super(store);

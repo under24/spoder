@@ -140,7 +140,7 @@
     miscCascadeModule.processState(newState);
     // @observe "coords" -> "movement.circles" 
     // @observe "movement.turnJoystick" -> "movement.circles"
-    circlesCascadeModule.processState(newState);
+    movementCirclesCascadeModule.processState(newState);
     // @observe "movement.circles"
     //          "movement.directionJoystick" -> "movement.pointers"
     pointersCascadeModule.processState(newState);
@@ -172,7 +172,7 @@
       baseCascadeModule = new BaseCascadeModule(store),
       anglesCascadeModule = new AngleCascadeModule(store),
       miscCascadeModule = new MiscCascadeModule(store),
-      circlesCascadeModule = new CirclesCascadeModule(store),
+      movementCirclesCascadeModule = new MovementCirclesCascadeModule(store),
       pointersCascadeModule = new PointersCascadeModule(store),
       iterationPropertiesCascadeModule = new IterationPropertiesCascadeModule(store);
       
