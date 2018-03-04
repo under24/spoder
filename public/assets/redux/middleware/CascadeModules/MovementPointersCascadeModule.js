@@ -1,6 +1,6 @@
 'use strict';
 
-class PointersCascadeModule extends CascadeModule {
+class MovementPointersCascadeModule extends CascadeModule {
 
   constructor(store) {
     super(store);
