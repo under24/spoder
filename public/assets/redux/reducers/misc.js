@@ -59,17 +59,24 @@
   };
 
   var miscReducer = (state = miscReducerInitState, action) => {
-    switch (action.type) {
-      case "MISC_CHANGED_BATCHED":
-        {
-          let newState = {};
-          
-          for (let legId in action.payload) {
-            newState[legId] = Object.assign({}, state[legId], action.payload[legId]);
-          }
-          
-          return Object.assign({}, state, newState);
-        }
+    // switch (action.type) {
+    //   case "MISC_CHANGED_BATCHED":
+    //     {
+    //       let newState = {};
+    // 
+    //       for (let legId in action.payload) {
+    //         newState[legId] = Object.assign({}, state[legId], action.payload[legId]);
+    //       }
+    // 
+    //       return Object.assign({}, state, newState);
+    //     }
+    // }
+    if ('misc' in action) {
+      var newState = action['misc'];
+      
+      delete action['misc'];
+      
+      return newState;
     }
     return state;
   }  

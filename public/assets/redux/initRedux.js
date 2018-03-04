@@ -128,6 +128,8 @@
     baseCascadeModule.processState(newState);
     // @observe "coords" -> "angles"
     anglesCascadeModule.processState(newState);
+    // @observe "coords" -> "misc"
+    miscCascadeModule.processState(newState);
     
     next(newState);
   }
