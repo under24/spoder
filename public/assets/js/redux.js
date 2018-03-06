@@ -396,10 +396,6 @@ var ActionTypes = {
    * return something else (for example, a Promise you can await).
    */
   function dispatch(action) {
-    if (!isPlainObject(action)) {
-      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
-    }
-
     if (isDispatching) {
       throw new Error('Reducers may not dispatch actions.');
     }
