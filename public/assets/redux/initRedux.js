@@ -70,7 +70,7 @@
         action.type === "CURSOR_XY_SHIFTED" ||
         action.type === "BASE_XY_SHIFTED" ||
         action.type === "SEQUENCE_SHIFTED_XY_BATCHED" ||
-        action.type === "INIT_COORDS_WITH_MOCK_DATA" ||
+        action.type === "INIT_STATE_DATA" ||
         // @movementTurnJoystickLogicReducer
         action.type === "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED" ||
         // @movementDirectionJoystickLogicReducer
@@ -111,7 +111,7 @@
       // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                    -> "coords"
       //                                                                             "movement.iteration.properties":(currentTick, currentTickPct)
       //                                                                             "viewOffsets"
-      // @handle "INIT_COORDS_WITH_MOCK_DATA"                                     -> "coords"
+      // @handle "INIT_STATE_DATA"                                                -> "coords"
       coordsLogicReducer.processAction(action, newState);
       // @handle "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED"                          -> "movement.turnJoystick"
       movementTurnJoystickLogicReducer.processAction(action, newState);
@@ -178,7 +178,7 @@
       
   // init state with coords
   store.dispatch({
-    type: "INIT_COORDS_WITH_MOCK_DATA",
+    type: "INIT_STATE_DATA",
     payload: {
       1: {
         // sagittalCursorX: 250,

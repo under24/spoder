@@ -9,7 +9,7 @@ class CoordsLogicReducer extends LogicReducer {
       'processCursorXYShifted(CURSOR_XY_SHIFTED)',
       'processBaseXYShifted(BASE_XY_SHIFTED)',
       'processSequenceShiftedXYBatched(SEQUENCE_SHIFTED_XY_BATCHED)',
-      'processInitCoordsWithMockData(INIT_COORDS_WITH_MOCK_DATA)'
+      'processInitCoordsWithMockData(INIT_STATE_DATA)'
     ];
   }
   
