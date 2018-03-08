@@ -101,51 +101,51 @@
     // ----------------------------------------------
     
     function processAction(action) {
-      // @handle "LEVEL_MODIFIER_CHANGED" -> "modifiers.level"
-      // @handle "ROTATION_MODIFIER_CHANGED" -> "modifiers.ratation"
-      // @handle "SHIFT_MODIFIER_CHANGED" -> "modifiers.shift"
-      // @handle "TILT_MODIFIER_CHANGED" -> "modifiers.tilt"
+      // @handle "LEVEL_MODIFIER_CHANGED"                                         -> "modifiers.level"
+      // @handle "ROTATION_MODIFIER_CHANGED"                                      -> "modifiers.ratation"
+      // @handle "SHIFT_MODIFIER_CHANGED"                                         -> "modifiers.shift"
+      // @handle "TILT_MODIFIER_CHANGED"                                          -> "modifiers.tilt"
       modifierLogicReducer.processAction(action, newState);
-      // @handle "CURSOR_XY_SHIFTED" -> "coords"
-      // @handle "BASE_XY_SHIFTED" -> "coords"
-      // @handle "SEQUENCE_SHIFTED_XY_BATCHED" -> "coords"
-      //                                          "movement.iteration.properties":(currentTick, currentTickPct)
-      //                                          "viewOffsets"
-      // @handle "INIT_COORDS_WITH_MOCK_DATA" -> "coords"
+      // @handle "CURSOR_XY_SHIFTED"                                              -> "coords"
+      // @handle "BASE_XY_SHIFTED"                                                -> "coords"
+      // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                    -> "coords"
+      //                                                                             "movement.iteration.properties":(currentTick, currentTickPct)
+      //                                                                             "viewOffsets"
+      // @handle "INIT_COORDS_WITH_MOCK_DATA"                                     -> "coords"
       coordsLogicReducer.processAction(action, newState);
-      // @handle "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED" -> "movement.turnJoystick"
+      // @handle "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED"                          -> "movement.turnJoystick"
       movementTurnJoystickLogicReducer.processAction(action, newState);
-      // @handle "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED" -> "movement.directionJoystick"
+      // @handle "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED"                     -> "movement.directionJoystick"
       movementDirectionJoystickLogicReducer.processAction(action, newState);
-      // @handle "MOVEMENT_ITERATION_PROPERTIES_CHANGED" -> "movement.iteration.properties"
+      // @handle "MOVEMENT_ITERATION_PROPERTIES_CHANGED"                          -> "movement.iteration.properties"
       movementIterationPropertiesLogicReducer.processAction(action, newState);
-      // @handle "MOVEMENT_SETTINGS_CHANGED" -> "movement.settings"
+      // @handle "MOVEMENT_SETTINGS_CHANGED"                                      -> "movement.settings"
       movementSettingsLogicReducer.processAction(action, newState);
     }
   }
   
   let cascadeModules = store => next => newState => {
-    // @observe "modifiers.level" -> "coords"
-    // @observe "modifiers.rotation" -> "coords"
-    // @observe "modifiers.shift" -> "coords"
-    // @observe "modifiers.tilt" -> "coords"
+    // @observe "modifiers.level"                                                 -> "coords"
+    // @observe "modifiers.rotation"                                              -> "coords"
+    // @observe "modifiers.shift"                                                 -> "coords"
+    // @observe "modifiers.tilt"                                                  -> "coords"
     coordsCascadeModule.processState(newState);
-    // @observe "coords" -> "base.centerCoords"
+    // @observe "coords"                                                          -> "base.centerCoords"
     // @observe "coords"
-    //          "base.centerCoords" -> "base.direction"
+    //          "base.centerCoords"                                               -> "base.direction"
     baseCascadeModule.processState(newState);
-    // @observe "coords" -> "angles"
+    // @observe "coords"                                                          -> "angles"
     anglesCascadeModule.processState(newState);
-    // @observe "coords" -> "misc"
+    // @observe "coords"                                                          -> "misc"
     miscCascadeModule.processState(newState);
-    // @observe "coords" -> "movement.circles" 
-    // @observe "movement.turnJoystick" -> "movement.circles"
+    // @observe "coords"                                                          -> "movement.circles" 
+    // @observe "movement.turnJoystick"                                           -> "movement.circles"
     movementCirclesCascadeModule.processState(newState);
     // @observe "movement.circles"
-    //          "movement.directionJoystick" -> "movement.pointers"
+    //          "movement.directionJoystick"                                      -> "movement.pointers"
     movementPointersCascadeModule.processState(newState);
-    // @observe "movement.settings"
-    //          "movement.iteration.properties":(currentTick === 0) -> "movement.iteration.properties"
+    // @observe "movement.settings :tps :duration :gait :sequencerMode"
+    //          "movement.iteration.properties :currentTick"                      -> "movement.iteration.properties"
     movementIterationPropertiesCascadeModule.processState(newState);
     
     next(newState);
