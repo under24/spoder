@@ -109,7 +109,7 @@
       // @handle "CURSOR_XY_SHIFTED"                                              -> "coords"
       // @handle "BASE_XY_SHIFTED"                                                -> "coords"
       // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                    -> "coords"
-      //                                                                             "movement.iteration.properties":(currentTick, currentTickPct)
+      //                                                                             "movement.iteration.properties"(currentTick, currentTickPct)
       //                                                                             "viewOffsets"
       // @handle "INIT_STATE_DATA"                                                -> "coords"
       coordsLogicReducer.processAction(action, newState);
@@ -147,7 +147,10 @@
     // @observe "movement.settings :tps :duration :gait :sequencerMode"
     //          "movement.iteration.properties :currentTick"                      -> "movement.iteration.properties"
     movementIterationPropertiesCascadeModule.processState(newState);
-    
+    // @observe "movement.iteration.properties :currentTick"                      -> "movement.iteration.transition"
+    // @observe "movement.turnJoystick"
+    //          "movement.directionJoystick"                                      -> "movement.iteration.transition"
+    movementIterationTransitionCascadeModule.processState(newState);
     next(newState);
   }
   
@@ -174,7 +177,8 @@
       miscCascadeModule = new MiscCascadeModule(store),
       movementCirclesCascadeModule = new MovementCirclesCascadeModule(store),
       movementPointersCascadeModule = new MovementPointersCascadeModule(store),
-      movementIterationPropertiesCascadeModule = new MovementIterationPropertiesCascadeModule(store);
+      movementIterationPropertiesCascadeModule = new MovementIterationPropertiesCascadeModule(store),
+      movementIterationTransitionCascadeModule = new MovementIterationTransitionCascadeModule(store);
       
   // init state with coords
   store.dispatch({
