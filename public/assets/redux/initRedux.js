@@ -61,8 +61,9 @@
   });
   
   let logicReducers = store => next => action => {
+    if (Array.isArray(action) === true ||
         // @modifierLogicReducer
-    if (action.type === "LEVEL_MODIFIER_CHANGED" ||
+        action.type === "LEVEL_MODIFIER_CHANGED" ||
         action.type === "ROTATION_MODIFIER_CHANGED" ||
         action.type === "SHIFT_MODIFIER_CHANGED" ||
         action.type === "TILT_MODIFIER_CHANGED" ||
