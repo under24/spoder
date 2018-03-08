@@ -18,7 +18,7 @@
           },
           settings: {
             statePath: 'movement.settings',
-            observer: 'observeSettings'
+            // observer: 'observeSettings'
           },
           coords: {
             statePath: 'coords'
@@ -35,9 +35,9 @@
         };
       }
       
-      static get observers() {
-        return [ 'processNewTransitionShift(iterationTick, pointers)' ];
-      }
+      // static get observers() {
+      //   return [ 'processNewTransitionShift(iterationTick, pointers)' ];
+      // }
       
       processNewTransitionShift(iterationTick) {
         // validation: joystick values changed or iterationTick is 0

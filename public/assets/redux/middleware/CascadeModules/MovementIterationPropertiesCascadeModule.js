@@ -12,23 +12,28 @@ class MovementIterationPropertiesCascadeModule extends CascadeModule {
     
     // ['handler(dependency, dependency)', ...]
     this.observers = [
-      'processNewMovementIterationProperties(movementIterationProperties, movementSettings)',
+      `processNewMovementIterationProperties(movementIterationProperties :currentTick, movementSettings :tps :duration :gait :sequencerMode)`
     ];
   }
   
   processNewMovementIterationProperties(movementIterationProperties, movementSettings) {
-    debugger;
-    return;
-    // validation. update "movement.iteration.properties" only when the currentTick is 0
-    // because you cannot change iteration values in mid iteration
-    if (iterationProperties.currentTick !== 0) return;
+    // validation. do not apply movement settings in mid iteration. wait for the next iteration (currentTick === 0)
+    if (movementIterationProperties.currentTick !== 0) return;
     
-    if (newSettings.tps === oldSettings.tps &&
-        newSettings.duration === oldSettings.duration &&
-        newSettings.gait === oldSettings.gait &&
-        newSettings.sequencerMode === oldSettings.sequencerMode) return;
-        
-    debugger;
+    var newMovementIterationProperties = Object.assign({}, movementIterationProperties, {
+      // state.movement.iteration.properties.amountOfTicks
+      amountOfTicks: +(movementSettings.duration / (1000 / movementSettings.tps)).toFixed(0),
+      // state.movement.iteration.properties.tps
+      tps: movementSettings.tps,
+      // state.movement.iteration.properties.duration
+      duration: movementSettings.duration,
+      // state.movement.iteration.properties.gait
+      gait: movementSettings.gait,
+      // state.movement.iteration.properties.sequencerMode
+      sequencerMode: movementSettings.sequencerMode
+    });
+    
+    return { 'movement.iteration.properties': newMovementIterationProperties };
   }
 
 }
