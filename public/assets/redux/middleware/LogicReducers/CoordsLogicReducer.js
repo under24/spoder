@@ -192,31 +192,9 @@ class CoordsLogicReducer extends LogicReducer {
       var newMovementIterationProperties = Object.assign({}, oldMovementIterationProperties, { currentTick: action.currentTick, currentTickPct: action.currentTickPct });
     }
     
-    // "viewOffsets"
-    {
-      let oldViewOffsets = this.resolveStatePath('viewOffsets');
-      
-      let newState = {};
-      
-      for (let legId in action.payload) {
-        let payload = {};
-        
-        if (action.payload[legId].transverseBaseX)
-          payload.transverseX = oldViewOffsets[legId].transverseX + action.payload[legId].transverseBaseX;
-        
-        if (action.payload[legId].transverseBaseY)
-          payload.transverseY = oldViewOffsets[legId].transverseY + action.payload[legId].transverseBaseY;
-        
-        newState[legId] = Object.assign({}, oldViewOffsets[legId], payload);
-      }
-      
-      var newViewOffsets = Object.assign({}, oldViewOffsets, newState);
-    }
-    
     return {
       'coords': newCoords,
-      'movement.iteration.properties': newMovementIterationProperties,
-      'viewOffsets': newViewOffsets
+      'movement.iteration.properties': newMovementIterationProperties
     };
   }
   

@@ -111,9 +111,10 @@
       // @handle "BASE_XY_SHIFTED"                                                -> "coords"
       // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                    -> "coords"
       //                                                                             "movement.iteration.properties"(currentTick, currentTickPct)
-      //                                                                             "viewOffsets"
       // @handle "INIT_STATE_DATA"                                                -> "coords"
       coordsLogicReducer.processAction(action, stateChange);
+      // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                    -> "viewOffsets"
+      viewOffsetsLogicReducer.processAction(action, stateChange);
       // @handle "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED"                          -> "movement.turnJoystick"
       movementTurnJoystickLogicReducer.processAction(action, stateChange);
       // @handle "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED"                     -> "movement.directionJoystick"
@@ -173,7 +174,8 @@
       movementDirectionJoystickLogicReducer = new MovementDirectionJoystickLogicReducer(store),
       movementTurnJoystickLogicReducer = new MovementTurnJoystickLogicReducer(store),
       movementIterationPropertiesLogicReducer = new MovementIterationPropertiesLogicReducer(store),
-      movementSettingsLogicReducer = new MovementSettingsLogicReducer(store);
+      movementSettingsLogicReducer = new MovementSettingsLogicReducer(store),
+      viewOffsetsLogicReducer = new ViewOffsetsLogicReducer(store);
       
   // init cascade modules
   let coordsCascadeModule = new CoordsCascadeModule(store),
