@@ -24,6 +24,7 @@ var MU = {
       return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
     }
   },
+  // flip the sign 10 -> -10
   flipNumber(num) {
     return num * -1;
   },
