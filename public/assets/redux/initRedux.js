@@ -152,6 +152,9 @@
     // @observe "movement.turnJoystick"
     //          "movement.directionJoystick"                                      -> "movement.iteration.transition"
     movementIterationTransitionCascadeModule.processState(newState);
+    // @observe "movement.iteration.transition"
+    //          "movement.iteration.properties :gait"                             -> "movement.iteration.blueprint"
+    movementIterationBlueprintCascadeModule.processState(newState);
     next(newState);
   }
   
@@ -179,7 +182,8 @@
       movementCirclesCascadeModule = new MovementCirclesCascadeModule(store),
       movementPointersCascadeModule = new MovementPointersCascadeModule(store),
       movementIterationPropertiesCascadeModule = new MovementIterationPropertiesCascadeModule(store),
-      movementIterationTransitionCascadeModule = new MovementIterationTransitionCascadeModule(store);
+      movementIterationTransitionCascadeModule = new MovementIterationTransitionCascadeModule(store),
+      movementIterationBlueprintCascadeModule = new MovementIterationBlueprintCascadeModule(store);
       
   // init state with coords
   store.dispatch({
