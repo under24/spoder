@@ -155,6 +155,7 @@
     // @observe "movement.iteration.transition"
     //          "movement.iteration.properties :gait"                             -> "movement.iteration.blueprint"
     movementIterationBlueprintCascadeModule.processState(newState);
+    
     next(newState);
   }
   
