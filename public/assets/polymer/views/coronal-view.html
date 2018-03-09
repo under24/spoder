@@ -200,13 +200,6 @@
         return MU.scaleDownInput(this.scaling, val);
       }
       
-      getOffsetX(legId) {
-        // do not use offsets
-        if (!this.useOffsets) return 0;
-        
-        return this[`offsets${legId}`].transverseX;
-      }
-      
       getOffset(legId, coord) {
         // do not use offsets
         if (!this.useOffsets) return 0;
