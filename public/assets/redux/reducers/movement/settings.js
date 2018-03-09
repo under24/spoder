@@ -2,12 +2,12 @@
 
 {
   let movementSettingsReducerInitState = {
-    loop: true,
-    sequencerEnabled: false,
-    gait: 'ripple',
-    tps: 60,
-    duration: 750,
-    sequencerMode: 'movement', // possible values: 'movement', 'custom'
+    loop: null,
+    sequencerEnabled: null,
+    gait: null,
+    tps: null,
+    duration: null,
+    sequencerMode: null, // possible values: 'movement', 'custom'
     customBlueprint: null
   };
 

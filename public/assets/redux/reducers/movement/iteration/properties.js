@@ -7,8 +7,8 @@
     amountOfTicks: null,
     gait: null,
     sequencerMode: null,
-    currentTick: 0,
-    currentTickPct: 0
+    currentTick: null,
+    currentTickPct: null
   };
 
   var movementIterationPropertiesReducer = (state = movementIterationPropertiesReducerInitState, action) => {

@@ -187,71 +187,92 @@
       movementIterationBlueprintCascadeModule = new MovementIterationBlueprintCascadeModule(store);
       
   // init state with coords
-  store.dispatch({
-    type: "INIT_STATE_DATA",
-    payload: {
-      1: {
-        // sagittalCursorX: 250,
-        sagittalCursorY: 0,
-        // sagittalBaseX: 100,
-        sagittalBaseY: -30,
-        transverseCursorX: 200,
-        transverseCursorY: -250,
-        transverseBaseX: 100,
-        transverseBaseY: -150
-      },
-      2: {
-        // sagittalCursorX: 250,
-        sagittalCursorY: 0,
-        // sagittalBaseX: 100,
-        sagittalBaseY: -30,
-        transverseCursorX: -200,
-        transverseCursorY: -250,
-        transverseBaseX: -100,
-        transverseBaseY: -150
-      },
-      3: {
-        // sagittalCursorX: 250,
-        sagittalCursorY: 0,
-        // sagittalBaseX: 100,
-        sagittalBaseY: -30,
-        transverseCursorX: 300,
-        transverseCursorY: 0,
-        transverseBaseX: 150,
-        transverseBaseY: 0
-      },
-      4: {
-        // sagittalCursorX: 250,
-        sagittalCursorY: 0,
-        // sagittalBaseX: 100,
-        sagittalBaseY: -30,
-        transverseCursorX: -300,
-        transverseCursorY: 0,
-        transverseBaseX: -150,
-        transverseBaseY: 0
-      },
-      5: {
-        // sagittalCursorX: 250,
-        sagittalCursorY: 0,
-        // sagittalBaseX: 100,
-        sagittalBaseY: -30,
-        transverseCursorX: 200,
-        transverseCursorY: 250,
-        transverseBaseX: 100,
-        transverseBaseY: 150
-      },
-      6: {
-        // sagittalCursorX: 250,
-        sagittalCursorY: 0,
-        // sagittalBaseX: 100,
-        sagittalBaseY: -30,
-        transverseCursorX: -200,
-        transverseCursorY: 250,
-        transverseBaseX: -100,
-        transverseBaseY: 150
+  store.dispatch([
+    {
+      type: "INIT_STATE_DATA",
+      payload: {
+        1: {
+          // sagittalCursorX: 250,
+          sagittalCursorY: 0,
+          // sagittalBaseX: 100,
+          sagittalBaseY: -30,
+          transverseCursorX: 200,
+          transverseCursorY: -250,
+          transverseBaseX: 100,
+          transverseBaseY: -150
+        },
+        2: {
+          // sagittalCursorX: 250,
+          sagittalCursorY: 0,
+          // sagittalBaseX: 100,
+          sagittalBaseY: -30,
+          transverseCursorX: -200,
+          transverseCursorY: -250,
+          transverseBaseX: -100,
+          transverseBaseY: -150
+        },
+        3: {
+          // sagittalCursorX: 250,
+          sagittalCursorY: 0,
+          // sagittalBaseX: 100,
+          sagittalBaseY: -30,
+          transverseCursorX: 300,
+          transverseCursorY: 0,
+          transverseBaseX: 150,
+          transverseBaseY: 0
+        },
+        4: {
+          // sagittalCursorX: 250,
+          sagittalCursorY: 0,
+          // sagittalBaseX: 100,
+          sagittalBaseY: -30,
+          transverseCursorX: -300,
+          transverseCursorY: 0,
+          transverseBaseX: -150,
+          transverseBaseY: 0
+        },
+        5: {
+          // sagittalCursorX: 250,
+          sagittalCursorY: 0,
+          // sagittalBaseX: 100,
+          sagittalBaseY: -30,
+          transverseCursorX: 200,
+          transverseCursorY: 250,
+          transverseBaseX: 100,
+          transverseBaseY: 150
+        },
+        6: {
+          // sagittalCursorX: 250,
+          sagittalCursorY: 0,
+          // sagittalBaseX: 100,
+          sagittalBaseY: -30,
+          transverseCursorX: -200,
+          transverseCursorY: 250,
+          transverseBaseX: -100,
+          transverseBaseY: 150
+        }
+      }
+    },
+    {
+      type: "MOVEMENT_SETTINGS_CHANGED", 
+      payload: {
+        loop: true,
+        sequencerEnabled: false,
+        gait: 'ripple',
+        tps: 60,
+        duration: 750,
+        sequencerMode: 'movement', // possible values: 'movement', 'custom'
+        customBlueprint: null
+      }
+    },
+    {
+      type: "MOVEMENT_ITERATION_PROPERTIES_CHANGED",
+      payload: {
+        currentTick: 0,
+        currentTickPct: 0
       }
     }
-  });
+  ]);
 
   var ReduxMixin = PolymerRedux(store);  
 }
