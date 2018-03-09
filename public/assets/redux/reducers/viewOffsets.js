@@ -3,38 +3,26 @@
 {
   let viewOffsetsReducerInitState = {
     1: {
-      // sagittalY: 0,
-      // sagittalX: 0,
       transverseX: 0,
       transverseY: 0
     },
     2: {
-      // sagittalY: 0,
-      // sagittalX: 0,
       transverseX: 0,
       transverseY: 0
     },
     3: {
-      // sagittalY: 0,
-      // sagittalX: 0,
       transverseX: 0,
       transverseY: 0
     },
     4: {
-      // sagittalY: 0,
-      // sagittalX: 0,
       transverseX: 0,
       transverseY: 0
     },
     5: {
-      // sagittalY: 0,
-      // sagittalX: 0,
       transverseX: 0,
       transverseY: 0
     },
     6: {
-      // sagittalY: 0,
-      // sagittalX: 0,
       transverseX: 0,
       transverseY: 0
     }
