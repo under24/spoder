@@ -39,7 +39,7 @@ class CascadeModule extends StateModule {
   
   _parseObserver(observer) {
     // trim spaces
-    observer = observer.replace(/ /g, '');
+    observer = observer.replace(/[\r\n\ ]/g, '');
     
     return {
       // observer handler
@@ -51,20 +51,56 @@ class CascadeModule extends StateModule {
   
   _dependentOnNewState(dependencies, newState) {
     return dependencies.some(dependency => {
-      // dependency path
-      var path = this._getPropPath(dependency);
       
-      // check if the path is present in the newState
-      if (path in newState) 
-        return true;
-      
-      return false;
+      // handle complex dependency
+      if (dependency.indexOf(":") !== -1) {
+        // parse complex dependency
+        var dependencySpecifiers = this._parseDependencySpecifiers(dependency);
+        dependency = this._fixComplexDependency(dependency);
+        
+        // dependency path
+        var path = this._getPropPath(dependency);
+        
+        // check if the path is present in the newState
+        if (path in newState) {
+          var oldState = this.resolveStatePath(path);
+          
+          var result = dependencySpecifiers.some(specifier => {
+          	if (newState[path][specifier] !== oldState[specifier]) return true;
+
+          	return false;
+          });
+          
+          if (result)
+            return true;
+          else
+            return false;
+        }
+        
+        // not in stateChange
+        return false;
+      }
+      // handle simple dependency
+      else {
+        // dependency path
+        var path = this._getPropPath(dependency);
+        
+        // check if the path is present in the newState
+        if (path in newState)
+          return true;
+        
+        return false;
+      }
     });
   }
   
   _resolveDependencies(dependencies, newState) {
     // [dependency1, dependency2, ...] => [stateValue1, stateValue2, ...]
     return dependencies.map(dependency => {
+      
+      if (dependency.indexOf(":") !== -1)
+        dependency = this._fixComplexDependency(dependency);
+      
       var path = this._getPropPath(dependency);
       
       return this.resolvePath(path);
@@ -84,10 +120,18 @@ class CascadeModule extends StateModule {
     if (path in this._newState)
       // pull it from there
       return this._newState[path];
-    // dependency is not in the newState  
+    // dependency is not in the newState
     else
       // take it from the state
       return this.resolveStatePath(path);
+  }
+  
+  _parseDependencySpecifiers(dependency) {
+    return dependency.split(":").slice(1);
+  }
+  
+  _fixComplexDependency(dependency) {
+    return dependency.slice(0, dependency.indexOf(":"));
   }
   
 }
