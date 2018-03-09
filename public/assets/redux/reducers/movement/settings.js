@@ -19,11 +19,11 @@
     //     }
     // }
     if ('movement.settings' in action) {
-      var newState = action['movement.settings'];
+      var stateChange = action['movement.settings'];
       
       delete action['movement.settings'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   };  

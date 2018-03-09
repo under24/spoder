@@ -18,11 +18,11 @@
     //     }
     // }
     if ('movement.turnJoystick' in action) {
-      var newState = action['movement.turnJoystick'];
+      var stateChange = action['movement.turnJoystick'];
       
       delete action['movement.turnJoystick'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }  

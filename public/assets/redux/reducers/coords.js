@@ -343,11 +343,11 @@
       //   }    
     }
     if ('coords' in action) {
-      var newState = action['coords'];
+      var stateChange = action['coords'];
       
       delete action['coords'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }  

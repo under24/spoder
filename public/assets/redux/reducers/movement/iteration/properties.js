@@ -23,11 +23,11 @@
     //     }
     // }
     if ('movement.iteration.properties' in action) {
-      var newState = action['movement.iteration.properties'];
+      var stateChange = action['movement.iteration.properties'];
       
       delete action['movement.iteration.properties'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   };  

@@ -11,11 +11,11 @@
     //     }
     // }
     if ('base.direction' in action) {
-      var newState = action['base.direction'];
+      var stateChange = action['base.direction'];
       
       delete action['base.direction'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }

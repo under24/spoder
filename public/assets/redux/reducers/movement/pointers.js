@@ -42,11 +42,11 @@
     //     }
     // }
     if ('movement.pointers' in action) {
-      var newState = action['movement.pointers'];
+      var stateChange = action['movement.pointers'];
       
       delete action['movement.pointers'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }  

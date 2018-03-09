@@ -12,11 +12,11 @@
     //     }
     // }
     if ('movement.iteration.blueprint' in action) {
-      var newState = action['movement.iteration.blueprint'];
+      var stateChange = action['movement.iteration.blueprint'];
       
       delete action['movement.iteration.blueprint'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   };  

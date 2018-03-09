@@ -14,11 +14,11 @@
     //     }
     // }
     if ('base.centerCoords' in action) {
-      var newState = action['base.centerCoords'];
+      var stateChange = action['base.centerCoords'];
       
       delete action['base.centerCoords'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }

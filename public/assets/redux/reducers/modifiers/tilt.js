@@ -23,11 +23,11 @@
     //     }
     // }
     if ('modifiers.tilt' in action) {
-      var newState = action['modifiers.tilt'];
+      var stateChange = action['modifiers.tilt'];
       
       delete action['modifiers.tilt'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }

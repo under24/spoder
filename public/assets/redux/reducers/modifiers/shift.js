@@ -23,11 +23,11 @@
     //     }
     // }
     if ('modifiers.shift' in action) {
-      var newState = action['modifiers.shift'];
+      var stateChange = action['modifiers.shift'];
       
       delete action['modifiers.shift'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }  

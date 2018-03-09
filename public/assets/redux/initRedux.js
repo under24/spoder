@@ -81,8 +81,8 @@
         // @movementSettingsLogicReducer
         action.type === "MOVEMENT_SETTINGS_CHANGED") {
           
-      // initialize newState which will hold updated state data
-      var newState = {};
+      // initialize stateChange which will hold updated state data
+      var stateChange = {};
       
       // check if the action is an array
       if (Array.isArray(action))
@@ -90,10 +90,10 @@
         action.forEach(processAction);
       // action is single (object)
       else
-        // reduce action into newState
+        // reduce action into stateChange
         processAction(action);
         
-      next(newState);
+      next(stateChange);
       return;
     }
     
@@ -106,57 +106,57 @@
       // @handle "ROTATION_MODIFIER_CHANGED"                                      -> "modifiers.ratation"
       // @handle "SHIFT_MODIFIER_CHANGED"                                         -> "modifiers.shift"
       // @handle "TILT_MODIFIER_CHANGED"                                          -> "modifiers.tilt"
-      modifierLogicReducer.processAction(action, newState);
+      modifierLogicReducer.processAction(action, stateChange);
       // @handle "CURSOR_XY_SHIFTED"                                              -> "coords"
       // @handle "BASE_XY_SHIFTED"                                                -> "coords"
       // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                    -> "coords"
       //                                                                             "movement.iteration.properties"(currentTick, currentTickPct)
       //                                                                             "viewOffsets"
       // @handle "INIT_STATE_DATA"                                                -> "coords"
-      coordsLogicReducer.processAction(action, newState);
+      coordsLogicReducer.processAction(action, stateChange);
       // @handle "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED"                          -> "movement.turnJoystick"
-      movementTurnJoystickLogicReducer.processAction(action, newState);
+      movementTurnJoystickLogicReducer.processAction(action, stateChange);
       // @handle "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED"                     -> "movement.directionJoystick"
-      movementDirectionJoystickLogicReducer.processAction(action, newState);
+      movementDirectionJoystickLogicReducer.processAction(action, stateChange);
       // @handle "MOVEMENT_ITERATION_PROPERTIES_CHANGED"                          -> "movement.iteration.properties"
-      movementIterationPropertiesLogicReducer.processAction(action, newState);
+      movementIterationPropertiesLogicReducer.processAction(action, stateChange);
       // @handle "MOVEMENT_SETTINGS_CHANGED"                                      -> "movement.settings"
-      movementSettingsLogicReducer.processAction(action, newState);
+      movementSettingsLogicReducer.processAction(action, stateChange);
     }
   }
   
-  let cascadeModules = store => next => newState => {
+  let cascadeModules = store => next => stateChange => {
     // @observe "modifiers.level"                                                 -> "coords"
     // @observe "modifiers.rotation"                                              -> "coords"
     // @observe "modifiers.shift"                                                 -> "coords"
     // @observe "modifiers.tilt"                                                  -> "coords"
-    coordsCascadeModule.processState(newState);
+    coordsCascadeModule.processState(stateChange);
     // @observe "coords"                                                          -> "base.centerCoords"
     // @observe "coords"
     //          "base.centerCoords"                                               -> "base.direction"
-    baseCascadeModule.processState(newState);
+    baseCascadeModule.processState(stateChange);
     // @observe "coords"                                                          -> "angles"
-    anglesCascadeModule.processState(newState);
+    anglesCascadeModule.processState(stateChange);
     // @observe "coords"                                                          -> "misc"
-    miscCascadeModule.processState(newState);
+    miscCascadeModule.processState(stateChange);
     // @observe "coords"                                                          -> "movement.circles" 
     // @observe "movement.turnJoystick"                                           -> "movement.circles"
-    movementCirclesCascadeModule.processState(newState);
+    movementCirclesCascadeModule.processState(stateChange);
     // @observe "movement.circles"
     //          "movement.directionJoystick"                                      -> "movement.pointers"
-    movementPointersCascadeModule.processState(newState);
+    movementPointersCascadeModule.processState(stateChange);
     // @observe "movement.settings :tps :duration :gait :sequencerMode"
     //          "movement.iteration.properties :currentTick"                      -> "movement.iteration.properties"
-    movementIterationPropertiesCascadeModule.processState(newState);
+    movementIterationPropertiesCascadeModule.processState(stateChange);
     // @observe "movement.iteration.properties :currentTick"                      -> "movement.iteration.transition"
     // @observe "movement.turnJoystick"
     //          "movement.directionJoystick"                                      -> "movement.iteration.transition"
-    movementIterationTransitionCascadeModule.processState(newState);
+    movementIterationTransitionCascadeModule.processState(stateChange);
     // @observe "movement.iteration.transition"
     //          "movement.iteration.properties :gait"                             -> "movement.iteration.blueprint"
-    movementIterationBlueprintCascadeModule.processState(newState);
+    movementIterationBlueprintCascadeModule.processState(stateChange);
     
-    next(newState);
+    next(stateChange);
   }
   
   var store = createStore(

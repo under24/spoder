@@ -72,11 +72,11 @@
     //     }
     // }
     if ('misc' in action) {
-      var newState = action['misc'];
+      var stateChange = action['misc'];
       
       delete action['misc'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }  

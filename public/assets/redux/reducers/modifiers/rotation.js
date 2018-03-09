@@ -19,11 +19,11 @@
     //     }
     // }
     if ('modifiers.rotation' in action) {
-      var newState = action['modifiers.rotation'];
+      var stateChange = action['modifiers.rotation'];
       
       delete action['modifiers.rotation'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }

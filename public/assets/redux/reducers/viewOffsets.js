@@ -62,11 +62,11 @@
     //     }
     // }
     if ('viewOffsets' in action) {
-      var newState = action['viewOffsets'];
+      var stateChange = action['viewOffsets'];
       
       delete action['viewOffsets'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }  

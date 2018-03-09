@@ -66,11 +66,11 @@
     //     }
     // }
     if ('angles' in action) {
-      var newState = action['angles'];
+      var stateChange = action['angles'];
       
       delete action['angles'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }  

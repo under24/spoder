@@ -14,11 +14,11 @@
     //     }
     // }
     if ('movement.iteration.transition' in action) {
-      var newState = action['movement.iteration.transition'];
+      var stateChange = action['movement.iteration.transition'];
       
       delete action['movement.iteration.transition'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   };  

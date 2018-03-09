@@ -19,11 +19,11 @@
     //     }
     // }
     if ('modifiers.level' in action) {
-      var newState = action['modifiers.level'];
+      var stateChange = action['modifiers.level'];
       
       delete action['modifiers.level'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }  

@@ -90,11 +90,11 @@
     //     }
     // }
     if ('movement.circles' in action) {
-      var newState = action['movement.circles'];
+      var stateChange = action['movement.circles'];
       
       delete action['movement.circles'];
       
-      return newState;
+      return stateChange;
     }
     return state;
   }  
