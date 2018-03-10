@@ -14,6 +14,8 @@ class MovementIterationPropertiesCascadeModule extends CascadeModule {
     this.observers = [
       `processNewMovementIterationProperties(movementIterationProperties :currentTick, movementSettings :tps :duration :gait :sequencerMode)`
     ];
+    
+    this._prepareModule();
   }
   
   processNewMovementIterationProperties(movementIterationProperties, movementSettings) {

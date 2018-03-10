@@ -16,6 +16,8 @@ class MovementIterationTransitionCascadeModule extends CascadeModule {
       'observeJoysticks(turnJoystick, directionJoystick)',
       'observeMovementIterationProperties(movementIterationProperties :currentTick)'
     ];
+    
+    this._prepareModule();
   }
   
   observeJoysticks() {

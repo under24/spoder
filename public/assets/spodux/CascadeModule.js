@@ -134,4 +134,41 @@ class CascadeModule extends StateModule {
     return dependency.slice(0, dependency.indexOf(":"));
   }
   
+  _prepareModule() {
+    // for every observer create a parsed object which contains parsed data about current observer
+    this._parsedObservers = this.observers.map(observer => {
+      // get handler and dependencies array of the observer
+      var { handler, dependencies } = this._parseObserver(observer);
+      
+      // create an object for storing specifiers for dependencies
+      var specifiers = {};
+      
+      // transform dependency properties into dependency paths
+      dependencies = dependencies.map(dependency => {
+        // if current dependency has specifiers
+        if (dependency.indexOf(':') !== -1) {
+          // get an array of specifiers of the dependency
+          var currentSpecifiers = this._parseDependencySpecifiers(dependency);
+          // remove specifiers from the dependency string
+          dependency = this._fixComplexDependency(dependency);
+          // get the path of the dependency
+          var path = this._getPropPath(dependency);
+          // save specifiers of the current dependency
+          specifiers[path] = currentSpecifiers;
+        }
+        // dependency with no specifiers
+        else {
+          // get the path of the dependency
+          var path = this._getPropPath(dependency);
+        }
+        
+        // return the path of the dependency
+        return path;
+      });
+      
+      // save parsed observer into this._parsedObservers array
+      return { handler, dependencies, specifiers };
+    });
+  }
+  
 }

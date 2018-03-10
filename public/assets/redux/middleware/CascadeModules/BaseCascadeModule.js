@@ -19,6 +19,8 @@ class BaseCascadeModule extends CascadeModule {
       'processNewBaseCenterCoords(coords)',
       'processNewBaseDirection(coords, baseCenterCoords)'
     ];
+    
+    this._prepareModule();
   }
   
   processNewBaseCenterCoords(coords) {

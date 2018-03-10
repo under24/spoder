@@ -14,6 +14,8 @@ class MovementPointersCascadeModule extends CascadeModule {
     this.observers = [
       'processNewPointers(circles, directionJoystick)'
     ];
+    
+    this._prepareModule();
   }
   
   processNewPointers(circles, directionJoystick) {    

@@ -15,6 +15,8 @@ class MovementIterationBlueprintCascadeModule extends CascadeModule {
     this.observers = [
       `processNewBlueprint(movementIterationProperties :gait, movementIterationTransition)`
     ];
+    
+    this._prepareModule();
   }
   
   processNewBlueprint() {

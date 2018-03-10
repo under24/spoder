@@ -15,6 +15,8 @@ class MovementCirclesCascadeModule extends CascadeModule {
       'handleCoordsChanged(coords)',
       'handleTurnJoystickChanged(turnJoystick)'
     ];
+    
+    this._prepareModule();
   }
   
   // need to generate new circles for the leg that has changed coords

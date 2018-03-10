@@ -13,6 +13,8 @@ class AngleCascadeModule extends CascadeModule {
     this.observers = [
       'processNewAngles(coords)'
     ];
+    
+    this._prepareModule();
   }
   
   processNewAngles(newCoords) {

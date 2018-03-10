@@ -19,6 +19,8 @@ class CoordsCascadeModule extends CascadeModule {
       'shiftModifierObserver(shift)',
       'tiltModifierObserver(tilt)'
     ];
+    
+    this._prepareModule();
   }
   
   levelModifierObserver(newLevel) {

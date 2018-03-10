@@ -13,6 +13,8 @@ class MiscCascadeModule extends CascadeModule {
     this.observers = [
       'processNewMisc(coords)'
     ];
+    
+    this._prepareModule();
   }
   
   processNewMisc(newCoords) {
