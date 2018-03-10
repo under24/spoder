@@ -11,6 +11,8 @@ class CoordsLogicReducer extends LogicReducer {
       'processSequenceShiftedXYBatched(SEQUENCE_SHIFTED_XY_BATCHED)',
       'processInitCoords(INIT_COORDS)'
     ];
+    
+    this._prepareModule();
   }
   
   processCursorXYShifted(payload, action) {

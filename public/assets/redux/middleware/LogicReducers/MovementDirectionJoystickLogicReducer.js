@@ -8,6 +8,8 @@ class MovementDirectionJoystickLogicReducer extends LogicReducer {
     this.actionTypes = [
       'processMovementDirectionJoystick(MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED)'
     ];
+    
+    this._prepareModule();
   }
   
   processMovementDirectionJoystick(payload) {

@@ -8,6 +8,8 @@ class ViewOffsetsLogicReducer extends LogicReducer {
     this.actionTypes = [
       'processSequenceShiftedXYCoords(SEQUENCE_SHIFTED_XY_BATCHED)'
     ];
+    
+    this._prepareModule();
   }
   
   processSequenceShiftedXYCoords(payload) {

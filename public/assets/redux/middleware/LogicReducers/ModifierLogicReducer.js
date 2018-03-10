@@ -11,6 +11,8 @@ class ModifierLogicReducer extends LogicReducer {
       'processShiftModifier(SHIFT_MODIFIER_CHANGED)',
       'processTiltModifier(TILT_MODIFIER_CHANGED)'
     ];
+    
+    this._prepareModule();
   }
 
   processLevelModifier(payload) {

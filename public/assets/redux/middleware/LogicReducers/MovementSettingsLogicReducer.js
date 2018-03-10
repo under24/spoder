@@ -8,6 +8,8 @@ class MovementSettingsLogicReducer extends LogicReducer {
     this.actionTypes = [
       'processMovementSettings(MOVEMENT_SETTINGS_CHANGED)'
     ];
+    
+    this._prepareModule();
   }
   
   processMovementSettings(payload) {

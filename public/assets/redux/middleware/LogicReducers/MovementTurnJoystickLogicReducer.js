@@ -8,6 +8,8 @@ class MovementTurnJoystickLogicReducer extends LogicReducer {
     this.actionTypes = [
       'processMovementTurnJoystick(MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED)'
     ];
+    
+    this._prepareModule();
   }
   
   processMovementTurnJoystick(payload) {

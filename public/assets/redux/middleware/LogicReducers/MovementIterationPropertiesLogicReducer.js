@@ -8,6 +8,8 @@ class MovementIterationPropertiesLogicReducer extends LogicReducer {
     this.actionTypes = [
       'processMovementIterationProperties(MOVEMENT_ITERATION_PROPERTIES_CHANGED)'
     ];
+    
+    this._prepareModule();
   }
   
   processMovementIterationProperties(payload) {

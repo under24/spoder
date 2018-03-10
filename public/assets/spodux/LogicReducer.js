@@ -41,4 +41,8 @@ class LogicReducer extends StateModule {
     };
   }
   
+  _prepareModule() {
+    debugger;
+  }
+  
 }
