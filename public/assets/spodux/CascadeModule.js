@@ -12,7 +12,7 @@ class CascadeModule extends StateModule {
       if (!this._isObserverTriggered(observer)) return;
       
       // resolve dependencies. paths -> values
-      var handlerArguments = this._resolveDependencies(observer.dependencies);
+      let handlerArguments = this._resolveDependencies(observer.dependencies);
       
       // call handler with the dependency values
       var handlerResult = this[observer.handler](...handlerArguments);
@@ -85,7 +85,7 @@ class CascadeModule extends StateModule {
         // if current dependency has specifiers
         if (dependency.indexOf(':') !== -1) {
           // get an array of specifiers of the dependency
-          var currentSpecifiers = this._parseDependencySpecifiers(dependency);
+          let currentSpecifiers = this._parseDependencySpecifiers(dependency);
           // remove specifiers from the dependency string
           dependency = this._fixComplexDependency(dependency);
           // get the path of the dependency
@@ -94,11 +94,10 @@ class CascadeModule extends StateModule {
           specifiers[path] = currentSpecifiers;
         }
         // dependency with no specifiers
-        else {
+        else
           // get the path of the dependency
           var path = this._getPropPath(dependency);
-        }
-        
+          
         // return the path of the dependency
         return path;
       });
@@ -114,7 +113,7 @@ class CascadeModule extends StateModule {
       if (dependency in this._stateChange) {
         
         // pull specifiers from the dependency (if any)
-        var dependencySpecifiers = this._dependencyHasSpecifiers(observer, dependency);
+        let dependencySpecifiers = this._dependencyHasSpecifiers(observer, dependency);
         
         // if the dependency has specifiers
         if (dependencySpecifiers)
