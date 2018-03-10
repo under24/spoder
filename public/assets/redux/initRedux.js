@@ -71,7 +71,7 @@
         action.type === "CURSOR_XY_SHIFTED" ||
         action.type === "BASE_XY_SHIFTED" ||
         action.type === "SEQUENCE_SHIFTED_XY_BATCHED" ||
-        action.type === "INIT_STATE_DATA" ||
+        action.type === "INIT_COORDS" ||
         // @movementTurnJoystickLogicReducer
         action.type === "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED" ||
         // @movementDirectionJoystickLogicReducer
@@ -111,7 +111,7 @@
       // @handle "BASE_XY_SHIFTED"                                                -> "coords"
       // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                    -> "coords"
       //                                                                             "movement.iteration.properties"(currentTick, currentTickPct)
-      // @handle "INIT_STATE_DATA"                                                -> "coords"
+      // @handle "INIT_COORDS"                                                -> "coords"
       coordsLogicReducer.processAction(action, stateChange);
       // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                    -> "viewOffsets"
       viewOffsetsLogicReducer.processAction(action, stateChange);
@@ -191,7 +191,7 @@
   // init state with coords
   store.dispatch([
     {
-      type: "INIT_STATE_DATA",
+      type: "INIT_COORDS",
       payload: {
         1: {
           // sagittalCursorX: 250,

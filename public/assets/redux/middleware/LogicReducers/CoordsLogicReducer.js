@@ -9,7 +9,7 @@ class CoordsLogicReducer extends LogicReducer {
       'processCursorXYShifted(CURSOR_XY_SHIFTED)',
       'processBaseXYShifted(BASE_XY_SHIFTED)',
       'processSequenceShiftedXYBatched(SEQUENCE_SHIFTED_XY_BATCHED)',
-      'processInitCoordsWithMockData(INIT_STATE_DATA)'
+      'processInitCoords(INIT_COORDS)'
     ];
   }
   
@@ -198,7 +198,7 @@ class CoordsLogicReducer extends LogicReducer {
     };
   }
   
-  processInitCoordsWithMockData(payload) {
+  processInitCoords(payload) {
     // compute sagittalBaseX and sagittalCursorX coords
     for (let key in payload) {
       let result = CU.getTransverseBaseXYCompensativeCoords({
