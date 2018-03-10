@@ -45,5 +45,8 @@ var SEU = {
         this.activeTimeout = null;
       }, 30);
     }
+  },
+  emitAction(action) {
+    
   }
 }
