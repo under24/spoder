@@ -5,7 +5,7 @@ class CoordsLogicReducer extends LogicReducer {
   constructor(store) {
     super(store);
     
-    this.actionTypes = [
+    this.actionObservers = [
       'processCursorXYShifted(CURSOR_XY_SHIFTED)',
       'processBaseXYShifted(BASE_XY_SHIFTED)',
       'processSequenceShiftedXYBatched(SEQUENCE_SHIFTED_XY_BATCHED)',

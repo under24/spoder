@@ -5,7 +5,7 @@ class MovementDirectionJoystickLogicReducer extends LogicReducer {
   constructor(store) {
     super(store);
     
-    this.actionTypes = [
+    this.actionObservers = [
       'processMovementDirectionJoystick(MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED)'
     ];
     

@@ -5,7 +5,7 @@ class MovementTurnJoystickLogicReducer extends LogicReducer {
   constructor(store) {
     super(store);
     
-    this.actionTypes = [
+    this.actionObservers = [
       'processMovementTurnJoystick(MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED)'
     ];
     

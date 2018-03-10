@@ -6,7 +6,7 @@ class LogicReducer extends StateModule {
     var actionTypes = [];
     var actionHandlers = [];
     
-    this.actionTypes.forEach(actionType => {
+    this.actionObservers.forEach(actionType => {
       var { action, handler } = this._parseActionType(actionType);
       
       actionTypes.push(action);

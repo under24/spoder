@@ -5,7 +5,7 @@ class MovementIterationPropertiesLogicReducer extends LogicReducer {
   constructor(store) {
     super(store);
     
-    this.actionTypes = [
+    this.actionObservers = [
       'processMovementIterationProperties(MOVEMENT_ITERATION_PROPERTIES_CHANGED)'
     ];
     

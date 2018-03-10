@@ -5,7 +5,7 @@ class MovementSettingsLogicReducer extends LogicReducer {
   constructor(store) {
     super(store);
     
-    this.actionTypes = [
+    this.actionObservers = [
       'processMovementSettings(MOVEMENT_SETTINGS_CHANGED)'
     ];
     

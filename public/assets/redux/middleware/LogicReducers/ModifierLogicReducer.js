@@ -5,7 +5,7 @@ class ModifierLogicReducer extends LogicReducer {
   constructor(store) {
     super(store);
     
-    this.actionTypes = [
+    this.actionObservers = [
       'processLevelModifier(LEVEL_MODIFIER_CHANGED)',
       'processRotationModifier(ROTATION_MODIFIER_CHANGED)',
       'processShiftModifier(SHIFT_MODIFIER_CHANGED)',

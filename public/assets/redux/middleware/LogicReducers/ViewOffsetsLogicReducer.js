@@ -5,7 +5,7 @@ class ViewOffsetsLogicReducer extends LogicReducer {
   constructor(store) {
     super(store);
     
-    this.actionTypes = [
+    this.actionObservers = [
       'processSequenceShiftedXYCoords(SEQUENCE_SHIFTED_XY_BATCHED)'
     ];
     
