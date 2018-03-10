@@ -31,7 +31,7 @@ class LogicReducer extends StateModule {
   
   _parseActionType(observer) {
     // trim spaces
-    observer = observer.replace(/ /g, '');
+    observer = observer.replace(/[\r\n\ ]/g, '');
     
     return {
       // observer handler
