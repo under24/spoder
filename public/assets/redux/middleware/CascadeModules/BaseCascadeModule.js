@@ -14,7 +14,6 @@ class BaseCascadeModule extends CascadeModule {
       baseCenterCoords: 'base.centerCoords'
     };
     
-    // ['handler(dependency, dependency)', ...]
     this.observers = [
       'processNewBaseCenterCoords(coords)',
       'processNewBaseDirection(coords, baseCenterCoords)'

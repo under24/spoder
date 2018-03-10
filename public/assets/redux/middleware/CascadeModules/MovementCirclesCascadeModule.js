@@ -10,7 +10,6 @@ class MovementCirclesCascadeModule extends CascadeModule {
       turnJoystick: 'movement.turnJoystick'
     };
     
-    // ['handler(dependency, dependency)', ...]
     this.observers = [
       'handleCoordsChanged(coords)',
       'handleTurnJoystickChanged(turnJoystick)'

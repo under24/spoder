@@ -10,7 +10,6 @@ class MovementPointersCascadeModule extends CascadeModule {
       directionJoystick: 'movement.directionJoystick'
     };
     
-    // ['handler(dependency, dependency)', ...]
     this.observers = [
       'processNewPointers(circles, directionJoystick)'
     ];

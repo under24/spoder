@@ -9,7 +9,6 @@ class AngleCascadeModule extends CascadeModule {
       coords: 'coords'
     };
     
-    // ['handler(dependency, dependency)', ...]
     this.observers = [
       'processNewAngles(coords)'
     ];

@@ -12,7 +12,6 @@ class CoordsCascadeModule extends CascadeModule {
       tilt: 'modifiers.tilt',
     };
     
-    // ['handler(dependency, dependency)', ...]
     this.observers = [
       'levelModifierObserver(level)',
       'rotationModifierObserver(rotation)',

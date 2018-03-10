@@ -10,7 +10,6 @@ class MovementIterationPropertiesCascadeModule extends CascadeModule {
       movementSettings: 'movement.settings'
     };
     
-    // ['handler(dependency, dependency)', ...]
     this.observers = [
       `processNewMovementIterationProperties(movementIterationProperties :currentTick, movementSettings :tps :duration :gait :sequencerMode)`
     ];

@@ -9,7 +9,6 @@ class MiscCascadeModule extends CascadeModule {
       coords: 'coords'
     };
     
-    // ['handler(dependency, dependency)', ...]
     this.observers = [
       'processNewMisc(coords)'
     ];
