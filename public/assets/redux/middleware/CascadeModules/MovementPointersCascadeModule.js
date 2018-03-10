@@ -17,7 +17,7 @@ class MovementPointersCascadeModule extends CascadeModule {
     this._prepareModule();
   }
   
-  processNewPointers(circles, directionJoystick) {    
+  processNewPointers(circles, directionJoystick) {
     // create new pointers
     var newMovementPointers = this.generatePointers(circles, directionJoystick);
     
@@ -48,7 +48,7 @@ class MovementPointersCascadeModule extends CascadeModule {
         dy = pointer.y - circle.fluentY,
         distance = MU.getDistance(dx, dy),
         circleToPointerAngle = MU.getAngle(dy, dx);
-    
+        
     return MU.getCoordsFromDistanceAndAngle(circle.fluentX, circle.fluentY, circleToPointerAngle + baseDirection - turn, distance);
   }
 
