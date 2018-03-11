@@ -12,7 +12,7 @@ class CascadeModule extends StateModule {
       if (!this._isObserverTriggered(observer)) return;
       
       // resolve dependencies. paths -> values
-      let handlerArguments = this._resolveDependencies(observer.dependencies);
+      var handlerArguments = this._resolveDependencies(observer.dependencies);
       
       // call handler with the dependency values
       var handlerResult = this[observer.handler](...handlerArguments);
