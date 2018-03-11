@@ -1,5 +1,10 @@
 'use strict';
 
+try {
+  var CascadeModule = require('../../../spodux/CascadeModule.js');
+}
+catch(e) {}
+
 class CoordsCascadeModule extends CascadeModule {
   
   constructor(store) {
@@ -177,3 +182,7 @@ class CoordsCascadeModule extends CascadeModule {
   }
   
 }
+
+// node environment export
+try { module.exports = CoordsCascadeModule }
+catch(e) {}

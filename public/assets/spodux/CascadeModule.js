@@ -1,5 +1,10 @@
 'use strict';
 
+try {
+  var StateModule = require('../../../public/assets/spodux/StateModule.js');
+}
+catch(e) {}
+
 class CascadeModule extends StateModule {
   
   processState(stateChange) {
@@ -153,3 +158,7 @@ class CascadeModule extends StateModule {
   }
   
 }
+
+// node environment export
+try { module.exports = CascadeModule }
+catch(e) {}

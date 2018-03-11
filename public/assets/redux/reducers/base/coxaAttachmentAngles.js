@@ -14,3 +14,7 @@
     return state;
   }
 }
+
+// node environment export
+try { module.exports = baseCoxaAttachmentAnglesReducer }
+catch(e) {}

@@ -17,3 +17,7 @@
     return state;
   }  
 }
+
+// node environment export
+try { module.exports = joystickReducer }
+catch(e) {}

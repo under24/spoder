@@ -75,3 +75,7 @@
     return state;
   }  
 }
+
+// node environment export
+try { module.exports = angleReducer }
+catch(e) {}

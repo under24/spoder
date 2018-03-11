@@ -23,3 +23,7 @@
     return state;
   }
 }
+
+// node environment export
+try { module.exports = baseCenterCoordsReducer }
+catch(e) {}

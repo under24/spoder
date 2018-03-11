@@ -28,3 +28,7 @@
     return state;
   };  
 }
+
+// node environment export
+try { module.exports = movementSettingsReducer }
+catch(e) {}

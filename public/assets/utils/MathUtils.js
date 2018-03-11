@@ -145,3 +145,7 @@ var MU = {
   //   }
   // }
 };
+
+// node environment export
+try { module.exports = MU }
+catch(e) {}

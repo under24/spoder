@@ -18,3 +18,7 @@
     return state;
   }
 }
+
+// node environment export
+try { module.exports = metaDataReducer }
+catch(e) {}

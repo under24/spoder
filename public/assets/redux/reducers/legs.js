@@ -56,3 +56,7 @@
     return state;
   }  
 }
+
+// node environment export
+try { module.exports = legReducer }
+catch(e) {}

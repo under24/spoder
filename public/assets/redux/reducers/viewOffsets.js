@@ -59,3 +59,7 @@
     return state;
   }  
 }
+
+// node environment export
+try { module.exports = viewOffsetsReducer }
+catch(e) {}

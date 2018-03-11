@@ -40,3 +40,7 @@
     return state;
   }  
 }
+
+// node environment export
+try { module.exports = viewSettingsCoronalViewReducer }
+catch(e) {}

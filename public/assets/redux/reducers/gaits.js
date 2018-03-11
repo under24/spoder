@@ -91,3 +91,7 @@
     return state;
   };  
 }
+
+// node environment export
+try { module.exports = gaitReducer }
+catch(e) {}

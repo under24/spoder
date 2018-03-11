@@ -52,3 +52,7 @@
     return state;
   }  
 }
+
+// node environment export
+try { module.exports = viewSettingsTransverseViewReducer }
+catch(e) {}

@@ -51,3 +51,7 @@
     return state;
   }  
 }
+
+// node environment export
+try { module.exports = movementPointerReducer }
+catch(e) {}

@@ -1,5 +1,10 @@
 'use strict';
 
+try {
+  var LogicReducer = require('../../../spodux/LogicReducer.js');
+}
+catch(e) {}
+
 class MovementSettingsLogicReducer extends LogicReducer {
 
   constructor(store) {
@@ -21,3 +26,7 @@ class MovementSettingsLogicReducer extends LogicReducer {
   }
 
 }
+
+// node environment export
+try { module.exports = MovementSettingsLogicReducer }
+catch(e) {}

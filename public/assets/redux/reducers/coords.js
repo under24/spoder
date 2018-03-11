@@ -352,3 +352,7 @@
     return state;
   }  
 }
+
+// node environment export
+try { module.exports = coordsReducer }
+catch(e) {}

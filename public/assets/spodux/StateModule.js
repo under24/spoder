@@ -87,3 +87,7 @@ class StateModule {
   }
   
 }
+
+// node environment export
+try { module.exports = StateModule }
+catch(e) {}

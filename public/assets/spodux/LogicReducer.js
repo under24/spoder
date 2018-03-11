@@ -1,5 +1,10 @@
 'use strict';
 
+try {
+  var StateModule = require('../../../public/assets/spodux/StateModule.js');
+}
+catch(e) {}
+
 class LogicReducer extends StateModule {
   
   processAction(action, stateChange) {
@@ -51,3 +56,7 @@ class LogicReducer extends StateModule {
   }
   
 }
+
+// node environment export
+try { module.exports = LogicReducer }
+catch(e) {}

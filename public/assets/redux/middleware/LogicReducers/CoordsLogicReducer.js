@@ -1,5 +1,12 @@
 'use strict';
 
+try {
+  var LogicReducer = require('../../../spodux/LogicReducer.js');
+  var CU = require('../../../utils/CoordsUtils.js');
+}
+catch(e) {}
+
+
 class CoordsLogicReducer extends LogicReducer {
 
   constructor(store) {
@@ -217,3 +224,7 @@ class CoordsLogicReducer extends LogicReducer {
   }
 
 }
+
+// node environment export
+try { module.exports = CoordsLogicReducer }
+catch(e) {}

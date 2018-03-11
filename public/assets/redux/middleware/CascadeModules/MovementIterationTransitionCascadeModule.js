@@ -1,5 +1,10 @@
 'use strict';
 
+try {
+  var CascadeModule = require('../../../spodux/CascadeModule.js');
+}
+catch(e) {}
+
 class MovementIterationTransitionCascadeModule extends CascadeModule {
 
   constructor(store) {
@@ -105,3 +110,7 @@ class MovementIterationTransitionCascadeModule extends CascadeModule {
   }
 
 }
+
+// node environment export
+try { module.exports = MovementIterationTransitionCascadeModule }
+catch(e) {}

@@ -1,5 +1,10 @@
 'use strict';
 
+try {
+  var MU = require('./MathUtils.js');
+}
+catch(e) {}
+
 // CU == CoordsUtils
 var CU = {
   aggregateCoords(state, payload, additional) {
@@ -55,3 +60,7 @@ var CU = {
     };
   }
 }
+
+// node environment export
+try { module.exports = CU }
+catch(e) {}

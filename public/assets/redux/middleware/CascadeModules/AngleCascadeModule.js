@@ -1,5 +1,12 @@
 'use strict';
 
+try {
+  var CascadeModule = require('../../../spodux/CascadeModule.js');
+  var MU = require('../../../utils/MathUtils.js');
+  var GU = require('../../../utils/GenericUtils.js');
+}
+catch(e) {}
+
 class AngleCascadeModule extends CascadeModule {
 
   constructor(store) {
@@ -209,3 +216,7 @@ class AngleCascadeModule extends CascadeModule {
   }
 
 }
+
+// node environment export
+try { module.exports = AngleCascadeModule }
+catch(e) {}

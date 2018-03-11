@@ -1,5 +1,11 @@
 'use strict';
 
+try {
+  var CascadeModule = require('../../../spodux/CascadeModule.js');
+  var MU = require('../../../utils/MathUtils.js');
+}
+catch(e) {}
+
 class MiscCascadeModule extends CascadeModule {
 
   constructor(store) {
@@ -147,3 +153,7 @@ class MiscCascadeModule extends CascadeModule {
   }
 
 }
+
+// node environment export
+try { module.exports = MiscCascadeModule }
+catch(e) {}

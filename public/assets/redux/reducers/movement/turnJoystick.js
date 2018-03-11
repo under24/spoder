@@ -27,3 +27,7 @@
     return state;
   }  
 }
+
+// node environment export
+try { module.exports = movementTurnJoystickReducer }
+catch(e) {}
