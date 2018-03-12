@@ -1,6 +1,6 @@
 'use strict';
 
-class Temp extends StateObserver {
+class MovementSequencer extends StateObserver {
 
   constructor(store) {
     super(store);
@@ -10,7 +10,6 @@ class Temp extends StateObserver {
       test2: 'angles'
     };
     
-    // ['handler(dependency, dependency)', ...]
     this.observers = [
       'foo(test1, test2)'
     ];
