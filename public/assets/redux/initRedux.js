@@ -110,7 +110,6 @@
       // @handle "CURSOR_XY_SHIFTED"                                              -> "coords"
       // @handle "BASE_XY_SHIFTED"                                                -> "coords"
       // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                    -> "coords"
-      //                                                                             "movement.iteration.properties"(currentTick, currentTickPct)
       // @handle "INIT_COORDS"                                                    -> "coords"
       coordsLogicReducer.processAction(action, stateChange);
       // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                    -> "viewOffsets"

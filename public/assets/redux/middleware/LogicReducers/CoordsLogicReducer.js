@@ -113,98 +113,85 @@ class CoordsLogicReducer extends LogicReducer {
   }
   
   processSequenceShiftedXYBatched(payload, action) {
-    // "coords"
-    {
-      let oldCoords = this.resolveStatePath('coords');
+    var oldCoords = this.resolveStatePath('coords');
+    
+    var newState = {};
+    
+    for (let legId in action.payload) {
       
-      let newState = {};
+      // cursorXY coords
+      let cursorXY = {};
+      if (action.payload[legId].sagittalCursorX)
+        cursorXY.sagittalCursorX = oldCoords[legId].sagittalCursorX - action.payload[legId].sagittalCursorX;
+        
+      if (action.payload[legId].sagittalCursorY)
+        cursorXY.sagittalCursorY = oldCoords[legId].sagittalCursorY - action.payload[legId].sagittalCursorY;
+        
+      if (action.payload[legId].transverseCursorX)
+        cursorXY.transverseCursorX = oldCoords[legId].transverseCursorX - action.payload[legId].transverseCursorX;
+        
+      if (action.payload[legId].transverseCursorY)
+        cursorXY.transverseCursorY = oldCoords[legId].transverseCursorY - action.payload[legId].transverseCursorY;
+        
+      // gather up latest coords for further computations
+      let cursorCoords = CU.aggregateCoords(oldCoords[legId], cursorXY);
       
-      for (let legId in action.payload) {
-        
-        // cursorXY coords
-        let cursorXY = {};
-        if (action.payload[legId].sagittalCursorX)
-          cursorXY.sagittalCursorX = oldCoords[legId].sagittalCursorX - action.payload[legId].sagittalCursorX;
-          
-        if (action.payload[legId].sagittalCursorY)
-          cursorXY.sagittalCursorY = oldCoords[legId].sagittalCursorY - action.payload[legId].sagittalCursorY;
-          
-        if (action.payload[legId].transverseCursorX)
-          cursorXY.transverseCursorX = oldCoords[legId].transverseCursorX - action.payload[legId].transverseCursorX;
-          
-        if (action.payload[legId].transverseCursorY)
-          cursorXY.transverseCursorY = oldCoords[legId].transverseCursorY - action.payload[legId].transverseCursorY;
-          
-        // gather up latest coords for further computations
-        let cursorCoords = CU.aggregateCoords(oldCoords[legId], cursorXY);
-        
-        // compensative computations from transverse coords for sagittal
-        // transverseCursorX/Y => sagittalCursorX
-        if (cursorXY.transverseCursorX || cursorXY.transverseCursorY) {
-          let result = CU.getTransverseBaseXYCompensativeCoords(cursorCoords);
-          // compare with the existing coords
-          if (result.sagittalCursorX !== oldCoords[legId].sagittalCursorX) cursorXY.sagittalCursorX = result.sagittalCursorX;
-        }
-        // compensative computations from sagittal coords for transverse
-        // sagittalCursorX => transverseCursorX + transverseCursorY
-        else if (cursorXY.sagittalCursorX) {
-          let result = CU.getSagittalCursorXCompensativeCoords(cursorCoords);
-          // compare with the existing coords
-          if (result.transverseCursorX !== oldCoords[legId].transverseCursorX) cursorXY.transverseCursorX = result.transverseCursorX;
-          if (result.transverseCursorY !== oldCoords[legId].transverseCursorY) cursorXY.transverseCursorY = result.transverseCursorY;
-        }
-        
-        
-        // baseXY coords
-        let baseXY = {};
-        if (action.payload[legId].sagittalBaseX)
-          baseXY.sagittalBaseX = oldCoords[legId].sagittalBaseX - action.payload[legId].sagittalBaseX;
-          
-        if (action.payload[legId].sagittalBaseY)
-          baseXY.sagittalBaseY = oldCoords[legId].sagittalBaseY - action.payload[legId].sagittalBaseY;
-          
-        if (action.payload[legId].transverseBaseX)
-          baseXY.transverseBaseX = oldCoords[legId].transverseBaseX - action.payload[legId].transverseBaseX;
-          
-        if (action.payload[legId].transverseBaseY)
-          baseXY.transverseBaseY = oldCoords[legId].transverseBaseY - action.payload[legId].transverseBaseY;
-          
-        // gather up latest coords for further computations
-        let baseCoords = CU.aggregateCoords(oldCoords[legId], baseXY, cursorXY);
-        
-        // compensative computations from transverse coords for sagittal
-        // transverseBaseX/Y => sagittalBaseX + sagittalCursorX
-        if (baseXY.transverseBaseX || baseXY.transverseBaseY) {
-          let result = CU.getTransverseBaseXYCompensativeCoords(baseCoords);
-          // compare with the existing coords
-          if (result.sagittalBaseX !== oldCoords[legId].sagittalBaseX) baseXY.sagittalBaseX = result.sagittalBaseX;
-          if (result.sagittalCursorX !== oldCoords[legId].sagittalCursorX) baseXY.sagittalCursorX = result.sagittalCursorX;
-        }
-        // compensative computations from sagittal coords for transverse
-        // sagittalBaseX => transverseBaseX + transverseBaseY
-        else if (baseXY.sagittalBaseX) {
-          let result = CU.getSagittalBaseXCompensativeCoords(baseCoords);
-          // compare with the existing coords
-          if (result.transverseBaseX !== oldCoords[legId].transverseBaseX) baseXY.transverseBaseX = result.transverseBaseX;
-          if (result.transverseBaseY !== oldCoords[legId].transverseBaseY) baseXY.transverseBaseY = result.transverseBaseY;
-        }
-        
-        newState[legId] = Object.assign({}, oldCoords[legId], cursorXY, baseXY);
+      // compensative computations from transverse coords for sagittal
+      // transverseCursorX/Y => sagittalCursorX
+      if (cursorXY.transverseCursorX || cursorXY.transverseCursorY) {
+        let result = CU.getTransverseBaseXYCompensativeCoords(cursorCoords);
+        // compare with the existing coords
+        if (result.sagittalCursorX !== oldCoords[legId].sagittalCursorX) cursorXY.sagittalCursorX = result.sagittalCursorX;
       }
-      var newCoords = Object.assign({}, oldCoords, newState);
-    }
-    
-    // "movement.iteration.properties"
-    {
-      let oldMovementIterationProperties = this.resolveStatePath('movement.iteration.properties');
+      // compensative computations from sagittal coords for transverse
+      // sagittalCursorX => transverseCursorX + transverseCursorY
+      else if (cursorXY.sagittalCursorX) {
+        let result = CU.getSagittalCursorXCompensativeCoords(cursorCoords);
+        // compare with the existing coords
+        if (result.transverseCursorX !== oldCoords[legId].transverseCursorX) cursorXY.transverseCursorX = result.transverseCursorX;
+        if (result.transverseCursorY !== oldCoords[legId].transverseCursorY) cursorXY.transverseCursorY = result.transverseCursorY;
+      }
       
-      var newMovementIterationProperties = Object.assign({}, oldMovementIterationProperties, { currentTick: action.currentTick, currentTickPct: action.currentTickPct });
+      
+      // baseXY coords
+      var baseXY = {};
+      if (action.payload[legId].sagittalBaseX)
+        baseXY.sagittalBaseX = oldCoords[legId].sagittalBaseX - action.payload[legId].sagittalBaseX;
+        
+      if (action.payload[legId].sagittalBaseY)
+        baseXY.sagittalBaseY = oldCoords[legId].sagittalBaseY - action.payload[legId].sagittalBaseY;
+        
+      if (action.payload[legId].transverseBaseX)
+        baseXY.transverseBaseX = oldCoords[legId].transverseBaseX - action.payload[legId].transverseBaseX;
+        
+      if (action.payload[legId].transverseBaseY)
+        baseXY.transverseBaseY = oldCoords[legId].transverseBaseY - action.payload[legId].transverseBaseY;
+        
+      // gather up latest coords for further computations
+      var baseCoords = CU.aggregateCoords(oldCoords[legId], baseXY, cursorXY);
+      
+      // compensative computations from transverse coords for sagittal
+      // transverseBaseX/Y => sagittalBaseX + sagittalCursorX
+      if (baseXY.transverseBaseX || baseXY.transverseBaseY) {
+        let result = CU.getTransverseBaseXYCompensativeCoords(baseCoords);
+        // compare with the existing coords
+        if (result.sagittalBaseX !== oldCoords[legId].sagittalBaseX) baseXY.sagittalBaseX = result.sagittalBaseX;
+        if (result.sagittalCursorX !== oldCoords[legId].sagittalCursorX) baseXY.sagittalCursorX = result.sagittalCursorX;
+      }
+      // compensative computations from sagittal coords for transverse
+      // sagittalBaseX => transverseBaseX + transverseBaseY
+      else if (baseXY.sagittalBaseX) {
+        let result = CU.getSagittalBaseXCompensativeCoords(baseCoords);
+        // compare with the existing coords
+        if (result.transverseBaseX !== oldCoords[legId].transverseBaseX) baseXY.transverseBaseX = result.transverseBaseX;
+        if (result.transverseBaseY !== oldCoords[legId].transverseBaseY) baseXY.transverseBaseY = result.transverseBaseY;
+      }
+      
+      newState[legId] = Object.assign({}, oldCoords[legId], cursorXY, baseXY);
     }
+    var newCoords = Object.assign({}, oldCoords, newState);
     
-    return {
-      'coords': newCoords,
-      'movement.iteration.properties': newMovementIterationProperties
-    };
+    return { 'coords': newCoords };
   }
   
   processInitCoords(payload) {

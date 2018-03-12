@@ -133,13 +133,16 @@
       }
       
       dispatchTickPayload(payload, currentTick, currentTickPct) {
+        var action = [];
+        
         // payload is not empty
+        // payload can be empty when the current leg/stroke does not have any pixels to move
         if (payload)
-          store.dispatch({ type: "SEQUENCE_SHIFTED_XY_BATCHED", payload, currentTick, currentTickPct });
-        // payload is empty, dispatch only currentTick and currentTickPct
-        // payload can be empty when the current leg/stroke does not have any pexels to move
-        else
-          store.dispatch({ type: "MOVEMENT_ITERATION_PROPERTIES_CHANGED", payload: { currentTick, currentTickPct } });
+          action.push({ type: "SEQUENCE_SHIFTED_XY_BATCHED", payload });
+          
+        action.push({ type: "MOVEMENT_ITERATION_PROPERTIES_CHANGED", payload: { currentTick, currentTickPct } })
+        
+        store.dispatch(action);
       }
       
       resetTickData() {
