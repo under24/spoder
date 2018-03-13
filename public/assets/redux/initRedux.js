@@ -61,59 +61,20 @@
   });
   
   let logicReducers = store => next => action => {
-    if (Array.isArray(action) === true ||
-        // @modifierLogicReducer
-        action.type === "LEVEL_MODIFIER_CHANGED" ||
-        action.type === "ROTATION_MODIFIER_CHANGED" ||
-        action.type === "SHIFT_MODIFIER_CHANGED" ||
-        action.type === "TILT_MODIFIER_CHANGED" ||
-        // @coordsLogicReducer
-        action.type === "CURSOR_XY_SHIFTED" ||
-        action.type === "BASE_XY_SHIFTED" ||
-        action.type === "SEQUENCE_SHIFTED_XY_BATCHED" ||
-        action.type === "INIT_COORDS" ||
-        // @movementTurnJoystickLogicReducer
-        action.type === "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED" ||
-        // @movementDirectionJoystickLogicReducer
-        action.type === "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED" ||
-        // @movementIterationPropertiesLogicReducer
-        action.type === "MOVEMENT_ITERATION_PROPERTIES_CHANGED" ||
-        // @movementSettingsLogicReducer
-        action.type === "MOVEMENT_SETTINGS_CHANGED" ||
-        // @statusLogicReducer
-        action.type === "ARDUINO_STATUS_CHANGED" ||
-        action.type === "ANALOG_JOYSTICK_STATUS_CHANGED" ||
-        action.type === "PRIVILEGES_STATUS_CHANGED" ||
-        action.type === "SOCKET_STATUS_CHANGED" ||
-        // @viewSettingsLogicReducer
-        action.type === "CORONAL_VIEW_SETTINGS_CHANGED" ||
-        action.type === "CORONAL_VIEW_SETTINGS_RESET" ||
-        action.type === "RELATIVE_SAGITTAL_VIEW_SETTINGS_CHANGED" ||
-        action.type === "RELATIVE_SAGITTAL_VIEW_SETTINGS_RESET" ||
-        action.type === "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED" ||
-        action.type === "RELATIVE_TRANSVERSE_VIEW_SETTINGS_RESET" ||
-        action.type === "TRANSVERSE_VIEW_SETTINGS_CHANGED" ||
-        action.type === "TRANSVERSE_VIEW_SETTINGS_RESET") {
-          
-      // initialize stateChange which will hold updated state data
-      var stateChange = {};
+    // initialize stateChange which will hold updated state data
+    var stateChange = {};
+    
+    // check if the action is an array
+    if (Array.isArray(action))
+      // iterate array of actions
+      action.forEach(processAction);
+    // action is single (object)
+    else
+      // reduce action into stateChange
+      processAction(action);
       
-      // check if the action is an array
-      if (Array.isArray(action))
-        // iterate array of actions
-        action.forEach(processAction);
-      // action is single (object)
-      else
-        // reduce action into stateChange
-        processAction(action);
-        
-      next(stateChange);
-      return;
-    }
+    next(stateChange);
     
-    next(action);
-    
-    // ----------------------------------------------
     
     function processAction(action) {
       // @handle "LEVEL_MODIFIER_CHANGED"                                         -> "modifiers.level"
