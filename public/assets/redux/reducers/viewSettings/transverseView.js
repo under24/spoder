@@ -23,31 +23,38 @@
   }
 
   var viewSettingsTransverseViewReducer = (state = viewSettingsTransverseViewReducerInitState, action) => {
-    switch (action.type) {
-      case "TRANSVERSE_VIEW_SETTINGS_CHANGED":
-        {
-          // save payload items to local storages
-          LSU.save('transverseView', action.payload);
-          
-          return Object.assign({}, state, action.payload);
-        }
-      case "TRANSVERSE_VIEW_SETTINGS_RESET":
-        {
-          // clear local storage settings
-          LSU.remove('transverseView');
-          
-          return Object.assign({}, {
-            useOffsets: true,
-            useScaling: true,
-            scaling: 60,
-            showFluentTransverseBaseXY: true,
-            showInvalidRange: false,
-            showMovementPointer: true,
-            showReachRadius: false,
-            showFluentMovementCircle: true,
-            showSolidMovementCircle: true
-          });
-        }
+    // switch (action.type) {
+    //   case "TRANSVERSE_VIEW_SETTINGS_CHANGED":
+    //     {
+    //       // save payload items to local storage
+    //       LSU.save('transverseView', action.payload);
+    //       
+    //       return Object.assign({}, state, action.payload);
+    //     }
+    //   case "TRANSVERSE_VIEW_SETTINGS_RESET":
+    //     {
+    //       // clear local storage settings
+    //       LSU.remove('transverseView');
+    //       
+    //       return Object.assign({}, {
+    //         useOffsets: true,
+    //         useScaling: true,
+    //         scaling: 60,
+    //         showFluentTransverseBaseXY: true,
+    //         showInvalidRange: false,
+    //         showMovementPointer: true,
+    //         showReachRadius: false,
+    //         showFluentMovementCircle: true,
+    //         showSolidMovementCircle: true
+    //       });
+    //     }
+    // }
+    if ('viewSettings.transverseView' in action) {
+      var stateChange = action['viewSettings.transverseView'];
+      
+      delete action['viewSettings.transverseView'];
+      
+      return stateChange;
     }
     return state;
   }  

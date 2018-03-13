@@ -25,33 +25,40 @@
   }
 
   var viewSettingsRelativeTransverseViewReducer = (state = viewSettingsRelativeTransverseViewReducerInitState, action) => {
-    switch (action.type) {
-      case "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED":
-        {
-          // save payload items to local storages
-          LSU.save('relativeTransverseView', action.payload);
-          
-          return Object.assign({}, state, action.payload);
-        }
-      case "RELATIVE_TRANSVERSE_VIEW_SETTINGS_RESET":
-        {
-          // clear local storage settings
-          LSU.remove('relativeTransverseView');
-          
-          return Object.assign({}, {
-            legId: 1,
-            useOffsets: true,
-            useScaling: false,
-            scaling: 70,
-            showFluentMovementCircle: true,
-            showMovementPointer: true,
-            showInvalidRange: true,
-            showLegSelector: true,
-            showReachRadius: true,
-            showFluentTransverseBaseXY: true,
-            showSolidMovementCircle: true
-          });
-        }
+    // switch (action.type) {
+    //   case "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED":
+    //     {
+    //       // save payload items to local storage
+    //       LSU.save('relativeTransverseView', action.payload);
+    //       
+    //       return Object.assign({}, state, action.payload);
+    //     }
+    //   case "RELATIVE_TRANSVERSE_VIEW_SETTINGS_RESET":
+    //     {
+    //       // clear local storage settings
+    //       LSU.remove('relativeTransverseView');
+    //       
+    //       return Object.assign({}, {
+    //         legId: 1,
+    //         useOffsets: true,
+    //         useScaling: false,
+    //         scaling: 70,
+    //         showFluentMovementCircle: true,
+    //         showMovementPointer: true,
+    //         showInvalidRange: true,
+    //         showLegSelector: true,
+    //         showReachRadius: true,
+    //         showFluentTransverseBaseXY: true,
+    //         showSolidMovementCircle: true
+    //       });
+    //     }
+    // }
+    if ('viewSettings.relativeTransverseView' in action) {
+      var stateChange = action['viewSettings.relativeTransverseView'];
+      
+      delete action['viewSettings.relativeTransverseView'];
+      
+      return stateChange;
     }
     return state;
   }  

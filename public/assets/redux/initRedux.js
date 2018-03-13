@@ -84,7 +84,16 @@
         action.type === "ARDUINO_STATUS_CHANGED" ||
         action.type === "ANALOG_JOYSTICK_STATUS_CHANGED" ||
         action.type === "PRIVILEGES_STATUS_CHANGED" ||
-        action.type === "SOCKET_STATUS_CHANGED") {
+        action.type === "SOCKET_STATUS_CHANGED" ||
+        // @viewSettingsLogicReducer
+        action.type === "CORONAL_VIEW_SETTINGS_CHANGED" ||
+        action.type === "CORONAL_VIEW_SETTINGS_RESET" ||
+        action.type === "RELATIVE_SAGITTAL_VIEW_SETTINGS_CHANGED" ||
+        action.type === "RELATIVE_SAGITTAL_VIEW_SETTINGS_RESET" ||
+        action.type === "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED" ||
+        action.type === "RELATIVE_TRANSVERSE_VIEW_SETTINGS_RESET" ||
+        action.type === "TRANSVERSE_VIEW_SETTINGS_CHANGED" ||
+        action.type === "TRANSVERSE_VIEW_SETTINGS_RESET") {
           
       // initialize stateChange which will hold updated state data
       var stateChange = {};
@@ -127,11 +136,21 @@
       movementIterationPropertiesLogicReducer.processAction(action, stateChange);
       // @handle "MOVEMENT_SETTINGS_CHANGED"                                      -> "movement.settings"
       movementSettingsLogicReducer.processAction(action, stateChange);
+      
       // @handle "ARDUINO_STATUS_CHANGED"                                         -> "status.arduino"
       // @handle "ANALOG_JOYSTICK_STATUS_CHANGED"                                 -> "status.joystick"
       // @handle "PRIVILEGES_STATUS_CHANGED"                                      -> "status.privileges"
       // @handle "SOCKET_STATUS_CHANGED"                                          -> "status.socket"
       statusLogicReducer.processAction(action, stateChange);
+      // @handle "CORONAL_VIEW_SETTINGS_CHANGED"                                  -> "viewSettings.coronalView"
+      // @handle "CORONAL_VIEW_SETTINGS_RESET"                                    -> "viewSettings.coronalView"
+      // @handle "RELATIVE_SAGITTAL_VIEW_SETTINGS_CHANGED"                        -> "viewSettings.relativeSagittalView"
+      // @handle "RELATIVE_SAGITTAL_VIEW_SETTINGS_RESET"                          -> "viewSettings.relativeSagittalView"
+      // @handle "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED"                      -> "viewSettings.relativeTransverseView"
+      // @handle "RELATIVE_TRANSVERSE_VIEW_SETTINGS_RESET"                        -> "viewSettings.relativeTransverseView"
+      // @handle "TRANSVERSE_VIEW_SETTINGS_CHANGED"                               -> "viewSettings.transverseView"
+      // @handle "TRANSVERSE_VIEW_SETTINGS_RESET"                                 -> "viewSettings.transverseView"
+      viewSettingsLogicReducer.processAction(action, stateChange);
     }
   }
   
@@ -185,7 +204,8 @@
       movementIterationPropertiesLogicReducer = new MovementIterationPropertiesLogicReducer(store),
       movementSettingsLogicReducer = new MovementSettingsLogicReducer(store),
       viewOffsetsLogicReducer = new ViewOffsetsLogicReducer(store),
-      statusLogicReducer = new StatusLogicReducer(store);
+      statusLogicReducer = new StatusLogicReducer(store),
+      viewSettingsLogicReducer = new ViewSettingsLogicReducer(store);
       
   // init cascade modules
   let coordsCascadeModule = new CoordsCascadeModule(store),
