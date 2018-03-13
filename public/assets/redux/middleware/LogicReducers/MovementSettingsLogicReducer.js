@@ -1,9 +1,9 @@
 'use strict';
 
-try {
-  var LogicReducer = require('../../../spodux/LogicReducer.js');
-}
-catch(e) {}
+// try {
+//   var LogicReducer = require('../../../spodux/LogicReducer.js');
+// }
+// catch(e) {}
 
 class MovementSettingsLogicReducer extends LogicReducer {
 

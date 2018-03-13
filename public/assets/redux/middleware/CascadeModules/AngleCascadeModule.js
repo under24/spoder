@@ -1,11 +1,11 @@
 'use strict';
 
-try {
-  var CascadeModule = require('../../../spodux/CascadeModule.js');
-  var MU = require('../../../utils/MathUtils.js');
-  var GU = require('../../../utils/GenericUtils.js');
-}
-catch(e) {}
+// try {
+//   var CascadeModule = require('../../../spodux/CascadeModule.js');
+//   var MU = require('../../../utils/MathUtils.js');
+//   var GU = require('../../../utils/GenericUtils.js');
+// }
+// catch(e) {}
 
 class AngleCascadeModule extends CascadeModule {
 

@@ -1,10 +1,10 @@
 'use strict';
 
-try {
-  var LogicReducer = require('../../../spodux/LogicReducer.js');
-  var CU = require('../../../utils/CoordsUtils.js');
-}
-catch(e) {}
+// try {
+//   var LogicReducer = require('../../../spodux/LogicReducer.js');
+//   var CU = require('../../../utils/CoordsUtils.js');
+// }
+// catch(e) {}
 
 
 class CoordsLogicReducer extends LogicReducer {

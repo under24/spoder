@@ -1,10 +1,10 @@
 'use strict';
 
-try {
-  var CascadeModule = require('../../../spodux/CascadeModule.js');
-  var MU = require('../../../utils/MathUtils.js');
-}
-catch(e) {}
+// try {
+//   var CascadeModule = require('../../../spodux/CascadeModule.js');
+//   var MU = require('../../../utils/MathUtils.js');
+// }
+// catch(e) {}
 
 class MovementCirclesCascadeModule extends CascadeModule {
 

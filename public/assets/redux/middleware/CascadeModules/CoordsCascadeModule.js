@@ -1,9 +1,9 @@
 'use strict';
 
-try {
-  var CascadeModule = require('../../../spodux/CascadeModule.js');
-}
-catch(e) {}
+// try {
+//   var CascadeModule = require('../../../spodux/CascadeModule.js');
+// }
+// catch(e) {}
 
 class CoordsCascadeModule extends CascadeModule {
   
