@@ -6,7 +6,7 @@
     normalizedX: 0,
     y: 0,
     normalizedY: 0,
-    normalizer: 0.25, // x: 100 -> normalizedX/Y: 25
+    normalizer: 0.20, // x: 100 -> normalizedX/Y: 20
     appliedTo: 'sagittalBaseY'
   };
 
