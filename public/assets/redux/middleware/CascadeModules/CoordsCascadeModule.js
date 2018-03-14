@@ -128,7 +128,8 @@ class CoordsCascadeModule extends CascadeModule {
   }
   
   tiltModifierObserver(newTilt) {
-    var oldTilt = this.resolveStatePath(this.properties.tilt);
+    var oldTilt = this.resolveStatePath(this.properties.tilt),
+        metaData = this.resolveStatePath('metaData');
     
     // validation
     if (newTilt.normalizedX === oldTilt.normalizedX &&
@@ -144,7 +145,7 @@ class CoordsCascadeModule extends CascadeModule {
     
     var newCoords = {},
         oldCoords = this.resolveStatePath('coords'),
-        distPct = 0.6666666666666666;
+        distPct = metaData.centerXToFrontAndBackBaseX / metaData.centerXToMiddleBaseX;
     
     for (let legId = 1; legId <= 6; legId++) {
       let finalValue,

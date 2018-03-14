@@ -1,8 +1,8 @@
 'use strict';
 
 {
-  let femurLength = 100,
-      tibiaLength = 140,
+  let femurLength = 85, // 105 ?
+      tibiaLength = 125,
       combinedLegsLength = femurLength + tibiaLength,
       impossibleRange = Math.abs(femurLength - tibiaLength);
 
@@ -11,7 +11,10 @@
     femurLength,
     tibiaLength,
     combinedLegsLength,
-    impossibleRange
+    impossibleRange,
+    centerXToMiddleBaseX: 65,
+    centerXToFrontAndBackBaseX: 40,
+    centerYToFrontAndBackBaseY: 75
   };
 
   var metaDataReducer = (state = metaDataReducerInitState, action) => {

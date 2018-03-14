@@ -197,61 +197,61 @@
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -37,
-          transverseCursorX: 200,
-          transverseCursorY: -250,
-          transverseBaseX: 100,
-          transverseBaseY: -150
+          sagittalBaseY: -35,
+          transverseCursorX: 125,
+          transverseCursorY: -160,
+          transverseBaseX: 40,
+          transverseBaseY: -75
         },
         2: {
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -37,
-          transverseCursorX: -200,
-          transverseCursorY: -250,
-          transverseBaseX: -100,
-          transverseBaseY: -150
+          sagittalBaseY: -35,
+          transverseCursorX: -125,
+          transverseCursorY: -160,
+          transverseBaseX: -40,
+          transverseBaseY: -75
         },
         3: {
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -37,
-          transverseCursorX: 300,
+          sagittalBaseY: -35,
+          transverseCursorX: 185,
           transverseCursorY: 0,
-          transverseBaseX: 150,
+          transverseBaseX: 65,
           transverseBaseY: 0
         },
         4: {
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -37,
-          transverseCursorX: -300,
+          sagittalBaseY: -35,
+          transverseCursorX: -185,
           transverseCursorY: 0,
-          transverseBaseX: -150,
+          transverseBaseX: -65,
           transverseBaseY: 0
         },
         5: {
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -37,
-          transverseCursorX: 200,
-          transverseCursorY: 250,
-          transverseBaseX: 100,
-          transverseBaseY: 150
+          sagittalBaseY: -35,
+          transverseCursorX: 125,
+          transverseCursorY: 160,
+          transverseBaseX: 40,
+          transverseBaseY: 75
         },
         6: {
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -37,
-          transverseCursorX: -200,
-          transverseCursorY: 250,
-          transverseBaseX: -100,
-          transverseBaseY: 150
+          sagittalBaseY: -35,
+          transverseCursorX: -125,
+          transverseCursorY: 160,
+          transverseBaseX: -40,
+          transverseBaseY: 75
         }
       }
     },
