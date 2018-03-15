@@ -187,7 +187,7 @@
       
   // init state observers
   var movementSequencerObserver = new MovementSequencerObserver(store);
-      
+  
   // init state with coords
   store.dispatch([
     {
