@@ -1,6 +1,6 @@
 'use strict';
 
-class MovementSequencerObserver extends StateObserver {
+class MovementSequencerStateObserver extends StateObserver {
 
   constructor(store) {
     super(store);

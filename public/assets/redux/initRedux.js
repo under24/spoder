@@ -180,7 +180,7 @@
       movementIterationBlueprintCascadeModule = new MovementIterationBlueprintCascadeModule(store);
       
   // init state observers
-  var movementSequencerObserver = new MovementSequencerObserver(store);
+  var movementSequencerStateObserver = new MovementSequencerStateObserver(store);
   
   // init state with coords
   store.dispatch([
