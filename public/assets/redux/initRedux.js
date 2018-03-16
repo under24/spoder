@@ -149,17 +149,11 @@
     next(stateChange);
   }
   
-  let stateObservers = store => next => stateChange => {
-    // debugger;
-    next(stateChange);
-  }
-  
   var store = createStore(
     rootReducer,
     applyMiddleware(
       logicReducers,
-      cascadeModules,
-      stateObservers
+      cascadeModules
     )
   );
   
