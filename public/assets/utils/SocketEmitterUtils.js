@@ -49,4 +49,4 @@ var SEU = {
   emitAction(action) {
     
   }
-}
+};

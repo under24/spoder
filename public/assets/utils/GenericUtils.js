@@ -60,7 +60,7 @@ var GU = {
       }
     }
   }
-}
+};
 
 // node environment export
 try { module.exports = GU }

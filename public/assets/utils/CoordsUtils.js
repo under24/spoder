@@ -59,7 +59,7 @@ var CU = {
       transverseBaseY: newCoords.y
     };
   }
-}
+};
 
 // node environment export
 try { module.exports = CU }
