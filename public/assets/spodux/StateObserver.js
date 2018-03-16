@@ -90,14 +90,6 @@ class StateObserver extends StateModule {
     });
   }
   
-  _getPropPath(propName) {
-    // notify that there is no such prop declared
-    if (!(propName in this.properties))
-      console.warn('no such property in the properties:', propName);
-    
-    return this.properties[propName];
-  }
-  
   _makeNewPropsObsolete() {
     this._oldProps = this._newProps;
     this._newProps = {};

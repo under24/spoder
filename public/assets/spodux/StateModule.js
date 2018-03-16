@@ -78,13 +78,13 @@ class StateModule {
   //   return propStateValue;
   // }
   
-  // _getPropPath(propName) {
-  //   // notify that there is no such prop declared
-  //   if (!(propName in this.properties))
-  //     console.warn('no such property in the properties:', propName);
-  //   
-  //   return this.properties[propName];
-  // }
+  _getPropPath(propName) {
+    // notify that there is no such prop declared
+    if (!(propName in this.properties))
+      console.warn('no such property in the properties:', propName);
+    
+    return this.properties[propName];
+  }
   
 }
 
