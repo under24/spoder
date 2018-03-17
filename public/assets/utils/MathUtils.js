@@ -144,6 +144,47 @@ var MU = {
   //     return result;
   //   }
   // }
+  lineIntersection(line1, line2) {
+    var result = {
+      x: null,
+      y: null,
+      onLine1: false,
+      onLine2: false
+    };
+    
+    var denominator = ((line2.endY - line2.startY) * (line1.endX - line1.startX)) - ((line2.endX - line2.startX) * (line1.endY - line1.startY));
+    
+    // completely missed
+    if (denominator == 0) return result;
+    
+    var a = line1.startY - line2.startY;
+    var b = line1.startX - line2.startX;
+    
+    var numerator1 = ((line2.endX - line2.startX) * a) - ((line2.endY - line2.startY) * b);
+    var numerator2 = ((line1.endX - line1.startX) * a) - ((line1.endY - line1.startY) * b);
+    
+    a = numerator1 / denominator;
+    b = numerator2 / denominator;
+
+    // if we cast these lines infinitely in both directions, they intersect here:
+    result.x = line1.startX + (a * (line1.endX - line1.startX));
+    result.y = line1.startY + (a * (line1.endY - line1.startY));
+        /*
+        // it is worth noting that this should be the same as:
+        x = line2.startX + (b * (line2.endX - line2.startX));
+        y = line2.startX + (b * (line2.endY - line2.startY));
+        */
+    // if line1 is a segment and line2 is infinite, they intersect if:
+    if (a > 0 && a < 1) {
+        result.onLine1 = true;
+    }
+    // if line2 is a segment and line1 is infinite, they intersect if:
+    if (b > 0 && b < 1) {
+        result.onLine2 = true;
+    }
+    // if line1 and line2 are segments, they intersect if both of the above are true
+    return result;
+  }
 };
 
 // node environment export
