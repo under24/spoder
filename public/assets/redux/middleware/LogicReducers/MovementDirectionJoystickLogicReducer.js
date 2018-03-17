@@ -21,8 +21,10 @@ class MovementDirectionJoystickLogicReducer extends LogicReducer {
     var oldMovementDirectionJoystick = this.resolveStatePath('movement.directionJoystick');
     
     // validation. check if the payload and state values are the same
-    if (oldMovementDirectionJoystick.x === payload.x &&
-        oldMovementDirectionJoystick.y === payload.y) throw new Error('same movement direction jostick values');
+    if (oldMovementDirectionJoystick.x === payload.x && oldMovementDirectionJoystick.y === payload.y) {
+      console.warn('same movement direction jostick values');
+      return;
+    }
     
     var newMovementDirectionJoystick = payload;
     

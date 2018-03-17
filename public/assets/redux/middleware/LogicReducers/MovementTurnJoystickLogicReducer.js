@@ -21,7 +21,10 @@ class MovementTurnJoystickLogicReducer extends LogicReducer {
     var oldMovementTurnJoystick = this.resolveStatePath('movement.turnJoystick');
     
     // validation. check if the payload and state values are the same
-    if (oldMovementTurnJoystick.x === payload.x) throw new Error('same movement turn joystick values');
+    if (oldMovementTurnJoystick.x === payload.x) {
+      console.warn('same movement turn joystick values');
+      return;
+    }
     
     // calc normalized x (joystick value * normalizer)
     var normalizedX = MU.normalize(payload.x, oldMovementTurnJoystick.normalizer);
