@@ -29,6 +29,9 @@ class ModifierLogicReducer extends LogicReducer {
       return;
     }
     
+    // check if we are within possible range
+    if (payload.y < oldLevel.range.lower) return;
+    
     // calc normalized y (joystick y * normalizer)
     var normalizedY = MU.normalize(payload.y, oldLevel.normalizer);
     

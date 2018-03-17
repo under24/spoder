@@ -5,7 +5,11 @@
     y: 0,
     normalizer: 1.5, // x: 100 -> normalizedY: 150
     normalizedY: 0,
-    appliedTo: 'sagittalBaseY'
+    appliedTo: 'sagittalBaseY',
+    range: {
+      upper: 100,
+      lower: -10
+    }
   };
 
   var levelReducer = (state = levelReducerInitState, action) => {
