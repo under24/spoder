@@ -13,15 +13,6 @@
   };
 
   var levelReducer = (state = levelReducerInitState, action) => {
-    // switch (action.type) {
-    //   case "LEVEL_MODIFIER_CHANGED":
-    //     {
-    //       // calc normalized y (joystick value * normalizer)
-    //       let normalizedY = MU.normalize(action.payload.y, state.normalizer);
-    //       
-    //       return Object.assign({}, state, action.payload, { normalizedY });
-    //     }
-    // }
     if ('modifiers.level' in action) {
       var stateChange = action['modifiers.level'];
       
