@@ -5,7 +5,7 @@
 // }
 // catch(e) {}
 
-class ModifierLogicReducer extends LogicReducer {
+class ModifiersLogicReducer extends LogicReducer {
 
   constructor(store) {
     super(store);
@@ -102,5 +102,5 @@ class ModifierLogicReducer extends LogicReducer {
 }
 
 // node environment export
-try { module.exports = ModifierLogicReducer }
+try { module.exports = ModifiersLogicReducer }
 catch(e) {}

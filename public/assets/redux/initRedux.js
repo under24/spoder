@@ -81,7 +81,7 @@
       // @handle "ROTATION_MODIFIER_CHANGED"                                      -> "modifiers.ratation"
       // @handle "SHIFT_MODIFIER_CHANGED"                                         -> "modifiers.shift"
       // @handle "TILT_MODIFIER_CHANGED"                                          -> "modifiers.tilt"
-      modifierLogicReducer.processAction(action, stateChange);
+      modifiersLogicReducer.processAction(action, stateChange);
       // @handle "CURSOR_XY_SHIFTED"                                              -> "coords"
       // @handle "BASE_XY_SHIFTED"                                                -> "coords"
       // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                    -> "coords"
@@ -158,7 +158,7 @@
   );
   
   // init logic reducers
-  let modifierLogicReducer = new ModifierLogicReducer(store),
+  let modifiersLogicReducer = new ModifiersLogicReducer(store),
       coordsLogicReducer = new CoordsLogicReducer(store),
       movementDirectionJoystickLogicReducer = new MovementDirectionJoystickLogicReducer(store),
       movementTurnJoystickLogicReducer = new MovementTurnJoystickLogicReducer(store),

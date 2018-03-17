@@ -39,7 +39,7 @@ var baseCenterCoordsReducer = require('../../public/assets/redux/reducers/base/c
     miscReducer = require('../../public/assets/redux/reducers/misc.js'),
     viewOffsetsReducer = require('../../public/assets/redux/reducers/viewOffsets.js');
     
-var ModifierLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/ModifierLogicReducer.js'),
+var ModifiersLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/ModifiersLogicReducer.js'),
     CoordsLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/CoordsLogicReducer.js'),
     MovementDirectionJoystickLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/MovementDirectionJoystickLogicReducer.js'),
     MovementTurnJoystickLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/MovementTurnJoystickLogicReducer.js'),
@@ -118,7 +118,7 @@ var rootReducer = combineReducers({
 
 let logicReducers = store => next => action => {
   if (Array.isArray(action) === true ||
-      // @modifierLogicReducer
+      // @modifiersLogicReducer
       action.type === "LEVEL_MODIFIER_CHANGED" ||
       action.type === "ROTATION_MODIFIER_CHANGED" ||
       action.type === "SHIFT_MODIFIER_CHANGED" ||
@@ -162,7 +162,7 @@ let logicReducers = store => next => action => {
     // @handle "ROTATION_MODIFIER_CHANGED"                                        -> "modifiers.ratation"
     // @handle "SHIFT_MODIFIER_CHANGED"                                           -> "modifiers.shift"
     // @handle "TILT_MODIFIER_CHANGED"                                            -> "modifiers.tilt"
-    modifierLogicReducer.processAction(action, stateChange);
+    modifiersLogicReducer.processAction(action, stateChange);
     // @handle "CURSOR_XY_SHIFTED"                                                -> "coords"
     // @handle "BASE_XY_SHIFTED"                                                  -> "coords"
     // @handle "SEQUENCE_SHIFTED_XY_BATCHED"                                      -> "coords"
@@ -233,7 +233,7 @@ store.emitter = function(cb) {
 
 
 // init logic reducers
-var modifierLogicReducer = new ModifierLogicReducer(store),
+var modifiersLogicReducer = new ModifiersLogicReducer(store),
     coordsLogicReducer = new CoordsLogicReducer(store),
     movementDirectionJoystickLogicReducer = new MovementDirectionJoystickLogicReducer(store),
     movementTurnJoystickLogicReducer = new MovementTurnJoystickLogicReducer(store),
