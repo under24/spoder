@@ -29,7 +29,7 @@ class CoordsCascadeModule extends CascadeModule {
   
   levelModifierObserver(newLevel) {
     // get values from the current state
-    var oldLevel = this.resolveStatePath(this.properties.level);
+    var oldLevel = this.resolveStatePath('modifiers.level');
     
     // validation
     if (newLevel.normalizedY === oldLevel.normalizedY) {
@@ -53,7 +53,7 @@ class CoordsCascadeModule extends CascadeModule {
   
   rotationModifierObserver(newRotation) {
     // get values from the current state
-    var oldRotation = this.resolveStatePath(this.properties.rotation);
+    var oldRotation = this.resolveStatePath('modifiers.rotation');
     
     // validation
     if (newRotation.normalizedX === oldRotation.normalizedX) {
@@ -91,7 +91,7 @@ class CoordsCascadeModule extends CascadeModule {
   
   shiftModifierObserver(newShift) {
     // get values from the current state
-    var oldShift = this.resolveStatePath(this.properties.shift);
+    var oldShift = this.resolveStatePath('modifiers.shift');
     
     // validation
     if (newShift.normalizedX === oldShift.normalizedX && newShift.normalizedY === oldShift.normalizedY) {
@@ -127,7 +127,7 @@ class CoordsCascadeModule extends CascadeModule {
   }
   
   tiltModifierObserver(newTilt) {
-    var oldTilt = this.resolveStatePath(this.properties.tilt),
+    var oldTilt = this.resolveStatePath('modifiers.tilt'),
         metaData = this.resolveStatePath('metaData');
         
     // validation
