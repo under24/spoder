@@ -182,6 +182,9 @@
   // init state observers
   let movementSequencerStateObserver = new MovementSequencerStateObserver(store);
   
+  // init state modules
+  var socketListenerStateModule = new SocketListenerStateModule(store);
+  
   // init state with coords
   store.dispatch([
     {

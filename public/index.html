@@ -79,6 +79,9 @@
     <script src="assets/redux/middleware/CascadeModules/MovementIterationBlueprintCascadeModule.js"></script>
     <!-- init state observers -->
     <script src="assets/redux/middleware/StateObservers/MovementSequencerStateObserver.js"></script>
+    <!-- init state modules -->
+    <script src="assets/redux/middleware/StateModules/SocketListenerStateModule.js"></script>
+    <script src="assets/redux/middleware/StateModules/AngleConverterStateModule.js"></script>
     <!-- init redux -->
     <script src="assets/redux/initRedux.js"></script>
     <!-- polymer if -->
@@ -90,7 +93,6 @@
     <link rel="import" href="assets/polymer/watchers/iteration-generator.html">
     <link rel="import" href="assets/polymer/watchers/blueprint-generator.html">
     <link rel="import" href="assets/polymer/watchers/movement-sequencer.html">
-    <link rel="import" href="assets/polymer/watchers/socket-listener.html">
     <!-- polymer components -->
     <link rel="import" href="assets/polymer/helper-components/view-picker.html">
     <link rel="import" href="assets/polymer/helper-components/view-settings-pop-up.html">
@@ -109,8 +111,6 @@
     <blueprint-generator></blueprint-generator>
     <!-- handle movement -->
     <movement-sequencer></movement-sequencer>
-    <!-- socket listener -->
-    <socket-listener></socket-listener>
     
     <!-- settings dialog pop up -->
     <view-settings-pop-up></view-settings-pop-up>
