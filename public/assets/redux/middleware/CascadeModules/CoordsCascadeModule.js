@@ -31,7 +31,7 @@ class CoordsCascadeModule extends CascadeModule {
     // get values from the current state
     var oldLevel = this.resolveStatePath('modifiers.level');
     
-    // validation
+    // validation. check if the state and input values are the same
     if (newLevel.normalizedY === oldLevel.normalizedY) {
       console.warn('same level modifier values');  
       return;
@@ -55,7 +55,7 @@ class CoordsCascadeModule extends CascadeModule {
     // get values from the current state
     var oldRotation = this.resolveStatePath('modifiers.rotation');
     
-    // validation
+    // validation. check if the state and input values are the same
     if (newRotation.normalizedX === oldRotation.normalizedX) {
       console.warn('same rotation modifier values');
       return;
@@ -93,7 +93,7 @@ class CoordsCascadeModule extends CascadeModule {
     // get values from the current state
     var oldShift = this.resolveStatePath('modifiers.shift');
     
-    // validation
+    // validation. check if the state and input values are the same
     if (newShift.normalizedX === oldShift.normalizedX && newShift.normalizedY === oldShift.normalizedY) {
       console.warn('same shift modifier values');
       return;
@@ -130,7 +130,7 @@ class CoordsCascadeModule extends CascadeModule {
     var oldTilt = this.resolveStatePath('modifiers.tilt'),
         metaData = this.resolveStatePath('metaData');
         
-    // validation
+    // validation. check if the state and input values are the same
     if (newTilt.normalizedX === oldTilt.normalizedX && newTilt.normalizedY === oldTilt.normalizedY) {
       console.warn('same tilt modifier values');
       return;
