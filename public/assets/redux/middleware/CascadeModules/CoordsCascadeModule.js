@@ -94,8 +94,7 @@ class CoordsCascadeModule extends CascadeModule {
     var oldShift = this.resolveStatePath(this.properties.shift);
     
     // validation
-    if (newShift.normalizedX === oldShift.normalizedX &&
-        newShift.normalizedY === oldShift.normalizedY) {
+    if (newShift.normalizedX === oldShift.normalizedX && newShift.normalizedY === oldShift.normalizedY) {
       console.warn('same shift modifier values');
       return;
     }
@@ -107,7 +106,7 @@ class CoordsCascadeModule extends CascadeModule {
     
     var newCoords = {},
         oldCoords = this.resolveStatePath('coords');
-    
+        
     for (let legId = 1; legId <= 6; legId++) {
       let shiftedCoords = {
         transverseBaseX: oldCoords[legId].transverseBaseX + shiftModifierDiff.x,
@@ -117,7 +116,7 @@ class CoordsCascadeModule extends CascadeModule {
       // compensative computation
       let coords = CU.aggregateCoords(oldCoords[legId], shiftedCoords),
           compensativeCoords = CU.getTransverseBaseXYCompensativeCoords(coords);
-      
+          
       if (compensativeCoords.sagittalBaseX !== oldCoords[legId].sagittalBaseX) shiftedCoords.sagittalBaseX = compensativeCoords.sagittalBaseX;
       if (compensativeCoords.sagittalCursorX !== oldCoords[legId].sagittalCursorX) shiftedCoords.sagittalCursorX = compensativeCoords.sagittalCursorX;
       
@@ -130,10 +129,9 @@ class CoordsCascadeModule extends CascadeModule {
   tiltModifierObserver(newTilt) {
     var oldTilt = this.resolveStatePath(this.properties.tilt),
         metaData = this.resolveStatePath('metaData');
-    
+        
     // validation
-    if (newTilt.normalizedX === oldTilt.normalizedX &&
-        newTilt.normalizedY === oldTilt.normalizedY) {
+    if (newTilt.normalizedX === oldTilt.normalizedX && newTilt.normalizedY === oldTilt.normalizedY) {
       console.warn('same tilt modifier values');
       return;
     }
@@ -142,37 +140,26 @@ class CoordsCascadeModule extends CascadeModule {
         frontTiltModifier = oldTilt.normalizedY - newTilt.normalizedY,
         rightTiltModifier = MU.flipNumber(leftTiltModifier),
         backTiltModifier = MU.flipNumber(frontTiltModifier);
-    
+        
     var newCoords = {},
         oldCoords = this.resolveStatePath('coords'),
         distPct = metaData.centerXToFrontAndBackBaseX / metaData.centerXToMiddleBaseX;
-    
+        
     for (let legId = 1; legId <= 6; legId++) {
       let finalValue,
           row = GU.getLegRow(legId);
-      
+          
       switch (GU.getLegSide(legId)) {
         case 'right':
-          if (row === 'front') {
-            finalValue = (leftTiltModifier * distPct) + frontTiltModifier; break;
-          }
-          else if (row === 'middle') {
-            finalValue = leftTiltModifier; break;
-          }
-          else if (row === 'back') {
-            finalValue = (leftTiltModifier * distPct) + backTiltModifier; break;
-          }
+          if (row === 'front') finalValue = (leftTiltModifier * distPct) + frontTiltModifier;
+          else if (row === 'middle') finalValue = leftTiltModifier;
+          else if (row === 'back') finalValue = (leftTiltModifier * distPct) + backTiltModifier;
           break;
         case 'left':
-          if (row === 'front') {
-            finalValue = (rightTiltModifier * distPct) + frontTiltModifier; break;
-          }
-          else if (row === 'middle') {
-            finalValue = rightTiltModifier; break;
-          }
-          else if (row === 'back') {
-            finalValue = (rightTiltModifier * distPct) + backTiltModifier; break;
-          }
+          if (row === 'front') finalValue = (rightTiltModifier * distPct) + frontTiltModifier;
+          else if (row === 'middle') finalValue = rightTiltModifier;
+          else if (row === 'back') finalValue = (rightTiltModifier * distPct) + backTiltModifier;
+          break;
       }
       let sagittalBaseY = oldCoords[legId].sagittalBaseY - finalValue;
       
