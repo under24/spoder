@@ -38,15 +38,15 @@ class MovementPointersCascadeModule extends CascadeModule {
     
     for (let legId = 1; legId <= 6; legId++) {
       // reduce the circle boundary by 10 px
-      var circleRadius = circles[legId].solidRadius - 10;
+      let circleRadius = circles[legId].solidRadius - 10;
       
-      var dx = circleRadius * (directionJoystick.x / 100),
+      let dx = circleRadius * (directionJoystick.x / 100),
           dy = circleRadius * (directionJoystick.y / 100),
           distance = MU.getDistance(dx, dy),
           circleToPointerAngle = MU.getAngle(MU.flipNumber(dy), MU.flipNumber(dx)),
-          finalAngle = circleToPointerAngle + baseDirection - turnJoystick.normalizedX;
-      
-      pointers[legId] = MU.getCoordsFromDistanceAndAngle(circles[legId].fluentX, circles[legId].fluentY, finalAngle, distance);
+          angle = circleToPointerAngle + baseDirection - turnJoystick.normalizedX;
+          
+      pointers[legId] = MU.getCoordsFromDistanceAndAngle(circles[legId].fluentX, circles[legId].fluentY, angle, distance);
     }
     
     return pointers;
