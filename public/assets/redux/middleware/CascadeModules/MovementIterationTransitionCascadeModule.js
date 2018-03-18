@@ -64,21 +64,28 @@ class MovementIterationTransitionCascadeModule extends CascadeModule {
 
       
       // var a = {
-      //   x: this.coords[legId].transverseCursorX,
-      //   y: this.coords[legId].transverseCursorY
+      //   x: coords[legId].transverseCursorX,
+      //   y: coords[legId].transverseCursorY
       // }
       // var b = {
-      //   x: this.pointers[legId].x,
-      //   y: this.pointers[legId].y
+      //   x: pointers[legId].x,
+      //   y: pointers[legId].y
       // }
       // var c = {
-      //   x: this.circles[legId].fluentX,
-      //   y: this.circles[legId].fluentY,
+      //   x: circles[legId].fluentX,
+      //   y: circles[legId].fluentY,
       // }
       // var temp = MU.interceptOnCircle(a,b,c,80);
       // 
-      // transitionShift[legId].dragX = temp.x - this.coords[legId].transverseCursorX;
-      // transitionShift[legId].dragY = temp.y - this.coords[legId].transverseCursorY;
+      // var drag = {
+      //   x: temp.x - coords[legId].transverseCursorX,
+      //   y: temp.y - coords[legId].transverseCursorY
+      // }
+      // console.log(legId, temp, drag);
+      
+      // var distance = MU.getDistance(drag.x, drag.y);
+      
+      // console.log(legId, distance);
       
       
       
