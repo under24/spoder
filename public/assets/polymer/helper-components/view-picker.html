@@ -9,7 +9,6 @@
 <link rel="import" href="../views/relative-transverse-view.html">
 <link rel="import" href="../views/coronal-view.html">
 <link rel="import" href="../views/transverse-view.html">
-<link rel="import" href="../views/sequencer-view.html">
 <link rel="import" href="../views/movement-controller-view.html">
 <link rel="import" href="../views/movement-inspector-view.html">
 
@@ -62,7 +61,7 @@
     <!-- selection -->
     <template is="dom-if" if="[[computeView('none', view)]]" restamp>
       <section class="selection-section">
-        <select value="{{view::change}}" multiple size="14">
+        <select value="{{view::change}}" multiple size="13">
           <option value="digital-joystick">Joystick Demo</option>
           <option value="level-modifier-view">Level Modifier View</option>
           <option value="rotation-modifier-view">Rotation Modifier View</option>
@@ -74,7 +73,6 @@
           <option value="relative-transverse-view">Relative Transverse View</option>
           <option value="coronal-view">Coronal View</option>
           <option value="transverse-view">Transverse View</option>
-          <option value="sequencer-view">Sequencer View</option>
           <option value="movement-controller-view">Movement Controller View</option>
           <option value="movement-inspector-view">Movement Inspector View</option>
         </select>
@@ -139,11 +137,6 @@
     <!-- transverse view -->
     <template is="dom-if" if="[[computeView('transverse-view', view)]]" restamp>
       <transverse-view></transverse-view>
-    </template>
-    
-    <!-- sequencer view -->
-    <template is="dom-if" if="[[computeView('sequencer-view', view)]]" restamp>
-      <sequencer-view></sequencer-view>
     </template>
     
     <!-- movement settings -->
