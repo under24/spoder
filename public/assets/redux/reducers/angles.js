@@ -53,18 +53,6 @@
   };
 
   var angleReducer = (state = angleReducerInitState, action) => {
-    // switch (action.type) {
-    //   case "ANGLES_CHANGED_BATCHED":
-    //     {
-    //       let newState = {};
-    //       
-    //       for (let legId in action.payload) {
-    //         newState[legId] = Object.assign({}, state[legId], action.payload[legId]);
-    //       }
-    //       
-    //       return Object.assign({}, state, newState);
-    //     }
-    // }
     if ('angles' in action) {
       var stateChange = action['angles'];
       

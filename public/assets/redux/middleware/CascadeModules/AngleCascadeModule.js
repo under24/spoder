@@ -67,8 +67,10 @@ class AngleCascadeModule extends CascadeModule {
       newAngles[legId] = Object.assign(coxaAngles, femurAndTibiaAngles);
     }
     
-    if (newDataGenerated) 
+    if (newDataGenerated) {
+      // this.emitAngles(newAngles);
       return { 'angles': newAngles };
+    }
   }
   
   sameCoords(newCoords, oldCoords, view) {
@@ -213,6 +215,39 @@ class AngleCascadeModule extends CascadeModule {
       tibiaScreenAngle: 0,
       tibiaServoAngle: 0
     };
+  }
+  
+  emitAngles(angles) {
+    // obj for storing filtered out servo angles
+    var servoAngles = {};
+    
+    // loop through the payload obj and filter out servo angles
+    for (let legId in angles) {
+      // check if coxa servo angle is present
+      if ('coxaServoAngle' in angles[legId]) {
+        // check if the obj is created
+        servoAngles[legId] = servoAngles[legId] || {};
+        // assign a value
+        servoAngles[legId].coxaServoAngle = angles[legId].coxaServoAngle;
+      }
+      // check if femur servo angle is present
+      if ('femurServoAngle' in angles[legId]) {
+        // check if the obj is created
+        servoAngles[legId] = servoAngles[legId] || {};
+        // assign a value
+        servoAngles[legId].femurServoAngle = angles[legId].femurServoAngle;
+      }
+      // check if tibia servo angle is present
+      if ('tibiaServoAngle' in angles[legId]) {
+        // check if the obj is created
+        servoAngles[legId] = servoAngles[legId] || {};
+        // assign a value
+        servoAngles[legId].tibiaServoAngle = angles[legId].tibiaServoAngle;
+      }
+    }
+    
+    // if there are some servo angles then send to the back end
+    if (Object.keys(servoAngles).length !== 0) SEU.emitAngles(servoAngles);
   }
 
 }
