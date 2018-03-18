@@ -8,12 +8,6 @@
   };
 
   var joystickReducer = (state = joystickReducerInitState, action) => {
-    // switch (action.type) {
-    //   case "ANALOG_JOYSTICK_STATUS_CHANGED":
-    //     {
-    //       return Object.assign({}, state, action.payload);
-    //     }
-    // }
     if ('status.joystick' in action) {
       var stateChange = action['status.joystick'];
       
