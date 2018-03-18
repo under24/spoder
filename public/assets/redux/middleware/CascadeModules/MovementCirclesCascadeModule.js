@@ -37,7 +37,7 @@ class MovementCirclesCascadeModule extends CascadeModule {
       // if no changed coords then referrence the state object
       if (this.sameCoords(newCoords[legId], oldCoords[legId]))
         newCircles[legId] = oldCircles[legId];
-      // some coords have changed. need to calculate misc
+      // some coords have changed. need to calculate new circle data
       else {
         newCircles[legId] = this.processNewCircle(legId);
         // some new values have been generated. set the flag to send them to store
