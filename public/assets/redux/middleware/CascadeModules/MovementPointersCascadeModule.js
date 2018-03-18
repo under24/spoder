@@ -25,9 +25,9 @@ class MovementPointersCascadeModule extends CascadeModule {
   
   processNewPointers(circles, directionJoystick) {
     // create new pointers
-    var newMovementPointers = this.generatePointers(circles, directionJoystick);
+    var pointers = this.generatePointers(circles, directionJoystick);
     
-    return { 'movement.pointers': newMovementPointers };
+    return { 'movement.pointers': pointers };
   }
   
   generatePointers(circles, directionJoystick) {
@@ -37,25 +37,19 @@ class MovementPointersCascadeModule extends CascadeModule {
     var pointers = {};
     
     for (let legId = 1; legId <= 6; legId++) {
-      let pointer = {
-        x: circles[legId].fluentX - circles[legId].solidRadius * (directionJoystick.x / 100),
-        y: circles[legId].fluentY - circles[legId].solidRadius * (directionJoystick.y / 100)
-      };
+      // reduce the circle boundary by 10 px
+      var circleRadius = circles[legId].solidRadius - 10;
       
-      // apply baseDirection + turnJoystick
-      pointers[legId] = this.applyDirectionAndTurn(pointer, circles[legId], baseDirection, turnJoystick.normalizedX);
+      var dx = circleRadius * (directionJoystick.x / 100),
+          dy = circleRadius * (directionJoystick.y / 100),
+          distance = MU.getDistance(dx, dy),
+          circleToPointerAngle = MU.getAngle(MU.flipNumber(dy), MU.flipNumber(dx)),
+          finalAngle = circleToPointerAngle + baseDirection - turnJoystick.normalizedX;
+      
+      pointers[legId] = MU.getCoordsFromDistanceAndAngle(circles[legId].fluentX, circles[legId].fluentY, finalAngle, distance);
     }
     
     return pointers;
-  }
-  
-  applyDirectionAndTurn(pointer, circle, baseDirection, turn) {
-    var dx = pointer.x - circle.fluentX,
-        dy = pointer.y - circle.fluentY,
-        distance = MU.getDistance(dx, dy),
-        circleToPointerAngle = MU.getAngle(dy, dx);
-        
-    return MU.getCoordsFromDistanceAndAngle(circle.fluentX, circle.fluentY, circleToPointerAngle + baseDirection - turn, distance);
   }
 
 }
