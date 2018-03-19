@@ -26,7 +26,7 @@ class ViewSettingsLogicReducer extends LogicReducer {
   
   processCoronalViewSettingsChanged(payload) {
     // save payload items to local storage
-    LSU.save('coronalView', payload);
+    // LSU.save('coronalView', payload);
     
     var oldCoronalViewSettings = this.resolveStatePath('viewSettings.coronalView');
     
@@ -35,7 +35,7 @@ class ViewSettingsLogicReducer extends LogicReducer {
   
   processCoronalViewSettingsReset() {
     // clear local storage settings
-    LSU.remove('coronalView');
+    // LSU.remove('coronalView');
     
     return {
       'viewSettings.coronalView': {
@@ -48,7 +48,7 @@ class ViewSettingsLogicReducer extends LogicReducer {
   
   processRelativeSagittalViewSettingsChanged(payload) {
     // save payload items to local storages
-    LSU.save('relativeSagittalView', payload);
+    // LSU.save('relativeSagittalView', payload);
     
     var oldRelativeSagittalViewSettings = this.resolveStatePath('viewSettings.relativeSagittalView');
     
@@ -57,7 +57,7 @@ class ViewSettingsLogicReducer extends LogicReducer {
   
   processRelativeSagittalViewSettingsReset() {
     // clear local storage settings
-    LSU.remove('relativeSagittalView');
+    // LSU.remove('relativeSagittalView');
     
     return {
       'viewSettings.relativeSagittalView': {
@@ -71,7 +71,7 @@ class ViewSettingsLogicReducer extends LogicReducer {
   
   processRelativeTransverseViewSettingsChanged(payload) {
     // save payload items to local storage
-    LSU.save('relativeTransverseView', payload);
+    // LSU.save('relativeTransverseView', payload);
     
     var oldRelativeTransverseViewSettings = this.resolveStatePath('viewSettings.relativeTransverseView');
     
@@ -80,7 +80,7 @@ class ViewSettingsLogicReducer extends LogicReducer {
   
   processRelativeTransverseViewSettingsReset() {
     // clear local storage settings
-    LSU.remove('relativeTransverseView');
+    // LSU.remove('relativeTransverseView');
     
     return {
       'viewSettings.relativeTransverseView': {
@@ -101,7 +101,7 @@ class ViewSettingsLogicReducer extends LogicReducer {
   
   processTransverseViewSettingsChanged(payload) {
     // save payload items to local storage
-    LSU.save('transverseView', payload);
+    // LSU.save('transverseView', payload);
     
     var oldTransverseViewSettings = this.resolveStatePath('viewSettings.transverseView');
     
@@ -110,7 +110,7 @@ class ViewSettingsLogicReducer extends LogicReducer {
   
   processTransverseViewSettingsReset() {
     // clear local storage settings
-    LSU.remove('transverseView');
+    // LSU.remove('transverseView');
     
     return {
       'viewSettings.transverseView': {
