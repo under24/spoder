@@ -12,12 +12,6 @@
   };
 
   var movementSettingsReducer = (state = movementSettingsReducerInitState, action) => {
-    // switch (action.type) {
-    //   case "MOVEMENT_SETTINGS_CHANGED":
-    //     {
-    //       return Object.assign({}, state, action.payload);
-    //     }
-    // }
     if ('movement.settings' in action) {
       var stateChange = action['movement.settings'];
       
