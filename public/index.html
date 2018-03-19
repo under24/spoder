@@ -47,10 +47,6 @@
     <script src="assets/redux/reducers/status/joystick.js"></script>
     <script src="assets/redux/reducers/status/socket.js"></script>
     <script src="assets/redux/reducers/status/privileges.js"></script>
-    <!-- webcomponents -->
-    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <!-- polymer redux -->
-    <link rel="import" href="bower_components/polymer-redux/polymer-redux.html">
     <!-- init cascade dependencies -->
     <script src="assets/spodux/StateModule.js"></script>
     <script src="assets/spodux/CascadeModule.js"></script>
@@ -82,6 +78,14 @@
     <script src="assets/redux/middleware/StateModules/AngleConverterStateModule.js"></script>
     <!-- init redux -->
     <script src="assets/redux/initRedux.js"></script>
+    
+    <!-- webcomponents -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <!-- polymer redux -->
+    <link rel="import" href="bower_components/polymer-redux/polymer-redux.html">
+    <script>
+      var ReduxMixin = PolymerRedux(store);
+    </script>
     <!-- polymer if -->
     <link rel="import" href="bower_components/polymer/lib/elements/dom-if.html">
     <!-- polymer components -->

@@ -271,6 +271,4 @@
       }
     }
   ]);
-
-  var ReduxMixin = PolymerRedux(store);
 }
