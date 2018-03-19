@@ -17,6 +17,15 @@ class MovementSettingsLogicReducer extends LogicReducer {
     this._prepareModule();
   }
   
+  // custom: {
+  //   blueprint: {},
+  //   duration: 1000,
+  //   tps: 60,
+  //   loop: false, // will switch back to sequencerMode: 'movement' when the iteration is complete
+  //   sequencerEnabled: true,
+  //   type: 'center'
+  // }
+  
   processMovementSettings(payload) {
     var oldMovementSettings = this.resolveStatePath('movement.settings');
     
