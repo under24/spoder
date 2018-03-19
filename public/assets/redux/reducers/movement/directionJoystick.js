@@ -7,12 +7,6 @@
   };
 
   var movementDirectionJoystickReducer = (state = movementDirectionJoystickReducerInitState, action) => {
-    // switch (action.type) {
-    //   case "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED":
-    //     {
-    //       return Object.assign({}, state, action.payload);
-    //     }
-    // }
     if ('movement.directionJoystick' in action) {
       var stateChange = action['movement.directionJoystick'];
       
