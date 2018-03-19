@@ -12,16 +12,6 @@
   };
 
   var movementIterationPropertiesReducer = (state = movementIterationPropertiesReducerInitState, action) => {
-    // switch (action.type) {
-    //   case "MOVEMENT_ITERATION_PROPERTIES_CHANGED":
-    //     {
-    //       return Object.assign({}, state, action.payload);
-    //     }
-    //   case "SEQUENCE_SHIFTED_XY_BATCHED":
-    //     {
-    //       return Object.assign({}, state, { currentTick: action.currentTick, currentTickPct: action.currentTickPct });
-    //     }
-    // }
     if ('movement.iteration.properties' in action) {
       var stateChange = action['movement.iteration.properties'];
       
