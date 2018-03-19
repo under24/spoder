@@ -261,7 +261,6 @@
         tps: 60,
         duration: 750,
         sequencerMode: 'movement', // possible values: 'movement', 'custom'
-        customBlueprint: null
       }
     },
     {
