@@ -79,37 +79,37 @@
       <div class="leg-sequence">
         <div class="sequence-header">L1 (1)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('1', iterationProperties.gait)]]">[[computeStrokeDistance('1', transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('1', iterationProperties.gait)]]">[[computeStrokeDistance('1', transition)]]</div>
         </div>
       </div>
       <div class="leg-sequence">
         <div class="sequence-header">R1 (2)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('2', iterationProperties.gait)]]">[[computeStrokeDistance('2', transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('2', iterationProperties.gait)]]">[[computeStrokeDistance('2', transition)]]</div>
         </div>
       </div>
       <div class="leg-sequence">
         <div class="sequence-header">L2 (3)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('3', iterationProperties.gait)]]">[[computeStrokeDistance('3', transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('3', iterationProperties.gait)]]">[[computeStrokeDistance('3', transition)]]</div>
         </div>
       </div>
       <div class="leg-sequence">
         <div class="sequence-header">R2 (4)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('4', iterationProperties.gait)]]">[[computeStrokeDistance('4', transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('4', iterationProperties.gait)]]">[[computeStrokeDistance('4', transition)]]</div>
         </div>
       </div>
       <div class="leg-sequence">
         <div class="sequence-header">L3 (5)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('5', iterationProperties.gait)]]">[[computeStrokeDistance('5', transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('5', iterationProperties.gait)]]">[[computeStrokeDistance('5', transition)]]</div>
         </div>
       </div>
       <div class="leg-sequence">
         <div class="sequence-header">R3 (6)</div>
         <div class="sequence-content">
-          <div class="payload" style$="[[computeStrokeTiming('6', iterationProperties.gait)]]">[[computeStrokeDistance('6', transitionShift)]]</div>
+          <div class="payload" style$="[[computeStrokeTiming('6', iterationProperties.gait)]]">[[computeStrokeDistance('6', transition)]]</div>
         </div>
       </div>
       
@@ -132,8 +132,8 @@
           gaits: {
             statePath: 'gaits'
           },
-          transitionShift: {
-            statePath: 'movement.iteration.transition.transitionShift'
+          transition: {
+            statePath: 'movement.iteration.transition'
           }
         };
       }
@@ -148,9 +148,9 @@
                 width: ${stroke.endPct - stroke.startPct}%;`;
       }
       
-      computeStrokeDistance(legId, transitionShift) {
-        let tcx = transitionShift[legId].transverseCursorX,
-            tcy = transitionShift[legId].transverseCursorY;
+      computeStrokeDistance(legId, transition) {
+        let tcx = transition[legId].transverseCursorX,
+            tcy = transition[legId].transverseCursorY;
             
         return MU.getDistance(tcx, tcy).toFixed(2);
       }

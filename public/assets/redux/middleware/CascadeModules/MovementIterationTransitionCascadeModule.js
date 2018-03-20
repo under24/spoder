@@ -40,21 +40,14 @@ class MovementIterationTransitionCascadeModule extends CascadeModule {
   }
   
   processNewMovementIterationTransition() {
-    var transitionShift = this.generateTransitionShift(),
-        transitionShiftSource = this.generateTransitionShiftSource();
-        
-    return { transitionShift, transitionShiftSource };
-  }
-  
-  generateTransitionShift() {
     var circles = this.resolvePath('movement.circles'),
         pointers = this.resolvePath('movement.pointers'),
         coords = this.resolvePath('coords');
     
-    var transitionShift = {};
+    var transition = {};
     
     for (let legId = 1; legId <= 6; legId++) {
-      transitionShift[legId] = {
+      transition[legId] = {
         transverseBaseX: circles[legId].fluentX - pointers[legId].x,
         transverseBaseY: circles[legId].fluentY - pointers[legId].y,
         transverseCursorX: coords[legId].transverseCursorX - pointers[legId].x,
@@ -90,8 +83,8 @@ class MovementIterationTransitionCascadeModule extends CascadeModule {
       
       
       
-      // transitionShift[legId].slackX = Math.abs(transitionShift[legId].dragX) - Math.abs(transitionShift[legId].transverseCursorX);
-      // transitionShift[legId].slackY = Math.abs(transitionShift[legId].dragY) - Math.abs(transitionShift[legId].transverseCursorY);
+      // transition[legId].slackX = Math.abs(transition[legId].dragX) - Math.abs(transition[legId].transverseCursorX);
+      // transition[legId].slackY = Math.abs(transition[legId].dragY) - Math.abs(transition[legId].transverseCursorY);
       
       // correction[legId] = {
       //   x: temp.x - this.coords[legId].transverseCursorX,
@@ -99,21 +92,10 @@ class MovementIterationTransitionCascadeModule extends CascadeModule {
       // };
       // debugger;
       // console.log(legId, temp);
-      // console.log(transitionShift[legId], correction[legId]);
+      // console.log(transition[legId], correction[legId]);
     }
     
-    return transitionShift;
-  }
-  
-  generateTransitionShiftSource() {
-    var turnJoystick = this.resolvePath('movement.turnJoystick'),
-        directionJoystick = this.resolvePath('movement.directionJoystick');
-    
-    return {
-      directionX: directionJoystick.x,
-      directionY: directionJoystick.y,
-      turnX: turnJoystick.x
-    };
+    return transition;
   }
 
 }

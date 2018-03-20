@@ -14,7 +14,6 @@ class MovementIterationBlueprintCascadeModule extends CascadeModule {
     this.properties = {
       movementIterationProperties: 'movement.iteration.properties',
       movementIterationTransition: 'movement.iteration.transition'
-      
     };
     
     this.observers = [
@@ -34,31 +33,31 @@ class MovementIterationBlueprintCascadeModule extends CascadeModule {
   generateBlueprint() {
     var gaits = this.resolveStatePath('gaits'),
         iterationGait = this.resolvePath('movement.iteration.properties').gait,
-        transitionShift = this.resolvePath('movement.iteration.transition').transitionShift;
-    
+        transition = this.resolvePath('movement.iteration.transition');
+        
     var blueprint = {};
     
     // if there is no data to move then the blueprint is idle (null)
-    if (this.idleTransitionShift()) blueprint = null;
+    if (this.idleTransition()) blueprint = null;
     // blueprint will have some data to move thus need to raise every leg
     else {
       for (let legId = 1; legId <= 6; legId++) {
-        blueprint[legId] = this.generateBlueprintData(gaits[iterationGait].legTimings[legId], transitionShift[legId]);
+        blueprint[legId] = this.generateBlueprintData(gaits[iterationGait].legTimings[legId], transition[legId]);
       }
     }
     
     return blueprint;
   }
   
-  idleTransitionShift() {
-    var transitionShift = this.resolvePath('movement.iteration.transition').transitionShift;
+  idleTransition() {
+    var transition = this.resolvePath('movement.iteration.transition');
     
     // iterate leg IDs
-    for (let legId in transitionShift) {
+    for (let legId in transition) {
       // iterate coords with shift data
-      for (let coordShift in transitionShift[legId]) {
+      for (let coordShift in transition[legId]) {
         // blueprint is not idle
-        if (MU.notEmpty(transitionShift[legId][coordShift])) return false;
+        if (MU.notEmpty(transition[legId][coordShift])) return false;
       }
     }
     
@@ -66,47 +65,47 @@ class MovementIterationBlueprintCascadeModule extends CascadeModule {
     return true;
   }
   
-  generateBlueprintData(legTimings, transitionShift) {
+  generateBlueprintData(legTimings, transition) {
     // current leg blueprint data
     var result = [];
     
     // moves the base
-    this.addTransverseBaseXY(result, transitionShift);
+    this.addTransverseBaseXY(result, transition);
     // moves the legs
-    this.addTransverseCursorXY(result, legTimings, transitionShift);
+    this.addTransverseCursorXY(result, legTimings, transition);
     // raises the legs
-    this.addSagittalCursorY(result, legTimings, transitionShift);
+    this.addSagittalCursorY(result, legTimings);
     
     return result;
   }
   
-  addTransverseBaseXY(result, transitionShift) {
+  addTransverseBaseXY(result, transition) {
     // transverseBaseX
-    if (MU.notEmpty(transitionShift.transverseBaseX)) {
-      let tbx = this.buildDataObject('transverseBaseX', 0, 100, transitionShift.transverseBaseX);
+    if (MU.notEmpty(transition.transverseBaseX)) {
+      let tbx = this.buildDataObject('transverseBaseX', 0, 100, transition.transverseBaseX);
       result.push(tbx);
     }
     // transverseBaseY
-    if (MU.notEmpty(transitionShift.transverseBaseY)) {
-      let tby = this.buildDataObject('transverseBaseY', 0, 100, transitionShift.transverseBaseY);
+    if (MU.notEmpty(transition.transverseBaseY)) {
+      let tby = this.buildDataObject('transverseBaseY', 0, 100, transition.transverseBaseY);
       result.push(tby);
     }
   }
   
-  addTransverseCursorXY(result, legTimings, transitionShift) {
+  addTransverseCursorXY(result, legTimings, transition) {
     // transverseCursorX
-    if (MU.notEmpty(transitionShift.transverseCursorX)) {
-      let tcx =  this.buildDataObject('transverseCursorX', legTimings.startPct, legTimings.endPct, transitionShift.transverseCursorX);
+    if (MU.notEmpty(transition.transverseCursorX)) {
+      let tcx =  this.buildDataObject('transverseCursorX', legTimings.startPct, legTimings.endPct, transition.transverseCursorX);
       result.push(tcx);
     }
     // transverseCursorY
-    if (MU.notEmpty(transitionShift.transverseCursorY)) {
-      let tcy = this.buildDataObject('transverseCursorY', legTimings.startPct, legTimings.endPct, transitionShift.transverseCursorY);
+    if (MU.notEmpty(transition.transverseCursorY)) {
+      let tcy = this.buildDataObject('transverseCursorY', legTimings.startPct, legTimings.endPct, transition.transverseCursorY);
       result.push(tcy);
     }
   }
   
-  addSagittalCursorY(result, legTimings, transitionShift) {
+  addSagittalCursorY(result, legTimings) {
     var strokeMedian = legTimings.startPct + (legTimings.endPct - legTimings.startPct) / 2;
     
     var raise = this.buildDataObject('sagittalCursorY', legTimings.startPct, strokeMedian, 20);

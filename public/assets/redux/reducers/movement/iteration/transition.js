@@ -1,10 +1,7 @@
 'use strict';
 
 {
-  let movementIterationTransitionReducerInitState = {
-    transitionShift: null,
-    transitionShiftSource: null
-  };
+  let movementIterationTransitionReducerInitState = null;
 
   var movementIterationTransitionReducer = (state = movementIterationTransitionReducerInitState, action) => {
     if ('movement.iteration.transition' in action) {
