@@ -19,9 +19,9 @@ class SocketListenerStateModule extends StateModule {
     socket.on('right-analog-stick-moved', this.handleRightAnalogStickMoved.bind(this));
     // joystick left stick
     socket.on('left-analog-stick-moved', this.handleLeftAnalogStickMoved.bind(this));
-    // state update
+    // logic state changed
     socket.on('state-change', this.handleStateChange.bind(this));
-    // sync state
+    // pull the logic state from the server and merge it with the client state
     socket.on('sync-state', this.handleSyncState.bind(this));
   }
   
