@@ -10,7 +10,7 @@ module.exports = (shared, server) => {
     console.log('client connected');
     
     // send the current logic state to every new client
-    client.emit('syncState', shared.resolve('store').getState());
+    client.emit('sync-state', shared.resolve('store').getState());
     
     // client dispatched an action
     client.on('action', () => {
