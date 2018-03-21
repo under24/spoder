@@ -1,10 +1,9 @@
 'use strict';
 
 module.exports = (shared, server) => {
-  // socket
+  // initialize socket.io
   var io = require('socket.io')(server);
-  
-  
+  // when a new client is connected
   io.on('connection', function (client) {
     console.log('client connected');
     
@@ -13,5 +12,6 @@ module.exports = (shared, server) => {
     });
   });
   
-  return io;
+  // share socket.io between modules
+  shared.register('io', io);
 };
