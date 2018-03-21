@@ -154,7 +154,7 @@ module.exports = (shared) => {
 
   var socketDispatcher = store => next => stateChange => {
     // broadcast stateChange to all connected clients
-    io.sockets.emit('stateChange', stateChange);
+    io.sockets.emit('state-change', stateChange);
     
     next(stateChange);
   }
