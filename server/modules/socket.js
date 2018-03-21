@@ -1,8 +1,17 @@
 'use strict';
 
-// JoystickUtils
-var JU = require('./server_modules/utils/joystickUtils');
-// playstation controller lib
-// var dualShock = require('dualshock-controller');
-
-module.exports = 'socket';
+module.exports = (shared, server) => {
+  // socket
+  var io = require('socket.io')(server);
+  
+  
+  io.on('connection', function (client) {
+    console.log('client connected');
+    
+    client.on('action', function() {
+      console.log('new action received');
+    });
+  });
+  
+  return io;
+};
