@@ -20,7 +20,9 @@ class SocketListenerStateModule extends StateModule {
     // joystick left stick
     socket.on('left-analog-stick-moved', this.handleLeftAnalogStickMoved.bind(this));
     // state update
-    socket.on('state-update', this.handleStateUpdate.bind(this));
+    socket.on('state-change', this.handleStateChange.bind(this));
+    // sync state
+    socket.on('sync-state', this.handleSyncState.bind(this));
   }
   
   handleSocketConnected() {
@@ -51,8 +53,12 @@ class SocketListenerStateModule extends StateModule {
     });
   }
   
-  handleStateUpdate(action) {
+  handleStateChange(action) {
     debugger;
+  }
+  
+  handleSyncState(state) {
+    store.syncState(state);
   }
   
 }
