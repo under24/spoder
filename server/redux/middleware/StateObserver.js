@@ -1,9 +1,6 @@
 'use strict';
 
-try {
-  var StateModule = require('../../../public/assets/shared/StateModule.js');
-}
-catch(e) {}
+var StateModule = require('../../../public/assets/shared/StateModule.js');
 
 class StateObserver extends StateModule {
   
@@ -108,6 +105,4 @@ class StateObserver extends StateModule {
   
 }
 
-// node environment export
-try { module.exports = StateObserver }
-catch(e) {}
+module.exports = StateObserver;

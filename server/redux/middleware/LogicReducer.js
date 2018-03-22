@@ -1,9 +1,6 @@
 'use strict';
 
-try {
-  var StateModule = require('../../../public/assets/shared/StateModule.js');
-}
-catch(e) {}
+var StateModule = require('../../../public/assets/shared/StateModule.js');
 
 class LogicReducer extends StateModule {
   
@@ -57,6 +54,4 @@ class LogicReducer extends StateModule {
   
 }
 
-// node environment export
-try { module.exports = LogicReducer }
-catch(e) {}
+module.exports = LogicReducer;
