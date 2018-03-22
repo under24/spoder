@@ -1,9 +1,9 @@
 'use strict';
 
-// try {
-//   var StateModule = require('../../../public/assets/spodux/StateModule.js');
-// }
-// catch(e) {}
+try {
+  var StateModule = require('../../../public/assets/shared/StateModule.js');
+}
+catch(e) {}
 
 class CascadeModule extends StateModule {
   

@@ -1,5 +1,10 @@
 'use strict';
 
+try {
+  var StateModule = require('../../../public/assets/shared/StateModule.js');
+}
+catch(e) {}
+
 class StateObserver extends StateModule {
   
   _prepareModule() {
@@ -102,3 +107,7 @@ class StateObserver extends StateModule {
   }
   
 }
+
+// node environment export
+try { module.exports = StateObserver }
+catch(e) {}
