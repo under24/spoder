@@ -5,8 +5,6 @@ class SocketListenerStateModule extends StateModule {
   constructor(store) {
     super(store);
     
-    this.angleConverter = new AngleConverterStateModule(store);
-    
     this.attachSocketHandlers();
   }
   
