@@ -1,11 +1,7 @@
 'use strict';
 
-// try {
-//   var LogicReducer = require('../../../spodux/LogicReducer.js');
-//   var CU = require('../../../utils/CoordsUtils.js');
-// }
-// catch(e) {}
-
+var LogicReducer = require('../LogicReducer.js');
+var CU = require('../../../../public/assets/shared/utils/CoordsUtils.js');
 
 class CoordsLogicReducer extends LogicReducer {
 
@@ -69,9 +65,11 @@ class CoordsLogicReducer extends LogicReducer {
     // // debugger; 
     // // console.log(temp.x - temp3.transverseCursorX);
     // // console.log(temp3.transverseCursorY - temp.y);
-    // if (temp.onLine2 &&
-    //     temp.x - temp3.transverseCursorX < 60 &&
-    //     temp3.transverseCursorY - temp.y < 60) return;
+    // console.log(temp, MU.getDistance(temp.x - temp3.transverseCursorX, MU.flipNumber(temp.y - temp3.transverseCursorY)));
+    // 
+    // // if (temp.onLine2 &&
+    // //     temp.x - temp3.transverseCursorX < 60 &&
+    // //     temp3.transverseCursorY - temp.y < 60) return;
     
     
     var newCoords = Object.assign(
@@ -228,6 +226,4 @@ class CoordsLogicReducer extends LogicReducer {
 
 }
 
-// node environment export
-try { module.exports = CoordsLogicReducer }
-catch(e) {}
+module.exports = CoordsLogicReducer;

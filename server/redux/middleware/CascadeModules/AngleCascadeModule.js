@@ -1,11 +1,8 @@
 'use strict';
 
-// try {
-//   var CascadeModule = require('../../../spodux/CascadeModule.js');
-//   var MU = require('../../../utils/MathUtils.js');
-//   var GU = require('../../../utils/GenericUtils.js');
-// }
-// catch(e) {}
+var CascadeModule = require('../CascadeModule.js');
+var MU = require('../../../../public/assets/shared/utils/MathUtils.js');
+var GU = require('../../../../public/assets/shared/utils/GenericUtils.js');
 
 class AngleCascadeModule extends CascadeModule {
 
@@ -60,6 +57,7 @@ class AngleCascadeModule extends CascadeModule {
       // some coords have changed. need to calculate angles
       else {
         var femurAndTibiaAngles = this.processNewFemurAndTibiaAngles(legId);
+        if (femurAndTibiaAngles.femurServoAngle < 0) console.log(legId, femurAndTibiaAngles.femurServoAngle);
         // some new values have been generated. set the flag to send them to store
         newDataGenerated = true;
       }
@@ -252,6 +250,4 @@ class AngleCascadeModule extends CascadeModule {
 
 }
 
-// node environment export
-try { module.exports = AngleCascadeModule }
-catch(e) {}
+module.exports = AngleCascadeModule;

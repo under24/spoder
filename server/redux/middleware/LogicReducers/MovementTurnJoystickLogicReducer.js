@@ -1,9 +1,6 @@
 'use strict';
 
-// try {
-//   var LogicReducer = require('../../../spodux/LogicReducer.js');
-// }
-// catch(e) {}
+var LogicReducer = require('../LogicReducer.js');
 
 class MovementTurnJoystickLogicReducer extends LogicReducer {
 
@@ -36,6 +33,4 @@ class MovementTurnJoystickLogicReducer extends LogicReducer {
 
 }
 
-// node environment export
-try { module.exports = MovementTurnJoystickLogicReducer }
-catch(e) {}
+module.exports = MovementTurnJoystickLogicReducer;

@@ -1,9 +1,6 @@
 'use strict';
 
-try {
-  var MU = require('../../../../utils/MathUtils.js');
-}
-catch(e) {}
+var MU = require('../../../../../public/assets/shared/utils/MathUtils.js');
 
 // TG === TimelineGenerator
 var TG = {
@@ -115,5 +112,4 @@ var TG = {
 };
 
 // node environment export
-try { module.exports = TG }
-catch(e) {}
+module.exports = TG;

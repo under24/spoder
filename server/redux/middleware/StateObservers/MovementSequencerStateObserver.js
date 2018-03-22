@@ -1,5 +1,8 @@
 'use strict';
 
+var StateObserver = require('../StateObserver');
+var TG = require('./helpers/TimelineGenerator');
+
 class MovementSequencerStateObserver extends StateObserver {
 
   constructor(store) {
@@ -179,3 +182,5 @@ class MovementSequencerStateObserver extends StateObserver {
   }
 
 }
+
+module.exports = MovementSequencerStateObserver;

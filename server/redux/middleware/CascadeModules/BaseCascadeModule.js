@@ -1,11 +1,8 @@
 'use strict';
 
-// try {
-//   var CascadeModule = require('../../../spodux/CascadeModule.js');
-//   var MU = require('../../../utils/MathUtils.js');
-//   var GU = require('../../../utils/GenericUtils.js');
-// }
-// catch(e) {}
+var CascadeModule = require('../CascadeModule.js');
+var MU = require('../../../../public/assets/shared/utils/MathUtils.js');
+var GU = require('../../../../public/assets/shared/utils/GenericUtils.js');
 
 
 class BaseCascadeModule extends CascadeModule {
@@ -55,6 +52,4 @@ class BaseCascadeModule extends CascadeModule {
 
 }
 
-// node environment export
-try { module.exports = BaseCascadeModule }
-catch(e) {}
+module.exports = BaseCascadeModule;

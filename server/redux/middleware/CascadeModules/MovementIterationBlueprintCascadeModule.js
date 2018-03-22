@@ -1,10 +1,7 @@
 'use strict';
 
-// try {
-//   var CascadeModule = require('../../../spodux/CascadeModule.js');
-//   var MU = require('../../../utils/MathUtils.js');
-// }
-// catch(e) {}
+var CascadeModule = require('../CascadeModule.js');
+var MU = require('../../../../public/assets/shared/utils/MathUtils.js');
 
 class MovementIterationBlueprintCascadeModule extends CascadeModule {
 
@@ -120,6 +117,4 @@ class MovementIterationBlueprintCascadeModule extends CascadeModule {
 
 }
 
-// node environment export
-try { module.exports = MovementIterationBlueprintCascadeModule }
-catch(e) {}
+module.exports = MovementIterationBlueprintCascadeModule

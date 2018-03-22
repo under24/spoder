@@ -169,15 +169,15 @@ module.exports = (shared) => {
   );
   
   // init logic reducers
-  var ModifiersLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/ModifiersLogicReducer.js'),
-      CoordsLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/CoordsLogicReducer.js'),
-      MovementDirectionJoystickLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/MovementDirectionJoystickLogicReducer.js'),
-      MovementTurnJoystickLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/MovementTurnJoystickLogicReducer.js'),
-      MovementIterationPropertiesLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/MovementIterationPropertiesLogicReducer.js'),
-      MovementSettingsLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/MovementSettingsLogicReducer.js'),
-      ViewOffsetsLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/ViewOffsetsLogicReducer.js'),
-      StatusLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/StatusLogicReducer.js'),
-      ViewSettingsLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/ViewSettingsLogicReducer.js');
+  var ModifiersLogicReducer = require('../redux/middleware/LogicReducers/ModifiersLogicReducer.js'),
+      CoordsLogicReducer = require('../redux/middleware/LogicReducers/CoordsLogicReducer.js'),
+      MovementDirectionJoystickLogicReducer = require('../redux/middleware/LogicReducers/MovementDirectionJoystickLogicReducer.js'),
+      MovementTurnJoystickLogicReducer = require('../redux/middleware/LogicReducers/MovementTurnJoystickLogicReducer.js'),
+      MovementIterationPropertiesLogicReducer = require('../redux/middleware/LogicReducers/MovementIterationPropertiesLogicReducer.js'),
+      MovementSettingsLogicReducer = require('../redux/middleware/LogicReducers/MovementSettingsLogicReducer.js'),
+      ViewOffsetsLogicReducer = require('../redux/middleware/LogicReducers/ViewOffsetsLogicReducer.js'),
+      StatusLogicReducer = require('../redux/middleware/LogicReducers/StatusLogicReducer.js'),
+      ViewSettingsLogicReducer = require('../redux/middleware/LogicReducers/ViewSettingsLogicReducer.js');
   var modifiersLogicReducer = new ModifiersLogicReducer(store),
       coordsLogicReducer = new CoordsLogicReducer(store),
       movementDirectionJoystickLogicReducer = new MovementDirectionJoystickLogicReducer(store),
@@ -189,15 +189,15 @@ module.exports = (shared) => {
       viewSettingsLogicReducer = new ViewSettingsLogicReducer(store);
       
   // init cascade modules
-  var CoordsCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/CoordsCascadeModule.js'),
-      BaseCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/BaseCascadeModule.js'),
-      AngleCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/AngleCascadeModule.js'),
-      MiscCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/MiscCascadeModule.js'),
-      MovementCirclesCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/MovementCirclesCascadeModule.js'),
-      MovementPointersCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/MovementPointersCascadeModule.js'),
-      MovementIterationPropertiesCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/MovementIterationPropertiesCascadeModule.js'),
-      MovementIterationTransitionCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/MovementIterationTransitionCascadeModule.js'),
-      MovementIterationBlueprintCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/MovementIterationBlueprintCascadeModule.js');      
+  var CoordsCascadeModule = require('../redux/middleware/CascadeModules/CoordsCascadeModule.js'),
+      BaseCascadeModule = require('../redux/middleware/CascadeModules/BaseCascadeModule.js'),
+      AngleCascadeModule = require('../redux/middleware/CascadeModules/AngleCascadeModule.js'),
+      MiscCascadeModule = require('../redux/middleware/CascadeModules/MiscCascadeModule.js'),
+      MovementCirclesCascadeModule = require('../redux/middleware/CascadeModules/MovementCirclesCascadeModule.js'),
+      MovementPointersCascadeModule = require('../redux/middleware/CascadeModules/MovementPointersCascadeModule.js'),
+      MovementIterationPropertiesCascadeModule = require('../redux/middleware/CascadeModules/MovementIterationPropertiesCascadeModule.js'),
+      MovementIterationTransitionCascadeModule = require('../redux/middleware/CascadeModules/MovementIterationTransitionCascadeModule.js'),
+      MovementIterationBlueprintCascadeModule = require('../redux/middleware/CascadeModules/MovementIterationBlueprintCascadeModule.js');      
   var coordsCascadeModule = new CoordsCascadeModule(store),
       baseCascadeModule = new BaseCascadeModule(store),
       anglesCascadeModule = new AngleCascadeModule(store),
@@ -209,7 +209,7 @@ module.exports = (shared) => {
       movementIterationBlueprintCascadeModule = new MovementIterationBlueprintCascadeModule(store);
 
   // init state observers
-  var MovementSequencerStateObserver = require('../../public/assets/redux/middleware/StateObservers/MovementSequencerStateObserver.js');
+  var MovementSequencerStateObserver = require('../redux/middleware/StateObservers/MovementSequencerStateObserver.js');
   var movementSequencerStateObserver = new MovementSequencerStateObserver(store);
   
   // init state with coords

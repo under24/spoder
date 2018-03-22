@@ -1,9 +1,6 @@
 'use strict';
 
-// try {
-//   var LogicReducer = require('../../../spodux/LogicReducer.js');
-// }
-// catch(e) {}
+var LogicReducer = require('../LogicReducer.js');
 
 class StatusLogicReducer extends LogicReducer {
 
@@ -46,6 +43,4 @@ class StatusLogicReducer extends LogicReducer {
 
 }
 
-// node environment export
-try { module.exports = StatusLogicReducer }
-catch(e) {}
+module.exports = StatusLogicReducer;

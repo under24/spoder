@@ -1,10 +1,7 @@
 'use strict';
 
-// try {
-//   var CascadeModule = require('../../../spodux/CascadeModule.js');
-//   var MU = require('../../../utils/MathUtils.js');
-// }
-// catch(e) {}
+var CascadeModule = require('../CascadeModule.js');
+var MU = require('../../../../public/assets/shared/utils/MathUtils.js');
 
 class MovementPointersCascadeModule extends CascadeModule {
 
@@ -54,6 +51,4 @@ class MovementPointersCascadeModule extends CascadeModule {
 
 }
 
-// node environment export
-try { module.exports = MovementPointersCascadeModule }
-catch(e) {}
+module.exports = MovementPointersCascadeModule;
