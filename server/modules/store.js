@@ -168,6 +168,7 @@ module.exports = (shared) => {
     )
   );
   
+  // init logic reducers
   var ModifiersLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/ModifiersLogicReducer.js'),
       CoordsLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/CoordsLogicReducer.js'),
       MovementDirectionJoystickLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/MovementDirectionJoystickLogicReducer.js'),
@@ -177,8 +178,6 @@ module.exports = (shared) => {
       ViewOffsetsLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/ViewOffsetsLogicReducer.js'),
       StatusLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/StatusLogicReducer.js'),
       ViewSettingsLogicReducer = require('../../public/assets/redux/middleware/LogicReducers/ViewSettingsLogicReducer.js');
-
-  // init logic reducers
   var modifiersLogicReducer = new ModifiersLogicReducer(store),
       coordsLogicReducer = new CoordsLogicReducer(store),
       movementDirectionJoystickLogicReducer = new MovementDirectionJoystickLogicReducer(store),
@@ -189,6 +188,7 @@ module.exports = (shared) => {
       statusLogicReducer = new StatusLogicReducer(store),
       viewSettingsLogicReducer = new ViewSettingsLogicReducer(store);
       
+  // init cascade modules
   var CoordsCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/CoordsCascadeModule.js'),
       BaseCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/BaseCascadeModule.js'),
       AngleCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/AngleCascadeModule.js'),
@@ -197,9 +197,7 @@ module.exports = (shared) => {
       MovementPointersCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/MovementPointersCascadeModule.js'),
       MovementIterationPropertiesCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/MovementIterationPropertiesCascadeModule.js'),
       MovementIterationTransitionCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/MovementIterationTransitionCascadeModule.js'),
-      MovementIterationBlueprintCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/MovementIterationBlueprintCascadeModule.js');
-      
-  // init cascade modules
+      MovementIterationBlueprintCascadeModule = require('../../public/assets/redux/middleware/CascadeModules/MovementIterationBlueprintCascadeModule.js');      
   var coordsCascadeModule = new CoordsCascadeModule(store),
       baseCascadeModule = new BaseCascadeModule(store),
       anglesCascadeModule = new AngleCascadeModule(store),
@@ -209,10 +207,9 @@ module.exports = (shared) => {
       movementIterationPropertiesCascadeModule = new MovementIterationPropertiesCascadeModule(store),
       movementIterationTransitionCascadeModule = new MovementIterationTransitionCascadeModule(store),
       movementIterationBlueprintCascadeModule = new MovementIterationBlueprintCascadeModule(store);
-      
-  var MovementSequencerStateObserver = require('../../public/assets/redux/middleware/StateObservers/MovementSequencerStateObserver.js');
-      
+
   // init state observers
+  var MovementSequencerStateObserver = require('../../public/assets/redux/middleware/StateObservers/MovementSequencerStateObserver.js');
   var movementSequencerStateObserver = new MovementSequencerStateObserver(store);
   
   // init state with coords
@@ -304,4 +301,4 @@ module.exports = (shared) => {
   
   // share store between modules
   shared.register('store', store);
-};
+}
