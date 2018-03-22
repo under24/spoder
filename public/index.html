@@ -53,6 +53,13 @@
     <!-- init redux -->
     <script src="assets/redux/initClientRedux.js"></script>
     
+    <!-- link state module class -->
+    <script src="assets/shared/StateModule.js"></script>
+    <!-- init state modules -->
+    <script src="assets/redux/middleware/StateModules/SocketListenerStateModule.js"></script>
+    <script>
+      var socketListenerStateModule = new SocketListenerStateModule(store);
+    </script>
     
     
     <!-- webcomponents -->
