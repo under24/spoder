@@ -4,7 +4,7 @@ module.exports = (shared) => {
   
   var io = shared.resolve('io');
   
-  var { combineReducers, createStore, applyMiddleware } = require('../../public/assets/js/redux.js');
+  var { combineReducers, createStore, applyMiddleware } = require('../../public/assets/shared/redux/Redux.js');
       
   var baseReducer = combineReducers({
     centerCoords: require('../../public/assets/shared/redux/reducers/base/centerCoords.js'),
