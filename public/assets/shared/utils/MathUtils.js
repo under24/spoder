@@ -116,34 +116,34 @@ var MU = {
   // p2 is the second line point
   // c is the circle's center
   // r is the circle's radius
-  // interceptOnCircle(p1, p2, c, r) {
-  //   // shifted line points
-  //   var p3 = { x: p1.x - c.x, y: p1.y - c.y },
-  //       p4 = { x: p2.x - c.x, y: p2.y - c.y };
-  //   // slope of the line
-  //   var m = (p4.y - p3.y) / (p4.x - p3.x);
-  //   // y-intercept of line
-  //   var b = p3.y - m * p3.x;
-  //   // the value under the square root sign
-  //   var underRadical = Math.pow(r,2) * Math.pow(m,2) + Math.pow(r,2) - Math.pow(b,2);
-  //   
-  //   // line completely missed
-  //   if (underRadical < 0)
-  //     return null;
-  //   // line is withit the circle
-  //   else {
-  //     var t1 = (-m * b + Math.sqrt(underRadical)) / (Math.pow(m,2) + 1), // one of the intercept x's
-  //         t2 = (-m * b - Math.sqrt(underRadical)) / (Math.pow(m,2) + 1); // other intercept's x
-  //         
-  //         
-  //     if (p1.x < p2.x)
-  //       var result = { x: t2 + c.x, y: m * t2 + b + c.y }; // intercept point 1
-  //     else
-  //       var result = { x: t1 + c.x, y: m * t1 + b + c.y }; // intercept point 2
-  //     
-  //     return result;
-  //   }
-  // }
+  interceptOnCircle(p1, p2, c, r) {
+    // shifted line points
+    var p3 = { x: p1.x - c.x, y: p1.y - c.y },
+        p4 = { x: p2.x - c.x, y: p2.y - c.y };
+    // slope of the line
+    var m = (p4.y - p3.y) / (p4.x - p3.x);
+    // y-intercept of line
+    var b = p3.y - m * p3.x;
+    // the value under the square root sign
+    var underRadical = Math.pow(r,2) * Math.pow(m,2) + Math.pow(r,2) - Math.pow(b,2);
+    
+    // line completely missed
+    if (underRadical < 0)
+      return null;
+    // line is withit the circle
+    else {
+      var t1 = (-m * b + Math.sqrt(underRadical)) / (Math.pow(m,2) + 1), // one of the intercept x's
+          t2 = (-m * b - Math.sqrt(underRadical)) / (Math.pow(m,2) + 1); // other intercept's x
+          
+          
+      if (p1.x < p2.x)
+        var result = { x: t2 + c.x, y: m * t2 + b + c.y }; // intercept point 1
+      else
+        var result = { x: t1 + c.x, y: m * t1 + b + c.y }; // intercept point 2
+      
+      return result;
+    }
+  },
   lineIntersection(line1, line2) {
     var result = {
       x: null,
