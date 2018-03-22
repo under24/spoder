@@ -1,5 +1,10 @@
 'use strict';
 
+try {
+  var MU = require('../../../../utils/MathUtils.js');
+}
+catch(e) {}
+
 // TG === TimelineGenerator
 var TG = {
   // memoization for this.getClosestTick
@@ -108,3 +113,7 @@ var TG = {
     return pxlsToMove / amountOfTicks;
   }
 };
+
+// node environment export
+try { module.exports = TG }
+catch(e) {}
