@@ -5,4 +5,7 @@ var JU = require('../utils/joystickUtils');
 // playstation controller lib
 // var dualShock = require('dualshock-controller');
 
-module.exports = 'joystick';
+module.exports = (shared) => {
+
+  
+}
