@@ -2,10 +2,8 @@
 
 module.exports = (shared) => {
   
-  var io = shared.resolve('io');
-  
   var { combineReducers, createStore, applyMiddleware } = require('../../public/assets/shared/redux/Redux.js');
-      
+  
   var baseReducer = combineReducers({
     centerCoords: require('../../public/assets/shared/redux/reducers/base/centerCoords.js'),
     coxaAttachmentAngles: require('../../public/assets/shared/redux/reducers/base/coxaAttachmentAngles.js'),
@@ -154,7 +152,7 @@ module.exports = (shared) => {
 
   var socketDispatcher = store => next => stateChange => {
     // broadcast stateChange to all connected clients
-    io.sockets.emit('state-change', stateChange);
+    shared.resolve('io').sockets.emit('state-change', stateChange);
     
     next(stateChange);
   }
