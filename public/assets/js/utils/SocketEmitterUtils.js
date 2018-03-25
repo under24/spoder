@@ -47,6 +47,6 @@ var SEU = {
     }
   },
   emitAction(action) {
-    
+    socket.emit('action', action);
   }
 };
