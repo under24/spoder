@@ -42,7 +42,7 @@
       observeJoystickOutput(newValue) {
         if (newValue.yShift === this.levelModifier.y) return;
         
-        store.dispatch({
+        SEU.emitAction({
           type: "LEVEL_MODIFIER_CHANGED",
           payload: { y: newValue.yShift }
         });

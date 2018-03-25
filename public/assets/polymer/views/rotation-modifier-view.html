@@ -42,7 +42,7 @@
       observeJoystickOutput(newValue) {
         if (newValue.xShift === this.rotationModifier.x) return;
         
-        store.dispatch({
+        SEU.emitAction({
           type: "ROTATION_MODIFIER_CHANGED",
           payload: { x: newValue.xShift }
         });

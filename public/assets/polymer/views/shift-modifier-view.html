@@ -42,7 +42,7 @@
         if (newValue.xShift === this.shiftModifier.x &&
             newValue.yShift === this.shiftModifier.y) return;
         
-        store.dispatch({
+        SEU.emitAction({
           type: "SHIFT_MODIFIER_CHANGED",
           payload: { x: newValue.xShift, y: newValue.yShift }
         });

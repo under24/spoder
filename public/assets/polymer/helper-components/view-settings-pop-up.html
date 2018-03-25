@@ -408,7 +408,7 @@
       handleCheckbox(e) {
         var view = this.getDispatchViewName();
             
-        store.dispatch({
+        SEU.emitAction({
           type: `${view}_SETTINGS_CHANGED`,
           payload: { [e.target.value]: e.target.checked }
         });
@@ -417,14 +417,14 @@
       handleRange(e) {
         var view = this.getDispatchViewName();
         
-        store.dispatch({
+        SEU.emitAction({
           type: `${view}_SETTINGS_CHANGED`,
           payload: { [e.target.name]: +e.target.value }
         });
       }
       
       dispatchResetView(e) {
-        store.dispatch({ type: e.target.name });
+        SEU.emitAction({ type: e.target.name });
       }
       
       initializePosition() {

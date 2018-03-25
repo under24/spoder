@@ -42,7 +42,7 @@
         if (newValue.xShift === this.directionJoystick.x &&
             newValue.yShift === this.directionJoystick.y) return;
         
-        store.dispatch({
+        SEU.emitAction({
           type: "MOVEMENT_DIRECTION_JOYSTICK_VALUES_CHANGED",
           payload: { x: newValue.xShift, y: newValue.yShift }
         });

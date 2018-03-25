@@ -42,7 +42,7 @@
       observeJoystickOutput(joystickOutput) {
         if (joystickOutput.xShift === this.turnJoystick.x) return;
         
-        store.dispatch({
+        SEU.emitAction({
           type: "MOVEMENT_TURN_JOYSTICK_VALUES_CHANGED",
           payload: { x: joystickOutput.xShift }
         });

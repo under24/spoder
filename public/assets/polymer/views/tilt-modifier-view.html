@@ -42,7 +42,7 @@
         if (newValue.xShift === this.tiltModifier.x &&
             newValue.yShift === this.tiltModifier.y) return;
         
-        store.dispatch({
+        SEU.emitAction({
           type: "TILT_MODIFIER_CHANGED",
           payload: { x: newValue.xShift, y: newValue.yShift }
         });

@@ -95,7 +95,7 @@
       }
       
       handleCheckboxChange(e) {
-        store.dispatch({
+        SEU.emitAction({
           type: "MOVEMENT_SETTINGS_CHANGED",
           payload: { [e.target.value]: e.target.checked }
         });
@@ -105,7 +105,7 @@
         // if not the same we already have
         if (this.gait !== e.target.value) {
           // then dispatch it
-          store.dispatch({
+          SEU.emitAction({
             type: "MOVEMENT_SETTINGS_CHANGED",
             payload: { gait: e.target.value }
           });
@@ -122,7 +122,7 @@
           return;
         }
         
-        store.dispatch({
+        SEU.emitAction({
           type: "MOVEMENT_SETTINGS_CHANGED",
           payload: { [e.target.dataset.stateKey]: value }
         });

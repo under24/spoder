@@ -183,7 +183,7 @@
         if (newValue.x) payload.transverseCursorX = this.scaleOutput(newValue.x);
         if (newValue.y) payload.transverseCursorY = this.scaleOutput(newValue.y);
         
-        store.dispatch({
+        SEU.emitAction({
           type: "CURSOR_XY_SHIFTED",
           legId: this.legId,
           payload
@@ -196,7 +196,7 @@
         if (newValue.x) payload.transverseBaseX = this.scaleOutput(newValue.x);
         if (newValue.y) payload.transverseBaseY = this.scaleOutput(newValue.y);
         
-        store.dispatch({
+        SEU.emitAction({
           type: "BASE_XY_SHIFTED",
           legId: this.legId,
           payload
@@ -204,7 +204,7 @@
       }
       
       observeSelectorOutput(newValue) {
-        store.dispatch({
+        SEU.emitAction({
           type: "RELATIVE_TRANSVERSE_VIEW_SETTINGS_CHANGED",
           payload: { legId: newValue.value }
         });
