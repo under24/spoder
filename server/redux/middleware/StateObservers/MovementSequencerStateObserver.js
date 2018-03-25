@@ -2,6 +2,7 @@
 
 var StateObserver = require('../StateObserver');
 var TG = require('./helpers/TimelineGenerator');
+var MU = require('../../../../public/assets/shared/utils/MathUtils.js');
 
 class MovementSequencerStateObserver extends StateObserver {
 

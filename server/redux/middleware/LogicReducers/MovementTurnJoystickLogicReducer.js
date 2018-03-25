@@ -1,6 +1,7 @@
 'use strict';
 
 var LogicReducer = require('../LogicReducer.js');
+var MU = require('../../../../public/assets/shared/utils/MathUtils.js');
 
 class MovementTurnJoystickLogicReducer extends LogicReducer {
 

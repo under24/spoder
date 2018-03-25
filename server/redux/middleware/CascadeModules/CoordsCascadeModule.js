@@ -1,6 +1,9 @@
 'use strict';
 
 var CascadeModule = require('../CascadeModule.js');
+var MU = require('../../../../public/assets/shared/utils/MathUtils.js');
+var GU = require('../../../../public/assets/shared/utils/GenericUtils.js');
+var CU = require('../../../../public/assets/shared/utils/CoordsUtils.js');
 
 class CoordsCascadeModule extends CascadeModule {
   
