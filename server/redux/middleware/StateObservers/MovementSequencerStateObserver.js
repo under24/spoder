@@ -154,7 +154,7 @@ class MovementSequencerStateObserver extends StateObserver {
       
     action.push({ type: "MOVEMENT_ITERATION_PROPERTIES_CHANGED", payload: { currentTick, currentTickPct } })
     
-    store.dispatch(action);
+    MovementSequencerStateObserver.store.dispatch(action);
   }
   
   // stop sequencer
@@ -164,11 +164,11 @@ class MovementSequencerStateObserver extends StateObserver {
   }
   
   resetTickData() {
-    store.dispatch({ type: "MOVEMENT_ITERATION_PROPERTIES_CHANGED", payload: { currentTick: 0, currentTickPct: 0 } });
+    MovementSequencerStateObserver.store.dispatch({ type: "MOVEMENT_ITERATION_PROPERTIES_CHANGED", payload: { currentTick: 0, currentTickPct: 0 } });
   }
   
   disableSequencer() {
-    store.dispatch({ type: "MOVEMENT_SETTINGS_CHANGED", payload: { sequencerEnabled: false } });
+    MovementSequencerStateObserver.store.dispatch({ type: "MOVEMENT_SETTINGS_CHANGED", payload: { sequencerEnabled: false } });
   }
   
   observeSequencerEnabled(sequencerEnabled) {
