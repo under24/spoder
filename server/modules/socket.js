@@ -6,19 +6,16 @@ module.exports = (shared, server) => {
   var io = require('socket.io')(server);
   
   // when a new client is connected
-  io.on('connection', function (client) {
-    console.log('client connected');
-    
+  io.on('connection', client => {
     // send the current logic state to every new client
     client.emit('sync-state', shared.resolve('store').getState());
     
     // client dispatched an action
-    client.on('action', () => {
-      console.log('new action received');
+    client.on('action', action => {
+      shared.resolve('store').dispatch(action);
     });
   });
   
   // share socket.io between modules
   shared.register('io', io);
-  
-};
+}
