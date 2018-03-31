@@ -149,6 +149,33 @@ module.exports = (shared) => {
     
     next(stateChange);
   }
+  
+  var servoGateway = store => next => stateChange => {
+    
+    if (stateChange['angles']) {
+      // pull servos from shared
+      let servos = shared.resolve('servos');
+      
+      // iterate state change and set servo angles
+      // for (let legId in stateChange.angles) {
+      //   let currentLeg = stateChange.angles[legId];
+      //   
+      //   // coxa angle
+      //   if ('coxaServoAngle' in currentLeg)
+      //     servos[`leg${legId}`].coxa.to(currentLeg.coxaServoAngle);
+      //     
+      //   // femur angle
+      //   if ('femurServoAngle' in currentLeg)
+      //     servos[`leg${legId}`].femur.to(currentLeg.femurServoAngle);
+      //     
+      //   // tibia angle
+      //   if ('tibiaServoAngle' in currentLeg)
+      //     servos[`leg${legId}`].tibia.to(currentLeg.tibiaServoAngle);
+      // }
+    }
+    
+    next(stateChange);
+  }
 
   var socketDispatcher = store => next => stateChange => {
     // broadcast stateChange to all connected clients
@@ -162,6 +189,7 @@ module.exports = (shared) => {
     applyMiddleware(
       logicReducers,
       cascadeModules,
+      // servoGateway,
       socketDispatcher
     )
   );
