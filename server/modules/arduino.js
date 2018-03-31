@@ -120,11 +120,35 @@ module.exports = (shared) => {
   
   // share servos between modules
   shared.register('servos', {
-    coxa1, femur1, tibia1,
-    coxa2, femur2, tibia2,
-    coxa3, femur3, tibia3,
-    coxa4, femur4, tibia4,
-    coxa5, femur5, tibia5,
-    coxa6, femur6, tibia6
+    leg1: {
+      coxa: coxa1,
+      femur: femur1,
+      tibia: tibia1
+    },
+    leg2: {
+      coxa: coxa2,
+      femur: femur2,
+      tibia: tibia2
+    },
+    leg3: {
+      coxa: coxa3,
+      femur: femur3,
+      tibia: tibia3
+    },
+    leg4: {
+      coxa: coxa4,
+      femur: femur4,
+      tibia: tibia4
+    },
+    leg5: {
+      coxa: coxa5,
+      femur: femur5,
+      tibia: tibia5
+    },
+    leg6: {
+      coxa: coxa6,
+      femur: femur6,
+      tibia: tibia6
+    },
   });
 }
