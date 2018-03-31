@@ -11,8 +11,8 @@ module.exports = (shared) => {
     
     // leg 1
     var coxa1 = new five.Servo({
-      pin: 33,
-      range: [30, 140],
+      pin: 45,
+      range: [10, 150],
       // invert: true
     });
     var femur1 = new five.Servo({
@@ -28,9 +28,9 @@ module.exports = (shared) => {
     
     // leg2
     var coxa2 = new five.Servo({
-      pin: 4,
-      range: [30, 140],
-      // invert: true
+      pin: 16,
+      range: [10, 150],
+      invert: true,
     });
     var femur2 = new five.Servo({
       pin: 5,
@@ -45,7 +45,7 @@ module.exports = (shared) => {
     
     // leg3
     var coxa3 = new five.Servo({
-      pin: 7,
+      pin: 37,
       range: [30, 140],
       // invert: true
     });
@@ -62,9 +62,9 @@ module.exports = (shared) => {
     
     // leg4
     var coxa4 = new five.Servo({
-      pin: 10,
+      pin: 7,
       range: [30, 140],
-      // invert: true
+      invert: true
     });
     var femur4 = new five.Servo({
       pin: 11,
@@ -79,7 +79,7 @@ module.exports = (shared) => {
     
     // leg5
     var coxa5 = new five.Servo({
-      pin: 13,
+      pin: 27,
       range: [30, 140],
       // invert: true
     });
@@ -96,9 +96,9 @@ module.exports = (shared) => {
     
     // leg6
     var coxa6 = new five.Servo({
-      pin: 16,
+      pin: 13,
       range: [30, 140],
-      // invert: true
+      invert: true
     });
     var femur6 = new five.Servo({
       pin: 17,
