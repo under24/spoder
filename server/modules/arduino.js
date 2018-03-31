@@ -5,10 +5,8 @@ module.exports = (shared) => {
   // arduino lib
   var five = require('johnny-five');
   
-  // init arduino controller object
-  var board = new five.Board();
-  
-  board.on('ready', function() {
+  // init arduino controller object  
+  new five.Board().on('ready', function() {
     console.log('Arduino board is ready.');
     
     // leg 1
