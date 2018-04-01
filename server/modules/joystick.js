@@ -90,10 +90,10 @@ module.exports = (shared) => {
       console.log('joystick connected');
     }
     catch(e) {
-      console.log('joystick init error');
-      
       // error timer is in progress
       if (timer) return;
+      
+      console.log('joystick init error');
       
       // start trying to connect to the joystick every 30 seconds
       timer = setInterval(initJoystick, 30000);
