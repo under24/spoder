@@ -49,14 +49,14 @@ module.exports = (shared) => {
       
       // analog sticks
       // left stick
-      joystick.on('left:move', data => {  
-        var result = JU.handleLeftStick(data);
+      joystick.on('left:move', data => {
+        var result = JU.normalizeLeftStickOutput(data);
         console.log(result);
         // io.emit('left-analog-stick-moved', result);
       });
       // right stick
-      joystick.on('right:move', data => {  
-        var result = JU.handleRightStick(data);
+      joystick.on('right:move', data => {
+        var result = JU.normalizeRightStickOutput(data);
         console.log(result);
         // io.emit('right-analog-stick-moved', result);
       });

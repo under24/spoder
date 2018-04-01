@@ -1,6 +1,6 @@
 'use strict';
 
-function handleLeftStick(input) {
+function normalizeLeftStickOutput(input) {
   var tempX = adaptCoords(input.x),
       tempY = adaptCoords(input.y);
 
@@ -19,7 +19,7 @@ function handleLeftStick(input) {
   }
 }
 
-function handleRightStick(input) {
+function normalizeRightStickOutput(input) {
   var tempX = adaptCoords(input.x),
       tempY = adaptCoords(input.y);
 
@@ -48,6 +48,6 @@ function map(x, y) {
 
 // export functiona
 module.exports = {
-  handleLeftStick,
-  handleRightStick
+  normalizeLeftStickOutput,
+  normalizeRightStickOutput
 };
