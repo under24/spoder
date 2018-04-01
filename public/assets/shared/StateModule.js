@@ -11,46 +11,6 @@ class StateModule {
     return StateModule.store.getState();
   }
   
-  // [props...]
-  // syncProps(props) {
-  //   // array is passed
-  //   if (props) {
-  //     for (let i = 0; i < props.length; i++) {
-  //       let propName = props[i],
-  //           propStatePath = this._getPropPath(propName),
-  //           propStateValue = this.resolveStatePath(propStatePath);
-  //       
-  //       this[propName] = propStateValue;
-  //     }
-  //   }
-  //   // no argument is passed
-  //   else {
-  //     for (let key in this.properties) {
-  //       let propName = key,
-  //           propStatePath = this._getPropPath(propName),
-  //           propStateValue = this.resolveStatePath(propStatePath);
-  //           
-  //       this[propName] = propStateValue;
-  //     }
-  //   }
-  // }
-  
-  // [props...]
-  // flushProps(props) {
-  //   // argument is passed
-  //   if (props) {
-  //     for (let i = 0; i < props.length; i++) {
-  //       let propName = props[i];
-  //       delete this[propName];
-  //     }
-  //   }
-  //   // no argument is passed
-  //   else {
-  //     for (let propName in this.properties) {
-  //       delete this[propName]; // this[propName] = undefined;
-  //     }
-  //   }
-  // }
   
   resolveStatePath(path) {
     var prop = this._getState();
