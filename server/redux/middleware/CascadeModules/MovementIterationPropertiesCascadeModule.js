@@ -24,16 +24,11 @@ class MovementIterationPropertiesCascadeModule extends CascadeModule {
     if (movementIterationProperties.currentTick !== 0) return;
     
     var newMovementIterationProperties = Object.assign({}, movementIterationProperties, {
-      // state.movement.iteration.properties.amountOfTicks
-      amountOfTicks: +(movementSettings.duration / (1000 / movementSettings.tps)).toFixed(0),
-      // state.movement.iteration.properties.tps
-      tps: movementSettings.tps,
-      // state.movement.iteration.properties.duration
-      duration: movementSettings.duration,
-      // state.movement.iteration.properties.gait
-      gait: movementSettings.gait,
-      // state.movement.iteration.properties.sequencerMode
-      sequencerMode: movementSettings.sequencerMode
+      amountOfTicks: +(movementSettings.duration / (1000 / movementSettings.tps)).toFixed(0), // state.movement.iteration.properties.amountOfTicks
+      tps: movementSettings.tps, // state.movement.iteration.properties.tps
+      duration: movementSettings.duration, // state.movement.iteration.properties.duration
+      gait: movementSettings.gait, // state.movement.iteration.properties.gait
+      sequencerMode: movementSettings.sequencerMode // state.movement.iteration.properties.sequencerMode
     });
     
     return { 'movement.iteration.properties': newMovementIterationProperties };
