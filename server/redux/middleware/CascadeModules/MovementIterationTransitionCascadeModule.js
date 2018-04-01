@@ -7,6 +7,10 @@ class MovementIterationTransitionCascadeModule extends CascadeModule {
   constructor(store) {
     super(store);
     
+    this.settings = {
+      disableConsoleLogging: true
+    };
+    
     this.properties = {
       movementIterationProperties: 'movement.iteration.properties',
       turnJoystick: 'movement.turnJoystick',

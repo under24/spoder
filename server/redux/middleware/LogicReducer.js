@@ -17,7 +17,9 @@ class LogicReducer extends StateModule {
     
     // if the handler returned empty values then bail
     if (!handlerResult) {
-      console.warn('action handler returned no data');
+      if (!this.settings || this.settings && !this.settings.disableConsoleLogging)
+        console.warn(`${actionHandler} returned no data`);
+        
       return;
     }
     

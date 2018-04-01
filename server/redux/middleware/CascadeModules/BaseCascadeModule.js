@@ -11,7 +11,7 @@ class BaseCascadeModule extends CascadeModule {
     super(store);
     
     this.settings = {
-      consoleLogging: false
+      disableConsoleLogging: true
     };
     
     this.properties = {

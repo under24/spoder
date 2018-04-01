@@ -20,8 +20,8 @@ class CascadeModule extends StateModule {
       var handlerResult = this[observer.handler](...handlerArguments);
       
       if (!handlerResult) {
-        if (this.settings && this.settings.consoleLogging)
-          console.log(`${handler} returned empty value`);
+        if (!this.settings || this.settings && !this.settings.disableConsoleLogging)
+          console.log(`${observer.handler} returned empty value`);
         
         // nothing to merge. proceed to the next observer
         return;
