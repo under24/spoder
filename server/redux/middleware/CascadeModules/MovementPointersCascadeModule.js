@@ -34,7 +34,7 @@ class MovementPointersCascadeModule extends CascadeModule {
     var pointers = {};
     
     for (let legId = 1; legId <= 6; legId++) {
-      // reduce the circle boundary by 10 px
+      // reduce the circle boundary by 15 px
       let circleRadius = circles[legId].solidRadius - 15;
       
       let dx = circleRadius * (directionJoystick.x / 100),
