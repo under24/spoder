@@ -11,7 +11,7 @@ module.exports = (shared, server) => {
     // send the current logic state to every new client
     client.emit('sync-state', shared.resolve('store').getState());
     
-    // client dispatched an action
+    // received a dispatch from the client
     client.on('action', action => {
       shared.resolve('store').dispatch(action);
     });
