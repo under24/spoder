@@ -15,90 +15,76 @@ module.exports = (shared) => {
       var joystick = dualShock({ config: "dualShock3" });
       
       // error handler
-      joystick.on('error', () => {
-        console.log('joystick error handler');
-        setTimeout(initJoystick, 30000);
-      });
+      joystick.on('error', () => startTryingToConnect(initJoystick) );
       
       // meta buttons
-      // ps button
-      joystick.on('psxButton:press', () => { console.log('psxButton press'); });
-      // start button
-      joystick.on('start:press', () => { console.log('start press'); });
-      // select button
-      joystick.on('select:press', () => { console.log('select press'); });
+      joystick.on('psxButton:press', () => dispatchJoystickOutput('psxButtonPressed') ); // ps button
+      joystick.on('start:press', () => dispatchJoystickOutput('startPressed') ); // start button
+      joystick.on('select:press', () => dispatchJoystickOutput('selectPressed') ); // select button
       
       // d pad
-      // left
-      joystick.on('dpadLeft:press', () => { console.log('dpadLeft press'); });
-      // up
-      joystick.on('dpadUp:press', () => { console.log('dpadUp press'); });
-      // right
-      joystick.on('dpadRight:press', () => { console.log('dpadRight press'); });
-      // down
-      joystick.on('dpadDown:press', () => { console.log('dpadDown press'); });
+      joystick.on('dpadLeft:press', () => dispatchJoystickOutput('dpadLeftPressed') ); // left
+      joystick.on('dpadUp:press', () => dispatchJoystickOutput('dpadUpPressed') ); // up
+      joystick.on('dpadRight:press', () => dispatchJoystickOutput('dpadRightPressed') ); // right
+      joystick.on('dpadDown:press', () => dispatchJoystickOutput('dpadDownPressed') ); // down
       
       // 
-      // circle
-      joystick.on('circle:press', () => { console.log('circle press'); });
-      // triangle
-      joystick.on('triangle:press', () => { console.log('triangle press'); });
-      // square
-      joystick.on('square:press', () => { console.log('square press'); });
-      // cross
-      joystick.on('x:press', () => { console.log('x press'); });
+      joystick.on('circle:press', () => dispatchJoystickOutput('circlePressed') ); // circle
+      joystick.on('triangle:press', () => dispatchJoystickOutput('trianglePressed') ); // triangle
+      joystick.on('square:press', () => dispatchJoystickOutput('squarePressed') ); // square
+      joystick.on('x:press', () => dispatchJoystickOutput('xPressed') ); // cross
       
       // analog sticks
-      // left stick
-      joystick.on('left:move', data => {
-        var result = JU.normalizeLeftStickOutput(data);
-        console.log(result);
-        // io.emit('left-analog-stick-moved', result);
-      });
-      // right stick
-      joystick.on('right:move', data => {
-        var result = JU.normalizeRightStickOutput(data);
-        console.log(result);
-        // io.emit('right-analog-stick-moved', result);
-      });
-      // left stick bump
-      joystick.on('leftAnalogBump:press', () => { console.log('leftAnalogBump press'); });
-      // right stick bump
-      joystick.on('rightAnalogBump:press', () => { console.log('rightAnalogBump press'); });
+      joystick.on('left:move', data => dispatchJoystickOutput('leftMoved', JU.normalizeLeftStickOutput(data)) ); // left stick
+      joystick.on('right:move', data => dispatchJoystickOutput('rightMoved', JU.normalizeRightStickOutput(data)) ); // right stick
+      joystick.on('leftAnalogBump:press', () => dispatchJoystickOutput('leftAnalogBumpPressed') ); // left stick bump
+      joystick.on('rightAnalogBump:press', () =>  dispatchJoystickOutput('rightAnalogBumpPressed')); // right stick bump
       
       // triggers
-      // left triggeres
-      joystick.on('l1:press', () => { console.log('l1 press'); });
-      joystick.on('l2:press', () => { console.log('l2 press'); });
-      // right triggeres
-      joystick.on('r1:press', () => { console.log('r1 press'); });
-      joystick.on('r2:press', () => { console.log('r2 press'); });
+      joystick.on('l1:press', () => dispatchJoystickOutput('l1Pressed') ); // left l1 trigger
+      joystick.on('l2:press', () => dispatchJoystickOutput('l2Pressed') ); // left l2 trigger
+      joystick.on('r1:press', () => dispatchJoystickOutput('r1Pressed') ); // right r1 trigger
+      joystick.on('r2:press', () => dispatchJoystickOutput('r2Pressed') ); // right r2 trigger
       
       // joystick battery change
-      joystick.on('battery:change', data => {
-        // shared.resolve('store');
-        console.log(data);
-      });
+      joystick.on('battery:change', data => dispatchJoystickOutput('batteryChange', data) );
       
       // gyro
-      // right-left movement 
-      // joystick.on('rightLeft:motion', data => console.log(data));
-      // forward-back movement 
-      // joystick.on('forwardBackward:motion', data => console.log(data));
+      // joystick.on('rightLeft:motion', data => dispatchJoystickOutput('rightLeftMotion', data) ); // right-left movement 
+      // joystick.on('forwardBackward:motion', data => dispatchJoystickOutput('forwardBackwardMotion', data) ); // forward-back movement 
       
-      clearInterval(timer);
-      timer = null;
-      console.log('joystick connected');
+      clearTimerWhenConnected();
+      // joystick connected action
+      dispatchJoystickOutput('joystickConnected');
     }
     catch(e) {
       // error timer is in progress
       if (timer) return;
       
-      console.log('joystick init error');
-      
-      // start trying to connect to the joystick every 30 seconds
-      timer = setInterval(initJoystick, 30000);
+      startTryingToConnect(initJoystick);
     }
   })();
+  
+  function startTryingToConnect(initJoystick) {
+    // start trying to connect to the joystick every 30 seconds
+    timer = setInterval(initJoystick, 30000);
+    
+    // joystick disconnected action
+    dispatchJoystickOutput('joystickDisconnected');
+  }
+  
+  function clearTimerWhenConnected() {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+  
+  function dispatchJoystickOutput(entity, data) {
+    shared.resolve('store').dispatch({
+      type: "JOYSTICK_OUTPUT",
+      payload: { entity, data }
+    });
+  }
   
 }
