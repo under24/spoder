@@ -152,26 +152,30 @@ module.exports = (shared) => {
   
   var servoGateway = store => next => stateChange => {
     
+    // if state change has new angles
     if (stateChange['angles']) {
       // pull servos from shared
       let servos = shared.resolve('servos');
       
-      // iterate state change and set servo angles
-      // for (let legId in stateChange.angles) {
-      //   let currentLeg = stateChange.angles[legId];
-      //   
-      //   // coxa angle
-      //   if ('coxaServoAngle' in currentLeg)
-      //     servos[`leg${legId}`].coxa.to(currentLeg.coxaServoAngle);
-      //     
-      //   // femur angle
-      //   if ('femurServoAngle' in currentLeg)
-      //     servos[`leg${legId}`].femur.to(currentLeg.femurServoAngle);
-      //     
-      //   // tibia angle
-      //   if ('tibiaServoAngle' in currentLeg)
-      //     servos[`leg${legId}`].tibia.to(currentLeg.tibiaServoAngle);
-      // }
+      // if arduino board is initialized (and servos are present)
+      if (servos) {
+        // iterate state change and set servo angles
+        for (let legId in stateChange.angles) {
+          let currentLeg = stateChange.angles[legId];
+          
+          // coxa angle
+          if ('coxaServoAngle' in currentLeg)
+            servos[`leg${legId}`].coxa.to(currentLeg.coxaServoAngle);
+            
+          // femur angle
+          if ('femurServoAngle' in currentLeg)
+            servos[`leg${legId}`].femur.to(currentLeg.femurServoAngle);
+            
+          // tibia angle
+          if ('tibiaServoAngle' in currentLeg)
+            servos[`leg${legId}`].tibia.to(currentLeg.tibiaServoAngle);
+        }
+      }
     }
     
     next(stateChange);
@@ -189,7 +193,7 @@ module.exports = (shared) => {
     applyMiddleware(
       logicReducers,
       cascadeModules,
-      // servoGateway,
+      servoGateway,
       socketDispatcher
     )
   );
