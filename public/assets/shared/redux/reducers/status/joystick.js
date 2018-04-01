@@ -3,8 +3,7 @@
 {
   let joystickReducerInitState = {
     charge: null,
-    connected: false,
-    status: null
+    connected: null
   };
 
   var joystickReducer = (state = joystickReducerInitState, action) => {
