@@ -16,6 +16,7 @@ module.exports = (shared) => {
       
       // error handler
       joystick.on('error', () => {
+        console.log('joystick error handler');
         setTimeout(initJoystick, 30000);
       });
       
