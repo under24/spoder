@@ -3,14 +3,17 @@
 class StateModule {
   
   constructor(store) {
-    // save referrence to the store in StateModule.store
-    StateModule.store = store;
+    // save referrence to the store
+    this.store = store;
   }
   
   _getState() {
-    return StateModule.store.getState();
+    return this.store.getState();
   }
   
+  _dispatch(action) {
+    this.store.dispatch(action);
+  }
   
   resolveStatePath(path) {
     var prop = this._getState();

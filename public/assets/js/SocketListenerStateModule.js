@@ -24,11 +24,11 @@ class SocketListenerStateModule extends StateModule {
   }
   
   handleSocketConnected() {
-    SocketListenerStateModule.store.dispatch({ type: "SOCKET_STATUS_CHANGED", payload: { connected: true } });
+    this._dispatch({ type: "SOCKET_STATUS_CHANGED", payload: { connected: true } });
   }
   
   handleSocketDisconnected() {
-    SocketListenerStateModule.store.dispatch({ type: "SOCKET_STATUS_CHANGED", payload: { connected: false } });
+    this._dispatch({ type: "SOCKET_STATUS_CHANGED", payload: { connected: false } });
   }
   
   // handleRightAnalogStickMoved(data) {
@@ -52,11 +52,11 @@ class SocketListenerStateModule extends StateModule {
   // }
   
   handleStateChange(stateChange) {
-    store.dispatch(stateChange);
+    this._dispatch(stateChange);
   }
   
   handleSyncState(state) {
-    store.syncState(state);
+    this.store.syncState(state);
   }
   
 }

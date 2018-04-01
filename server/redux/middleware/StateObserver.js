@@ -48,7 +48,7 @@ class StateObserver extends StateModule {
   }
   
   _subscribe() {
-    StateObserver.store.subscribe(this._onStateChange.bind(this));
+    this.store.subscribe(this._onStateChange.bind(this));
   }
   
   _onStateChange() {
