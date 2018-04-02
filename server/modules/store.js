@@ -189,6 +189,12 @@ module.exports = (shared) => {
     
     next(stateChange);
   }
+  
+  var stateObservers = store => next => stateChange => {
+    next(stateChange);
+    
+    // after state changed ...
+  }
 
   var store = createStore(
     rootReducer,
@@ -196,7 +202,8 @@ module.exports = (shared) => {
       logicReducers,
       cascadeModules,
       servoGateway,
-      socketDispatcher
+      socketDispatcher,
+      // stateObservers
     )
   );
   
