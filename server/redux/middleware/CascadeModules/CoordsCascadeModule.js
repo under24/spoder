@@ -171,4 +171,4 @@ class CoordsCascadeModule extends CascadeModule {
   
 }
 
-module.exports = CoordsCascadeModule;
+module.exports = (store) => new CoordsCascadeModule(store);

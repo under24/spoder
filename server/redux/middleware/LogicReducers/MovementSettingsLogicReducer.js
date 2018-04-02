@@ -33,4 +33,4 @@ class MovementSettingsLogicReducer extends LogicReducer {
 
 }
 
-module.exports = MovementSettingsLogicReducer;
+module.exports = (store) => new MovementSettingsLogicReducer(store);

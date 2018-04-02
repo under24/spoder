@@ -173,4 +173,4 @@ class AnalogJoystickLogicReducer extends LogicReducer {
 
 }
 
-module.exports = AnalogJoystickLogicReducer;
+module.exports = (store) => new AnalogJoystickLogicReducer(store);

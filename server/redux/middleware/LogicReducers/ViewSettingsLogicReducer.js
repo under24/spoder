@@ -126,4 +126,4 @@ class ViewSettingsLogicReducer extends LogicReducer {
 
 }
 
-module.exports = ViewSettingsLogicReducer;
+module.exports = (store) => new ViewSettingsLogicReducer(store);

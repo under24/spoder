@@ -52,4 +52,4 @@ class BaseCascadeModule extends CascadeModule {
 
 }
 
-module.exports = BaseCascadeModule;
+module.exports = (store) => new BaseCascadeModule(store);

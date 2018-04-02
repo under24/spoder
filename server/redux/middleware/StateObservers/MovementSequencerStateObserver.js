@@ -184,4 +184,4 @@ class MovementSequencerStateObserver extends StateObserver {
 
 }
 
-module.exports = MovementSequencerStateObserver;
+module.exports = (store) => new MovementSequencerStateObserver(store);

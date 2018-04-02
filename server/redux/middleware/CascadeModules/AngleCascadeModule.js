@@ -250,4 +250,4 @@ class AngleCascadeModule extends CascadeModule {
 
 }
 
-module.exports = AngleCascadeModule;
+module.exports = (store) => new AngleCascadeModule(store);

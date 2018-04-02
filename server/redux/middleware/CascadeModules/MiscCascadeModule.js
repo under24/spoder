@@ -151,4 +151,4 @@ class MiscCascadeModule extends CascadeModule {
 
 }
 
-module.exports = MiscCascadeModule;
+module.exports = (store) => new MiscCascadeModule(store);

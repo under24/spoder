@@ -117,4 +117,4 @@ class MovementIterationBlueprintCascadeModule extends CascadeModule {
 
 }
 
-module.exports = MovementIterationBlueprintCascadeModule
+module.exports = (store) => new MovementIterationBlueprintCascadeModule(store);

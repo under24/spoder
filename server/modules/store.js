@@ -208,50 +208,30 @@ module.exports = (shared) => {
   );
   
   // init logic reducers
-  var ModifiersLogicReducer = require('../redux/middleware/LogicReducers/ModifiersLogicReducer.js'),
-      CoordsLogicReducer = require('../redux/middleware/LogicReducers/CoordsLogicReducer.js'),
-      MovementDirectionJoystickLogicReducer = require('../redux/middleware/LogicReducers/MovementDirectionJoystickLogicReducer.js'),
-      MovementTurnJoystickLogicReducer = require('../redux/middleware/LogicReducers/MovementTurnJoystickLogicReducer.js'),
-      MovementIterationPropertiesLogicReducer = require('../redux/middleware/LogicReducers/MovementIterationPropertiesLogicReducer.js'),
-      MovementSettingsLogicReducer = require('../redux/middleware/LogicReducers/MovementSettingsLogicReducer.js'),
-      ViewOffsetsLogicReducer = require('../redux/middleware/LogicReducers/ViewOffsetsLogicReducer.js'),
-      StatusLogicReducer = require('../redux/middleware/LogicReducers/StatusLogicReducer.js'),
-      ViewSettingsLogicReducer = require('../redux/middleware/LogicReducers/ViewSettingsLogicReducer.js'),
-      AnalogJoystickLogicReducer = require('../redux/middleware/LogicReducers/AnalogJoystickLogicReducer.js');
-  var modifiersLogicReducer = new ModifiersLogicReducer(store),
-      coordsLogicReducer = new CoordsLogicReducer(store),
-      movementDirectionJoystickLogicReducer = new MovementDirectionJoystickLogicReducer(store),
-      movementTurnJoystickLogicReducer = new MovementTurnJoystickLogicReducer(store),
-      movementIterationPropertiesLogicReducer = new MovementIterationPropertiesLogicReducer(store),
-      movementSettingsLogicReducer = new MovementSettingsLogicReducer(store),
-      viewOffsetsLogicReducer = new ViewOffsetsLogicReducer(store),
-      statusLogicReducer = new StatusLogicReducer(store),
-      viewSettingsLogicReducer = new ViewSettingsLogicReducer(store),
-      analogJoystickLogicReducer = new AnalogJoystickLogicReducer(store);
+  var modifiersLogicReducer = require('../redux/middleware/LogicReducers/ModifiersLogicReducer.js')(store),
+      coordsLogicReducer = require('../redux/middleware/LogicReducers/CoordsLogicReducer.js')(store),
+      movementDirectionJoystickLogicReducer = require('../redux/middleware/LogicReducers/MovementDirectionJoystickLogicReducer.js')(store),
+      movementTurnJoystickLogicReducer = require('../redux/middleware/LogicReducers/MovementTurnJoystickLogicReducer.js')(store),
+      movementIterationPropertiesLogicReducer = require('../redux/middleware/LogicReducers/MovementIterationPropertiesLogicReducer.js')(store),
+      movementSettingsLogicReducer = require('../redux/middleware/LogicReducers/MovementSettingsLogicReducer.js')(store),
+      viewOffsetsLogicReducer = require('../redux/middleware/LogicReducers/ViewOffsetsLogicReducer.js')(store),
+      statusLogicReducer = require('../redux/middleware/LogicReducers/StatusLogicReducer.js')(store),
+      viewSettingsLogicReducer = require('../redux/middleware/LogicReducers/ViewSettingsLogicReducer.js')(store),
+      analogJoystickLogicReducer = require('../redux/middleware/LogicReducers/AnalogJoystickLogicReducer.js')(store);
       
   // init cascade modules
-  var CoordsCascadeModule = require('../redux/middleware/CascadeModules/CoordsCascadeModule.js'),
-      BaseCascadeModule = require('../redux/middleware/CascadeModules/BaseCascadeModule.js'),
-      AngleCascadeModule = require('../redux/middleware/CascadeModules/AngleCascadeModule.js'),
-      MiscCascadeModule = require('../redux/middleware/CascadeModules/MiscCascadeModule.js'),
-      MovementCirclesCascadeModule = require('../redux/middleware/CascadeModules/MovementCirclesCascadeModule.js'),
-      MovementPointersCascadeModule = require('../redux/middleware/CascadeModules/MovementPointersCascadeModule.js'),
-      MovementIterationPropertiesCascadeModule = require('../redux/middleware/CascadeModules/MovementIterationPropertiesCascadeModule.js'),
-      MovementIterationTransitionCascadeModule = require('../redux/middleware/CascadeModules/MovementIterationTransitionCascadeModule.js'),
-      MovementIterationBlueprintCascadeModule = require('../redux/middleware/CascadeModules/MovementIterationBlueprintCascadeModule.js');      
-  var coordsCascadeModule = new CoordsCascadeModule(store),
-      baseCascadeModule = new BaseCascadeModule(store),
-      anglesCascadeModule = new AngleCascadeModule(store),
-      miscCascadeModule = new MiscCascadeModule(store),
-      movementCirclesCascadeModule = new MovementCirclesCascadeModule(store),
-      movementPointersCascadeModule = new MovementPointersCascadeModule(store),
-      movementIterationPropertiesCascadeModule = new MovementIterationPropertiesCascadeModule(store),
-      movementIterationTransitionCascadeModule = new MovementIterationTransitionCascadeModule(store),
-      movementIterationBlueprintCascadeModule = new MovementIterationBlueprintCascadeModule(store);
+  var coordsCascadeModule = require('../redux/middleware/CascadeModules/CoordsCascadeModule.js')(store),
+      baseCascadeModule = require('../redux/middleware/CascadeModules/BaseCascadeModule.js')(store),
+      anglesCascadeModule = require('../redux/middleware/CascadeModules/AngleCascadeModule.js')(store),
+      miscCascadeModule = require('../redux/middleware/CascadeModules/MiscCascadeModule.js')(store),
+      movementCirclesCascadeModule = require('../redux/middleware/CascadeModules/MovementCirclesCascadeModule.js')(store),
+      movementPointersCascadeModule = require('../redux/middleware/CascadeModules/MovementPointersCascadeModule.js')(store),
+      movementIterationPropertiesCascadeModule = require('../redux/middleware/CascadeModules/MovementIterationPropertiesCascadeModule.js')(store),
+      movementIterationTransitionCascadeModule = require('../redux/middleware/CascadeModules/MovementIterationTransitionCascadeModule.js')(store),
+      movementIterationBlueprintCascadeModule = require('../redux/middleware/CascadeModules/MovementIterationBlueprintCascadeModule.js')(store);
 
   // init state observers
-  var MovementSequencerStateObserver = require('../redux/middleware/StateObservers/MovementSequencerStateObserver.js');
-  var movementSequencerStateObserver = new MovementSequencerStateObserver(store);
+  var movementSequencerStateObserver = require('../redux/middleware/StateObservers/MovementSequencerStateObserver.js')(store);
   
   // init state with coords
   store.dispatch([

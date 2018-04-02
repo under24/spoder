@@ -38,4 +38,4 @@ class ViewOffsetsLogicReducer extends LogicReducer {
 
 }
 
-module.exports = ViewOffsetsLogicReducer;
+module.exports = (store) => new ViewOffsetsLogicReducer(store);

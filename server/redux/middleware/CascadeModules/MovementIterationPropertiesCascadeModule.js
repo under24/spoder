@@ -40,4 +40,4 @@ class MovementIterationPropertiesCascadeModule extends CascadeModule {
 
 }
 
-module.exports = MovementIterationPropertiesCascadeModule;
+module.exports = (store) => new MovementIterationPropertiesCascadeModule(store);

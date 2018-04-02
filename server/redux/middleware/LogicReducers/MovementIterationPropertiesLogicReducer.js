@@ -24,4 +24,4 @@ class MovementIterationPropertiesLogicReducer extends LogicReducer {
 
 }
 
-module.exports = MovementIterationPropertiesLogicReducer;
+module.exports = (store) => new MovementIterationPropertiesLogicReducer(store);

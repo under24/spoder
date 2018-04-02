@@ -152,4 +152,4 @@ class MovementCirclesCascadeModule extends CascadeModule {
 
 }
 
-module.exports = MovementCirclesCascadeModule;
+module.exports = (store) => new MovementCirclesCascadeModule(store);

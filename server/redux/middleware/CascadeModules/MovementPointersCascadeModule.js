@@ -51,4 +51,4 @@ class MovementPointersCascadeModule extends CascadeModule {
 
 }
 
-module.exports = MovementPointersCascadeModule;
+module.exports = (store) => new MovementPointersCascadeModule(store);

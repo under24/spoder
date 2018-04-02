@@ -226,4 +226,4 @@ class CoordsLogicReducer extends LogicReducer {
 
 }
 
-module.exports = CoordsLogicReducer;
+module.exports = (store) => new CoordsLogicReducer(store);

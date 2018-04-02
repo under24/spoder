@@ -30,4 +30,4 @@ class MovementDirectionJoystickLogicReducer extends LogicReducer {
 
 }
 
-module.exports = MovementDirectionJoystickLogicReducer;
+module.exports = (store) => new MovementDirectionJoystickLogicReducer(store);

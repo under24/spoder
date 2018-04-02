@@ -43,4 +43,4 @@ class StatusLogicReducer extends LogicReducer {
 
 }
 
-module.exports = StatusLogicReducer;
+module.exports = (store) => new StatusLogicReducer(store);

@@ -101,4 +101,4 @@ class MovementIterationTransitionCascadeModule extends CascadeModule {
 
 }
 
-module.exports = MovementIterationTransitionCascadeModule;
+module.exports = (store) => new MovementIterationTransitionCascadeModule(store);

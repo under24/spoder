@@ -99,4 +99,4 @@ class ModifiersLogicReducer extends LogicReducer {
 
 }
 
-module.exports = ModifiersLogicReducer;
+module.exports = (store) => new ModifiersLogicReducer(store);
