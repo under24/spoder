@@ -98,6 +98,8 @@ module.exports = (shared) => {
       movementIterationPropertiesLogicReducer.processAction(action, stateChange);
       // @handle "MOVEMENT_SETTINGS_CHANGED"                                      -> "movement.settings"
       movementSettingsLogicReducer.processAction(action, stateChange);
+      // @handle "JOYSTICK_OUTPUT"                                                -> "" 
+      analogJoystickLogicReducer.processAction(action, stateChange);
       
       // @handle "ARDUINO_STATUS_CHANGED"                                         -> "status.arduino"
       // @handle "ANALOG_JOYSTICK_STATUS_CHANGED"                                 -> "status.joystick"
@@ -207,7 +209,8 @@ module.exports = (shared) => {
       MovementSettingsLogicReducer = require('../redux/middleware/LogicReducers/MovementSettingsLogicReducer.js'),
       ViewOffsetsLogicReducer = require('../redux/middleware/LogicReducers/ViewOffsetsLogicReducer.js'),
       StatusLogicReducer = require('../redux/middleware/LogicReducers/StatusLogicReducer.js'),
-      ViewSettingsLogicReducer = require('../redux/middleware/LogicReducers/ViewSettingsLogicReducer.js');
+      ViewSettingsLogicReducer = require('../redux/middleware/LogicReducers/ViewSettingsLogicReducer.js'),
+      AnalogJoystickLogicReducer = require('../redux/middleware/LogicReducers/AnalogJoystickLogicReducer.js');
   var modifiersLogicReducer = new ModifiersLogicReducer(store),
       coordsLogicReducer = new CoordsLogicReducer(store),
       movementDirectionJoystickLogicReducer = new MovementDirectionJoystickLogicReducer(store),
@@ -216,7 +219,8 @@ module.exports = (shared) => {
       movementSettingsLogicReducer = new MovementSettingsLogicReducer(store),
       viewOffsetsLogicReducer = new ViewOffsetsLogicReducer(store),
       statusLogicReducer = new StatusLogicReducer(store),
-      viewSettingsLogicReducer = new ViewSettingsLogicReducer(store);
+      viewSettingsLogicReducer = new ViewSettingsLogicReducer(store),
+      analogJoystickLogicReducer = new AnalogJoystickLogicReducer(store);
       
   // init cascade modules
   var CoordsCascadeModule = require('../redux/middleware/CascadeModules/CoordsCascadeModule.js'),
