@@ -12,6 +12,4 @@ class Shared {
 
 }
 
-module.exports = function() {
-  return new Shared;
-};
+module.exports = () => new Shared;
