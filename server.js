@@ -10,7 +10,7 @@ var shared = require('./server/utils/Shared')();
 
 require('./server/modules/socket')(shared, server);
 require('./server/modules/store')(shared);
-// require('./server/modules/joystick')(shared);
+require('./server/modules/joystick')(shared);
 // require('./server/modules/arduino')(shared);
 // require('./server/modules/webrtc')(shared);
 
