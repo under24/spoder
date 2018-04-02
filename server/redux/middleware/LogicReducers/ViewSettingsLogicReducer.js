@@ -112,14 +112,14 @@ class ViewSettingsLogicReducer extends LogicReducer {
     return {
       'viewSettings.transverseView': {
         useOffsets: true,
-        useScaling: true,
+        useScaling: false,
         scaling: 60,
-        showFluentTransverseBaseXY: true,
+        showFluentTransverseBaseXY: false,
         showInvalidRange: false,
-        showMovementPointer: true,
+        showMovementPointer: false,
         showReachRadius: false,
-        showFluentMovementCircle: true,
-        showSolidMovementCircle: true
+        showFluentMovementCircle: false,
+        showSolidMovementCircle: false
       }
     };
   }
