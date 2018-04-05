@@ -202,7 +202,7 @@ module.exports = (shared) => {
       logicReducers,
       cascadeModules,
       servoGateway,
-      socketDispatcher,
+      socketDispatcher
       // stateObservers
     )
   );
