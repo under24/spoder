@@ -116,39 +116,39 @@ module.exports = (shared) => {
       coxa5, femur5, tibia5,
       coxa6, femur6, tibia6
     });
-  });
-  
-  // share servos between modules
-  shared.register('servos', {
-    leg1: {
-      coxa: coxa1,
-      femur: femur1,
-      tibia: tibia1
-    },
-    leg2: {
-      coxa: coxa2,
-      femur: femur2,
-      tibia: tibia2
-    },
-    leg3: {
-      coxa: coxa3,
-      femur: femur3,
-      tibia: tibia3
-    },
-    leg4: {
-      coxa: coxa4,
-      femur: femur4,
-      tibia: tibia4
-    },
-    leg5: {
-      coxa: coxa5,
-      femur: femur5,
-      tibia: tibia5
-    },
-    leg6: {
-      coxa: coxa6,
-      femur: femur6,
-      tibia: tibia6
-    },
+    
+    // share servos between modules
+    shared.register('servos', {
+      leg1: {
+        coxa: coxa1,
+        femur: femur1,
+        tibia: tibia1
+      },
+      leg2: {
+        coxa: coxa2,
+        femur: femur2,
+        tibia: tibia2
+      },
+      leg3: {
+        coxa: coxa3,
+        femur: femur3,
+        tibia: tibia3
+      },
+      leg4: {
+        coxa: coxa4,
+        femur: femur4,
+        tibia: tibia4
+      },
+      leg5: {
+        coxa: coxa5,
+        femur: femur5,
+        tibia: tibia5
+      },
+      leg6: {
+        coxa: coxa6,
+        femur: femur6,
+        tibia: tibia6
+      },
+    });
   });
 }
