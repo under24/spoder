@@ -20,9 +20,9 @@ module.exports = (shared) => {
       // invert: true
     });
     var tibia1 = new five.Servo({
-      pin: 3,
-      range: [30, 140],
-      // invert: true
+      pin: 31,
+      range: [20, 160],
+      invert: true
     });
     
     // leg2
@@ -37,9 +37,9 @@ module.exports = (shared) => {
       // invert: true
     });
     var tibia2 = new five.Servo({
-      pin: 6,
-      range: [30, 140],
-      // invert: true
+      pin: 32,
+      range: [20, 160],
+      offset: 5
     });
     
     // leg3
@@ -53,9 +53,10 @@ module.exports = (shared) => {
       // invert: true
     });
     var tibia3 = new five.Servo({
-      pin: 9,
-      range: [30, 140],
-      // invert: true
+      pin: 35,
+      range: [20, 160],
+      invert: true,
+      offset: 7
     });
     
     // leg4
@@ -70,9 +71,9 @@ module.exports = (shared) => {
       // invert: true
     });
     var tibia4 = new five.Servo({
-      pin: 12,
-      range: [30, 140],
-      // invert: true
+      pin: 33,
+      range: [20, 160],
+      offset: 5
     });
     
     // leg5
@@ -86,9 +87,10 @@ module.exports = (shared) => {
       // invert: true
     });
     var tibia5 = new five.Servo({
-      pin: 15,
-      range: [30, 140],
-      // invert: true
+      pin: 36,
+      range: [20, 160],
+      invert: true,
+      offset: 6
     });
     
     // leg6
@@ -103,9 +105,9 @@ module.exports = (shared) => {
       // invert: true
     });
     var tibia6 = new five.Servo({
-      pin: 18,
-      range: [30, 140],
-      // invert: true
+      pin: 34,
+      range: [20, 160],
+      offset: 5
     });
     
     this.repl.inject({
