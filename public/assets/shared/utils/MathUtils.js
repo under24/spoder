@@ -185,6 +185,34 @@ var MU = {
     // if line1 and line2 are segments, they intersect if both of the above are true
     return result;
   },
+  linesCross(line1, line2) {
+    var denominator = ((line2.endY - line2.startY) * (line1.endX - line1.startX)) - ((line2.endX - line2.startX) * (line1.endY - line1.startY));
+    
+    // completely missed. lines do not cross
+    if (denominator == 0) return false;
+    
+    var a = line1.startY - line2.startY;
+    var b = line1.startX - line2.startX;
+    
+    var numerator1 = ((line2.endX - line2.startX) * a) - ((line2.endY - line2.startY) * b);
+    var numerator2 = ((line1.endX - line1.startX) * a) - ((line1.endY - line1.startY) * b);
+    
+    a = numerator1 / denominator;
+    b = numerator2 / denominator;
+    
+    // if line1 is a segment and line2 is infinite, they intersect if:
+    if (a > 0 && a < 1) var onLine1 = true;
+      
+    // if line2 is a segment and line1 is infinite, they intersect if:
+    if (b > 0 && b < 1) var onLine2 = true;
+      
+    if (onLine1 && onLine2)
+      // lines cross
+      return true;
+    else
+      // lines do not cross
+      return false;
+  },
   /* desc Static function. Find point on lines nearest test point
    test point pXy with properties .x and .y
    lines defined by array aXys with nodes having properties .x and .y 
