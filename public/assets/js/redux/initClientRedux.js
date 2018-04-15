@@ -60,7 +60,5 @@
     viewSettings: viewSettingsReducer
   });
   
-  var store = createStore(
-    rootReducer
-  );
+  var store = createStore(rootReducer);
 }
