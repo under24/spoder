@@ -76,6 +76,7 @@ module.exports = (shared) => {
       
     next(stateChange);
     
+    //---------------------------------------------------------------------------
     
     function processAction(action) {
       // @handle "LEVEL_MODIFIER_CHANGED"                                         -> "modifiers.level"
