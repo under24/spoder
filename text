@@ -1,0 +1,16 @@
+1. refactor movement.circles (fluentXY)
+2. apply scaling to views
+
+
+apply offset to views
+
+
+optimize pointer generation (when circle.x and circle.radius is the same)
+
+
+
+from center to leg 3 65 mm
+from center to leg 5 75 mm
+femur 85
+
+tibia 125

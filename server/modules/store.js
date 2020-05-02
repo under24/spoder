@@ -164,18 +164,21 @@ module.exports = (shared) => {
       if (servos) {
         // iterate state change and set servo angles
         for (let legId in stateChange.angles) {
+          
+          debugger;
+          
           let currentLeg = stateChange.angles[legId];
           
           // coxa angle
-          if ('coxaServoAngle' in currentLeg)
+          if ('coxaServoAngle' in currentLeg && currentLeg.coxaServoAngle > 0 && currentLeg.coxaServoAngle < 180)
             servos[`leg${legId}`].coxa.to(currentLeg.coxaServoAngle);
             
           // femur angle
-          if ('femurServoAngle' in currentLeg)
+          if ('femurServoAngle' in currentLeg && currentLeg.femurServoAngle > 0 && currentLeg.femurServoAngle < 180)
             servos[`leg${legId}`].femur.to(currentLeg.femurServoAngle);
             
           // tibia angle
-          if ('tibiaServoAngle' in currentLeg)
+          if ('tibiaServoAngle' in currentLeg && currentLeg.tibiaServoAngle > 0 && currentLeg.tibiaServoAngle < 180)
             servos[`leg${legId}`].tibia.to(currentLeg.tibiaServoAngle);
         }
       }
@@ -243,7 +246,7 @@ module.exports = (shared) => {
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -45,
+          sagittalBaseY: -50,
           transverseCursorX: 125,
           transverseCursorY: -160,
           transverseBaseX: 40,
@@ -253,7 +256,7 @@ module.exports = (shared) => {
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -45,
+          sagittalBaseY: -50,
           transverseCursorX: -125,
           transverseCursorY: -160,
           transverseBaseX: -40,
@@ -263,7 +266,7 @@ module.exports = (shared) => {
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -45,
+          sagittalBaseY: -50,
           transverseCursorX: 185,
           transverseCursorY: 0,
           transverseBaseX: 65,
@@ -273,7 +276,7 @@ module.exports = (shared) => {
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -45,
+          sagittalBaseY: -50,
           transverseCursorX: -185,
           transverseCursorY: 0,
           transverseBaseX: -65,
@@ -283,7 +286,7 @@ module.exports = (shared) => {
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -45,
+          sagittalBaseY: -50,
           transverseCursorX: 125,
           transverseCursorY: 160,
           transverseBaseX: 40,
@@ -293,7 +296,7 @@ module.exports = (shared) => {
           // sagittalCursorX: 250,
           sagittalCursorY: 0,
           // sagittalBaseX: 100,
-          sagittalBaseY: -45,
+          sagittalBaseY: -50,
           transverseCursorX: -125,
           transverseCursorY: 160,
           transverseBaseX: -40,

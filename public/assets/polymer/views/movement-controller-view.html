@@ -43,15 +43,25 @@
           <input type="checkbox" checked="[[loop]]" value="loop" on-click="handleCheckboxChange" /> Loop sequencer
         </label>
       </p>
-      <p>
-        Gait:
-        <select size="4" on-change="handleSelectChanged" value="[[gait]]">
-          <option value="ripple">Ripple</option>
-          <option value="rippleReversed">Ripple reversed</option>
-          <option value="tripod">Tripod</option>
-          <option value="tripodReversed">Tripod reversed</option>
-        </select>
-      </p>
+      <div style="display: flex">
+        <div style="flex: 1">
+          <div>Gait:</div>
+          <select size="5" on-change="handleSelectChanged" name="gait" value="[[gait]]">
+            <option value="ripple">Ripple</option>
+            <option value="ripple2">Ripple2</option>
+            <option value="rippleReversed">Ripple reversed</option>
+            <option value="tripod">Tripod</option>
+            <option value="tripodReversed">Tripod reversed</option>
+          </select>
+        </div>
+        <div style="flex: 1">
+          <div>Custom blueprint:</div>
+          <select size="2" on-change="handleSelectChanged" name="customBlueprint" value="[[customBlueprint]]">
+            <option value="center">Center</option>
+            <option value="raiseOneLeg">raiseOneLeg</option>
+          </select>
+        </div>
+      </div>
     </fieldset>
     <fieldset>
       <legend>Iteration settings:</legend>

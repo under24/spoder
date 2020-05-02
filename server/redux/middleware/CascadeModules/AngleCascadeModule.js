@@ -130,6 +130,16 @@ class AngleCascadeModule extends CascadeModule {
     // coxa angle should be relative to the base direction
     coxaServoAngle = GU.correctAngle(coxaServoAngle - baseDirection);
     
+    
+    // flip left side
+    switch (legId) {
+      case 2:
+      case 4:
+      case 6:
+        coxaServoAngle = GU.correctAngle(180 - coxaServoAngle);
+        break;
+    }
+    
     return +coxaServoAngle.toFixed(0);
   }
   

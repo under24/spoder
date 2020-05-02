@@ -2,11 +2,18 @@
 
 var LogicReducer = require('../LogicReducer.js');
 var CU = require('../../../../public/assets/shared/utils/CoordsUtils.js');
+var MU = require('../../../../public/assets/shared/utils/MathUtils.js');
+var GU = require('../../../../public/assets/shared/utils/GenericUtils.js');
+var CDU = require('../../../utils/CollisionDetectionUtils.js');
 
 class CoordsLogicReducer extends LogicReducer {
 
   constructor(store) {
     super(store);
+    
+    this.settings = {
+      disableConsoleLogging: true
+    };
     
     this.actionObservers = [
       'processCursorXYShifted(CURSOR_XY_SHIFTED)',
@@ -54,23 +61,13 @@ class CoordsLogicReducer extends LogicReducer {
       if (result.transverseCursorY !== oldCoords[action.legId].transverseCursorY) cursorXY.transverseCursorY = result.transverseCursorY;
     }
     
-    // var temp1 = oldCoords[1];
-    // var temp3 = Object.assign({}, oldCoords[3], cursorXY);
-    // 
-    // var temp = MU.lineIntersection(
-    //   { startX: temp3.transverseBaseX, startY: temp3.transverseBaseY, endX: temp3.transverseCursorX, endY: temp3.transverseCursorY },
-    //   { startX: temp1.transverseBaseX, startY: temp1.transverseBaseY, endX: temp1.transverseCursorX, endY: temp1.transverseCursorY }
-    // );
-    // // console.log(temp);
-    // // debugger; 
-    // // console.log(temp.x - temp3.transverseCursorX);
-    // // console.log(temp3.transverseCursorY - temp.y);
-    // console.log(temp, MU.getDistance(temp.x - temp3.transverseCursorX, MU.flipNumber(temp.y - temp3.transverseCursorY)));
-    // 
-    // // if (temp.onLine2 &&
-    // //     temp.x - temp3.transverseCursorX < 60 &&
-    // //     temp3.transverseCursorY - temp.y < 60) return;
     
+    var activeLegLatestCoords = Object.assign({}, oldCoords[action.legId], cursorXY);
+    
+    
+    
+    if (CDU.collisionDetected(activeLegLatestCoords, oldCoords, action.legId))
+      return;
     
     var newCoords = Object.assign(
       {},
@@ -146,6 +143,23 @@ class CoordsLogicReducer extends LogicReducer {
         
       if (action.payload[legId].transverseCursorY)
         cursorXY.transverseCursorY = oldCoords[legId].transverseCursorY - action.payload[legId].transverseCursorY;
+      
+      
+      
+      if (cursorXY.transverseCursorX || cursorXY.transverseCursorY) {
+        
+        
+        
+        let activeLegLatestCoords = Object.assign({}, oldCoords[legId], cursorXY);
+        
+        if (CDU.collisionDetected(activeLegLatestCoords, oldCoords, +legId)) {
+          delete cursorXY.transverseCursorX;
+          delete cursorXY.transverseCursorY;
+        }
+      }
+        
+        
+        
         
       // gather up latest coords for further computations
       let cursorCoords = CU.aggregateCoords(oldCoords[legId], cursorXY);

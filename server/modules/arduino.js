@@ -11,104 +11,116 @@ module.exports = (shared) => {
     
     // leg 1
     var coxa1 = new five.Servo({
-      pin: 45,
+      pin: 42,
       range: [10, 150]
     });
     var femur1 = new five.Servo({
-      pin: 2,
-      range: [30, 140],
-      // invert: true
+      pin: 39,
+      offset: 1
     });
     var tibia1 = new five.Servo({
-      pin: 31,
-      range: [0, 180],
+      pin: 45,
       invert: true
     });
     
     // leg2
     var coxa2 = new five.Servo({
-      pin: 16,
+      pin: 21,
       range: [10, 150],
       invert: true,
     });
     var femur2 = new five.Servo({
-      pin: 5,
-      range: [30, 140],
-      // invert: true
+      pin: 19,
+      invert: true
     });
     var tibia2 = new five.Servo({
-      pin: 32,
-      range: [20, 160],
+      pin: 17,
       offset: 9
     });
     
     // leg3
     var coxa3 = new five.Servo({
-      pin: 37,
+      pin: 33,
       range: [30, 140]
     });
     var femur3 = new five.Servo({
-      pin: 8,
-      range: [30, 140],
-      // invert: true
+      pin: 30,
+      offset: -3
     });
     var tibia3 = new five.Servo({
       pin: 35,
-      range: [0, 180],
       invert: true,
       offset: 7
     });
     
     // leg4
     var coxa4 = new five.Servo({
-      pin: 7,
+      pin: 2,
       range: [30, 140],
       invert: true
     });
     var femur4 = new five.Servo({
-      pin: 11,
-      range: [30, 140],
-      // invert: true
+      pin: 4,
+      invert: true,
+      offset: -1
     });
     var tibia4 = new five.Servo({
-      pin: 33,
-      range: [0, 180],
+      pin: 7,
       offset: 6
     });
     
     // leg5
     var coxa5 = new five.Servo({
-      pin: 27,
+      pin: 50,
       range: [30, 140]
     });
     var femur5 = new five.Servo({
-      pin: 14,
-      range: [30, 140],
-      // invert: true
+      pin: 53,
+      offset: 3
     });
     var tibia5 = new five.Servo({
-      pin: 36,
-      range: [20, 160],
+      pin: 46,
       invert: true,
       offset: 7
     });
     
     // leg6
     var coxa6 = new five.Servo({
-      pin: 13,
+      pin: 8,
       range: [30, 140],
       invert: true
     });
     var femur6 = new five.Servo({
-      pin: 17,
-      range: [30, 140],
-      // invert: true
-    });
-    var tibia6 = new five.Servo({
-      pin: 34,
-      range: [20, 160],
+      pin: 10,
+      invert: true,
       offset: 7
     });
+    var tibia6 = new five.Servo({
+      pin: 13,
+      offset: 7
+    });
+    
+    // function stop() {
+    //   coxa1.stop();
+    //   femur1.stop();
+    //   tibia1.stop();
+    //   coxa2.stop();
+    //   femur2.stop();
+    //   tibia2.stop();
+    //   coxa3.stop();
+    //   femur3.stop();
+    //   tibia3.stop();
+    //   coxa4.stop();
+    //   femur4.stop();
+    //   tibia4.stop();
+    //   coxa5.stop();
+    //   femur5.stop();
+    //   tibia5.stop();
+    //   coxa6.stop();
+    //   femur6.stop();
+    //   tibia6.stop();
+    // }
+    // stop();
     
     this.repl.inject({
       coxa1, femur1, tibia1,

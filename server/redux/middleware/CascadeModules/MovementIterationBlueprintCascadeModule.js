@@ -105,8 +105,8 @@ class MovementIterationBlueprintCascadeModule extends CascadeModule {
   addSagittalCursorY(result, legTimings) {
     var strokeMedian = legTimings.startPct + (legTimings.endPct - legTimings.startPct) / 2;
     
-    var raise = this.buildDataObject('sagittalCursorY', legTimings.startPct, strokeMedian, 20);
-    var lower = this.buildDataObject('sagittalCursorY', strokeMedian, legTimings.endPct, -20);
+    var raise = this.buildDataObject('sagittalCursorY', legTimings.startPct, strokeMedian, 25);
+    var lower = this.buildDataObject('sagittalCursorY', strokeMedian, legTimings.endPct, -25);
     
     result.push(raise, lower);
   }
